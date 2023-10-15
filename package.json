@@ -1,0 +1,80 @@
+{
+  "name": "sculp-js",
+  "version": "0.0.1",
+  "private": false,
+  "description": "js工具库",
+  "scripts": {
+    "build": "rollup --config rollup.config.js",
+    "test:unit": "jest",
+    "test": "jest --coverage",
+    "prettier": "prettier -c --write \"**/*.{vue,ts,js,jsx,css,less,scss,json}\""
+  },
+  "author": "chendq <deqiaochen@foxmail.com>",
+  "main": "lib/cjs/index.js",
+  "module": "lib/es/index.js",
+  "browser": "lib/umd/index.js",
+  "types": "lib/index.d.ts",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./lib/es/index.js",
+      "require": "./lib/cjs/index.js",
+      "types": "./lib/index.d.ts"
+    }
+  },
+  "sideEffects": false,
+  "files": [
+    "lib"
+  ],
+  "keywords": [
+    "js-utils",
+    "utils"
+  ],
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "repository": "git@github.com:chandq/sculp-js.git",
+  "dependencies": {
+    "bezier-easing": "^2.1.0",
+    "core-js": "^3.33.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.23.2",
+    "@babel/eslint-parser": "^7.22.15",
+    "@babel/preset-env": "^7.23.2",
+    "@babel/preset-typescript": "^7.23.2",
+    "@commitlint/cli": "^17.8.0",
+    "@commitlint/config-conventional": "^17.8.0",
+    "@rollup/plugin-commonjs": "^25.0.5",
+    "@rollup/plugin-json": "^6.0.1",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-typescript": "^11.1.5",
+    "@types/jest": "^29.5.5",
+    "@typescript-eslint/eslint-plugin": "^6.7.5",
+    "@typescript-eslint/parser": "^6.7.5",
+    "cross-env": "^7.0.3",
+    "eslint": "^8.51.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-config-standard": "^17.1.0",
+    "eslint-import-resolver-webpack": "^0.13.7",
+    "eslint-plugin-import": "^2.28.1",
+    "eslint-plugin-jest": "^27.4.2",
+    "eslint-plugin-prettier": "^5.0.1",
+    "eslint-plugin-standard": "^5.0.0",
+    "husky": "^8.0.3",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "lint-staged": "^13.2.2",
+    "prettier": "^3.0.3",
+    "rollup": "^3.29.4",
+    "rollup-plugin-clear": "^2.0.7",
+    "rollup-plugin-dts": "^6.1.0",
+    "rollup-plugin-subpath-externals": "^3.4.0",
+    "stylelint": "^15.10.3",
+    "stylelint-config-css-modules": "^4.3.0",
+    "stylelint-config-prettier": "^9.0.5",
+    "stylelint-config-standard": "^34.0.0",
+    "ts-loader": "^9.5.0",
+    "typescript": "^5.2.2"
+  }
+}

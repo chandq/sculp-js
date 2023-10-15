@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    /* 基础配置 */
+    "target": "esnext",
+    "module": "esnext",
+    "lib": ["dom", "esnext"],
+    "removeComments": false,
+    // "declaration": true,
+    // "sourceMap": true,
+
+    /* 强类型检查配置 */
+    "strict": true,
+    "noImplicitAny": false,
+    "noImplicitThis": false,
+
+    /* 模块分析配置 */
+    // "baseUrl": ".",
+    // "outDir": ".",
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true
+  },
+
+  "include": ["src/**/*.ts", "test/**/*.ts"],
+  "exclude": ["node_modules/**/*"]
+}

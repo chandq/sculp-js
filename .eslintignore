@@ -1,0 +1,9 @@
+# base
+node_modules
+
+# library
+/lib
+/scripts
+
+# jest
+/coverage
