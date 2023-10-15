@@ -1,10 +1,11 @@
 {
   "name": "sculp-js",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": false,
   "description": "js工具库",
   "scripts": {
-    "build": "rollup --config rollup.config.js",
+    "build:conf": "rollup --config rollup.config.js",
+    "build": "node scripts/build.js",
     "test:unit": "jest",
     "test": "jest --coverage",
     "prettier": "prettier -c --write \"**/*.{vue,ts,js,jsx,css,less,scss,json}\""

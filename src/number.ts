@@ -4,6 +4,6 @@
  * @param {'int' | 'float'} type 展示分段显示的类型 int:整型 | float:浮点型
  * @return {string}
  */
-export function numberFormat(val: number, type = 'int'): string {
+export function formatNumber(val: number, type = 'int'): string {
   return type === 'int' ? parseInt(String(val)).toLocaleString() : Number(val).toLocaleString('en-US')
 }
