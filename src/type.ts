@@ -17,7 +17,7 @@ export type PartialDeep<T> = {
   [P in keyof T]?: PartialDeep<T[P]>;
 };
 
-const typeIs = (any: unknown): string => Object.prototype.toString.call(any).slice(8, -1);
+export const typeIs = (any: unknown): string => Object.prototype.toString.call(any).slice(8, -1);
 
 // 基本数据类型判断
 export const isString = (any: unknown): any is string => typeof any === 'string';

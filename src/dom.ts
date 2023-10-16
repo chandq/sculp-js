@@ -165,3 +165,15 @@ export function onDomReady(callback: ReadyCallback): void {
     domReadyCallbacks.push(callback);
   }
 }
+
+/**
+ * 获取元素样式属性的计算值
+ * @param {HTMLElement} el
+ * @param {string} property
+ * @param {boolean} reNumber
+ * @return {string|number}
+ */
+export function getComputedCssVal(el: HTMLElement, property: string, reNumber: boolean = true): string | number {
+  const originVal = getComputedStyle(el).getPropertyValue(property) ?? '';
+  return reNumber ? Number(originVal.replace(/([0-9]*)(.*)/g, '$1')) : originVal;
+}

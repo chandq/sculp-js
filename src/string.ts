@@ -1,4 +1,4 @@
-import { AnyObject } from './type';
+import { AnyObject, isString } from './type';
 
 /**
  * 将字符串转换为驼峰格式
@@ -76,7 +76,7 @@ const ev = (expression: string, data: AnyObject): string => {
         /****/ `if(arguments[0].${expression} === undefined)throw "";` +
         /****/
         /****/ `return String(arguments[0].${expression})` +
-        '}'
+      '}'
     )(data);
   } catch (err) {
     throw new SyntaxError(`无法执行表达式：${expression}`);
@@ -131,3 +131,35 @@ export const stringEscapeHtml = (html: string): string => {
  * @returns {string}
  */
 export const stringFill = (length: number, value = ' '): string => new Array(length).fill(value).join('');
+
+/**
+ * 字符串的像素宽度
+ * @param {string} str 目标字符串
+ * @param {number} fontSize 字符串字体大小
+ * @param {boolean} isRemoveDom 计算后是否移除中间dom元素
+ * @return {*}
+ */
+export function getStrWidthPx(str: string, fontSize: number = 14, isRemoveDom: boolean = false): number {
+  let strWidth = 0
+  console.assert(isString(str), `${str} 不是有效的字符串`)
+  if (isString(str) && str.length > 0) {
+    let getEle: HTMLSpanElement | null = document.querySelector('#getStrWidth1494304949567')
+    if (!getEle) {
+      const _ele = document.createElement('span')
+      _ele.id = 'getStrWidth1494304949567'
+      _ele.style.fontSize = fontSize + 'px'
+      _ele.style.whiteSpace = 'nowrap'
+      _ele.style.visibility = 'hidden'
+      _ele.textContent = str
+      document.body.appendChild(_ele)
+      getEle = _ele
+    }
+
+    getEle!.textContent = str
+    strWidth = getEle!.offsetWidth
+    if (isRemoveDom) {
+      document.body.appendChild(getEle)
+    }
+  }
+  return strWidth
+}
