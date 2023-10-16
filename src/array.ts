@@ -22,18 +22,18 @@ export const arrayLike = (any: unknown): boolean => {
  * @param {(val: V, idx: number) => any} iterator
  * @param reverse {boolean} 是否倒序
  */
-export const arrayEach = <V>(array: ArrayLike<V>, iterator: (val: V, idx: number) => any, reverse = false): void => {
+export const arrayEach = <V>(array: ArrayLike<V>, iterator: (val: V, idx: number, arr: ArrayLike<V>) => any, reverse = false): void => {
   if (reverse) {
     for (let idx = array.length - 1; idx >= 0; idx--) {
       const val = array[idx];
 
-      if (iterator(val, idx) === false) break;
+      if (iterator(val, idx, array) === false) break;
     }
   } else {
     for (let idx = 0; idx < array.length; idx++) {
       const val = array[idx];
 
-      if (iterator(val, idx) === false) break;
+      if (iterator(val, idx, array) === false) break;
     }
   }
 };
@@ -207,7 +207,7 @@ export function getTreeIds<V>(tree: ArrayLike<V>, nodeId: IdLike, config?: ITree
 // }
  * @return {*}
  */
-export async function asyncForEach(array: any[], callback: Function) {
+async function asyncForEach(array: any[], callback: Function) {
   for (let index = 0, len = array.length; index < len; index++) {
     await callback(array[index], index, array);
   }

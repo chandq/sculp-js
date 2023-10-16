@@ -4,11 +4,14 @@
   "private": false,
   "description": "js工具库",
   "scripts": {
-    "build:conf": "rollup --config rollup.config.js",
-    "build": "node scripts/build.js",
+    "build": "rollup --config rollup.config.js",
+    "build:tenser": "node scripts/build.js",
     "test:unit": "jest",
     "test": "jest --coverage",
-    "prettier": "prettier -c --write \"**/*.{vue,ts,js,jsx,css,less,scss,json}\""
+    "prettier": "prettier -c --write \"**/*.{vue,ts,js,jsx,css,less,scss,json}\"",
+    "release:patch": "standard-version --release-as patch && git push --follow-tags",
+    "release:minor": "standard-version --release-as minor && git push --follow-tags",
+    "release:major": "standard-version --release-as major && git push --follow-tags"
   },
   "author": "chendq <deqiaochen@foxmail.com>",
   "main": "lib/cjs/index.js",
@@ -71,6 +74,7 @@
     "rollup-plugin-clear": "^2.0.7",
     "rollup-plugin-dts": "^6.1.0",
     "rollup-plugin-subpath-externals": "^3.4.0",
+    "standard-version": "^9.5.0",
     "stylelint": "^15.10.3",
     "stylelint-config-css-modules": "^4.3.0",
     "stylelint-config-prettier": "^9.0.5",
