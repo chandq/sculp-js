@@ -7,7 +7,6 @@ node_modules
 # Vue dist
 /dist
 /lib
-/docs
 
 # local env files
 .env.local
