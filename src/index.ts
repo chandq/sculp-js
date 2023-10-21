@@ -13,3 +13,5 @@ export * from './url';
 export * from './async';
 export * from './file';
 export * from './watermark';
+
+console.log(2);
