@@ -22,7 +22,11 @@ export const arrayLike = (any: unknown): boolean => {
  * @param {(val: V, idx: number) => any} iterator
  * @param reverse {boolean} 是否倒序
  */
-export const arrayEach = <V>(array: ArrayLike<V>, iterator: (val: V, idx: number, arr: ArrayLike<V>) => any, reverse = false): void => {
+export const arrayEach = <V>(
+  array: ArrayLike<V>,
+  iterator: (val: V, idx: number, arr: ArrayLike<V>) => any,
+  reverse = false
+): void => {
   if (reverse) {
     for (let idx = array.length - 1; idx >= 0; idx--) {
       const val = array[idx];
@@ -108,7 +112,12 @@ export function arrayRemove<V>(array: V[], expect: (val: V, idx: number) => bool
  * @param {array} children
  * @param {boolean} isReverse 是否反向遍历
  */
-export const deepTraversal = <V>(deepList: ArrayLike<V>, iterator: (val: V, i: number, arr: ArrayLike<V>, parent: V | null, level: number) => any, children: string = 'children', isReverse = false) => {
+export const deepTraversal = <V>(
+  deepList: ArrayLike<V>,
+  iterator: (val: V, i: number, arr: ArrayLike<V>, parent: V | null, level: number) => any,
+  children: string = 'children',
+  isReverse = false
+) => {
   let level = 0;
   const walk = (arr: ArrayLike<V>, parent: V | null) => {
     if (isReverse) {
@@ -145,10 +154,10 @@ export const deepTraversal = <V>(deepList: ArrayLike<V>, iterator: (val: V, i: n
   };
   walk(deepList, null);
 };
-type IdLike = number | string
+type IdLike = number | string;
 interface ITreeConf {
   id: string | number;
-  children: string
+  children: string;
 }
 /**
  * 在树中找到 id 为某个值的节点，并返回上游的所有父级节点
@@ -158,30 +167,30 @@ interface ITreeConf {
  * @return {[IdLike[], ITreeItem<V>[]]}
  */
 export function getTreeIds<V>(tree: ArrayLike<V>, nodeId: IdLike, config?: ITreeConf): [IdLike[], ArrayLike<V>[]] {
-  const { children = 'children', id = 'id' } = config || {}
+  const { children = 'children', id = 'id' } = config || {};
   const toFlatArray = (tree, parentId?: IdLike, parent?: any) => {
     return tree.reduce((t, _) => {
-      const child = _[children]
+      const child = _[children];
       return [
         ...t,
         parentId ? { ..._, parentId, parent } : _,
         ...(child && child.length ? toFlatArray(child, _[id], _) : [])
-      ]
-    }, [])
-  }
+      ];
+    }, []);
+  };
   const getIds = (flatArray): [IdLike[], ArrayLike<V>[]] => {
-    let child = flatArray.find(_ => _[id] === nodeId)
-    const { parent, parentId, ...other } = child
+    let child = flatArray.find(_ => _[id] === nodeId);
+    const { parent, parentId, ...other } = child;
     let ids = [nodeId],
-      nodes = [other]
+      nodes = [other];
     while (child && child.parentId) {
-      ids = [child.parentId, ...ids]
-      nodes = [child.parent, ...nodes]
-      child = flatArray.find(_ => _[id] === child.parentId)
+      ids = [child.parentId, ...ids];
+      nodes = [child.parent, ...nodes];
+      child = flatArray.find(_ => _[id] === child.parentId); // eslint-disable-line
     }
-    return [ids, nodes]
-  }
-  return getIds(toFlatArray(tree))
+    return [ids, nodes];
+  };
+  return getIds(toFlatArray(tree));
 }
 
 /**

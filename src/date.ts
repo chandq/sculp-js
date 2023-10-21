@@ -33,15 +33,14 @@ export const formatDate = (date = new Date(), format = 'YYYY-MM-DD HH:mm:ss'): s
   };
 
   for (const k in opt) {
-    ret = new RegExp('(' + k + ')').exec(fmt)
+    ret = new RegExp('(' + k + ')').exec(fmt);
     if (ret) {
-      fmt = fmt.replace(ret[1], ret[1].length === 1 ? opt[k] : opt[k].padStart(ret[1].length, '0'))
+      fmt = fmt.replace(ret[1], ret[1].length === 1 ? opt[k] : opt[k].padStart(ret[1].length, '0'));
     }
   }
 
   return fmt;
 };
-
 
 /**
  * 计算向前或向后N天的具体日期
@@ -52,19 +51,18 @@ export const formatDate = (date = new Date(), format = 'YYYY-MM-DD HH:mm:ss'): s
  */
 export function calculateDate(strDate: string, n: number, sep: string = '-'): string {
   //strDate 为字符串日期 如:'2019-01-01' n为你要传入的参数，当前为0，前一天为-1，后一天为1
-  let dateArr = strDate.split(sep) //这边给定一个特定时间
-  let newDate = new Date(+dateArr[0], +dateArr[1] - 1, +dateArr[2])
-  let befminuts = newDate.getTime() + 1000 * 60 * 60 * 24 * parseInt(String(n)) //计算前几天用减，计算后几天用加，最后一个就是多少天的数量
-  let beforeDat = new Date()
-  beforeDat.setTime(befminuts)
-  let befMonth = beforeDat.getMonth() + 1
-  let mon = befMonth >= 10 ? befMonth : '0' + befMonth
-  let befDate = beforeDat.getDate()
-  let da = befDate >= 10 ? befDate : '0' + befDate
-  let finalNewDate = beforeDat.getFullYear() + '-' + mon + '-' + da
-  return finalNewDate
+  const dateArr = strDate.split(sep); //这边给定一个特定时间
+  const newDate = new Date(+dateArr[0], +dateArr[1] - 1, +dateArr[2]);
+  const befminuts = newDate.getTime() + 1000 * 60 * 60 * 24 * parseInt(String(n)); //计算前几天用减，计算后几天用加，最后一个就是多少天的数量
+  const beforeDat = new Date();
+  beforeDat.setTime(befminuts);
+  const befMonth = beforeDat.getMonth() + 1;
+  const mon = befMonth >= 10 ? befMonth : '0' + befMonth;
+  const befDate = beforeDat.getDate();
+  const da = befDate >= 10 ? befDate : '0' + befDate;
+  const finalNewDate = beforeDat.getFullYear() + '-' + mon + '-' + da;
+  return finalNewDate;
 }
-
 
 /**
  * 计算向前或向后N天的具体时间日期
@@ -74,25 +72,25 @@ export function calculateDate(strDate: string, n: number, sep: string = '-'): st
  * @return {*}
  */
 export function calculateDateTime(n: number, dateSep: string = '-', timeSep: string = ':'): string {
-  let date = new Date()
-  let separator1 = '-'
-  let separator2 = ':'
-  let year = date.getFullYear()
-  let month: number | string = date.getMonth() + 1
-  let strDate: number | string = date.getDate() + n
+  const date = new Date();
+  const separator1 = '-';
+  const separator2 = ':';
+  let year = date.getFullYear();
+  let month: number | string = date.getMonth() + 1;
+  let strDate: number | string = date.getDate() + n;
   if (strDate > new Date(year, month, 0).getDate()) {
-    month += 1
-    strDate -= new Date(year, month, 0).getDate()
+    month += 1;
+    strDate -= new Date(year, month, 0).getDate();
     if (month > 12) {
-      year += 1
-      month = 1
+      year += 1;
+      month = 1;
     }
   }
   if (month >= 1 && month <= 9) {
-    month = '0' + month
+    month = '0' + month;
   }
   if (strDate >= 0 && strDate <= 9) {
-    strDate = '0' + strDate
+    strDate = '0' + strDate;
   }
   return (
     year +
@@ -106,5 +104,5 @@ export function calculateDateTime(n: number, dateSep: string = '-', timeSep: str
     date.getMinutes() +
     separator2 +
     date.getSeconds()
-  )
+  );
 }

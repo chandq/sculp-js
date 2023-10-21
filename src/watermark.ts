@@ -1,4 +1,3 @@
-
 /*
  * @created: Saturday, 2020-04-18 14:38:23
  * @author: chendq
@@ -7,24 +6,25 @@
  */
 
 interface ICanvasWM {
-  container: HTMLElement,
+  container: HTMLElement;
   width: string;
   height: string;
-  textAlign: CanvasTextAlign;
-  textBaseline: CanvasTextBaseline;
+  textAlign: CanvasTextAlign; //eslint-disable-line
+  textBaseline: CanvasTextBaseline; //eslint-disable-line
   font: string;
   // fontWeight: number;
   fillStyle: string;
   content: string;
-  rotate: number,
-  zIndex: number
+  rotate: number;
+  zIndex: number;
 }
 /**
  * canvas 实现 watermark
  * @param {ICanvasWM} canvasWM
  */
 export const genCanvasWM = (canvasWM: ICanvasWM): void => {
-  const { container = document.body,
+  const {
+    container = document.body,
     width = '300px',
     height = '200px',
     textAlign = 'center',
@@ -34,7 +34,8 @@ export const genCanvasWM = (canvasWM: ICanvasWM): void => {
     fillStyle = 'rgba(189, 177, 167, .3)',
     content = '请勿外传',
     rotate = 30,
-    zIndex = 2147483647 } = canvasWM
+    zIndex = 2147483647
+  } = canvasWM;
   // 仅限主页面添加水印
   if (!location.pathname.includes('/home')) {
     return;
@@ -101,6 +102,6 @@ export const genCanvasWM = (canvasWM: ICanvasWM): void => {
     });
     mo.observe(container, { attributes: true, subtree: true, childList: true });
   }
-}
+};
 // 调用
 // __canvasWM({ content: 'QQMusicFE' })

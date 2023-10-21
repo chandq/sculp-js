@@ -5,5 +5,5 @@
  * @return {string}
  */
 export function formatNumber(val: number, type = 'int'): string {
-  return type === 'int' ? parseInt(String(val)).toLocaleString() : Number(val).toLocaleString('en-US')
+  return type === 'int' ? parseInt(String(val)).toLocaleString() : Number(val).toLocaleString('en-US');
 }

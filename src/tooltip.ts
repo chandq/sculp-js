@@ -1,4 +1,3 @@
-
 /**
  * @title tooltip
  * @Desc 自定义的tooltip方法, 支持拖动悬浮提示
@@ -8,14 +7,13 @@
  * 		onmouseenter="mouseEnterEvt({'#root', title: 'title content', event: event})">title content </span>
  */
 
-import { getStrWidthPx } from "./string";
+import { getStrWidthPx } from './string';
 
 interface ITooltipParams {
   rootElId: string;
   title: string;
   event: PointerEvent;
 }
-
 
 /**
  * 自定义title提示功能的mouseenter事件句柄
@@ -25,11 +23,11 @@ interface ITooltipParams {
 export function mouseEnterEvt({ rootElId = '#root', title, event }: ITooltipParams): void {
   try {
     const $rootEl = document.querySelector(rootElId);
-    console.assert($rootEl !== null, `未找到id为 ${rootElId} 的dom元素`)
+    console.assert($rootEl !== null, `未找到id为 ${rootElId} 的dom元素`);
     let $customTitle: HTMLDivElement | null = null;
     // 动态创建class样式，并加入到head中
     if (!document.querySelector('.tooltip-inner1494304949567')) {
-      const tooltipWrapperClass = document.createElement('style')
+      const tooltipWrapperClass = document.createElement('style');
       tooltipWrapperClass.type = 'text/css';
       tooltipWrapperClass.innerHTML = `
         .tooltip-inner1494304949567 {
@@ -41,7 +39,7 @@ export function mouseEnterEvt({ rootElId = '#root', title, event }: ITooltipPara
           text-align: left;
         }
       `;
-      document.querySelector('head')!.appendChild(tooltipWrapperClass)
+      document.querySelector('head')!.appendChild(tooltipWrapperClass);
     }
 
     if (document.querySelector('#customTitle1494304949567')) {
@@ -75,10 +73,9 @@ export function mouseEnterEvt({ rootElId = '#root', title, event }: ITooltipPara
  * @return {*}
  */
 function mouseenter($customTitle: HTMLDivElement, title: string, e: PointerEvent) {
-  let diffValueX = 200 + 50,
-    diffValueY; //默认设置弹出div的宽度为250px
-  let x = 13,
-    y = 23;
+  let diffValueX = 200 + 50; //默认设置弹出div的宽度为250px
+  let x = 13;
+  const y = 23;
   const $contentEle: any = $customTitle.children[0];
   if (getStrWidthPx(title, 12) < 180 + 50) {
     //【弹出div自适应字符串宽度】若显示的字符串占用宽度小于180，则设置弹出div的宽度为“符串占用宽度”+20
@@ -97,7 +94,7 @@ function mouseenter($customTitle: HTMLDivElement, title: string, e: PointerEvent
   $customTitle.style.top = e.clientY + y + 'px';
   $customTitle.style.left = e.clientX + x + 'px';
   $customTitle.style.maxWidth = '250px';
-  diffValueY = $customTitle.getBoundingClientRect().top + $contentEle.offsetHeight - document.body.offsetHeight;
+  const diffValueY = $customTitle.getBoundingClientRect().top + $contentEle.offsetHeight - document.body.offsetHeight;
   if (diffValueY > 0) {
     //垂直方向超出可见区域时
     $customTitle.style.top = e.clientY - diffValueY + 'px';
@@ -109,7 +106,8 @@ function mouseenter($customTitle: HTMLDivElement, title: string, e: PointerEvent
  * @return {*}
  */
 export function mouseLeaveEvt(rootElId: string = '#root'): void {
-  const rootEl = document.querySelector(rootElId), titleEl = document.querySelector('#customTitle1494304949567')
+  const rootEl = document.querySelector(rootElId),
+    titleEl = document.querySelector('#customTitle1494304949567');
   if (rootEl && titleEl) {
     rootEl.removeChild(titleEl);
   }

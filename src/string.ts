@@ -76,7 +76,7 @@ const ev = (expression: string, data: AnyObject): string => {
         /****/ `if(arguments[0].${expression} === undefined)throw "";` +
         /****/
         /****/ `return String(arguments[0].${expression})` +
-      '}'
+        '}'
     )(data);
   } catch (err) {
     throw new SyntaxError(`无法执行表达式：${expression}`);
@@ -140,26 +140,26 @@ export const stringFill = (length: number, value = ' '): string => new Array(len
  * @return {*}
  */
 export function getStrWidthPx(str: string, fontSize: number = 14, isRemoveDom: boolean = false): number {
-  let strWidth = 0
-  console.assert(isString(str), `${str} 不是有效的字符串`)
+  let strWidth = 0;
+  console.assert(isString(str), `${str} 不是有效的字符串`);
   if (isString(str) && str.length > 0) {
-    let getEle: HTMLSpanElement | null = document.querySelector('#getStrWidth1494304949567')
+    let getEle: HTMLSpanElement | null = document.querySelector('#getStrWidth1494304949567');
     if (!getEle) {
-      const _ele = document.createElement('span')
-      _ele.id = 'getStrWidth1494304949567'
-      _ele.style.fontSize = fontSize + 'px'
-      _ele.style.whiteSpace = 'nowrap'
-      _ele.style.visibility = 'hidden'
-      _ele.textContent = str
-      document.body.appendChild(_ele)
-      getEle = _ele
+      const _ele = document.createElement('span');
+      _ele.id = 'getStrWidth1494304949567';
+      _ele.style.fontSize = fontSize + 'px';
+      _ele.style.whiteSpace = 'nowrap';
+      _ele.style.visibility = 'hidden';
+      _ele.textContent = str;
+      document.body.appendChild(_ele);
+      getEle = _ele;
     }
 
-    getEle!.textContent = str
-    strWidth = getEle!.offsetWidth
+    getEle!.textContent = str;
+    strWidth = getEle!.offsetWidth;
     if (isRemoveDom) {
-      document.body.appendChild(getEle)
+      document.body.appendChild(getEle);
     }
   }
-  return strWidth
+  return strWidth;
 }
