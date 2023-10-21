@@ -4,15 +4,18 @@
   "private": false,
   "description": "js工具库",
   "scripts": {
+    "prepare": "husky install",
     "build": "rollup  --bundleConfigAsCjs --config rollup.config.js",
     "build:tenser": "node scripts/build.js",
     "test:unit": "jest",
     "test": "jest --coverage",
     "lint": "eslint ./src --ext .vue,.js,jsx,.ts,tsx",
+    "lint:fix": "eslint --fix ./src --ext .vue,.js,jsx,.ts,tsx",
     "prettier": "prettier -c --write \"**/*.{vue,ts,js,jsx,css,less,scss,json}\"",
     "release:patch": "standard-version --release-as patch && git push --follow-tags",
     "release:minor": "standard-version --release-as minor && git push --follow-tags",
-    "release:major": "standard-version --release-as major && git push --follow-tags"
+    "release:major": "standard-version --release-as major && git push --follow-tags",
+    "postinstall": "simple-git-hooks"
   },
   "author": "chendq <deqiaochen@foxmail.com>",
   "main": "lib/cjs/index.js",
@@ -76,6 +79,7 @@
     "rollup-plugin-clear": "^2.0.7",
     "rollup-plugin-dts": "^6.1.0",
     "rollup-plugin-subpath-externals": "^3.4.0",
+    "simple-git-hooks": "^2.9.0",
     "standard-version": "^9.5.0",
     "stylelint": "14.16",
     "stylelint-config-css-modules": "^4.3.0",
@@ -88,20 +92,5 @@
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
-  },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "*.{js,css,vue,json,jsx}": [
-      "prettier --write"
-    ],
-    "*.ts?(x)": [
-      "eslint",
-      "prettier --parser=typescript --write"
-    ]
   }
 }

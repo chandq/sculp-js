@@ -4,7 +4,6 @@
  */
 
 module.exports = {
-  '*.[tj]s': ['eslint --fix'],
-
-  '*.json': ['prettier --write']
+  '*.{js,css,vue,json,jsx}': ['prettier --write'],
+  '*.ts?(x)': ['eslint --fix', 'prettier --write']
 };
