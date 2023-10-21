@@ -8,6 +8,7 @@
     "build:tenser": "node scripts/build.js",
     "test:unit": "jest",
     "test": "jest --coverage",
+    "lint": "eslint ./src --ext .vue,.js,jsx,.ts,tsx",
     "prettier": "prettier -c --write \"**/*.{vue,ts,js,jsx,css,less,scss,json}\"",
     "release:patch": "standard-version --release-as patch && git push --follow-tags",
     "release:minor": "standard-version --release-as minor && git push --follow-tags",
@@ -55,7 +56,9 @@
     "@types/jest": "^29.5.5",
     "@typescript-eslint/eslint-plugin": "^6.7.5",
     "@typescript-eslint/parser": "^6.8.0",
+    "commitizen": "^4.3.0",
     "cross-env": "^7.0.3",
+    "cz-conventional-changelog": "^3.3.0",
     "eslint": "^8.51.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-config-standard": "^17.1.0",
@@ -74,11 +77,31 @@
     "rollup-plugin-dts": "^6.1.0",
     "rollup-plugin-subpath-externals": "^3.4.0",
     "standard-version": "^9.5.0",
-    "stylelint": "^15.10.3",
+    "stylelint": "14.16",
     "stylelint-config-css-modules": "^4.3.0",
     "stylelint-config-prettier": "^9.0.5",
-    "stylelint-config-standard": "^34.0.0",
+    "stylelint-config-standard": "^20.0.0",
     "ts-loader": "^9.5.0",
     "typescript": "^5.2.2"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,css,vue,json,jsx}": [
+      "prettier --write"
+    ],
+    "*.ts?(x)": [
+      "eslint",
+      "prettier --parser=typescript --write"
+    ]
   }
 }
