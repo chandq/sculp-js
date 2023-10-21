@@ -26,6 +26,14 @@ npx husky add .husky/commit-msg 'npx --no-install commitlint --edit "$1"'
 npm install --save-dev @commitlint/cli @commitlint/config-conventional
 ```
 
+在根目录新建一个`commitlint.config.js`文件并加入如下内容：
+
+```js
+module.exports = {
+  extends: ['@commitlint/config-conventional']
+};
+```
+
 ## 5. add pre-commit hook
 
 ```bash
