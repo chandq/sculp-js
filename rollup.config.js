@@ -3,10 +3,10 @@ import json from '@rollup/plugin-json';
 import typescript from '@rollup/plugin-typescript';
 import resolve from '@rollup/plugin-node-resolve';
 import subpathExtrnals from 'rollup-plugin-subpath-externals';
-import dts from 'rollup-plugin-dts';
+import { dts } from 'rollup-plugin-dts';
 import clear from 'rollup-plugin-clear';
-
 import pkg from './package.json' assert { type: 'json' };
+
 const pkgName = pkg.name.includes('/') ? pkg.name.split('/')[1] : pkg.name;
 
 // banner

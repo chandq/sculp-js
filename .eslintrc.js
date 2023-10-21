@@ -5,32 +5,24 @@ module.exports = {
     browser: true,
     node: true
   },
-  extends: ['eslint:recommended', 'plugin:vue/essential'],
+  extends: [
+    require.resolve('./baseLint.js'),
+    require.resolve('./tsLint.js'),
+    'prettier',
+    'plugin:prettier/recommended'
+  ],
   parserOptions: {
-    ecmaVersion: 6,
+    ecmaVersion: 2020,
     sourceType: 'module'
   },
-  plugins: ['vue'],
   rules: {
-    strict: 'warn',
-    indent: ['warn', 2],
-    'valid-jsdoc': 'off',
-    'no-sync': 'off',
-    'quote-props': 'off',
-    'no-continue': 'off',
-    'no-console': 'off',
-    'no-debugger': 'off',
-    'no-empty': 'off',
-    'no-unused-vars': 'off',
-    'vue/no-unused-components': 'off',
-    'guard-for-in': 'warn',
-    'no-undefined': 'warn',
-    'comma-dangle': 'warn',
-    'no-prototype-builtins': 'off',
-    'object-curly-spacing': 'off',
-    'no-undef': 'off',
-    'max-statements': 'off',
-    complexity: 'off',
-    'callback-return': ['warn', ['next']]
+    '@typescript-eslint/no-unused-vars': [
+      1,
+      {
+        args: 'all',
+        argsIgnorePattern: '^_',
+        varsIgnorePattern: '^_'
+      }
+    ]
   }
 };
