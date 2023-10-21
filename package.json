@@ -6,16 +6,15 @@
   "scripts": {
     "prepare": "husky install",
     "build": "rollup  --bundleConfigAsCjs --config rollup.config.js",
-    "build:tenser": "node scripts/build.js",
+    "build:terser": "node scripts/build.js",
     "test:unit": "jest",
     "test": "jest --coverage",
     "lint": "eslint ./src --ext .vue,.js,jsx,.ts,tsx",
     "lint:fix": "eslint --fix ./src --ext .vue,.js,jsx,.ts,tsx",
     "prettier": "prettier -c --write \"**/*.{vue,ts,js,jsx,css,less,scss,json}\"",
-    "release:patch": "standard-version --release-as patch && git push --follow-tags",
-    "release:minor": "standard-version --release-as minor && git push --follow-tags",
-    "release:major": "standard-version --release-as major && git push --follow-tags",
-    "postinstall": "simple-git-hooks"
+    "release:patch": "standard-version --release-as patch",
+    "release:minor": "standard-version --release-as minor",
+    "release:major": "standard-version --release-as major"
   },
   "author": "chendq <deqiaochen@foxmail.com>",
   "main": "lib/cjs/index.js",
@@ -70,7 +69,7 @@
     "eslint-plugin-jest": "^27.4.2",
     "eslint-plugin-prettier": "^5.0.1",
     "eslint-plugin-standard": "^5.0.0",
-    "husky": "^8.0.3",
+    "husky": "^4.3.8",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
     "lint-staged": "^13.2.2",
@@ -95,7 +94,7 @@
   },
   "husky": {
     "hooks": {
-      "commit-msg": "node scripts/verifyCommit.js",
+      "commit-msg": "commitlint -E $HUSKY_GIT_PARAMS",
       "pre-commit": "lint-staged"
     }
   },
