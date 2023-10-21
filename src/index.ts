@@ -14,4 +14,4 @@ export * from './async';
 export * from './file';
 export * from './watermark';
 
-console.log(2);
+console.log(223);

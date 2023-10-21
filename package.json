@@ -93,6 +93,21 @@
       "path": "./node_modules/cz-conventional-changelog"
     }
   },
+  "husky": {
+    "hooks": {
+      "commit-msg": "node scripts/verifyCommit.js",
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,css,vue,json,jsx}": [
+      "prettier --write"
+    ],
+    "*.ts?(x)": [
+      "eslint",
+      "prettier --parser=typescript --write"
+    ]
+  },
   "simple-git-hooks": {
     "pre-commit": "npx lint-staged",
     "commit-msg": "node scripts/verifyCommit.js"
