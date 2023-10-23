@@ -1,9 +1,9 @@
 # Config for new husky
 
-## 1. Install husky
+## 1. Install husky, lint-staged
 
 ```bash
-npm install husky --save-dev
+npm install husky lint-staged --save-dev
 ```
 
 ## 2. 自动启用 husky

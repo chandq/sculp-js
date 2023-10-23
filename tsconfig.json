@@ -12,15 +12,17 @@
     "strict": true,
     "noImplicitAny": false,
     "noImplicitThis": false,
+    "skipLibCheck": true,
 
     /* 模块分析配置 */
-    // "baseUrl": ".",
+    "baseUrl": ".",
     // "outDir": ".",
     "esModuleInterop": true,
     "moduleResolution": "node",
     "resolveJsonModule": true
   },
 
-  "include": ["src/**/*.ts", "test/**/*.ts"],
+  "typeRoots": ["./node_modules/@types/", "./types", "./node_modules"],
+  "include": ["src/**/*.ts", "test/**/*.ts", "types/**/*.d.ts"],
   "exclude": ["node_modules/**/*"]
 }
