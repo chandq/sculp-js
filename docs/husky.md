@@ -39,3 +39,33 @@ module.exports = {
 ```bash
 npx husky add .husky/pre-commit "npx lint-staged"
 ```
+
+### 添加交互式git commit配置
+
+1. install commitizen
+
+```bash
+npm install --save-dev commitizen
+```
+
+2. 初始化
+
+```bash
+npx commitizen init cz-conventional-changelog
+```
+
+执行完成后，会在package.json中追加以下配置：
+
+```js
+"config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
+```
+
+进入交互式git commit:
+
+```bash
+npx git-cz
+```

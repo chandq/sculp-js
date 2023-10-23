@@ -91,19 +91,15 @@
       "path": "./node_modules/cz-conventional-changelog"
     }
   },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -E $HUSKY_GIT_PARAMS",
-      "pre-commit": "lint-staged"
-    }
-  },
   "lint-staged": {
-    "*.{js,css,vue,json,jsx}": [
-      "prettier --write"
+    "*.[tj]s?(x)": [
+      "eslint --fix"
     ],
-    "*.ts?(x)": [
-      "eslint",
-      "prettier --parser=typescript --write"
+    "*.vue": [
+      "eslint --fix"
+    ],
+    "*.{css,less,scss,json,md}": [
+      "prettier --write"
     ]
   }
 }
