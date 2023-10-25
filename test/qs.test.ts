@@ -1,5 +1,5 @@
 import { qsStringify, qsParse, Replacer } from '../src/qs';
-import { dateStringify } from '../src/date';
+import { formatDate } from '../src/date';
 import { isBoolean, isDate, isFunction, isNull, isNumber, isString, isUndefined } from '../src/type';
 
 test('qsParse', () => {
@@ -24,7 +24,7 @@ test('qsStringify 复写 replacer', () => {
     if (isBoolean(value)) return `boolean-${value ? 'true' : 'false'}`;
     if (isUndefined(value)) return 'undefined';
     if (isNull(value)) return 'null';
-    if (isDate(value)) return 'date-' + dateStringify(value, 'YYYY-MM-DD HH:mm:ss');
+    if (isDate(value)) return 'date-' + formatDate(new Date(value), 'YYYY-MM-DD HH:mm:ss');
     return null;
   };
   const i = new Date(2020, 0, 1, 0, 0, 0, 0);
