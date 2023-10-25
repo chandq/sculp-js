@@ -1,5 +1,7 @@
 # Config for new husky
 
+husky `v6.0`包含`break change`, 该文仅包含husky v8.x的安装配置，从v4.x迁移请参考 [Migrating from v4](https://typicode.github.io/husky/migrating-from-v4.html)
+
 ## 1. Install husky, lint-staged
 
 ```bash
@@ -9,7 +11,7 @@ npm install husky lint-staged --save-dev
 ## 2. 自动启用 husky
 
 ```bash
-npm pkg set scripts.prepare="husky install"
+npm pkg set scripts.prepare="husky install" && npm run prepare
 ```
 
 ## 3. Add commit-msg hook
@@ -29,9 +31,7 @@ npm install --save-dev @commitlint/cli @commitlint/config-conventional
 在根目录新建一个`commitlint.config.js`文件并加入如下内容：
 
 ```js
-module.exports = {
-  extends: ['@commitlint/config-conventional']
-};
+echo "module.exports = {extends: ['@commitlint/config-conventional']};" > commitlint.config.js
 ```
 
 ## 5. add pre-commit hook
@@ -40,15 +40,15 @@ module.exports = {
 npx husky add .husky/pre-commit "npx lint-staged"
 ```
 
-### 添加交互式git commit配置
+## 添加交互式git commit配置
 
-1. install commitizen
+#### 1. install commitizen
 
 ```bash
 npm install --save-dev commitizen
 ```
 
-2. 初始化
+#### 2. 初始化
 
 ```bash
 npx commitizen init cz-conventional-changelog
@@ -68,4 +68,28 @@ npx commitizen init cz-conventional-changelog
 
 ```bash
 npx git-cz
+```
+
+#### 3. 配置cz的命令
+
+```bash
+npm pkg set scripts.commit="git-cz"
+```
+
+## lint-staged的配置示例
+
+在package.json中添加关于 `ts、tsx、js、jsx、vue、css、json、md`等代码的lint、prettier配置
+
+```json
+"lint-staged": {
+    "*.[tj]s?(x)": [
+      "eslint --fix"
+    ],
+    "*.vue": [
+      "eslint --fix"
+    ],
+    "*.{css,less,scss,json,md}": [
+      "prettier --write"
+    ]
+  }
 ```

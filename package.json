@@ -14,7 +14,8 @@
     "prettier": "prettier -c --write \"**/*.{vue,ts,js,jsx,css,less,scss,json}\"",
     "release:patch": "standard-version --release-as patch",
     "release:minor": "standard-version --release-as minor",
-    "release:major": "standard-version --release-as major"
+    "release:major": "standard-version --release-as major",
+    "commit": "git-cz"
   },
   "author": "chendq <deqiaochen@foxmail.com>",
   "main": "lib/cjs/index.js",
