@@ -2,7 +2,8 @@ module.exports = {
   env: {
     es6: true,
     browser: true,
-    node: true
+    node: true,
+    jest: true
   },
   plugins: ['eslint-plugin-prettier', 'eslint-plugin-import'],
   extends: [
@@ -16,6 +17,9 @@ module.exports = {
     ecmaVersion: 2020,
     sourceType: 'module'
   },
+  globals: {
+    globalThis: true
+  },
   rules: {
     ...require('./lint-rules/prettier.js'),
     'no-undef': 'error',
@@ -26,6 +30,7 @@ module.exports = {
         argsIgnorePattern: '^_',
         varsIgnorePattern: '^_'
       }
-    ]
+    ],
+    '@typescript-eslint/no-this-alias': 1
   }
 };

@@ -13,3 +13,7 @@ export * from './url';
 export * from './async';
 export * from './file';
 export * from './watermark';
+export * from './func';
+export * from './random';
+export * from './number';
+export * from './unique';
