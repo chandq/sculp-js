@@ -26,7 +26,9 @@ module.exports = {
 
   // HTML 空格敏感
   // css：遵守 css 中 display 属性
-  htmlWhitespaceSensitivity: 'css',
+  htmlWhitespaceSensitivity: 'ignore',
+
+  bracketSameLine: false,
 
   // vue 中 script 和 style 内第一层不缩进
   vueIndentScriptAndStyle: false,
