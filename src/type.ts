@@ -1,13 +1,13 @@
 // 常用类型定义
-// 任意函数
+/** 任意函数 */
 export type AnyFunc<R = any> = (...args: any[]) => R;
 
-// 任意数组
+/** 任意数组 */
 export type AnyArray = any[];
-// 取出数组元素
+/** 取出数组元素 */
 export type ArrayElements<A> = A extends Array<infer R> ? R : never;
 
-// 任意对象
+/** 任意对象 */
 export type AnyObject = Record<string | number, any>;
 
 // 浅对象
@@ -17,6 +17,11 @@ export type PartialDeep<T> = {
   [P in keyof T]?: PartialDeep<T[P]>;
 };
 
+/**
+ * 判断任意值的数据类型
+ * @param {unknown} any
+ * @return {string}
+ */
 export const typeIs = (any: unknown): string => Object.prototype.toString.call(any).slice(8, -1);
 
 // 基本数据类型判断
@@ -32,7 +37,12 @@ export const isPrimitive = (any: unknown): boolean => any === null || typeof any
 // 复合数据类型判断
 export const isObject = (any: unknown): any is Record<string, unknown> => typeIs(any) === 'Object';
 export const isArray = (any: unknown): any is Array<unknown> => Array.isArray(any);
-// eslint-disable-next-line @typescript-eslint/ban-types
+
+/**
+ * 判断是否为函数
+ * @param {unknown} any
+ * @return {boolean}
+ */
 export const isFunction = (any: unknown): any is Function => typeof any === 'function';
 
 // 对象类型判断

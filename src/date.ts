@@ -1,3 +1,74 @@
+import { isDate, isNaN, isString } from './type';
+
+export const isValidDate = (any: unknown): any is Date => isDate(any) && !isNaN(any.getTime());
+
+interface DateObj {
+  [propName: string]: string;
+}
+
+type DateValue = number | string | Date;
+
+/* istanbul ignore next */
+const guessDateSeparator = (value: DateValue): Date | undefined => {
+  if (!isString(value)) return;
+
+  const value2 = value.replace(/-/g, '/');
+
+  return new Date(value2);
+};
+
+/* istanbul ignore next */
+const guessDateTimezone = (value: DateValue): Date | undefined => {
+  if (!isString(value)) return;
+
+  const re = /([+-])(\d\d)(\d\d)$/;
+
+  const matches = re.exec(value);
+
+  if (!matches) return;
+
+  const value2 = value.replace(re, 'Z');
+  const d = new Date(value2);
+
+  if (!isValidDate(d)) return;
+
+  const [, flag, hours, minutes] = matches;
+  const hours2 = parseInt(hours, 10);
+  const minutes2 = parseInt(minutes, 10);
+  const offset = (a: number, b: number): number => (flag === '+' ? a - b : a + b);
+
+  d.setHours(offset(d.getHours(), hours2));
+  d.setMinutes(offset(d.getMinutes(), minutes2));
+
+  return d;
+};
+
+/**
+ * 解析为Date对象
+ * @param {DateValue} value 可以是数值、字符串或 Date 对象
+ * @returns {Date}
+ */
+export const dateParse = (value: DateValue): Date => {
+  const d1 = new Date(value);
+  if (isValidDate(d1)) return d1;
+
+  // safari 浏览器的日期解析有问题
+  // new Date('2020-06-26 18:06:15') 返回值是一个非法日期对象
+  /* istanbul ignore next */
+  const d2 = guessDateSeparator(value);
+  /* istanbul ignore next */
+  if (isValidDate(d2)) return d2;
+
+  // safari 浏览器的日期解析有问题
+  // new Date('2020-06-26T18:06:15.000+0800') 返回值是一个非法日期对象
+  /* istanbul ignore next */
+  const d3 = guessDateTimezone(value);
+  /* istanbul ignore next */
+  if (isValidDate(d3)) return d3;
+
+  throw new SyntaxError(`${value.toString()} 不是一个合法的日期描述`);
+};
+
 /**
  * 格式化为日期对象(带自定义格式化模板)
  * @param {DateValue} value 可以是数值、字符串或 Date 对象
@@ -12,13 +83,77 @@
  * - mm：分
  * - ss：秒
  * - SSS：毫秒
+ * @returns {string}
+ */
+// export const dateStringify = (value: DateValue, format = 'YYYY-MM-DD HH:mm:ss'): string => {
+//   const date = dateParse(value);
+//   let fmt = format;
+//   let ret;
+//   const opt: DateObj = {
+//     'Y+': `${date.getFullYear()}`, // 年
+//     'y+': `${date.getFullYear()}`, // 年
+//     'M+': `${date.getMonth() + 1}`, // 月
+//     'D+': `${date.getDate()}`, // 日
+//     'd+': `${date.getDate()}`, // 日
+//     'H+': `${date.getHours()}`, // 时
+//     'm+': `${date.getMinutes()}`, // 分
+//     's+': `${date.getSeconds()}`, // 秒
+//     'S+': `${date.getMilliseconds()}` // 豪秒
+//   };
+
+//   for (const k in opt) {
+//     ret = new RegExp(`(${k})`).exec(fmt);
+//     if (ret) {
+//       fmt = fmt.replace(ret[1], ret[1].length === 1 ? opt[k] : opt[k].padStart(ret[1].length, '0'));
+//     }
+//   }
+
+//   return fmt;
+// };
+
+/**
+ * 将日期转换为一天的开始时间，即0点0分0秒0毫秒
+ * @param {DateValue} value
+ * @returns {Date}
+ */
+export const dateToStart = (value: DateValue): Date => {
+  const d = dateParse(value);
+  return new Date(d.getFullYear(), d.getMonth(), d.getDate(), 0, 0, 0, 0);
+};
+
+/**
+ * 将日期转换为一天的结束时间，即23点59分59秒999毫秒
+ * @param {DateValue} value
+ * @returns {Date}
+ */
+export const dateToEnd = (value: DateValue): Date => {
+  const d = dateToStart(value);
+  d.setDate(d.getDate() + 1);
+  return dateParse(d.getTime() - 1);
+};
+
+/**
+ * 格式化为日期对象(带自定义格式化模板)
+ * @param {Date} value 可以是数值、字符串或 Date 对象
+ * @param {string} [format] 模板，默认是 YYYY-MM-DD HH:mm:ss，模板字符：
+ * - YYYY：年
+ * - yyyy: 年
+ * - MM：月
+ * - DD：日
+ * - dd: 日
+ * - HH：时（24 小时制）
+ * - hh：时（12 小时制）
+ * - mm：分
+ * - ss：秒
+ * - SSS：毫秒
  * - ww: 周
  * @returns {string}
  */
-export const formatDate = (date = new Date(), format = 'YYYY-MM-DD HH:mm:ss'): string => {
+export const formatDate = (value: DateValue, format = 'YYYY-MM-DD HH:mm:ss'): string => {
+  const date = dateParse(value);
   let fmt = format;
   let ret;
-  const opt = {
+  const opt: DateObj = {
     'Y+': `${date.getFullYear()}`, // 年
     'y+': `${date.getFullYear()}`, // 年
     'M+': `${date.getMonth() + 1}`, // 月
@@ -47,7 +182,7 @@ export const formatDate = (date = new Date(), format = 'YYYY-MM-DD HH:mm:ss'): s
  * @param {string} strDate 参考日期
  * @param {number} n 正数：向后推算；负数：向前推算
  * @param {string} sep 日期格式的分隔符
- * @return {*} 目标日期
+ * @return {string} 目标日期
  */
 export function calculateDate(strDate: string, n: number, sep: string = '-'): string {
   //strDate 为字符串日期 如:'2019-01-01' n为你要传入的参数，当前为0，前一天为-1，后一天为1
@@ -69,7 +204,7 @@ export function calculateDate(strDate: string, n: number, sep: string = '-'): st
  * @param {number} n 正数：向后推算；负数：向前推算
  * @param {string} dateSep 日期分隔符
  * @param {string} timeSep 时间分隔符
- * @return {*}
+ * @return {string}
  */
 export function calculateDateTime(n: number, dateSep: string = '-', timeSep: string = ':'): string {
   const date = new Date();

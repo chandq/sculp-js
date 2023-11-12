@@ -107,9 +107,9 @@ export function arrayRemove<V>(array: V[], expect: (val: V, idx: number) => bool
 
 /**
  * 自定义深度优先遍历函数(支持continue和break操作)
- * @param {array} deepList
- * @param {function} iterator
- * @param {array} children
+ * @param {ArrayLike<V>} deepList
+ * @param {Function} iterator
+ * @param {string} children
  * @param {boolean} isReverse 是否反向遍历
  */
 export const deepTraversal = <V>(

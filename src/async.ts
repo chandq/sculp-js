@@ -3,7 +3,7 @@
  * @param {number} timeout 等待时间，单位毫秒
  * @returns {Promise<void>}
  */
-export async function wait(timeout = 1): Promise<void> {
+export function wait(timeout = 1): Promise<void> {
   return new Promise(resolve => setTimeout(resolve, timeout));
 }
 
@@ -16,7 +16,7 @@ export async function wait(timeout = 1): Promise<void> {
  * @param {number} concurrency 并发数量，默认无限
  * @returns {Promise<R[]>}
  */
-export async function asyncMap<T, R>(
+export function asyncMap<T, R>(
   list: Array<T>,
   mapper: (val: T, idx: number, list: Array<T>) => Promise<R>,
   concurrency = Infinity

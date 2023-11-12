@@ -19,8 +19,9 @@ interface ICanvasWM {
   zIndex: number;
 }
 /**
- * canvas 实现 watermark
+ * canvas 实现 水印, 具备防删除功能
  * @param {ICanvasWM} canvasWM
+ * @example genCanvasWM({ content: 'QQMusicFE' })
  */
 export const genCanvasWM = (canvasWM: ICanvasWM): void => {
   const {
@@ -37,9 +38,9 @@ export const genCanvasWM = (canvasWM: ICanvasWM): void => {
     zIndex = 2147483647
   } = canvasWM;
   // 仅限主页面添加水印
-  if (!location.pathname.includes('/home')) {
-    return;
-  }
+  // if (!location.pathname.includes('/home')) {
+  //   return;
+  // }
   const args = canvasWM;
   const canvas = document.createElement('canvas');
   canvas.setAttribute('width', width);
@@ -103,5 +104,3 @@ export const genCanvasWM = (canvasWM: ICanvasWM): void => {
     mo.observe(container, { attributes: true, subtree: true, childList: true });
   }
 };
-// 调用
-// __canvasWM({ content: 'QQMusicFE' })
