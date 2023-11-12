@@ -21,4 +21,4 @@ js 工具函数库, 包含类型判断模块：type, 数据处理模块：`array
   - deepTraversal 深度优先遍历函数, 支持continue、break，可定制id、children
   - getTreeIds 在树中找到 id 为某个值的节点，并返回上游的所有父级节点
 
-## [API文档详情](https://chandq.github.io/sculp-js/markdown/sculp-js.html)
+## [API文档详情](https://chandq.github.io/sculp-js/)
