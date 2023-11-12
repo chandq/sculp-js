@@ -7,16 +7,16 @@ import { urlSetParams } from './url';
  * @param {string} url
  * @param {LooseParams} params
  */
-export const downloadURL = (url: string, params?: LooseParams): void => {
+export function downloadURL(url: string, params?: LooseParams): void {
   window.open(params ? urlSetParams(url, params) : url);
-};
+}
 
 /**
  * 通过 A 链接的方式下载
  * @param {string} href
  * @param {string} filename
  */
-export const downloadHref = (href: string, filename: string): void => {
+export function downloadHref(href: string, filename: string): void {
   const eleLink = document.createElement('a');
   eleLink.download = filename;
   eleLink.style.display = 'none';
@@ -24,19 +24,19 @@ export const downloadHref = (href: string, filename: string): void => {
   document.body.appendChild(eleLink);
   eleLink.click();
   setTimeout(() => document.body.removeChild(eleLink));
-};
+}
 
 /**
  * 将大文件对象通过 A 链接的方式下载
  * @param {Blob} blob
  * @param {string} filename
  */
-export const downloadBlob = (blob: Blob, filename: string): void => {
+export function downloadBlob(blob: Blob, filename: string): void {
   const objURL = URL.createObjectURL(blob);
 
   downloadHref(objURL, filename);
   setTimeout(() => URL.revokeObjectURL(objURL));
-};
+}
 
 export type FileType = 'json' | 'csv' | 'xls' | 'xlsx';
 
@@ -47,12 +47,12 @@ export type FileType = 'json' | 'csv' | 'xls' | 'xlsx';
  * @param {string} filename
  * @param {string[]} [headers]
  */
-export const downloadData = (
+export function downloadData(
   data: AnyObject | AnyObject[],
   fileType: FileType,
   filename: string,
   headers?: string[]
-): void => {
+): void {
   filename = filename.replace(`.${fileType}`, '') + `.${fileType}`;
 
   if (fileType === 'json') {
@@ -82,4 +82,4 @@ export const downloadData = (
     const href = 'data:' + MIMETypes[fileType] + ';charset=utf-8,\ufeff' + encodeURIComponent(headerStr + bodyStr);
     downloadHref(href, filename);
   }
-};
+}

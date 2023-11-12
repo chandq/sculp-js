@@ -18,7 +18,7 @@ interface ITooltipParams {
 /**
  * 自定义title提示功能的mouseenter事件句柄
  * @param {ITooltipParams} param1
- * @return {*}
+ * @returns {*}
  */
 export function mouseEnterEvt({ rootElId = '#root', title, event }: ITooltipParams): void {
   try {
@@ -70,7 +70,7 @@ export function mouseEnterEvt({ rootElId = '#root', title, event }: ITooltipPara
  * @param {HTMLDivElement} customTitle
  * @param {string} title 提示的字符串
  * @param {PointerEvent} e 事件对象
- * @return {*}
+ * @returns {*}
  */
 function mouseenter($customTitle: HTMLDivElement, title: string, e: PointerEvent) {
   let diffValueX = 200 + 50; //默认设置弹出div的宽度为250px
@@ -103,7 +103,7 @@ function mouseenter($customTitle: HTMLDivElement, title: string, e: PointerEvent
 /**
  * 移除提示文案dom的事件句柄
  * @param {string} rootElId
- * @return {*}
+ * @returns {*}
  */
 export function mouseLeaveEvt(rootElId: string = '#root'): void {
   const rootEl = document.querySelector(rootElId),

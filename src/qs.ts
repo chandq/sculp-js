@@ -10,7 +10,7 @@ export interface Params<T = string | number> {
  * @param {string} queryString
  * @returns {Params}
  */
-export const qsParse = (queryString: string): Params => {
+export function qsParse(queryString: string): Params {
   const params = new URLSearchParams(queryString);
   const result: Params = {};
 
@@ -28,7 +28,7 @@ export const qsParse = (queryString: string): Params => {
   }
 
   return result;
-};
+}
 
 export type LooseParamValue = string | number | boolean | Date | null | undefined;
 export interface LooseParams<T = LooseParamValue> {
@@ -49,7 +49,7 @@ const defaultReplacer: Replacer = (val: LooseParamValue) => {
  * @param {Replacer} replacer
  * @returns {string}
  */
-export const qsStringify = (query: LooseParams, replacer: Replacer = defaultReplacer): string => {
+export function qsStringify(query: LooseParams, replacer: Replacer = defaultReplacer): string {
   const params = new URLSearchParams();
 
   objectEach(query, (val, key) => {
@@ -71,4 +71,4 @@ export const qsStringify = (query: LooseParams, replacer: Replacer = defaultRepl
   });
 
   return params.toString();
-};
+}

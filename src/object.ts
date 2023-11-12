@@ -23,24 +23,25 @@ export const isPlainObject = (obj: unknown): boolean => {
  * @param {string} key
  * @returns {boolean}
  */
-export const objectHas = <T extends AnyObject>(obj: T, key: keyof T): boolean =>
-  Object.prototype.hasOwnProperty.call(obj, key);
+export function objectHas<T extends AnyObject>(obj: T, key: keyof T): boolean {
+  return Object.prototype.hasOwnProperty.call(obj, key);
+}
 
 /**
  * 遍历对象，返回 false 中断遍历
  * @param {O} obj
  * @param {(val: O[keyof O], key: keyof O) => (boolean | void)} iterator
  */
-export const objectEach = <O extends AnyObject>(
+export function objectEach<O extends AnyObject>(
   obj: O,
   iterator: (val: O[keyof O], key: Extract<keyof O, string>) => any
-): void => {
+): void {
   for (const key in obj) {
     if (!objectHas(obj, key)) continue;
 
     if (iterator(obj[key], key) === false) break;
   }
-};
+}
 
 /**
  * 异步遍历对象，返回 false 中断遍历
@@ -175,10 +176,10 @@ interface ObjectAssign {
  * @param {ObjectAssignItem | undefined} targets
  * @returns {R}
  */
-export const objectAssign = <R = AnyObject | AnyArray>(
+export function objectAssign<R = AnyObject | AnyArray>(
   source: ObjectAssignItem,
   ...targets: (ObjectAssignItem | undefined)[]
-): R => {
+): R {
   const map = new Map();
 
   for (let i = 0; i < targets.length; i++) {
@@ -190,7 +191,7 @@ export const objectAssign = <R = AnyObject | AnyArray>(
 
   map.clear();
   return source as R;
-};
+}
 export { objectAssign as objectMerge };
 
 /**
@@ -200,11 +201,11 @@ export { objectAssign as objectMerge };
  * @param {(s: Partial<R>, t: Partial<R>, key: keyof R) => boolean} fillable
  * @returns {R}
  */
-export const objectFill = <R extends AnyObject = AnyObject>(
+export function objectFill<R extends AnyObject = AnyObject>(
   source: Partial<R>,
   target: Partial<R>,
   fillable?: (s: typeof source, t: typeof target, key: keyof R) => boolean
-): R => {
+): R {
   const _fillable = fillable || ((source, target, key) => source[key] === undefined);
   objectEach(target, (val, key) => {
     if (_fillable(source, target, key)) {
@@ -213,7 +214,7 @@ export const objectFill = <R extends AnyObject = AnyObject>(
   });
 
   return source as R;
-};
+}
 
 export function objectGet(
   obj: AnyObject,
@@ -258,7 +259,7 @@ export function objectGet(
  * 深拷贝堪称完全体 即：任何类型的数据都会被深拷贝
  * @param {AnyObject | AnyArray} obj
  * @param {WeakMap} map
- * @return {AnyObject | AnyArray}
+ * @returns {AnyObject | AnyArray}
  */
 export function cloneDeep(obj: Object, map = new WeakMap()): Object {
   if (obj instanceof Date) return new Date(obj);

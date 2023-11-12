@@ -6,7 +6,7 @@ import { AnyObject, isString } from './type';
  * @param {boolean} [bigger] 是否大写第一个字母
  * @returns {string}
  */
-export const stringCamelCase = (string: string, bigger?: boolean): string => {
+export function stringCamelCase(string: string, bigger?: boolean): string {
   let string2 = string;
 
   if (bigger) {
@@ -16,7 +16,7 @@ export const stringCamelCase = (string: string, bigger?: boolean): string => {
   const HUMP_RE = /[\s_-](.)/g;
 
   return string2.replace(HUMP_RE, (orign, char) => (char as string).toUpperCase());
-};
+}
 
 /**
  * 将字符串转换为连字格式
@@ -24,11 +24,11 @@ export const stringCamelCase = (string: string, bigger?: boolean): string => {
  * @param {string} [separator] 分隔符，默认是"-"（短横线）
  * @returns {string}
  */
-export const stringKebabCase = (string: string, separator = '-'): string => {
+export function stringKebabCase(string: string, separator = '-'): string {
   const string2 = string.replace(/^./, origin => origin.toLowerCase());
 
   return string2.replace(/[A-Z]/g, origin => `${separator}${origin.toLowerCase()}`);
-};
+}
 
 export const STRING_ARABIC_NUMERALS = '0123456789';
 export const STRING_LOWERCASE_ALPHA = 'abcdefghijklmnopqrstuvwxyz';
@@ -46,7 +46,7 @@ const placeholderRE = /%[%sdo]/g;
  * @param args
  * @returns {string}
  */
-export const stringFormat = (string: string, ...args: Array<unknown>): string => {
+export function stringFormat(string: string, ...args: Array<unknown>): string {
   let index = 0;
   const result = string.replace(placeholderRE, (origin: string): string => {
     const arg = args[index++];
@@ -66,7 +66,7 @@ export const stringFormat = (string: string, ...args: Array<unknown>): string =>
   });
 
   return [result, ...args.splice(index).map(String)].join(' ');
-};
+}
 
 const ev = (expression: string, data: AnyObject): string => {
   try {
@@ -137,7 +137,7 @@ export const stringFill = (length: number, value = ' '): string => new Array(len
  * @param {string} str 目标字符串
  * @param {number} fontSize 字符串字体大小
  * @param {boolean} isRemoveDom 计算后是否移除中间dom元素
- * @return {*}
+ * @returns {*}
  */
 export function getStrWidthPx(str: string, fontSize: number = 14, isRemoveDom: boolean = false): number {
   let strWidth = 0;

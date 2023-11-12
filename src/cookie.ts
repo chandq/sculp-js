@@ -5,7 +5,7 @@ import { isDate, isNumber } from './type';
  * @param {string} name
  * @returns {string}
  */
-export const cookieGet = (name: string): string => {
+export function cookieGet(name: string): string {
   const { cookie } = document;
 
   if (!cookie) return '';
@@ -20,7 +20,7 @@ export const cookieGet = (name: string): string => {
   }
 
   return '';
-};
+}
 
 /**
  * 设置 cookie
@@ -28,7 +28,7 @@ export const cookieGet = (name: string): string => {
  * @param {string} value
  * @param {number | Date} [maxAge]
  */
-export const cookieSet = (name: string, value: string, maxAge?: number | Date): void => {
+export function cookieSet(name: string, value: string, maxAge?: number | Date): void {
   const metas: any = [];
   const EXPIRES = 'expires';
 
@@ -50,7 +50,7 @@ export const cookieSet = (name: string, value: string, maxAge?: number | Date): 
       return `${key}=${val}`;
     })
     .join(';');
-};
+}
 
 /**
  * 删除单个 cookie

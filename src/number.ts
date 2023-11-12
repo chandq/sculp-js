@@ -24,7 +24,7 @@ const remainder = (x: any, y: any) => (supportBigInt ? x % y : jsbi().remainder(
  * @param {string} [hexPool] 进制池，默认 62 进制
  * @returns {string}
  */
-export const numberToHex = (decimal: number | string, hexPool: string = HEX_POOL): string => {
+export function numberToHex(decimal: number | string, hexPool: string = HEX_POOL): string {
   if (hexPool.length < 2) throw new Error('进制池长度不能少于 2');
 
   if (!supportBigInt) {
@@ -50,7 +50,7 @@ export const numberToHex = (decimal: number | string, hexPool: string = HEX_POOL
 
   execute();
   return ret.join('');
-};
+}
 
 /**
  * 缩写
@@ -81,7 +81,7 @@ export const numberAbbr = (num: number | string, units: Array<string>, ratio = 1
  * 将数字格式化成千位分隔符显示的字符串
  * @param {number} val 数字
  * @param {'int' | 'float'} type 展示分段显示的类型 int:整型 | float:浮点型
- * @return {string}
+ * @returns {string}
  */
 export function formatNumber(val: number, type = 'int'): string {
   return type === 'int' ? parseInt(String(val)).toLocaleString() : Number(val).toLocaleString('en-US');

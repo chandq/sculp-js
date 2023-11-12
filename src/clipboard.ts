@@ -14,7 +14,7 @@ document.body.appendChild(textEl);
  * 复制文本
  * @param {string} text
  */
-export const copyText = (text: string): void => {
+export function copyText(text: string): void {
   textEl.value = text;
   textEl.focus({ preventScroll: true });
   textEl.select();
@@ -25,4 +25,4 @@ export const copyText = (text: string): void => {
   } catch (err) {
     // ignore
   }
-};
+}

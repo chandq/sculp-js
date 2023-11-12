@@ -3,10 +3,11 @@ import { AnyArray, isArray, isObject, isString } from './type';
 
 /**
  * 判断一个对象是否为类数组
+ *
  * @param any
  * @returns {boolean}
  */
-export const arrayLike = (any: unknown): boolean => {
+export function arrayLike(any: unknown): boolean {
   if (isArray(any)) return true;
 
   if (isString(any)) return true;
@@ -14,19 +15,21 @@ export const arrayLike = (any: unknown): boolean => {
   if (!isObject(any)) return false;
 
   return objectHas(any, 'length');
-};
+}
 
 /**
  * 遍历数组，返回 false 中断遍历
+ *
  * @param {ArrayLike<V>} array
  * @param {(val: V, idx: number) => any} iterator
  * @param reverse {boolean} 是否倒序
+ * @returns {*}
  */
-export const arrayEach = <V>(
+export function arrayEach<V>(
   array: ArrayLike<V>,
   iterator: (val: V, idx: number, arr: ArrayLike<V>) => any,
   reverse = false
-): void => {
+): void {
   if (reverse) {
     for (let idx = array.length - 1; idx >= 0; idx--) {
       const val = array[idx];
@@ -40,13 +43,13 @@ export const arrayEach = <V>(
       if (iterator(val, idx, array) === false) break;
     }
   }
-};
+}
 
 /**
  * 异步遍历数组，返回 false 中断遍历
- * @param {ArrayLike<V>} array
- * @param {(val: V, idx: number) => Promise<any>} iterator
- * @param {boolean} reverse
+ * @param {ArrayLike<V>} array 数组
+ * @param {(val: V, idx: number) => Promise<any>} iterator  支持Promise类型的回调函数
+ * @param {boolean} reverse  是否反向遍历
  */
 export async function arrayEachAsync<V>(
   array: ArrayLike<V>,
@@ -73,8 +76,9 @@ export async function arrayEachAsync<V>(
  * @param {AnyArray} array
  * @param {number} start
  * @param {number} to
+ * @returns {*}
  */
-export const arrayInsertBefore = (array: AnyArray, start: number, to: number): void => {
+export function arrayInsertBefore(array: AnyArray, start: number, to: number): void {
   if (start === to || start + 1 === to) return;
 
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
@@ -82,7 +86,7 @@ export const arrayInsertBefore = (array: AnyArray, start: number, to: number): v
   const insertIndex = to < start ? to : to - 1;
 
   array.splice(insertIndex, 0, source);
-};
+}
 
 /**
  * 数组删除指定项目
@@ -107,22 +111,23 @@ export function arrayRemove<V>(array: V[], expect: (val: V, idx: number) => bool
 
 /**
  * 自定义深度优先遍历函数(支持continue和break操作)
- * @param {ArrayLike<V>} deepList
- * @param {Function} iterator
- * @param {string} children
- * @param {boolean} isReverse 是否反向遍历
+ * @param {ArrayLike<V>} tree  树形数据
+ * @param {Function} iterator  迭代函数
+ * @param {string} children 定制子元素的key
+ * @param {boolean} isReverse  是否反向遍历
+ * @returns {*}
  */
-export const deepTraversal = <V>(
-  deepList: ArrayLike<V>,
+export function deepTraversal<V>(
+  tree: ArrayLike<V>,
   iterator: (val: V, i: number, arr: ArrayLike<V>, parent: V | null, level: number) => any,
   children: string = 'children',
   isReverse = false
-) => {
+) {
   let level = 0;
   const walk = (arr: ArrayLike<V>, parent: V | null) => {
     if (isReverse) {
       for (let i = arr.length - 1; i >= 0; i--) {
-        const re = iterator(arr[i], i, deepList, parent, level);
+        const re = iterator(arr[i], i, tree, parent, level);
         if (re === 'break') {
           break;
         } else if (re === 'continue') {
@@ -137,7 +142,7 @@ export const deepTraversal = <V>(
       }
     } else {
       for (let i = 0; i < arr.length; i++) {
-        const re = iterator(arr[i], i, deepList, parent, level);
+        const re = iterator(arr[i], i, tree, parent, level);
         if (re === 'break') {
           break;
         } else if (re === 'continue') {
@@ -152,8 +157,8 @@ export const deepTraversal = <V>(
       }
     }
   };
-  walk(deepList, null);
-};
+  walk(tree, null);
+}
 export type IdLike = number | string;
 export interface ITreeConf {
   id: string | number;
@@ -161,10 +166,11 @@ export interface ITreeConf {
 }
 /**
  * 在树中找到 id 为某个值的节点，并返回上游的所有父级节点
- * @param {ArrayLike<T>} tree
- * @param {IdLike} nodeId
- * @param {ITreeConf} config
- * @return {[IdLike[], ITreeItem<V>[]]}
+ *
+ * @param {ArrayLike<T>} tree - 树形数据
+ * @param {IdLike} nodeId - 元素ID
+ * @param {ITreeConf} config - 迭代配置项
+ * @returns {[IdLike[], ITreeItem<V>[]]} - 由parentId...childId, parentObject-childObject组成的二维数组
  */
 export function getTreeIds<V>(tree: ArrayLike<V>, nodeId: IdLike, config?: ITreeConf): [IdLike[], ArrayLike<V>[]] {
   const { children = 'children', id = 'id' } = config || {};
@@ -214,7 +220,7 @@ export function getTreeIds<V>(tree: ArrayLike<V>, nodeId: IdLike, config?: ITree
 //      count++;
 //    }
 // }
- * @return {*}
+ * @returns {*}
  */
 async function asyncForEach(array: any[], callback: Function) {
   for (let index = 0, len = array.length; index < len; index++) {

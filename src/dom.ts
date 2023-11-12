@@ -14,10 +14,10 @@ export interface Style {
  * @param {string} className
  * @returns {boolean}
  */
-export const hasClass = (el: HTMLElement, className: string): boolean => {
+export function hasClass(el: HTMLElement, className: string): boolean {
   if (className.indexOf(' ') !== -1) throw new Error('className should not contain space.');
   return el.classList.contains(className);
-};
+}
 
 const eachClassName = (classNames: string, func: (className: string) => void): void => {
   const classNameList = classNames.split(/\s+/g);
@@ -30,18 +30,18 @@ const eachClassName = (classNames: string, func: (className: string) => void): v
  * @param {HTMLElement} el
  * @param {string} classNames
  */
-export const addClass = (el: HTMLElement, classNames: string): void => {
+export function addClass(el: HTMLElement, classNames: string): void {
   eachClassName(classNames, className => el.classList.add(className));
-};
+}
 
 /**
  * 给元素移除样式名
  * @param {HTMLElement} el
  * @param {string} classNames
  */
-export const removeClass = (el: HTMLElement, classNames: string): void => {
+export function removeClass(el: HTMLElement, classNames: string): void {
   eachClassName(classNames, className => el.classList.remove(className));
-};
+}
 
 export interface SetStyle {
   (el: HTMLElement, key: string, val: string): void;
@@ -66,11 +66,13 @@ export const setStyle: SetStyle = (el: HTMLElement, key: string | Style, val?: s
 
 /**
  * 获取元素样式
- * @param {HTMLElement} el
+ * @param {HTMLElement} el 元素
  * @param {string} key
  * @returns {string}
  */
-export const getStyle = (el: HTMLElement, key: string): string => getComputedStyle(el).getPropertyValue(key);
+export function getStyle(el: HTMLElement, key: string): string {
+  return getComputedStyle(el).getPropertyValue(key);
+}
 
 type ScrollElement = HTMLElement | Document | Window;
 export interface SmoothScrollOptions {
@@ -171,7 +173,7 @@ export function onDomReady(callback: ReadyCallback): void {
  * @param {HTMLElement} el
  * @param {string} property
  * @param {boolean} reNumber
- * @return {string|number}
+ * @returns {string|number}
  */
 export function getComputedCssVal(el: HTMLElement, property: string, reNumber: boolean = true): string | number {
   const originVal = getComputedStyle(el).getPropertyValue(property) ?? '';

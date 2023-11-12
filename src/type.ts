@@ -20,7 +20,7 @@ export type PartialDeep<T> = {
 /**
  * 判断任意值的数据类型
  * @param {unknown} any
- * @return {string}
+ * @returns {string}
  */
 export const typeIs = (any: unknown): string => Object.prototype.toString.call(any).slice(8, -1);
 
@@ -41,7 +41,7 @@ export const isArray = (any: unknown): any is Array<unknown> => Array.isArray(an
 /**
  * 判断是否为函数
  * @param {unknown} any
- * @return {boolean}
+ * @returns {boolean}
  */
 export const isFunction = (any: unknown): any is Function => typeof any === 'function';
 

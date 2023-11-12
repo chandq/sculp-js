@@ -23,7 +23,7 @@ export interface ICanvasWM {
  * @param {ICanvasWM} canvasWM
  * @example genCanvasWM({ content: 'QQMusicFE' })
  */
-export const genCanvasWM = (canvasWM: ICanvasWM): void => {
+export function genCanvasWM(canvasWM: ICanvasWM): void {
   const {
     container = document.body,
     width = '300px',
@@ -103,4 +103,4 @@ export const genCanvasWM = (canvasWM: ICanvasWM): void => {
     });
     mo.observe(container, { attributes: true, subtree: true, childList: true });
   }
-};
+}

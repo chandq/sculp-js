@@ -45,10 +45,10 @@ const guessDateTimezone = (value: DateValue): Date | undefined => {
 
 /**
  * 解析为Date对象
- * @param {DateValue} value 可以是数值、字符串或 Date 对象
- * @returns {Date}
+ * @param {DateValue} value - 可以是数值、字符串或 Date 对象
+ * @returns {Date} - 转换后的目标Date
  */
-export const dateParse = (value: DateValue): Date => {
+export function dateParse(value: DateValue): Date {
   const d1 = new Date(value);
   if (isValidDate(d1)) return d1;
 
@@ -67,7 +67,7 @@ export const dateParse = (value: DateValue): Date => {
   if (isValidDate(d3)) return d3;
 
   throw new SyntaxError(`${value.toString()} 不是一个合法的日期描述`);
-};
+}
 
 /**
  * 格式化为日期对象(带自定义格式化模板)
@@ -116,26 +116,26 @@ export const dateParse = (value: DateValue): Date => {
  * @param {DateValue} value
  * @returns {Date}
  */
-export const dateToStart = (value: DateValue): Date => {
+export function dateToStart(value: DateValue): Date {
   const d = dateParse(value);
   return new Date(d.getFullYear(), d.getMonth(), d.getDate(), 0, 0, 0, 0);
-};
+}
 
 /**
  * 将日期转换为一天的结束时间，即23点59分59秒999毫秒
  * @param {DateValue} value
  * @returns {Date}
  */
-export const dateToEnd = (value: DateValue): Date => {
+export function dateToEnd(value: DateValue): Date {
   const d = dateToStart(value);
   d.setDate(d.getDate() + 1);
   return dateParse(d.getTime() - 1);
-};
+}
 
 /**
  * 格式化为日期对象(带自定义格式化模板)
- * @param {Date} value 可以是数值、字符串或 Date 对象
- * @param {string} [format] 模板，默认是 YYYY-MM-DD HH:mm:ss，模板字符：
+ * @param {Date} value - 可以是数值、字符串或 Date 对象
+ * @param {string} [format] - 模板，默认是 YYYY-MM-DD HH:mm:ss，模板字符：
  * - YYYY：年
  * - yyyy: 年
  * - MM：月
@@ -147,9 +147,9 @@ export const dateToEnd = (value: DateValue): Date => {
  * - ss：秒
  * - SSS：毫秒
  * - ww: 周
- * @returns {string}
+ * @returns {string}  格式化后的日期字符串
  */
-export const formatDate = (value: DateValue, format = 'YYYY-MM-DD HH:mm:ss'): string => {
+export function formatDate(value: DateValue, format = 'YYYY-MM-DD HH:mm:ss'): string {
   const date = dateParse(value);
   let fmt = format;
   let ret;
@@ -175,14 +175,14 @@ export const formatDate = (value: DateValue, format = 'YYYY-MM-DD HH:mm:ss'): st
   }
 
   return fmt;
-};
+}
 
 /**
  * 计算向前或向后N天的具体日期
- * @param {string} strDate 参考日期
- * @param {number} n 正数：向后推算；负数：向前推算
- * @param {string} sep 日期格式的分隔符
- * @return {string} 目标日期
+ * @param {string} strDate - 参考日期
+ * @param {number} n - 正数：向后推算；负数：向前推算
+ * @param {string} sep - 日期格式的分隔符
+ * @returns {string} 计算后的目标日期
  */
 export function calculateDate(strDate: string, n: number, sep: string = '-'): string {
   //strDate 为字符串日期 如:'2019-01-01' n为你要传入的参数，当前为0，前一天为-1，后一天为1
@@ -201,10 +201,10 @@ export function calculateDate(strDate: string, n: number, sep: string = '-'): st
 
 /**
  * 计算向前或向后N天的具体时间日期
- * @param {number} n 正数：向后推算；负数：向前推算
- * @param {string} dateSep 日期分隔符
- * @param {string} timeSep 时间分隔符
- * @return {string}
+ * @param {number} n - 正数：向后推算；负数：向前推算
+ * @param {string} dateSep - 日期分隔符
+ * @param {string} timeSep - 时间分隔符
+ * @returns {string} 转换后的目标日期时间
  */
 export function calculateDateTime(n: number, dateSep: string = '-', timeSep: string = ':'): string {
   const date = new Date();

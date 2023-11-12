@@ -2,7 +2,7 @@
  * 选择本地文件
  * @param {string} accept 上传的文件类型，用于过滤
  * @param {Function} changeCb 选择文件回调
- * @return {HTMLInputElement}
+ * @returns {HTMLInputElement}
  */
 export function chooseLocalFile(accept: string, changeCb: (FileList) => any) {
   const inputObj: HTMLInputElement = document.createElement('input');
