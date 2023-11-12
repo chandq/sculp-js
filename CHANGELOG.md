@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.0.0](https://github.com/chandq/sculp-js/compare/v0.1.1...v1.0.0) (2023-11-12)
+
+### Bug Fixes
+
+- add site entry of github pages ([4ae3854](https://github.com/chandq/sculp-js/commit/4ae38543ee8a26758554aada2c8ee8bd6085eeff))
+- add tsdoc comment ([d9152f5](https://github.com/chandq/sculp-js/commit/d9152f56618ba070e85b06a8e7e601dd0f75b8a2))
+- name link ([4e6b23e](https://github.com/chandq/sculp-js/commit/4e6b23eb7313ccac360c686c51609a6f13811d08))
+- **ts:** export ts type ([5ba2305](https://github.com/chandq/sculp-js/commit/5ba23059fbaac096a53b49ee01f599328fafa1c2))
+
 ### [0.1.1](https://github.com/chandq/sculp-js/compare/v0.1.0...v0.1.1) (2023-10-25)
 
 ### Features
