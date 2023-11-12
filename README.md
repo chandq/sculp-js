@@ -12,6 +12,7 @@
 js 工具函数库, 包含类型判断模块：type, 数据处理模块：`array`、`object`、`string`、`number`，功能性模块：下载`download`、复制`clipboard`、`cookie`、日期`date`、qs、水印`watermark`, 文件处理模块：`file`，自定义悬浮提示模块： `tooltip`, dom处理模块：`dom`;
 
 - Array
+
   - arrayLike 判断类数组
   - arrayEach 可中断的数组遍历， 支持倒序
   - arrayEachAsync 异步遍历数组，可中断，支持倒序
@@ -19,3 +20,5 @@ js 工具函数库, 包含类型判断模块：type, 数据处理模块：`array
   - arrayRemove 数组删除指定元素
   - deepTraversal 深度优先遍历函数, 支持continue、break，可定制id、children
   - getTreeIds 在树中找到 id 为某个值的节点，并返回上游的所有父级节点
+
+## [API文档详情](https://chandq.github.io/sculp-js/markdown/sculp-js.html)
