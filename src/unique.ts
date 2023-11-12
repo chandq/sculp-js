@@ -46,7 +46,7 @@ export const uniqueNumber = (length: number = UNIQUE_NUMBER_SAFE_LENGTH): string
   return `${timestamp}${random}${safe}`;
 };
 
-interface UniqueString {
+export interface UniqueString {
   (length: number, pool: string): string;
   (length: number): string;
   (pool: string): string;

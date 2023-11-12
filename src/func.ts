@@ -1,6 +1,6 @@
 import { AnyArray, AnyFunc, isError } from './type';
 
-interface DebounceFunc<F extends AnyFunc> {
+export interface DebounceFunc<F extends AnyFunc> {
   (...args: Parameters<F>): void;
   cancel: () => void;
 }
@@ -33,7 +33,7 @@ export const debounce = <F extends AnyFunc>(func: F, wait?: number): DebounceFun
   return f;
 };
 
-interface ThrottleFunc<F extends AnyFunc> {
+export interface ThrottleFunc<F extends AnyFunc> {
   (...args: Parameters<F>): void;
   cancel: () => void;
 }
@@ -89,7 +89,7 @@ export const throttle = <F extends AnyFunc>(func: F, wait: number, immediate?: b
   return f;
 };
 
-interface OnceFunc<F extends AnyFunc> {
+export interface OnceFunc<F extends AnyFunc> {
   (...args: Parameters<F>): ReturnType<F>;
 }
 

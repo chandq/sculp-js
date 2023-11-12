@@ -2,11 +2,11 @@ import { isDate, isNaN, isString } from './type';
 
 export const isValidDate = (any: unknown): any is Date => isDate(any) && !isNaN(any.getTime());
 
-interface DateObj {
+export interface DateObj {
   [propName: string]: string;
 }
 
-type DateValue = number | string | Date;
+export type DateValue = number | string | Date;
 
 /* istanbul ignore next */
 const guessDateSeparator = (value: DateValue): Date | undefined => {

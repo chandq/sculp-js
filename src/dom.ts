@@ -4,7 +4,7 @@ import { objectEach, objectMerge } from './object';
 import { stringKebabCase } from './string';
 import { isObject } from './type';
 
-interface Style {
+export interface Style {
   [propName: string]: string | number;
 }
 
@@ -43,7 +43,7 @@ export const removeClass = (el: HTMLElement, classNames: string): void => {
   eachClassName(classNames, className => el.classList.remove(className));
 };
 
-interface SetStyle {
+export interface SetStyle {
   (el: HTMLElement, key: string, val: string): void;
   (el: HTMLElement, style: Style): void;
 }
@@ -73,7 +73,7 @@ export const setStyle: SetStyle = (el: HTMLElement, key: string | Style, val?: s
 export const getStyle = (el: HTMLElement, key: string): string => getComputedStyle(el).getPropertyValue(key);
 
 type ScrollElement = HTMLElement | Document | Window;
-interface SmoothScrollOptions {
+export interface SmoothScrollOptions {
   // 滚动元素，默认：document
   el: ScrollElement;
   // 滚动位置，默认：0
@@ -84,7 +84,7 @@ interface SmoothScrollOptions {
   easing: EasingName;
 }
 
-export async function smoothScroll(options?: Partial<SmoothScrollOptions>): Promise<void> {
+export function smoothScroll(options?: Partial<SmoothScrollOptions>): Promise<void> {
   return new Promise(resolve => {
     const defaults: SmoothScrollOptions = {
       el: document,
@@ -138,7 +138,7 @@ export async function smoothScroll(options?: Partial<SmoothScrollOptions>): Prom
   });
 }
 
-type ReadyCallback = () => void;
+export type ReadyCallback = () => void;
 const domReadyCallbacks: ReadyCallback[] = [];
 const eventType = 'DOMContentLoaded';
 const listener = () => {

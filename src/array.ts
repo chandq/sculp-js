@@ -154,8 +154,8 @@ export const deepTraversal = <V>(
   };
   walk(deepList, null);
 };
-type IdLike = number | string;
-interface ITreeConf {
+export type IdLike = number | string;
+export interface ITreeConf {
   id: string | number;
   children: string;
 }

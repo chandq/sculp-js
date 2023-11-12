@@ -38,7 +38,7 @@ export const downloadBlob = (blob: Blob, filename: string): void => {
   setTimeout(() => URL.revokeObjectURL(objURL));
 };
 
-type FileType = 'json' | 'csv' | 'xls' | 'xlsx';
+export type FileType = 'json' | 'csv' | 'xls' | 'xlsx';
 
 /**
  * 将指定数据格式通过 A 链接的方式下载

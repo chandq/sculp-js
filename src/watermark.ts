@@ -5,7 +5,7 @@
  * @desc 网页加水印的工具类
  */
 
-interface ICanvasWM {
+export interface ICanvasWM {
   container: HTMLElement;
   width: string;
   height: string;

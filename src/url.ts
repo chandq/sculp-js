@@ -4,7 +4,7 @@ import { Params, qsParse as parseSearchParams, qsStringify as stringifySearchPar
 
 const anchorEl: HTMLAnchorElement = document.createElement('a');
 
-interface Url {
+export interface Url {
   protocol: string;
   auth: string;
   username: string;

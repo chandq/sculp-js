@@ -163,7 +163,7 @@ const merge = (map: Map<AnyObject | AnyArray, AnyObject | AnyArray>, source: unk
   return target;
 };
 
-type ObjectAssignItem = AnyObject | AnyArray;
+export type ObjectAssignItem = AnyObject | AnyArray;
 interface ObjectAssign {
   <R = ObjectAssignItem>(source: ObjectAssignItem, ...args: (ObjectAssignItem | undefined)[]): R;
   <R = ObjectAssignItem>(source: ObjectAssignItem): R;

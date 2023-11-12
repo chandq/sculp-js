@@ -11,7 +11,7 @@ export const randomNumber = (min: number, max: number): number => Math.floor(Mat
 
 export const STRING_POOL = `${STRING_ARABIC_NUMERALS}${STRING_UPPERCASE_ALPHA}${STRING_LOWERCASE_ALPHA}`;
 
-interface RandomString {
+export interface RandomString {
   (length: number, pool: string): string;
   (length: number): string;
   (pool: string): string;
