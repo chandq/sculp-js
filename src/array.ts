@@ -18,29 +18,32 @@ export function arrayLike(any: unknown): boolean {
 }
 
 /**
- * 遍历数组，返回 false 中断遍历
+ * 遍历数组，返回 false 中断遍历(支持continue和break操作)
  *
  * @param {ArrayLike<V>} array
- * @param {(val: V, idx: number) => any} iterator
- * @param reverse {boolean} 是否倒序
+ * @param {(val: V, idx: number) => any} iterator 迭代函数, 返回值为true时continue, 返回值为false时break
+ * @param {boolean} reverse  是否倒序
  * @returns {*}
  */
 export function arrayEach<V>(
   array: ArrayLike<V>,
-  iterator: (val: V, idx: number, arr: ArrayLike<V>) => any,
+  iterator: (val: V, idx: number, arr: ArrayLike<V>) => boolean | void,
   reverse = false
 ): void {
   if (reverse) {
     for (let idx = array.length - 1; idx >= 0; idx--) {
       const val = array[idx];
-
-      if (iterator(val, idx, array) === false) break;
+      const re = iterator(val, idx, array);
+      if (re === false) break;
+      else if (re === true) continue;
     }
   } else {
     for (let idx = 0; idx < array.length; idx++) {
       const val = array[idx];
 
-      if (iterator(val, idx, array) === false) break;
+      const re = iterator(val, idx, array);
+      if (re === false) break;
+      else if (re === true) continue;
     }
   }
 }
@@ -112,25 +115,30 @@ export function arrayRemove<V>(array: V[], expect: (val: V, idx: number) => bool
 /**
  * 自定义深度优先遍历函数(支持continue和break操作)
  * @param {ArrayLike<V>} tree  树形数据
- * @param {Function} iterator  迭代函数
+ * @param {Function} iterator  迭代函数, 返回值为true时continue, 返回值为false时break
  * @param {string} children 定制子元素的key
  * @param {boolean} isReverse  是否反向遍历
  * @returns {*}
  */
-export function deepTraversal<V>(
+export function forEachDeep<V>(
   tree: ArrayLike<V>,
-  iterator: (val: V, i: number, arr: ArrayLike<V>, parent: V | null, level: number) => any,
+  iterator: (val: V, i: number, arr: ArrayLike<V>, parent: V | null, level: number) => boolean | void,
   children: string = 'children',
   isReverse = false
 ) {
-  let level = 0;
+  let level = 0,
+    isBreak = false;
   const walk = (arr: ArrayLike<V>, parent: V | null) => {
     if (isReverse) {
       for (let i = arr.length - 1; i >= 0; i--) {
-        const re = iterator(arr[i], i, tree, parent, level);
-        if (re === 'break') {
+        if (isBreak) {
           break;
-        } else if (re === 'continue') {
+        }
+        const re = iterator(arr[i], i, tree, parent, level);
+        if (re === false) {
+          isBreak = true;
+          break;
+        } else if (re === true) {
           continue;
         }
         // @ts-ignore
@@ -142,10 +150,14 @@ export function deepTraversal<V>(
       }
     } else {
       for (let i = 0; i < arr.length; i++) {
-        const re = iterator(arr[i], i, tree, parent, level);
-        if (re === 'break') {
+        if (isBreak) {
           break;
-        } else if (re === 'continue') {
+        }
+        const re = iterator(arr[i], i, tree, parent, level);
+        if (re === false) {
+          isBreak = true;
+          break;
+        } else if (re === true) {
           continue;
         }
         // @ts-ignore
@@ -172,7 +184,7 @@ export interface ITreeConf {
  * @param {ITreeConf} config - 迭代配置项
  * @returns {[IdLike[], ITreeItem<V>[]]} - 由parentId...childId, parentObject-childObject组成的二维数组
  */
-export function getTreeIds<V>(tree: ArrayLike<V>, nodeId: IdLike, config?: ITreeConf): [IdLike[], ArrayLike<V>[]] {
+export function searchTreeById<V>(tree: ArrayLike<V>, nodeId: IdLike, config?: ITreeConf): [IdLike[], ArrayLike<V>[]] {
   const { children = 'children', id = 'id' } = config || {};
   const toFlatArray = (tree, parentId?: IdLike, parent?: any) => {
     return tree.reduce((t, _) => {

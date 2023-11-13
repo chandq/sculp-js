@@ -3,8 +3,8 @@
  * @Desc 自定义的tooltip方法, 支持拖动悬浮提示
  * Created by chendeqiao on 2017/5/8.
  * @example
- *  <span onmouseleave="mouseLeaveEvt('#root')" onmousemove="mouseEnterEvt({rootElId: '#root', title: 'title content', event: event})"
- * 		onmouseenter="mouseEnterEvt({'#root', title: 'title content', event: event})">title content </span>
+ *  <span onmouseleave="handleMouseLeave('#root')" onmousemove="handleMouseEnter({rootElId: '#root', title: 'title content', event: event})"
+ * 		onmouseenter="handleMouseEnter({'#root', title: 'title content', event: event})">title content </span>
  */
 
 import { getStrWidthPx } from './string';
@@ -20,7 +20,7 @@ interface ITooltipParams {
  * @param {ITooltipParams} param1
  * @returns {*}
  */
-export function mouseEnterEvt({ rootElId = '#root', title, event }: ITooltipParams): void {
+function handleMouseEnter({ rootElId = '#root', title, event }: ITooltipParams): void {
   try {
     const $rootEl = document.querySelector(rootElId);
     console.assert($rootEl !== null, `未找到id为 ${rootElId} 的dom元素`);
@@ -105,10 +105,12 @@ function mouseenter($customTitle: HTMLDivElement, title: string, e: PointerEvent
  * @param {string} rootElId
  * @returns {*}
  */
-export function mouseLeaveEvt(rootElId: string = '#root'): void {
+function handleMouseLeave(rootElId: string = '#root'): void {
   const rootEl = document.querySelector(rootElId),
     titleEl = document.querySelector('#customTitle1494304949567');
   if (rootEl && titleEl) {
     rootEl.removeChild(titleEl);
   }
 }
+const tooltipEvent = { handleMouseEnter, handleMouseLeave };
+export { tooltipEvent };

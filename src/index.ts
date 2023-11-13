@@ -17,3 +17,4 @@ export * from './func';
 export * from './random';
 export * from './number';
 export * from './unique';
+export * from './tooltip';
