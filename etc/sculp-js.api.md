@@ -18,7 +18,7 @@ export type AnyObject = Record<string | number, any>;
 // @public
 export function arrayEach<V>(
   array: ArrayLike<V>,
-  iterator: (val: V, idx: number, arr: ArrayLike<V>) => any,
+  iterator: (val: V, idx: number, arr: ArrayLike<V>) => boolean | void,
   reverse?: boolean
 ): void;
 
@@ -102,14 +102,6 @@ export interface DebounceFunc<F extends AnyFunc> {
 }
 
 // @public
-export function deepTraversal<V>(
-  tree: ArrayLike<V>,
-  iterator: (val: V, i: number, arr: ArrayLike<V>, parent: V | null, level: number) => any,
-  children?: string,
-  isReverse?: boolean
-): void;
-
-// @public
 export function downloadBlob(blob: Blob, filename: string): void;
 
 // @public
@@ -128,6 +120,14 @@ export function downloadURL(url: string, params?: LooseParams): void;
 
 // @public (undocumented)
 export type FileType = 'json' | 'csv' | 'xls' | 'xlsx';
+
+// @public
+export function forEachDeep<V>(
+  tree: ArrayLike<V>,
+  iterator: (val: V, i: number, arr: ArrayLike<V>, parent: V | null, level: number) => boolean | void,
+  children?: string,
+  isReverse?: boolean
+): void;
 
 // @public
 export function formatDate(value: DateValue, format?: string): string;
@@ -149,9 +149,6 @@ export function getStrWidthPx(str: string, fontSize?: number, isRemoveDom?: bool
 
 // @public
 export function getStyle(el: HTMLElement, key: string): string;
-
-// @public
-export function getTreeIds<V>(tree: ArrayLike<V>, nodeId: IdLike, config?: ITreeConf): [IdLike[], ArrayLike<V>[]];
 
 // @public
 export function hasClass(el: HTMLElement, className: string): boolean;
@@ -392,6 +389,9 @@ export function removeClass(el: HTMLElement, classNames: string): void;
 export type Replacer = (value: LooseParamValue) => string | null;
 
 // @public
+export function searchTreeById<V>(tree: ArrayLike<V>, nodeId: IdLike, config?: ITreeConf): [IdLike[], ArrayLike<V>[]];
+
+// @public
 export function setGlobal(key: string | number | symbol, val?: any): void;
 
 // @public (undocumented)
@@ -471,6 +471,12 @@ export interface ThrottleFunc<F extends AnyFunc> {
   cancel: () => void;
 }
 
+// @public (undocumented)
+export const tooltipEvent: {
+  handleMouseEnter: typeof handleMouseEnter;
+  handleMouseLeave: typeof handleMouseLeave;
+};
+
 // @public
 export const typeIs: (any: unknown) => string;
 
@@ -541,6 +547,11 @@ export const urlStringify: (url: Url) => string;
 
 // @public
 export function wait(timeout?: number): Promise<void>;
+
+// Warnings were encountered during analysis:
+//
+// lib/index.d.ts:705:5 - (ae-forgotten-export) The symbol "handleMouseEnter" needs to be exported by the entry point index.d.ts
+// lib/index.d.ts:706:5 - (ae-forgotten-export) The symbol "handleMouseLeave" needs to be exported by the entry point index.d.ts
 
 // (No @packageDocumentation comment for this package)
 ```

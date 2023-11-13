@@ -4,25 +4,25 @@
 
 ## arrayEach() function
 
-遍历数组，返回 false 中断遍历
+遍历数组，返回 false 中断遍历(支持continue和break操作)
 
 **Signature:**
 
 ```typescript
 declare function arrayEach<V>(
   array: ArrayLike<V>,
-  iterator: (val: V, idx: number, arr: ArrayLike<V>) => any,
+  iterator: (val: V, idx: number, arr: ArrayLike<V>) => boolean | void,
   reverse?: boolean
 ): void;
 ```
 
 ## Parameters
 
-| Parameter | Type                                                     | Description           |
-| --------- | -------------------------------------------------------- | --------------------- |
-| array     | ArrayLike&lt;V&gt;                                       |                       |
-| iterator  | (val: V, idx: number, arr: ArrayLike&lt;V&gt;) =&gt; any |                       |
-| reverse   | boolean                                                  | _(Optional)_ 是否倒序 |
+| Parameter | Type                                                                 | Description                                            |
+| --------- | -------------------------------------------------------------------- | ------------------------------------------------------ |
+| array     | ArrayLike&lt;V&gt;                                                   |                                                        |
+| iterator  | (val: V, idx: number, arr: ArrayLike&lt;V&gt;) =&gt; boolean \| void | 迭代函数, 返回值为true时continue, 返回值为false时break |
+| reverse   | boolean                                                              | _(Optional)_ 是否倒序                                  |
 
 **Returns:**
 
