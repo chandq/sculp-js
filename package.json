@@ -1,6 +1,6 @@
 {
   "name": "sculp-js",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": false,
   "description": "js工具库",
   "scripts": {
