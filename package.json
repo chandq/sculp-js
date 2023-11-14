@@ -1,7 +1,7 @@
 {
   "name": "sculp-js",
   "version": "1.0.1",
-  "private": false,
+  "packageManager": "npm@8.19.2",
   "description": "js工具库",
   "scripts": {
     "prepare": "husky install",
@@ -9,6 +9,7 @@
     "build:terser": "node scripts/build.js",
     "test:unit": "jest",
     "test": "jest --coverage",
+    "coveralls": "jest --coverage --coverageReporters=text-lcov | coveralls",
     "lint": "eslint ./src --ext .vue,.js,jsx,.ts,tsx",
     "lint:fix": "eslint --fix ./src --ext .vue,.js,jsx,.ts,tsx",
     "prettier": "prettier -c --write \"**/*.{vue,ts,js,jsx,css,less,scss,json}\"",
@@ -35,11 +36,11 @@
     "lib"
   ],
   "keywords": [
-    "js-utils",
-    "utils"
+    "typescript",
+    "js-utils"
   ],
   "engines": {
-    "node": ">=12.0.0"
+    "node": ">=16"
   },
   "repository": "git@github.com:chandq/sculp-js.git",
   "dependencies": {
