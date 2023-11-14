@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.1.0](https://github.com/chandq/sculp-js/compare/v1.0.1...v1.1.0) (2023-11-14)
+
+### Features
+
+- **array:** add buildTree function ([b5fe2b0](https://github.com/chandq/sculp-js/commit/b5fe2b098ad3fa30d3fbfe29a3df3b6e70f32725))
+
 ## [1.0.0](https://github.com/chandq/sculp-js/compare/v0.1.1...v1.0.0) (2023-11-12)
 
 ### Bug Fixes
