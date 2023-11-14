@@ -5,7 +5,8 @@ import {
   arrayLike,
   arrayRemove,
   searchTreeById,
-  forEachDeep
+  forEachDeep,
+  buildTree
 } from '../src/array';
 import { wait } from '../src/async';
 
@@ -234,4 +235,30 @@ test('forEachDeep', () => {
     res4.push(name);
   });
   expect(res4).toEqual(['row1', 'row2']);
+});
+
+test('buildTree', () => {
+  const array = [
+    { id: 'node-1', parent: 'root' },
+    { id: 'node-2', parent: 'root' },
+    { id: 'node-3', parent: 'node-2' },
+    { id: 'node-4', parent: 'node-2' },
+    { id: 'node-5', parent: 'node-4' }
+  ];
+  const tree = buildTree('id', 'parent', array);
+  expect(tree).toEqual([
+    { id: 'node-1', parent: 'root' },
+    {
+      id: 'node-2',
+      parent: 'root',
+      children: [
+        { id: 'node-3', parent: 'node-2' },
+        {
+          id: 'node-4',
+          parent: 'node-2',
+          children: [{ id: 'node-5', parent: 'node-4' }]
+        }
+      ]
+    }
+  ]);
 });
