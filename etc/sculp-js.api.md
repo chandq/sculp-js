@@ -49,6 +49,15 @@ export function asyncMap<T, R>(
 ): Promise<R[]>;
 
 // @public
+export function buildTree<
+  ID extends string,
+  PID extends string,
+  T extends {
+    [key in ID | PID]: string;
+  }
+>(idProp: ID, parentIdProp: PID, items: T[]): WithChildren<T>[];
+
+// @public
 export function calculateDate(strDate: string, n: number, sep?: string): string;
 
 // @public
@@ -548,10 +557,15 @@ export const urlStringify: (url: Url) => string;
 // @public
 export function wait(timeout?: number): Promise<void>;
 
+// @public (undocumented)
+export type WithChildren<T> = T & {
+  children?: WithChildren<T>[];
+};
+
 // Warnings were encountered during analysis:
 //
-// lib/index.d.ts:705:5 - (ae-forgotten-export) The symbol "handleMouseEnter" needs to be exported by the entry point index.d.ts
-// lib/index.d.ts:706:5 - (ae-forgotten-export) The symbol "handleMouseLeave" needs to be exported by the entry point index.d.ts
+// lib/index.d.ts:744:5 - (ae-forgotten-export) The symbol "handleMouseEnter" needs to be exported by the entry point index.d.ts
+// lib/index.d.ts:745:5 - (ae-forgotten-export) The symbol "handleMouseLeave" needs to be exported by the entry point index.d.ts
 
 // (No @packageDocumentation comment for this package)
 ```

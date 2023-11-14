@@ -927,6 +927,147 @@
         },
         {
           "kind": "Function",
+          "canonicalReference": "sculp-js!buildTree:function(1)",
+          "docComment": "/**\n * 根据 idProp 与 parentIdProp 从对象数组中构建对应的树 当 A[parentIdProp] === B[idProp] 时，对象A会被移动到对象B的children。 当一个对象的 parentIdProp 不与其他对象的 idProp 字段相等时，该对象被作为树的顶层节点\n *\n * @param idProp - 元素ID\n *\n * @param parentIdProp - 父元素ID\n *\n * @param items - 一维数组\n *\n * @returns {WithChildren<T>[]} 树\n *\n * @example\n *\n * const array = [ { id: 'node-1', parent: 'root' }, { id: 'node-2', parent: 'root' }, { id: 'node-3', parent: 'node-2' }, { id: 'node-4', parent: 'node-2' }, { id: 'node-5', parent: 'node-4' }, ] const tree = buildTree('id', 'parent', array) expect(tree).toEqual([ { id: 'node-1', parent: 'root' }, { id: 'node-2', parent: 'root', children: [ { id: 'node-3', parent: 'node-2' }, { id: 'node-4', parent: 'node-2', children: [{ id: 'node-5', parent: 'node-4' }], }, ], }, ])\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "declare function buildTree<ID extends "
+            },
+            {
+              "kind": "Content",
+              "text": "string"
+            },
+            {
+              "kind": "Content",
+              "text": ", PID extends "
+            },
+            {
+              "kind": "Content",
+              "text": "string"
+            },
+            {
+              "kind": "Content",
+              "text": ", T extends "
+            },
+            {
+              "kind": "Content",
+              "text": "{\n    [key in ID | PID]: string;\n}"
+            },
+            {
+              "kind": "Content",
+              "text": ">(idProp: "
+            },
+            {
+              "kind": "Content",
+              "text": "ID"
+            },
+            {
+              "kind": "Content",
+              "text": ", parentIdProp: "
+            },
+            {
+              "kind": "Content",
+              "text": "PID"
+            },
+            {
+              "kind": "Content",
+              "text": ", items: "
+            },
+            {
+              "kind": "Content",
+              "text": "T[]"
+            },
+            {
+              "kind": "Content",
+              "text": "): "
+            },
+            {
+              "kind": "Reference",
+              "text": "WithChildren",
+              "canonicalReference": "sculp-js!WithChildren:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<T>[]"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "fileUrlPath": "lib/index.d.ts",
+          "returnTypeTokenRange": {
+            "startIndex": 13,
+            "endIndex": 15
+          },
+          "releaseTag": "Public",
+          "overloadIndex": 1,
+          "parameters": [
+            {
+              "parameterName": "idProp",
+              "parameterTypeTokenRange": {
+                "startIndex": 7,
+                "endIndex": 8
+              },
+              "isOptional": false
+            },
+            {
+              "parameterName": "parentIdProp",
+              "parameterTypeTokenRange": {
+                "startIndex": 9,
+                "endIndex": 10
+              },
+              "isOptional": false
+            },
+            {
+              "parameterName": "items",
+              "parameterTypeTokenRange": {
+                "startIndex": 11,
+                "endIndex": 12
+              },
+              "isOptional": false
+            }
+          ],
+          "typeParameters": [
+            {
+              "typeParameterName": "ID",
+              "constraintTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "defaultTypeTokenRange": {
+                "startIndex": 0,
+                "endIndex": 0
+              }
+            },
+            {
+              "typeParameterName": "PID",
+              "constraintTokenRange": {
+                "startIndex": 3,
+                "endIndex": 4
+              },
+              "defaultTypeTokenRange": {
+                "startIndex": 0,
+                "endIndex": 0
+              }
+            },
+            {
+              "typeParameterName": "T",
+              "constraintTokenRange": {
+                "startIndex": 5,
+                "endIndex": 6
+              },
+              "defaultTypeTokenRange": {
+                "startIndex": 0,
+                "endIndex": 0
+              }
+            }
+          ],
+          "name": "buildTree"
+        },
+        {
+          "kind": "Function",
           "canonicalReference": "sculp-js!calculateDate:function(1)",
           "docComment": "/**\n * 计算向前或向后N天的具体日期\n *\n * @param strDate - 参考日期\n *\n * @param n - 正数：向后推算；负数：向前推算\n *\n * @param sep - 日期格式的分隔符\n *\n * @returns {string} 计算后的目标日期\n */\n",
           "excerptTokens": [
@@ -7846,6 +7987,54 @@
             }
           ],
           "name": "wait"
+        },
+        {
+          "kind": "TypeAlias",
+          "canonicalReference": "sculp-js!WithChildren:type",
+          "docComment": "",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "type WithChildren<T> = "
+            },
+            {
+              "kind": "Content",
+              "text": "T & {\n    children?: "
+            },
+            {
+              "kind": "Reference",
+              "text": "WithChildren",
+              "canonicalReference": "sculp-js!WithChildren:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<T>[];\n}"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "fileUrlPath": "lib/index.d.ts",
+          "releaseTag": "Public",
+          "name": "WithChildren",
+          "typeParameters": [
+            {
+              "typeParameterName": "T",
+              "constraintTokenRange": {
+                "startIndex": 0,
+                "endIndex": 0
+              },
+              "defaultTypeTokenRange": {
+                "startIndex": 0,
+                "endIndex": 0
+              }
+            }
+          ],
+          "typeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 4
+          }
         }
       ]
     }

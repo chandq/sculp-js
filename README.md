@@ -1,9 +1,10 @@
 [![Node.js CI](https://github.com/chandq/sculp-js/actions/workflows/node.js.yml/badge.svg)](https://github.com/chandq/sculp-js/actions/workflows/node.js.yml)
 [![sculp-js](https://img.shields.io/github/package-json/v/chandq/sculp-js?style=flat-square)](https://github.com/chandq/sculp-js)
-[![node](https://img.shields.io/badge/node-v12.0.0-blue)](https://nodejs.org/download/release/v12.0.0/)
+[![node](https://img.shields.io/badge/node-v16.0.0-blue)](https://nodejs.org/download/release/v16.0.0/)
 [![node](https://img.shields.io/badge/language-typescript-orange.svg)](https://nodejs.org/download/release/v12.0.0/)
 [![license:MIT](https://img.shields.io/npm/l/vue.svg?sanitize=true)](https://github.com/chandq/sculp-js/blob/main/LICENSE.md)
 [![Downloads:?](https://img.shields.io/npm/dm/sculp-js.svg?sanitize=true)](https://npmcharts.com/compare/sculp-js?minimal=true)
+[![codecov](https://codecov.io/gh/chandq/sculp-js/graph/badge.svg?token=VZ6TERPGI9)](https://codecov.io/gh/chandq/sculp-js)
 
 # sculp-js
 
