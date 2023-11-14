@@ -8,7 +8,7 @@
     "build": "rollup  --bundleConfigAsCjs --config rollup.config.js",
     "build:terser": "node scripts/build.js",
     "test:unit": "jest",
-    "test": "jest --coverage --silent --maxWorkers=5",
+    "test": "jest --coverage --silent --maxWorkers=2",
     "coveralls": "jest --coverage --coverageReporters=text-lcov | coveralls",
     "lint": "eslint ./src --ext .vue,.js,jsx,.ts,tsx",
     "lint:fix": "eslint --fix ./src --ext .vue,.js,jsx,.ts,tsx",
