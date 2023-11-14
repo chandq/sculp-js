@@ -5,7 +5,7 @@
   "description": "js工具库",
   "scripts": {
     "prepare": "husky install",
-    "build": "NODE_OPTIONS=--max-old-space-size=2048 rollup  --bundleConfigAsCjs --config rollup.config.js",
+    "build": "rollup  --bundleConfigAsCjs --config rollup.config.js",
     "build:terser": "node scripts/build.js",
     "test:unit": "jest",
     "test": "jest --coverage",
