@@ -43,6 +43,8 @@
     "node": ">=16"
   },
   "repository": "git@github.com:chandq/sculp-js.git",
+  "license": "MIT",
+  "homepage": "https://github.com/chandq/sculp-js#readme",
   "dependencies": {
     "bezier-easing": "^2.1.0",
     "core-js": "^3.33.0"
