@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://github.com/chandq/sculp-js/compare/v1.1.0...v1.2.0) (2023-12-16)
+
+### Features
+
+- add high performance utils for tree data ([edd2550](https://github.com/chandq/sculp-js/commit/edd25506cf335562a4fcdca78e612e2e2ecf7673))
+
 ## [1.1.0](https://github.com/chandq/sculp-js/compare/v1.0.1...v1.1.0) (2023-11-14)
 
 ### Features
