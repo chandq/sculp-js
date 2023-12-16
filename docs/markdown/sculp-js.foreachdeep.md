@@ -4,14 +4,21 @@
 
 ## forEachDeep() function
 
-自定义深度优先遍历函数(支持continue和break操作)
+自定义深度优先遍历函数(支持continue和break操作), 可用于insert tree item 和 remove tree item
 
 **Signature:**
 
 ```typescript
 declare function forEachDeep<V>(
   tree: ArrayLike<V>,
-  iterator: (val: V, i: number, arr: ArrayLike<V>, parent: V | null, level: number) => boolean | void,
+  iterator: (
+    val: V,
+    i: number,
+    currentArr: ArrayLike<V>,
+    tree: ArrayLike<V>,
+    parent: V | null,
+    level: number
+  ) => boolean | void,
   children?: string,
   isReverse?: boolean
 ): void;
@@ -19,12 +26,12 @@ declare function forEachDeep<V>(
 
 ## Parameters
 
-| Parameter | Type                                                                                                 | Description                                            |
-| --------- | ---------------------------------------------------------------------------------------------------- | ------------------------------------------------------ |
-| tree      | ArrayLike&lt;V&gt;                                                                                   | 树形数据                                               |
-| iterator  | (val: V, i: number, arr: ArrayLike&lt;V&gt;, parent: V \| null, level: number) =&gt; boolean \| void | 迭代函数, 返回值为true时continue, 返回值为false时break |
-| children  | string                                                                                               | _(Optional)_ 定制子元素的key                           |
-| isReverse | boolean                                                                                              | _(Optional)_ 是否反向遍历                              |
+| Parameter | Type                                                                                                                                  | Description                                            |
+| --------- | ------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------ |
+| tree      | ArrayLike&lt;V&gt;                                                                                                                    | 树形数据                                               |
+| iterator  | (val: V, i: number, currentArr: ArrayLike&lt;V&gt;, tree: ArrayLike&lt;V&gt;, parent: V \| null, level: number) =&gt; boolean \| void | 迭代函数, 返回值为true时continue, 返回值为false时break |
+| children  | string                                                                                                                                | _(Optional)_ 定制子元素的key                           |
+| isReverse | boolean                                                                                                                               | _(Optional)_ 是否反向遍历                              |
 
 **Returns:**
 

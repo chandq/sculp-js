@@ -9,7 +9,7 @@
 **Signature:**
 
 ```typescript
-declare function cloneDeep(obj: Object, map?: WeakMap<object, any>): Object;
+declare function cloneDeep(obj: Object, map?: WeakMap<object, any>): AnyObject | AnyArray;
 ```
 
 ## Parameters
@@ -21,6 +21,6 @@ declare function cloneDeep(obj: Object, map?: WeakMap<object, any>): Object;
 
 **Returns:**
 
-Object
+[AnyObject](./sculp-js.anyobject.md) \| [AnyArray](./sculp-js.anyarray.md)
 
 {<!-- -->AnyObject \| AnyArray<!-- -->}

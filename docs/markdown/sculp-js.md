@@ -30,9 +30,10 @@
 | [downloadData(data, fileType, filename, headers)](./sculp-js.downloaddata.md) | 将指定数据格式通过 A 链接的方式下载                                                                                                                                                                                 |
 | [downloadHref(href, filename)](./sculp-js.downloadhref.md)                    | 通过 A 链接的方式下载                                                                                                                                                                                               |
 | [downloadURL(url, params)](./sculp-js.downloadurl.md)                         | 通过打开新窗口的方式下载                                                                                                                                                                                            |
-| [forEachDeep(tree, iterator, children, isReverse)](./sculp-js.foreachdeep.md) | 自定义深度优先遍历函数(支持continue和break操作)                                                                                                                                                                     |
+| [forEachDeep(tree, iterator, children, isReverse)](./sculp-js.foreachdeep.md) | 自定义深度优先遍历函数(支持continue和break操作), 可用于insert tree item 和 remove tree item                                                                                                                         |
 | [formatDate(value, format)](./sculp-js.formatdate.md)                         | 格式化为日期对象(带自定义格式化模板)                                                                                                                                                                                |
 | [formatNumber(val, type)](./sculp-js.formatnumber.md)                         | 将数字格式化成千位分隔符显示的字符串                                                                                                                                                                                |
+| [formatTree(list, options)](./sculp-js.formattree.md)                         | 扁平化数组转换成树(效率高于buildTree)                                                                                                                                                                               |
 | [genCanvasWM(canvasWM)](./sculp-js.gencanvaswm.md)                            | canvas 实现 水印, 具备防删除功能                                                                                                                                                                                    |
 | [getComputedCssVal(el, property, reNumber)](./sculp-js.getcomputedcssval.md)  | 获取元素样式属性的计算值                                                                                                                                                                                            |
 | [getGlobal(key)](./sculp-js.getglobal.md)                                     | 设置全局变量                                                                                                                                                                                                        |
@@ -70,6 +71,7 @@
 | [DateObj](./sculp-js.dateobj.md)                         |             |
 | [DebounceFunc](./sculp-js.debouncefunc.md)               |             |
 | [ICanvasWM](./sculp-js.icanvaswm.md)                     |             |
+| [IFieldOptions](./sculp-js.ifieldoptions.md)             |             |
 | [ITreeConf](./sculp-js.itreeconf.md)                     |             |
 | [LooseParams](./sculp-js.looseparams.md)                 |             |
 | [OnceFunc](./sculp-js.oncefunc.md)                       |             |

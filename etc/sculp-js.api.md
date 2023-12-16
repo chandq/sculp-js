@@ -67,7 +67,7 @@ export function calculateDateTime(n: number, dateSep?: string, timeSep?: string)
 export function chooseLocalFile(accept: string, changeCb: (FileList: any) => any): HTMLInputElement;
 
 // @public
-export function cloneDeep(obj: Object, map?: WeakMap<object, any>): Object;
+export function cloneDeep(obj: Object, map?: WeakMap<object, any>): AnyObject | AnyArray;
 
 // @public
 export const cookieDel: (name: string) => void;
@@ -133,7 +133,14 @@ export type FileType = 'json' | 'csv' | 'xls' | 'xlsx';
 // @public
 export function forEachDeep<V>(
   tree: ArrayLike<V>,
-  iterator: (val: V, i: number, arr: ArrayLike<V>, parent: V | null, level: number) => boolean | void,
+  iterator: (
+    val: V,
+    i: number,
+    currentArr: ArrayLike<V>,
+    tree: ArrayLike<V>,
+    parent: V | null,
+    level: number
+  ) => boolean | void,
   children?: string,
   isReverse?: boolean
 ): void;
@@ -143,6 +150,9 @@ export function formatDate(value: DateValue, format?: string): string;
 
 // @public
 export function formatNumber(val: number, type?: string): string;
+
+// @public
+export function formatTree(list: any[], options?: IFieldOptions): any[];
 
 // @public
 export function genCanvasWM(canvasWM: ICanvasWM): void;
@@ -191,6 +201,16 @@ export interface ICanvasWM {
 
 // @public (undocumented)
 export type IdLike = number | string;
+
+// @public (undocumented)
+export interface IFieldOptions {
+  // (undocumented)
+  childField: string;
+  // (undocumented)
+  keyField: string;
+  // (undocumented)
+  pidField: string;
+}
 
 // @public (undocumented)
 export const isArray: (any: unknown) => any is unknown[];
@@ -564,8 +584,8 @@ export type WithChildren<T> = T & {
 
 // Warnings were encountered during analysis:
 //
-// lib/index.d.ts:744:5 - (ae-forgotten-export) The symbol "handleMouseEnter" needs to be exported by the entry point index.d.ts
-// lib/index.d.ts:745:5 - (ae-forgotten-export) The symbol "handleMouseLeave" needs to be exported by the entry point index.d.ts
+// lib/index.d.ts:682:5 - (ae-forgotten-export) The symbol "handleMouseEnter" needs to be exported by the entry point index.d.ts
+// lib/index.d.ts:683:5 - (ae-forgotten-export) The symbol "handleMouseLeave" needs to be exported by the entry point index.d.ts
 
 // (No @packageDocumentation comment for this package)
 ```

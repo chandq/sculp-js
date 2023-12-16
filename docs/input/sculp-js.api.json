@@ -1315,8 +1315,17 @@
             },
             {
               "kind": "Reference",
-              "text": "Object",
-              "canonicalReference": "!Object:interface"
+              "text": "AnyObject",
+              "canonicalReference": "sculp-js!AnyObject:type"
+            },
+            {
+              "kind": "Content",
+              "text": " | "
+            },
+            {
+              "kind": "Reference",
+              "text": "AnyArray",
+              "canonicalReference": "sculp-js!AnyArray:type"
             },
             {
               "kind": "Content",
@@ -1326,7 +1335,7 @@
           "fileUrlPath": "lib/index.d.ts",
           "returnTypeTokenRange": {
             "startIndex": 6,
-            "endIndex": 7
+            "endIndex": 9
           },
           "releaseTag": "Public",
           "overloadIndex": 1,
@@ -2257,7 +2266,7 @@
         {
           "kind": "Function",
           "canonicalReference": "sculp-js!forEachDeep:function(1)",
-          "docComment": "/**\n * 自定义深度优先遍历函数(支持continue和break操作)\n *\n * @param tree - 树形数据\n *\n * @param iterator - 迭代函数, 返回值为true时continue, 返回值为false时break\n *\n * @param children - 定制子元素的key\n *\n * @param isReverse - 是否反向遍历\n *\n * @returns {*}\n */\n",
+          "docComment": "/**\n * 自定义深度优先遍历函数(支持continue和break操作), 可用于insert tree item 和 remove tree item\n *\n * @param tree - 树形数据\n *\n * @param iterator - 迭代函数, 返回值为true时continue, 返回值为false时break\n *\n * @param children - 定制子元素的key\n *\n * @param isReverse - 是否反向遍历\n *\n * @returns {*}\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -2278,7 +2287,16 @@
             },
             {
               "kind": "Content",
-              "text": "(val: V, i: number, arr: "
+              "text": "(val: V, i: number, currentArr: "
+            },
+            {
+              "kind": "Reference",
+              "text": "ArrayLike",
+              "canonicalReference": "!ArrayLike:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "<V>, tree: "
             },
             {
               "kind": "Reference",
@@ -2320,8 +2338,8 @@
           ],
           "fileUrlPath": "lib/index.d.ts",
           "returnTypeTokenRange": {
-            "startIndex": 12,
-            "endIndex": 13
+            "startIndex": 14,
+            "endIndex": 15
           },
           "releaseTag": "Public",
           "overloadIndex": 1,
@@ -2338,23 +2356,23 @@
               "parameterName": "iterator",
               "parameterTypeTokenRange": {
                 "startIndex": 4,
-                "endIndex": 7
+                "endIndex": 9
               },
               "isOptional": false
             },
             {
               "parameterName": "children",
               "parameterTypeTokenRange": {
-                "startIndex": 8,
-                "endIndex": 9
+                "startIndex": 10,
+                "endIndex": 11
               },
               "isOptional": true
             },
             {
               "parameterName": "isReverse",
               "parameterTypeTokenRange": {
-                "startIndex": 10,
-                "endIndex": 11
+                "startIndex": 12,
+                "endIndex": 13
               },
               "isOptional": true
             }
@@ -2496,6 +2514,68 @@
             }
           ],
           "name": "formatNumber"
+        },
+        {
+          "kind": "Function",
+          "canonicalReference": "sculp-js!formatTree:function(1)",
+          "docComment": "/**\n * 扁平化数组转换成树(效率高于buildTree)\n *\n * @param list - \n *\n * @param options - \n *\n * @returns {any[]}\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "declare function formatTree(list: "
+            },
+            {
+              "kind": "Content",
+              "text": "any[]"
+            },
+            {
+              "kind": "Content",
+              "text": ", options?: "
+            },
+            {
+              "kind": "Reference",
+              "text": "IFieldOptions",
+              "canonicalReference": "sculp-js!IFieldOptions:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "): "
+            },
+            {
+              "kind": "Content",
+              "text": "any[]"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "fileUrlPath": "lib/index.d.ts",
+          "returnTypeTokenRange": {
+            "startIndex": 5,
+            "endIndex": 6
+          },
+          "releaseTag": "Public",
+          "overloadIndex": 1,
+          "parameters": [
+            {
+              "parameterName": "list",
+              "parameterTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "isOptional": false
+            },
+            {
+              "parameterName": "options",
+              "parameterTypeTokenRange": {
+                "startIndex": 3,
+                "endIndex": 4
+              },
+              "isOptional": true
+            }
+          ],
+          "name": "formatTree"
         },
         {
           "kind": "Function",
@@ -3219,6 +3299,105 @@
             "startIndex": 1,
             "endIndex": 2
           }
+        },
+        {
+          "kind": "Interface",
+          "canonicalReference": "sculp-js!IFieldOptions:interface",
+          "docComment": "",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "interface IFieldOptions "
+            }
+          ],
+          "fileUrlPath": "lib/index.d.ts",
+          "releaseTag": "Public",
+          "name": "IFieldOptions",
+          "preserveMemberOrder": false,
+          "members": [
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "sculp-js!IFieldOptions#childField:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "childField: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "string"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "childField",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "sculp-js!IFieldOptions#keyField:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "keyField: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "string"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "keyField",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "sculp-js!IFieldOptions#pidField:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "pidField: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "string"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "pidField",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            }
+          ],
+          "extendsTokenRanges": []
         },
         {
           "kind": "Variable",
