@@ -261,7 +261,7 @@ export function objectGet(
  * @param {WeakMap} map
  * @returns {AnyObject | AnyArray}
  */
-export function cloneDeep(obj: Object, map = new WeakMap()): Object {
+export function cloneDeep(obj: Object, map = new WeakMap()): AnyObject | AnyArray {
   if (obj instanceof Date) return new Date(obj);
   if (obj instanceof RegExp) return new RegExp(obj);
 
