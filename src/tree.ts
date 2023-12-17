@@ -6,7 +6,7 @@ export interface IFieldOptions {
 const defaultFieldOptions = { keyField: 'key', childField: 'children', pidField: 'pid' };
 
 /**
- * 自定义深度优先遍历函数(支持continue和break操作), 可用于insert tree item 和 remove tree item
+ * 深度优先遍历函数(支持continue和break操作), 可用于insert tree item 和 remove tree item
  * @param {ArrayLike<V>} tree  树形数据
  * @param {Function} iterator  迭代函数, 返回值为true时continue, 返回值为false时break
  * @param {string} children 定制子元素的key
@@ -25,7 +25,7 @@ export function forEachDeep<V>(
   ) => boolean | void,
   children: string = 'children',
   isReverse = false
-) {
+): void {
   let level = 0,
     isBreak = false;
   const walk = (arr: ArrayLike<V>, parent: V | null) => {
@@ -70,6 +70,85 @@ export function forEachDeep<V>(
     }
   };
   walk(tree, null);
+}
+
+/**
+ * 深度优先遍历的Map函数(支持continue和break操作), 可用于insert tree item 和 remove tree item
+ * @param {ArrayLike<V>} tree  树形数据
+ * @param {Function} iterator  迭代函数, 返回值为true时continue, 返回值为false时break
+ * @param {string} children 定制子元素的key
+ * @param {boolean} isReverse  是否反向遍历
+ * @returns {any[]} 新的一棵树
+ */
+export function forEachMap<V>(
+  tree: ArrayLike<V>,
+  iterator: (
+    val: V,
+    i: number,
+    currentArr: ArrayLike<V>,
+    tree: ArrayLike<V>,
+    parent: V | null,
+    level: number
+  ) => boolean | any,
+  children: string = 'children',
+  isReverse = false
+): any[] {
+  let level = 0,
+    isBreak = false;
+  const newTree = [];
+  const walk = (arr: ArrayLike<V>, parent: V | null, newTree: any[]) => {
+    if (isReverse) {
+      for (let i = arr.length - 1; i >= 0; i--) {
+        if (isBreak) {
+          break;
+        }
+        const re = iterator(arr[i], i, arr, tree, parent, level);
+        if (re === false) {
+          isBreak = true;
+          break;
+        } else if (re === true) {
+          continue;
+        }
+        newTree.push(re);
+        // @ts-ignore
+        if (arr[i] && Array.isArray(arr[i][children])) {
+          ++level;
+          newTree[newTree.length - 1][children] = [];
+          // @ts-ignore
+          walk(arr[i][children], arr[i], newTree[newTree.length - 1][children]);
+        } else {
+          // children非有效数组时，移除该属性字段
+          delete re[children];
+        }
+      }
+    } else {
+      for (let i = 0; i < arr.length; i++) {
+        if (isBreak) {
+          break;
+        }
+        const re = iterator(arr[i], i, arr, tree, parent, level);
+        if (re === false) {
+          isBreak = true;
+          break;
+        } else if (re === true) {
+          continue;
+        }
+        newTree.push(re);
+        // @ts-ignore
+        if (arr[i] && Array.isArray(arr[i][children])) {
+          ++level;
+          newTree[newTree.length - 1][children] = [];
+          // @ts-ignore
+          walk(arr[i][children], arr[i], newTree[newTree.length - 1][children]);
+        } else {
+          // children非有效数组时，移除该属性字段
+          delete re[children];
+        }
+      }
+    }
+  };
+  walk(tree, null, newTree);
+  return newTree;
 }
 export type IdLike = number | string;
 export interface ITreeConf {

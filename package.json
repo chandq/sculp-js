@@ -37,8 +37,9 @@
     "lib"
   ],
   "keywords": [
-    "typescript",
-    "js-utils"
+    "sculp-js",
+    "js-utils",
+    "typescript"
   ],
   "engines": {
     "node": ">=16"

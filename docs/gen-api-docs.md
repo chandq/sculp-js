@@ -20,7 +20,7 @@ npm install -g @microsoft/api-extractor @microsoft/api-documenter
 
 1. Init api-extractor
 
-   enter root directory of project
+   enter into root directory of project
 
 ```bash
 api-extractor init
@@ -28,7 +28,7 @@ api-extractor init
 
 after exec completely, will generate `api-extractor.json` file
 
-2. generate API JSON file for api markdown
+2. Generate API JSON file for api markdown
 
 ```bash
 api-extractor run --local --verbose

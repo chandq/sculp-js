@@ -1,5 +1,5 @@
 import { cloneDeep } from '../src/object';
-import { formatTree, searchTreeById, forEachDeep, buildTree } from '../src/tree';
+import { formatTree, searchTreeById, forEachDeep, buildTree, forEachMap } from '../src/tree';
 
 test('searchTreeById', () => {
   const tree = [
@@ -215,5 +215,109 @@ test('forEachDeep: insert tree item', () => {
       ]
     },
     { id: 3, name: 'row3' }
+  ]);
+});
+
+test('forEachMap', () => {
+  const tree = [
+    { id: 1, name: 'row1', age: 1 },
+    {
+      id: 2,
+      name: 'row2',
+      age: 2,
+      children: [{ id: 21, name: 'row2-1', age: 21 }]
+    },
+    { id: 3, name: 'row3' }
+  ];
+
+  let res1: any[] = [];
+  let res2: any[] = [];
+  let res3: any[] = [];
+  let res4: any[] = [];
+  let res5: any[] = [];
+
+  res1 = forEachMap(tree, ({ id, name, children }) => {
+    return { key: id, label: name, children };
+  });
+  expect(res1).toEqual([
+    { key: 1, label: 'row1' },
+    {
+      key: 2,
+      label: 'row2',
+      children: [{ key: 21, label: 'row2-1' }]
+    },
+    { key: 3, label: 'row3' }
+  ]);
+
+  // reverse traversal
+  res2 = forEachMap(
+    tree,
+    ({ id, name, children }) => {
+      return { key: id, label: name, children };
+    },
+    'children',
+    true
+  );
+
+  expect(res2).toEqual([
+    { key: 3, label: 'row3' },
+    {
+      key: 2,
+      label: 'row2',
+      children: [{ key: 21, label: 'row2-1' }]
+    },
+    { key: 1, label: 'row1' }
+  ]);
+  // test continue
+  res3 = forEachMap(tree, ({ id, name, children }) => {
+    if (id === 21) {
+      return true;
+    }
+    return { key: id, label: name, children, job: `job-${id}` };
+  });
+  expect(res3).toEqual([
+    { key: 1, label: 'row1', job: 'job-1' },
+    {
+      key: 2,
+      label: 'row2',
+      job: 'job-2',
+      children: []
+    },
+    { key: 3, label: 'row3', job: 'job-3' }
+  ]);
+
+  // test break
+  res4 = forEachMap(tree, ({ id, name, children }) => {
+    if (id === 21) {
+      return false;
+    }
+    return { key: id, label: name, children };
+  });
+  expect(res4).toEqual([
+    { key: 1, label: 'row1' },
+    {
+      key: 2,
+      label: 'row2',
+      children: []
+    }
+  ]);
+  // test insert tree item
+  res5 = forEachMap(tree, ({ id, name, children }, i, currentArr: any) => {
+    if (id === 21) {
+      currentArr.push({ id: 22, name: 'row2-2' });
+    }
+    return { key: id, label: name, children };
+  });
+  expect(res5).toEqual([
+    { key: 1, label: 'row1' },
+    {
+      key: 2,
+      label: 'row2',
+      children: [
+        { key: 21, label: 'row2-1' },
+        { key: 22, label: 'row2-2' }
+      ]
+    },
+    { key: 3, label: 'row3' }
   ]);
 });
