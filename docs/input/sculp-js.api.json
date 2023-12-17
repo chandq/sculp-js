@@ -2266,7 +2266,7 @@
         {
           "kind": "Function",
           "canonicalReference": "sculp-js!forEachDeep:function(1)",
-          "docComment": "/**\n * 自定义深度优先遍历函数(支持continue和break操作), 可用于insert tree item 和 remove tree item\n *\n * @param tree - 树形数据\n *\n * @param iterator - 迭代函数, 返回值为true时continue, 返回值为false时break\n *\n * @param children - 定制子元素的key\n *\n * @param isReverse - 是否反向遍历\n *\n * @returns {*}\n */\n",
+          "docComment": "/**\n * 深度优先遍历函数(支持continue和break操作), 可用于insert tree item 和 remove tree item\n *\n * @param tree - 树形数据\n *\n * @param iterator - 迭代函数, 返回值为true时continue, 返回值为false时break\n *\n * @param children - 定制子元素的key\n *\n * @param isReverse - 是否反向遍历\n *\n * @returns {*}\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -2391,6 +2391,135 @@
             }
           ],
           "name": "forEachDeep"
+        },
+        {
+          "kind": "Function",
+          "canonicalReference": "sculp-js!forEachMap:function(1)",
+          "docComment": "/**\n * 深度优先遍历的Map函数(支持continue和break操作), 可用于insert tree item 和 remove tree item\n *\n * @param tree - 树形数据\n *\n * @param iterator - 迭代函数, 返回值为true时continue, 返回值为false时break\n *\n * @param children - 定制子元素的key\n *\n * @param isReverse - 是否反向遍历\n *\n * @returns {any[]} 新的一棵树\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "declare function forEachMap<V>(tree: "
+            },
+            {
+              "kind": "Reference",
+              "text": "ArrayLike",
+              "canonicalReference": "!ArrayLike:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "<V>"
+            },
+            {
+              "kind": "Content",
+              "text": ", iterator: "
+            },
+            {
+              "kind": "Content",
+              "text": "(val: V, i: number, currentArr: "
+            },
+            {
+              "kind": "Reference",
+              "text": "ArrayLike",
+              "canonicalReference": "!ArrayLike:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "<V>, tree: "
+            },
+            {
+              "kind": "Reference",
+              "text": "ArrayLike",
+              "canonicalReference": "!ArrayLike:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "<V>, parent: V | null, level: number) => boolean | any"
+            },
+            {
+              "kind": "Content",
+              "text": ", children?: "
+            },
+            {
+              "kind": "Content",
+              "text": "string"
+            },
+            {
+              "kind": "Content",
+              "text": ", isReverse?: "
+            },
+            {
+              "kind": "Content",
+              "text": "boolean"
+            },
+            {
+              "kind": "Content",
+              "text": "): "
+            },
+            {
+              "kind": "Content",
+              "text": "any[]"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "fileUrlPath": "lib/index.d.ts",
+          "returnTypeTokenRange": {
+            "startIndex": 14,
+            "endIndex": 15
+          },
+          "releaseTag": "Public",
+          "overloadIndex": 1,
+          "parameters": [
+            {
+              "parameterName": "tree",
+              "parameterTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 3
+              },
+              "isOptional": false
+            },
+            {
+              "parameterName": "iterator",
+              "parameterTypeTokenRange": {
+                "startIndex": 4,
+                "endIndex": 9
+              },
+              "isOptional": false
+            },
+            {
+              "parameterName": "children",
+              "parameterTypeTokenRange": {
+                "startIndex": 10,
+                "endIndex": 11
+              },
+              "isOptional": true
+            },
+            {
+              "parameterName": "isReverse",
+              "parameterTypeTokenRange": {
+                "startIndex": 12,
+                "endIndex": 13
+              },
+              "isOptional": true
+            }
+          ],
+          "typeParameters": [
+            {
+              "typeParameterName": "V",
+              "constraintTokenRange": {
+                "startIndex": 0,
+                "endIndex": 0
+              },
+              "defaultTypeTokenRange": {
+                "startIndex": 0,
+                "endIndex": 0
+              }
+            }
+          ],
+          "name": "forEachMap"
         },
         {
           "kind": "Function",

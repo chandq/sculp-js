@@ -4,7 +4,7 @@
 
 ## forEachDeep() function
 
-自定义深度优先遍历函数(支持continue和break操作), 可用于insert tree item 和 remove tree item
+深度优先遍历函数(支持continue和break操作), 可用于insert tree item 和 remove tree item
 
 **Signature:**
 

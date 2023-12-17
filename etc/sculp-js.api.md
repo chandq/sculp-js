@@ -146,6 +146,21 @@ export function forEachDeep<V>(
 ): void;
 
 // @public
+export function forEachMap<V>(
+  tree: ArrayLike<V>,
+  iterator: (
+    val: V,
+    i: number,
+    currentArr: ArrayLike<V>,
+    tree: ArrayLike<V>,
+    parent: V | null,
+    level: number
+  ) => boolean | any,
+  children?: string,
+  isReverse?: boolean
+): any[];
+
+// @public
 export function formatDate(value: DateValue, format?: string): string;
 
 // @public

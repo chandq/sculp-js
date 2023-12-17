@@ -28,9 +28,14 @@
 
   - arrayLike 判断类数组
   - arrayEachAsync 异步遍历数组，可中断，支持倒序
-  - forEachDeep 深度优先遍历函数, 支持continue、break，可定制id、children
+
+- Tree
+
+  - forEachDeep 高性能的深度优先遍历函数, 支持continue、break，可定制id、children
+  - forEachMap 高性能的深度优先遍历的Map函数, 支持continue、break，可定制id、children
   - searchTreeById 在树中找到 id 为某个值的节点，并返回上游的所有父级节点
   - buildTree 根据 id 与 parentId 从对象数组中构建对应的树
+  - formatTree 高性能的数组转树函数
 
 - Object
 
