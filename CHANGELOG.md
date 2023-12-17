@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.2.1](https://github.com/chandq/sculp-js/compare/v1.2.0...v1.2.1) (2023-12-17)
+
+### Features
+
+- add forEachMap utils func ([dc1f65a](https://github.com/chandq/sculp-js/commit/dc1f65a7d2bcf1e5a05a5427a1e143ca072d7d19))
+
 ## [1.2.0](https://github.com/chandq/sculp-js/compare/v1.1.0...v1.2.0) (2023-12-16)
 
 ### Features
