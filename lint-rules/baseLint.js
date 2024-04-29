@@ -145,7 +145,13 @@ module.exports = {
     // 要求使用 let 或 const 而不是 var
     'no-var': 1,
     // 要求使用 const 声明,那些声明后不再被修改的变量
-    'prefer-const': 1,
+    'prefer-const': [
+      'warn',
+      {
+        destructuring: 'any',
+        ignoreReadBeforeAssign: false
+      }
+    ],
     // 要求使用模板字面量而非字符串连接
     'prefer-template': 0,
     // 禁止未使用的表达式

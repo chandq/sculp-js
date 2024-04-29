@@ -8,9 +8,11 @@ module.exports = {
   plugins: ['eslint-plugin-prettier', 'eslint-plugin-import'],
   extends: [
     require.resolve('./lint-rules/baseLint.js'),
-    require.resolve('./lint-rules/tsLint.js'),
 
-    'plugin:prettier/recommended'
+    require.resolve('./lint-rules/tsLint.js'),
+    'prettier',
+    'plugin:prettier/recommended',
+    require.resolve('./lint-rules/prettier')
   ],
   parserOptions: {
     parser: '@typescript-eslint/parser',
@@ -21,7 +23,6 @@ module.exports = {
     globalThis: true
   },
   rules: {
-    ...require('./lint-rules/prettier.js'),
     'no-undef': 'error',
     '@typescript-eslint/no-unused-vars': [
       1,
