@@ -33,6 +33,9 @@ export const isNumber = (any: unknown): any is number => typeof any === 'number'
 export const isUndefined = (any: unknown): any is undefined => typeof any === 'undefined';
 export const isNull = (any: unknown): any is null => any === null;
 export const isPrimitive = (any: unknown): boolean => any === null || typeof any !== 'object';
+export function isNullOrUnDef(val: unknown): val is null | undefined {
+  return isUndefined(val) || isNull(val);
+}
 
 // 复合数据类型判断
 export const isObject = (any: unknown): any is Record<string, unknown> => typeIs(any) === 'Object';

@@ -34,5 +34,5 @@ module.exports = {
   vueIndentScriptAndStyle: false,
 
   // 末尾行换行格式
-  endOfLine: 'lf'
+  endOfLine: 'auto'
 };

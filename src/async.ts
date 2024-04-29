@@ -27,6 +27,7 @@ export function asyncMap<T, R>(
     const resolves: R[] = [];
     let resolvedLength = 0;
     let rejected: unknown;
+
     let index = 0;
     const next = () => {
       if (rejected) return reject(rejected);

@@ -19,3 +19,4 @@ export * from './number';
 export * from './unique';
 export * from './tooltip';
 export * from './tree';
+export * from './we-decode';
