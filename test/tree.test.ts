@@ -66,8 +66,9 @@ test('forEachDeep', () => {
   const res3: string[] = [];
   const res4: string[] = [];
 
-  forEachDeep(tree, ({ id, name }) => {
+  forEachDeep(tree, ({ id, name }, i, currentArr, tree, parent, level) => {
     res1.push(name);
+    console.log('level', level);
   });
   expect(res1).toEqual(['row1', 'row2', 'row2-1', 'row3']);
 

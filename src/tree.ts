@@ -26,9 +26,8 @@ export function forEachDeep<V>(
   children: string = 'children',
   isReverse = false
 ): void {
-  let level = 0,
-    isBreak = false;
-  const walk = (arr: ArrayLike<V>, parent: V | null) => {
+  let isBreak = false;
+  const walk = (arr: ArrayLike<V>, parent: V | null, level = 0) => {
     if (isReverse) {
       for (let i = arr.length - 1; i >= 0; i--) {
         if (isBreak) {
@@ -43,9 +42,8 @@ export function forEachDeep<V>(
         }
         // @ts-ignore
         if (arr[i] && Array.isArray(arr[i][children])) {
-          ++level;
           // @ts-ignore
-          walk(arr[i][children], arr[i]);
+          walk(arr[i][children], arr[i], level + 1);
         }
       }
     } else {
@@ -62,9 +60,8 @@ export function forEachDeep<V>(
         }
         // @ts-ignore
         if (arr[i] && Array.isArray(arr[i][children])) {
-          ++level;
           // @ts-ignore
-          walk(arr[i][children], arr[i]);
+          walk(arr[i][children], arr[i], level + 1);
         }
       }
     }
