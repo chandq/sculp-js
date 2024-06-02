@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.3.2](https://github.com/chandq/sculp-js/compare/v1.3.1...v1.3.2) (2024-06-02)
+
+### Bug Fixes
+
+- transfer deep level param ([ef77982](https://github.com/chandq/sculp-js/commit/ef77982b6d93e1f23e705e988f3db573985fa014))
+- **date:** compact code ([0aa980a](https://github.com/chandq/sculp-js/commit/0aa980a15c1aa5c9b51db974c6dc3ca270e89f22))
+
 ### [1.3.1](https://github.com/chandq/sculp-js/compare/v1.3.0...v1.3.1) (2024-05-30)
 
 ### Bug Fixes
