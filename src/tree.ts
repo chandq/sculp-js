@@ -90,10 +90,9 @@ export function forEachMap<V>(
   children: string = 'children',
   isReverse = false
 ): any[] {
-  let level = 0,
-    isBreak = false;
+  let isBreak = false;
   const newTree = [];
-  const walk = (arr: ArrayLike<V>, parent: V | null, newTree: any[]) => {
+  const walk = (arr: ArrayLike<V>, parent: V | null, newTree: any[], level = 0) => {
     if (isReverse) {
       for (let i = arr.length - 1; i >= 0; i--) {
         if (isBreak) {
@@ -109,10 +108,9 @@ export function forEachMap<V>(
         newTree.push(re);
         // @ts-ignore
         if (arr[i] && Array.isArray(arr[i][children])) {
-          ++level;
           newTree[newTree.length - 1][children] = [];
           // @ts-ignore
-          walk(arr[i][children], arr[i], newTree[newTree.length - 1][children]);
+          walk(arr[i][children], arr[i], newTree[newTree.length - 1][children], level + 1);
         } else {
           // children非有效数组时，移除该属性字段
           delete re[children];
@@ -133,10 +131,9 @@ export function forEachMap<V>(
         newTree.push(re);
         // @ts-ignore
         if (arr[i] && Array.isArray(arr[i][children])) {
-          ++level;
           newTree[newTree.length - 1][children] = [];
           // @ts-ignore
-          walk(arr[i][children], arr[i], newTree[newTree.length - 1][children]);
+          walk(arr[i][children], arr[i], newTree[newTree.length - 1][children], level + 1);
         } else {
           // children非有效数组时，移除该属性字段
           delete re[children];
