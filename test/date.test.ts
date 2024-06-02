@@ -1,4 +1,12 @@
-import { dateParse, formatDate, isValidDate, dateToStart, dateToEnd } from '../src/date';
+import {
+  dateParse,
+  formatDate,
+  isValidDate,
+  dateToStart,
+  dateToEnd,
+  calculateDate,
+  calculateDateTime
+} from '../src/date';
 
 test('.isValidDate', () => {
   expect(isValidDate(new Date())).toBe(true);
@@ -61,4 +69,19 @@ test('.dateToEnd', () => {
   expect(d2.getMinutes()).toBe(59);
   expect(d2.getSeconds()).toBe(59);
   expect(d2.getMilliseconds()).toBe(999);
+});
+
+test('.calculateDate', () => {
+  expect(calculateDate('2024-01-01', 2)).toBe('2024-01-03');
+  expect(calculateDate('2024-01-01', -2)).toBe('2023-12-30');
+  expect(calculateDate(1717330884896, 2)).toBe('2024-06-04');
+  expect(calculateDate(1717330884896, -2)).toBe('2024-05-31');
+});
+
+test('.calculateDateTime', () => {
+  // 因有时区问题，仅在中国境内执行
+  if (Intl.DateTimeFormat().resolvedOptions().timeZone === 'Asia/Shanghai') {
+    expect(calculateDateTime('2024-01-01 20:23:00', 2)).toBe('2024-01-03 20:23:00');
+    expect(calculateDateTime('2024-01-01 20:23:00', -2)).toBe('2023-12-30 20:23:00');
+  }
 });

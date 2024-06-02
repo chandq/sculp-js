@@ -54,7 +54,7 @@
 
   - stringCamelCase
   - stringKebabCase
-  - getStrWidthPx
+  - getStrWidthPx (web)
 
 - Unique
 
@@ -69,18 +69,19 @@
   - calculateDate
   - calculateDateTime
 
-- Download
+- Download (web)
 
   - downloadURL
   - downloadHref
   - downloadBlob
   - downloadData
 
-- File
+- File (web)
 
   - chooseLocalFile
+  - compressImg 压缩图片
 
-- Dom
+- Dom （web）
 
   - hasClass
   - addClass
@@ -89,11 +90,11 @@
   - getStyle
   - getComputedCssVal
 
-- Watermark
+- Watermark (web)
 
   - genCanvasWM
 
-- Clipboard
+- Clipboard (web)
   - copyText
 
 ## Install

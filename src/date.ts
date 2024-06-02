@@ -179,65 +179,64 @@ export function formatDate(value: DateValue, format = 'YYYY-MM-DD HH:mm:ss'): st
 
 /**
  * 计算向前或向后N天的具体日期
- * @param {string} strDate - 参考日期
+ * @param {DateValue} originDate - 参考日期
  * @param {number} n - 正数：向后推算；负数：向前推算
  * @param {string} sep - 日期格式的分隔符
  * @returns {string} 计算后的目标日期
  */
-export function calculateDate(strDate: string, n: number, sep: string = '-'): string {
-  //strDate 为字符串日期 如:'2019-01-01' n为你要传入的参数，当前为0，前一天为-1，后一天为1
-  const dateArr = strDate.split(sep); //这边给定一个特定时间
-  const newDate = new Date(+dateArr[0], +dateArr[1] - 1, +dateArr[2]);
-  const befminuts = newDate.getTime() + 1000 * 60 * 60 * 24 * parseInt(String(n)); //计算前几天用减，计算后几天用加，最后一个就是多少天的数量
-  const beforeDat = new Date();
-  beforeDat.setTime(befminuts);
-  const befMonth = beforeDat.getMonth() + 1;
-  const mon = befMonth >= 10 ? befMonth : '0' + befMonth;
-  const befDate = beforeDat.getDate();
-  const da = befDate >= 10 ? befDate : '0' + befDate;
-  const finalNewDate = beforeDat.getFullYear() + '-' + mon + '-' + da;
+export function calculateDate(originDate: DateValue, n: number, sep: string = '-'): string {
+  //originDate 为字符串日期 如:'2019-01-01' n为你要传入的参数，当前为0，前一天为-1，后一天为1
+  const date = new Date(originDate); //这边给定一个特定时间
+  const newDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+  const millisecondGap = newDate.getTime() + 1000 * 60 * 60 * 24 * parseInt(String(n)); //计算前几天用减，计算后几天用加，最后一个就是多少天的数量
+  const targetDate = new Date(millisecondGap);
+  const finalNewDate =
+    targetDate.getFullYear() +
+    sep +
+    String(targetDate.getMonth() + 1).padStart(2, '0') +
+    '-' +
+    String(targetDate.getDate()).padStart(2, '0');
   return finalNewDate;
 }
 
 /**
- * 计算向前或向后N天的具体时间日期
+ * 计算向前或向后N天的具体日期时间
+ * @param {DateValue} originDateTime - 参考日期时间
  * @param {number} n - 正数：向后推算；负数：向前推算
  * @param {string} dateSep - 日期分隔符
  * @param {string} timeSep - 时间分隔符
  * @returns {string} 转换后的目标日期时间
  */
-export function calculateDateTime(n: number, dateSep: string = '-', timeSep: string = ':'): string {
-  const date = new Date();
-  const separator1 = '-';
-  const separator2 = ':';
-  let year = date.getFullYear();
-  let month: number | string = date.getMonth() + 1;
-  let strDate: number | string = date.getDate() + n;
-  if (strDate > new Date(year, month, 0).getDate()) {
-    month += 1;
-    strDate -= new Date(year, month, 0).getDate();
-    if (month > 12) {
-      year += 1;
-      month = 1;
-    }
-  }
-  if (month >= 1 && month <= 9) {
-    month = '0' + month;
-  }
-  if (strDate >= 0 && strDate <= 9) {
-    strDate = '0' + strDate;
-  }
-  return (
-    year +
-    separator1 +
-    month +
-    separator1 +
-    strDate +
-    ' ' +
-    date.getHours() +
-    separator2 +
-    date.getMinutes() +
-    separator2 +
+export function calculateDateTime(
+  originDateTime: DateValue,
+  n: number,
+  dateSep: string = '-',
+  timeSep: string = ':'
+): string {
+  const date = new Date(originDateTime);
+  const separator1 = dateSep;
+  const separator2 = timeSep;
+  const dateTime = new Date(
+    date.getFullYear(),
+    date.getMonth(),
+    date.getDate(),
+    date.getHours(),
+    date.getMinutes(),
     date.getSeconds()
+  );
+  const millisecondGap = dateTime.getTime() + 1000 * 60 * 60 * 24 * parseInt(String(n)); //计算前几天用减，计算后几天用加，最后一个就是多少天的数量
+  const targetDateTime = new Date(millisecondGap);
+  return (
+    targetDateTime.getFullYear() +
+    separator1 +
+    String(targetDateTime.getMonth() + 1).padStart(2, '0') +
+    separator1 +
+    String(targetDateTime.getDate()).padStart(2, '0') +
+    ' ' +
+    String(targetDateTime.getHours()).padStart(2, '0') +
+    separator2 +
+    String(targetDateTime.getMinutes()).padStart(2, '0') +
+    separator2 +
+    String(targetDateTime.getSeconds()).padStart(2, '0')
   );
 }
