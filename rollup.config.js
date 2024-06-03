@@ -2,12 +2,13 @@ import commonjs from '@rollup/plugin-commonjs';
 import json from '@rollup/plugin-json';
 import typescript from '@rollup/plugin-typescript';
 import resolve from '@rollup/plugin-node-resolve';
-import subpathExtrnals from 'rollup-plugin-subpath-externals';
+import subpathExternals from 'rollup-plugin-subpath-externals';
 import { dts } from 'rollup-plugin-dts';
 import clear from 'rollup-plugin-clear';
 import pkg from './package.json' assert { type: 'json' };
 
 const pkgName = pkg.name.includes('/') ? pkg.name.split('/')[1] : pkg.name;
+const isCore = process.env.BUILD_TARGET === 'core'; // 适用于web、node、小程序等任何js运行环境
 
 // banner
 const banner =
@@ -28,7 +29,7 @@ const moduleName = transformCamel(pkgName);
 
 export default [
   {
-    input: 'src/index.ts',
+    input: `src/${isCore ? 'core-index.ts' : 'index.ts'}`,
     output: [
       {
         dir: 'lib/cjs',
@@ -60,7 +61,7 @@ export default [
       clear({
         targets: ['lib']
       }),
-      subpathExtrnals(pkg),
+      subpathExternals(pkg),
       resolve(),
       commonjs(),
       typescript({
@@ -72,7 +73,7 @@ export default [
   },
   {
     // 生成 .d.ts 类型声明文件
-    input: './src/index.ts',
+    input: `src/${isCore ? 'core-index.ts' : 'index.ts'}`,
     output: {
       file: pkg.types,
       format: 'esm'
