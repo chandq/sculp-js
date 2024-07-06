@@ -4,7 +4,7 @@ import { weAtob } from './we-decode';
  * 判断是否支持canvas
  * @returns {boolean}
  */
-export function supportCanvas() {
+export function supportCanvas(): boolean {
   return !!document.createElement('canvas').getContext;
 }
 
@@ -14,7 +14,7 @@ export function supportCanvas() {
  * @param {Function} changeCb 选择文件回调
  * @returns {HTMLInputElement}
  */
-export function chooseLocalFile(accept: string, changeCb: (FileList) => any) {
+export function chooseLocalFile(accept: string, changeCb: (FileList) => any): HTMLInputElement {
   const inputObj: HTMLInputElement = document.createElement('input');
   inputObj.setAttribute('id', String(Date.now()));
   inputObj.setAttribute('type', 'file');
