@@ -348,7 +348,7 @@ export function flatTree(treeList: any[], options: IFieldOptions = defaultFieldO
 }
 
 /**
- * 实现模糊搜索函数，返回包含搜索字符的节点及其祖先节点, 适用于树型组件的字符过滤功能
+ * 模糊搜索函数，返回包含搜索字符的节点及其祖先节点, 适用于树型组件的字符过滤功能
  * @param {any[]} nodes
  * @param {string} query
  * @param {ISearchTreeOpts} options
