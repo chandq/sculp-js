@@ -7,9 +7,14 @@ const defaultFieldOptions: IFieldOptions = { keyField: 'key', childField: 'child
 
 export interface ISearchTreeOpts {
   childField: string;
+  nameField: string; // 匹配字段
   ignoreEmptyChild: boolean; // 查询结果不包含空的children
 }
-const defaultSearchTreeOptions: ISearchTreeOpts = { childField: 'children', ignoreEmptyChild: false };
+const defaultSearchTreeOptions: ISearchTreeOpts = {
+  childField: 'children',
+  nameField: 'name',
+  ignoreEmptyChild: false
+};
 
 /**
  * 深度优先遍历函数(支持continue和break操作), 可用于insert tree item 和 remove tree item
@@ -317,6 +322,32 @@ export function formatTree(list: any[], options: IFieldOptions = defaultFieldOpt
 }
 
 /**
+ * 树形结构转扁平化
+ * @param {any} treeList
+ * @param {IFieldOptions} options
+ * @return {*}
+ */
+export function flatTree(treeList: any[], options: IFieldOptions = defaultFieldOptions): any[] {
+  const { childField, keyField, pidField } = options;
+  return treeList.reduce((res, node) => {
+    const item = {
+      ...node,
+      [childField]: [] // 清空子级
+    };
+    item.hasOwnProperty([childField]) && delete item[childField];
+    res.push(item);
+    if (node[childField]) {
+      const children = node[childField].map(item => ({
+        ...item,
+        [pidField]: node[keyField] || item.pid // 给子级设置pid
+      }));
+      res = res.concat(flatTree(children, options));
+    }
+    return res;
+  }, []);
+}
+
+/**
  * 实现模糊搜索函数，返回包含搜索字符的节点及其祖先节点, 适用于树型组件的字符过滤功能
  * @param {any[]} nodes
  * @param {string} query
@@ -338,7 +369,7 @@ export function fuzzySearchTree(
         : [];
 
     // 检查当前节点是否匹配或者有匹配的子节点
-    if (node.name.toLowerCase().includes(query.toLowerCase()) || matchedChildren.length > 0) {
+    if (node[options.nameField].toLowerCase().includes(query.toLowerCase()) || matchedChildren.length > 0) {
       // 将当前节点加入结果中
       if (node[options.childField]) {
         if (matchedChildren.length > 0) {

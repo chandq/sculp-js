@@ -1,5 +1,5 @@
 import { cloneDeep } from '../src/object';
-import { formatTree, searchTreeById, forEachDeep, buildTree, forEachMap, fuzzySearchTree } from '../src/tree';
+import { formatTree, searchTreeById, forEachDeep, buildTree, forEachMap, fuzzySearchTree, flatTree } from '../src/tree';
 
 test('searchTreeById', () => {
   const tree = [
@@ -159,6 +159,64 @@ test('compare formatTree buildTree', () => {
   console.log('formatTree time:', Date.now() - startTime2);
 
   expect(tree1).toEqual(tree2);
+});
+
+test('flatTree', () => {
+  const tree = [
+    {
+      id: 1,
+      name: 'root',
+      children: [
+        { id: 10, name: 'ap-2p', children: [] },
+        {
+          id: 2,
+          name: 'apple',
+          children: [
+            { id: 20, name: 'ab2p' },
+            {
+              id: 3,
+              name: 'apricot',
+              children: [{ id: 5, name: 'butterfly' }]
+            },
+            {
+              id: 4,
+              name: 'banana',
+              children: []
+            }
+          ]
+        },
+        {
+          id: 6,
+          name: 'orange',
+          children: []
+        }
+      ]
+    }
+  ];
+
+  const res = flatTree(tree, { keyField: 'id', childField: 'children', pidField: 'pid' });
+  expect(res).toEqual([
+    { id: 1, name: 'root' },
+    { id: 10, name: 'ap-2p', pid: 1 },
+    { id: 2, name: 'apple', pid: 1 },
+    { id: 20, name: 'ab2p', pid: 2 },
+    {
+      id: 3,
+      name: 'apricot',
+      pid: 2
+    },
+    { id: 5, name: 'butterfly', pid: 3 },
+    {
+      id: 4,
+      name: 'banana',
+      pid: 2
+    },
+    {
+      id: 6,
+      name: 'orange',
+      pid: 1
+    }
+  ]);
 });
 
 test('forEachDeep: remove tree item', () => {
@@ -360,7 +418,6 @@ test('fuzzySearchTree', () => {
   // 测试1
   const query = 'apr';
   const result = fuzzySearchTree(tree, query);
-  console.log('apr', JSON.stringify(result, null, 2));
 
   expect(result).toEqual([
     {
@@ -440,8 +497,7 @@ test('fuzzySearchTree', () => {
   ]);
   // 测试4
   const query4 = 'an';
-  const result4 = fuzzySearchTree(tree, query4, { childField: 'children', ignoreEmptyChild: true });
-  console.log('an', JSON.stringify(result4, null, 2));
+  const result4 = fuzzySearchTree(tree, query4, { childField: 'children', nameField: 'name', ignoreEmptyChild: true });
 
   expect(result4).toEqual([
     {
