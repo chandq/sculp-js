@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.4.0](https://github.com/chandq/sculp-js/compare/v1.3.2...v1.4.0) (2024-08-18)
+
+### Features
+
+- **tree:** add flatTree function ([67e0a0f](https://github.com/chandq/sculp-js/commit/67e0a0f0459b1ce84ad89f8e929a38cf5e1b61ad))
+- **tree:** add fuzzySearchTree func ([88aef2d](https://github.com/chandq/sculp-js/commit/88aef2d650323d193b84aa4f1e6e205b45d78fff))
+
 ### [1.3.2](https://github.com/chandq/sculp-js/compare/v1.3.1...v1.3.2) (2024-06-02)
 
 ### Bug Fixes
