@@ -3,7 +3,13 @@ export interface IFieldOptions {
   childField: string;
   pidField: string;
 }
-const defaultFieldOptions = { keyField: 'key', childField: 'children', pidField: 'pid' };
+const defaultFieldOptions: IFieldOptions = { keyField: 'key', childField: 'children', pidField: 'pid' };
+
+export interface ISearchTreeOpts {
+  childField: string;
+  ignoreEmptyChild: boolean; // 查询结果不包含空的children
+}
+const defaultSearchTreeOptions: ISearchTreeOpts = { childField: 'children', ignoreEmptyChild: false };
 
 /**
  * 深度优先遍历函数(支持continue和break操作), 可用于insert tree item 和 remove tree item
@@ -308,4 +314,57 @@ export function formatTree(list: any[], options: IFieldOptions = defaultFieldOpt
     }
   });
   return treeArr;
+}
+
+/**
+ * 实现模糊搜索函数，返回包含搜索字符的节点及其祖先节点, 适用于树型组件的字符过滤功能
+ * @param {any[]} nodes
+ * @param {string} query
+ * @param {ISearchTreeOpts} options
+ * @return {any[]}
+ */
+export function fuzzySearchTree(
+  nodes: any[],
+  query: string,
+  options: ISearchTreeOpts = defaultSearchTreeOptions
+): any[] {
+  const result: any[] = [];
+
+  for (const node of nodes) {
+    // 递归检查子节点是否匹配
+    const matchedChildren =
+      node[options.childField] && node[options.childField].length > 0
+        ? fuzzySearchTree(node[options.childField] || [], query, options)
+        : [];
+
+    // 检查当前节点是否匹配或者有匹配的子节点
+    if (node.name.toLowerCase().includes(query.toLowerCase()) || matchedChildren.length > 0) {
+      // 将当前节点加入结果中
+      if (node[options.childField]) {
+        if (matchedChildren.length > 0) {
+          result.push({
+            ...node,
+            [options.childField]: matchedChildren // 包含匹配的子节点
+          });
+        } else if (options.ignoreEmptyChild) {
+          node[options.childField] && delete node[options.childField];
+          result.push({
+            ...node
+          });
+        } else {
+          result.push({
+            ...node,
+            ...{ [options.childField]: [] }
+          });
+        }
+      } else {
+        node[options.childField] && delete node[options.childField];
+
+        result.push({
+          ...node
+        });
+      }
+    }
+  }
+  return result;
 }

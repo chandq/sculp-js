@@ -1,5 +1,5 @@
 import { cloneDeep } from '../src/object';
-import { formatTree, searchTreeById, forEachDeep, buildTree, forEachMap } from '../src/tree';
+import { formatTree, searchTreeById, forEachDeep, buildTree, forEachMap, fuzzySearchTree } from '../src/tree';
 
 test('searchTreeById', () => {
   const tree = [
@@ -320,5 +320,149 @@ test('forEachMap', () => {
       ]
     },
     { key: 3, label: 'row3' }
+  ]);
+});
+
+test('fuzzySearchTree', () => {
+  // 定义树结构
+  const tree = [
+    {
+      id: 1,
+      name: 'root',
+      children: [
+        { id: 10, name: 'ap-2p', children: [] },
+        {
+          id: 2,
+          name: 'apple',
+          children: [
+            { id: 20, name: 'ab2p' },
+            {
+              id: 3,
+              name: 'apricot',
+              children: [{ id: 5, name: 'butterfly' }]
+            },
+            {
+              id: 4,
+              name: 'banana',
+              children: []
+            }
+          ]
+        },
+        {
+          id: 5,
+          name: 'orange',
+          children: []
+        }
+      ]
+    }
+  ];
+
+  // 测试1
+  const query = 'apr';
+  const result = fuzzySearchTree(tree, query);
+  console.log('apr', JSON.stringify(result, null, 2));
+
+  expect(result).toEqual([
+    {
+      id: 1,
+      name: 'root',
+      children: [
+        {
+          id: 2,
+          name: 'apple',
+          children: [
+            {
+              id: 3,
+              name: 'apricot',
+              children: []
+            }
+          ]
+        }
+      ]
+    }
+  ]);
+
+  // 测试2
+  const query2 = 'ap';
+  const result2 = fuzzySearchTree(tree, query2);
+
+  expect(result2).toEqual([
+    {
+      id: 1,
+      name: 'root',
+      children: [
+        {
+          id: 10,
+          name: 'ap-2p',
+          children: []
+        },
+        {
+          id: 2,
+          name: 'apple',
+          children: [
+            {
+              id: 3,
+              name: 'apricot',
+              children: []
+            }
+          ]
+        }
+      ]
+    }
+  ]);
+
+  // 测试3
+  const query3 = 'butter';
+  const result3 = fuzzySearchTree(tree, query3);
+  expect(result3).toEqual([
+    {
+      id: 1,
+      name: 'root',
+      children: [
+        {
+          id: 2,
+          name: 'apple',
+          children: [
+            {
+              id: 3,
+              name: 'apricot',
+              children: [
+                {
+                  id: 5,
+                  name: 'butterfly'
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]);
+  // 测试4
+  const query4 = 'an';
+  const result4 = fuzzySearchTree(tree, query4, { childField: 'children', ignoreEmptyChild: true });
+  console.log('an', JSON.stringify(result4, null, 2));
+
+  expect(result4).toEqual([
+    {
+      id: 1,
+      name: 'root',
+      children: [
+        {
+          id: 2,
+          name: 'apple',
+          children: [
+            {
+              id: 4,
+              name: 'banana'
+            }
+          ]
+        },
+        {
+          id: 5,
+          name: 'orange'
+        }
+      ]
+    }
   ]);
 });
