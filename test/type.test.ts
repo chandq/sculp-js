@@ -5,6 +5,7 @@ import {
   isDate,
   isError,
   isFunction,
+  isJsonString,
   isNaN,
   isNull,
   isNumber,
@@ -89,4 +90,11 @@ test('isRegExp', () => {
   expect(isRegExp(new RegExp('s'))).toBe(true);
   expect(isRegExp(/s/)).toBe(true);
   expect(isRegExp('/s/')).toBe(false);
+});
+
+test('isJsonString', () => {
+  const jsonString = '{"name": "John", "age": 30}';
+  const invalidJsonString = '{"name": "John", "age": 30';
+  expect(isJsonString(jsonString)).toBe(true);
+  expect(isJsonString(invalidJsonString)).toBe(false);
 });

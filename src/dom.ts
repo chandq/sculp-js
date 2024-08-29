@@ -2,7 +2,7 @@ import { arrayEach } from './array';
 import { easingFunctional, EasingName } from './easing';
 import { objectEach, objectMerge } from './object';
 import { stringKebabCase } from './string';
-import { isObject } from './type';
+import { isObject, isString } from './type';
 
 export interface Style {
   [propName: string]: string | number;
@@ -178,4 +178,36 @@ export function onDomReady(callback: ReadyCallback): void {
 export function getComputedCssVal(el: HTMLElement, property: string, reNumber: boolean = true): string | number {
   const originVal = getComputedStyle(el).getPropertyValue(property) ?? '';
   return reNumber ? Number(originVal.replace(/([0-9]*)(.*)/g, '$1')) : originVal;
+}
+
+/**
+ * 字符串的像素宽度
+ * @param {string} str 目标字符串
+ * @param {number} fontSize 字符串字体大小
+ * @param {boolean} isRemoveDom 计算后是否移除中间dom元素
+ * @returns {*}
+ */
+export function getStrWidthPx(str: string, fontSize: number = 14, isRemoveDom: boolean = false): number {
+  let strWidth = 0;
+  console.assert(isString(str), `${str} 不是有效的字符串`);
+  if (isString(str) && str.length > 0) {
+    let getEle: HTMLSpanElement | null = document.querySelector('#getStrWidth1494304949567');
+    if (!getEle) {
+      const _ele = document.createElement('span');
+      _ele.id = 'getStrWidth1494304949567';
+      _ele.style.fontSize = fontSize + 'px';
+      _ele.style.whiteSpace = 'nowrap';
+      _ele.style.visibility = 'hidden';
+      _ele.textContent = str;
+      document.body.appendChild(_ele);
+      getEle = _ele;
+    }
+
+    getEle!.textContent = str;
+    strWidth = getEle!.offsetWidth;
+    if (isRemoveDom) {
+      document.body.appendChild(getEle);
+    }
+  }
+  return strWidth;
 }

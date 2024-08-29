@@ -7,7 +7,8 @@ import {
   STRING_LOWERCASE_ALPHA,
   STRING_UPPERCASE_ALPHA,
   stringEscapeHtml,
-  stringFill
+  stringFill,
+  parseQueryParams
 } from '../src/string';
 
 test('stringCamelCase', () => {
@@ -68,4 +69,8 @@ test('stringEscapeHtml', () => {
 test('stringFill', () => {
   expect(stringFill(5)).toEqual('     ');
   expect(stringFill(5, '1')).toEqual('11111');
+});
+
+test('parseQueryParams', () => {
+  expect(parseQueryParams('?a=1&a=3&b=true&c&a=111')).toEqual({ a: ['1', '3', '111'], b: 'true', c: '' });
 });

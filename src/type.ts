@@ -53,5 +53,18 @@ export const isNaN = (any: unknown): any is number => Number.isNaN(any as number
 export const isDate = (any: unknown): any is Date => typeIs(any) === 'Date';
 export const isError = (any: unknown): any is Error => typeIs(any) === 'Error';
 export const isRegExp = (any: unknown): any is RegExp => typeIs(any) === 'RegExp';
+/**
+ * 判断一个字符串是否为有效的 JSON
+ * @param {string} str
+ * @return {boolean}
+ */
+export function isJsonString(str: string): boolean {
+  try {
+    const parsed = JSON.parse(str);
+    return typeof parsed === 'object' && parsed !== null;
+  } catch (e) {
+    return false;
+  }
+}
 
 export default typeIs;
