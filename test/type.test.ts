@@ -95,6 +95,9 @@ test('isRegExp', () => {
 test('isJsonString', () => {
   const jsonString = '{"name": "John", "age": 30}';
   const invalidJsonString = '{"name": "John", "age": 30';
-  expect(isJsonString(jsonString)).toBe(true);
+  expect(isJsonString(jsonString)).toEqual({
+    name: 'John',
+    age: 30
+  });
   expect(isJsonString(invalidJsonString)).toBe(false);
 });

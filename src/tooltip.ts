@@ -7,7 +7,7 @@
  * 		onmouseenter="handleMouseEnter({'#root', title: 'title content', event: event})">title content </span>
  */
 
-import { getStrWidthPx } from './string';
+import { getStrWidthPx } from './dom';
 
 interface ITooltipParams {
   rootElId: string;

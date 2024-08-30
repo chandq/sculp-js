@@ -54,14 +54,14 @@ export const isDate = (any: unknown): any is Date => typeIs(any) === 'Date';
 export const isError = (any: unknown): any is Error => typeIs(any) === 'Error';
 export const isRegExp = (any: unknown): any is RegExp => typeIs(any) === 'RegExp';
 /**
- * 判断一个字符串是否为有效的 JSON
+ * 判断一个字符串是否为有效的 JSON, 若有效则返回有效的JSON对象，否则false
  * @param {string} str
- * @return {boolean}
+ * @return {Object | boolean}
  */
-export function isJsonString(str: string): boolean {
+export function isJsonString(str: string): Object | boolean {
   try {
     const parsed = JSON.parse(str);
-    return typeof parsed === 'object' && parsed !== null;
+    return typeof parsed === 'object' && parsed !== null ? parsed : false;
   } catch (e) {
     return false;
   }
