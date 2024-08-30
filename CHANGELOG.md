@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.4.1](https://github.com/chandq/sculp-js/compare/v1.4.0...v1.4.1) (2024-08-30)
+
+### Features
+
+- add function of isJsonString and parseQueryParams ([69276c4](https://github.com/chandq/sculp-js/commit/69276c4364890fb20237faa27cd51cb7304c6b95))
+
+### Bug Fixes
+
+- optimize isJsonString function ([6a4c131](https://github.com/chandq/sculp-js/commit/6a4c131ab1ee00e48586f7c6ad748e26165b1cd8))
+
 ## [1.4.0](https://github.com/chandq/sculp-js/compare/v1.3.2...v1.4.0) (2024-08-18)
 
 ### Features
