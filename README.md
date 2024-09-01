@@ -20,9 +20,18 @@
   - isNumber
   - isUndefined
   - isNull
+  - isNullOrUnDef
   - isPrimitive
+  - isFunction
   - isObject
+  - isArray
   - typeIs
+  - isJsonString
+
+- encode/decode
+
+  - weAtob
+  - weBtoa
 
 - Array
 
@@ -35,6 +44,7 @@
   - forEachMap 高性能的深度优先遍历的Map函数, 支持continue、break，可定制id、children
   - searchTreeById 在树中找到 id 为某个值的节点，并返回上游的所有父级节点
   - formatTree 高性能的数组转树函数
+  - flatTree 树转数组
   - fuzzySearchTree 模糊搜索函数，返回包含搜索字符的节点及其祖先节点的树
 
 - Object
@@ -54,7 +64,7 @@
 
   - stringCamelCase
   - stringKebabCase
-  - getStrWidthPx (web)
+  - parseQueryParams
 
 - Unique
 
@@ -89,6 +99,7 @@
   - setStyle
   - getStyle
   - getComputedCssVal
+  - getStrWidthPx
 
 - Watermark (web)
 
