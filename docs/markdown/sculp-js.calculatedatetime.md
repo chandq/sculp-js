@@ -4,21 +4,22 @@
 
 ## calculateDateTime() function
 
-计算向前或向后N天的具体时间日期
+计算向前或向后N天的具体日期时间
 
 **Signature:**
 
 ```typescript
-declare function calculateDateTime(n: number, dateSep?: string, timeSep?: string): string;
+declare function calculateDateTime(originDateTime: DateValue, n: number, dateSep?: string, timeSep?: string): string;
 ```
 
 ## Parameters
 
-| Parameter | Type   | Description                    |
-| --------- | ------ | ------------------------------ |
-| n         | number | 正数：向后推算；负数：向前推算 |
-| dateSep   | string | _(Optional)_ 日期分隔符        |
-| timeSep   | string | _(Optional)_ 时间分隔符        |
+| Parameter      | Type                                 | Description                    |
+| -------------- | ------------------------------------ | ------------------------------ |
+| originDateTime | [DateValue](./sculp-js.datevalue.md) | 参考日期时间                   |
+| n              | number                               | 正数：向后推算；负数：向前推算 |
+| dateSep        | string                               | _(Optional)_ 日期分隔符        |
+| timeSep        | string                               | _(Optional)_ 时间分隔符        |
 
 **Returns:**
 

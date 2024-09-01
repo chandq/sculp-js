@@ -58,16 +58,19 @@ export function buildTree<
 >(idProp: ID, parentIdProp: PID, items: T[]): WithChildren<T>[];
 
 // @public
-export function calculateDate(strDate: string, n: number, sep?: string): string;
+export function calculateDate(originDate: DateValue, n: number, sep?: string): string;
 
 // @public
-export function calculateDateTime(n: number, dateSep?: string, timeSep?: string): string;
+export function calculateDateTime(originDateTime: DateValue, n: number, dateSep?: string, timeSep?: string): string;
 
 // @public
 export function chooseLocalFile(accept: string, changeCb: (FileList: any) => any): HTMLInputElement;
 
 // @public
 export function cloneDeep(obj: Object, map?: WeakMap<object, any>): AnyObject | AnyArray;
+
+// @public
+export function compressImg(file: File | FileList, options: ICompressOptions): Promise<object> | undefined;
 
 // @public
 export const cookieDel: (name: string) => void;
@@ -131,6 +134,9 @@ export function downloadURL(url: string, params?: LooseParams): void;
 export type FileType = 'json' | 'csv' | 'xls' | 'xlsx';
 
 // @public
+export function flatTree(treeList: any[], options?: IFieldOptions): any[];
+
+// @public
 export function forEachDeep<V>(
   tree: ArrayLike<V>,
   iterator: (
@@ -168,6 +174,9 @@ export function formatNumber(val: number, type?: string): string;
 
 // @public
 export function formatTree(list: any[], options?: IFieldOptions): any[];
+
+// @public
+export function fuzzySearchTree(nodes: any[], query: string, options?: ISearchTreeOpts): any[];
 
 // @public
 export function genCanvasWM(canvasWM: ICanvasWM): void;
@@ -215,6 +224,13 @@ export interface ICanvasWM {
 }
 
 // @public (undocumented)
+export interface ICompressOptions {
+  // Warning: (ae-forgotten-export) The symbol "ImageType" needs to be exported by the entry point index.d.ts
+  mime?: ImageType;
+  quality?: number;
+}
+
+// @public (undocumented)
 export type IdLike = number | string;
 
 // @public (undocumented)
@@ -243,10 +259,23 @@ export const isDate: (any: unknown) => any is Date;
 export function isDomReady(): boolean;
 
 // @public (undocumented)
+export interface ISearchTreeOpts {
+  // (undocumented)
+  childField: string;
+  // (undocumented)
+  ignoreEmptyChild: boolean;
+  // (undocumented)
+  nameField: string;
+}
+
+// @public (undocumented)
 export const isError: (any: unknown) => any is Error;
 
 // @public
 export const isFunction: (any: unknown) => any is Function;
+
+// @public
+export function isJsonString(str: string): Object | boolean;
 
 // @public (undocumented)
 const isNaN_2: (any: unknown) => any is number;
@@ -254,6 +283,9 @@ export { isNaN_2 as isNaN };
 
 // @public (undocumented)
 export const isNull: (any: unknown) => any is null;
+
+// @public (undocumented)
+export function isNullOrUnDef(val: unknown): val is null | undefined;
 
 // @public (undocumented)
 export const isNumber: (any: unknown) => any is number;
@@ -385,6 +417,9 @@ export interface Params<T = string | number> {
   [key: string]: T | Array<T>;
 }
 
+// @public
+export function parseQueryParams(searchStr?: string): Record<string, string | string[]>;
+
 // @public (undocumented)
 export type PartialDeep<T> = {
   [P in keyof T]?: PartialDeep<T[P]>;
@@ -505,6 +540,9 @@ export interface Style {
 }
 
 // @public
+export function supportCanvas(): boolean;
+
+// @public
 export const throttle: <F extends AnyFunc>(func: F, wait: number, immediate?: boolean) => ThrottleFunc<F>;
 
 // @public (undocumented)
@@ -593,14 +631,23 @@ export const urlStringify: (url: Url) => string;
 export function wait(timeout?: number): Promise<void>;
 
 // @public (undocumented)
+export function weAppJwtDecode(token: any, options: any): any;
+
+// @public
+export function weAtob(string: string): string;
+
+// @public
+export function weBtoa(string: string): string;
+
+// @public (undocumented)
 export type WithChildren<T> = T & {
   children?: WithChildren<T>[];
 };
 
 // Warnings were encountered during analysis:
 //
-// lib/index.d.ts:682:5 - (ae-forgotten-export) The symbol "handleMouseEnter" needs to be exported by the entry point index.d.ts
-// lib/index.d.ts:683:5 - (ae-forgotten-export) The symbol "handleMouseLeave" needs to be exported by the entry point index.d.ts
+// lib/index.d.ts:715:5 - (ae-forgotten-export) The symbol "handleMouseEnter" needs to be exported by the entry point index.d.ts
+// lib/index.d.ts:716:5 - (ae-forgotten-export) The symbol "handleMouseLeave" needs to be exported by the entry point index.d.ts
 
 // (No @packageDocumentation comment for this package)
 ```

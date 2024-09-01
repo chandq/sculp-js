@@ -9,16 +9,16 @@
 **Signature:**
 
 ```typescript
-declare function calculateDate(strDate: string, n: number, sep?: string): string;
+declare function calculateDate(originDate: DateValue, n: number, sep?: string): string;
 ```
 
 ## Parameters
 
-| Parameter | Type   | Description                    |
-| --------- | ------ | ------------------------------ |
-| strDate   | string | 参考日期                       |
-| n         | number | 正数：向后推算；负数：向前推算 |
-| sep       | string | _(Optional)_ 日期格式的分隔符  |
+| Parameter  | Type                                 | Description                    |
+| ---------- | ------------------------------------ | ------------------------------ |
+| originDate | [DateValue](./sculp-js.datevalue.md) | 参考日期                       |
+| n          | number                               | 正数：向后推算；负数：向前推算 |
+| sep        | string                               | _(Optional)_ 日期格式的分隔符  |
 
 **Returns:**
 
