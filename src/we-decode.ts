@@ -61,46 +61,46 @@ export function weAtob(string: string): string {
   }
   return result;
 }
-function b64DecodeUnicode(str) {
-  return decodeURIComponent(
-    exports.weAtob(str).replace(/(.)/g, function (p) {
-      let code = p.charCodeAt(0).toString(16).toUpperCase();
-      if (code.length < 2) {
-        code = '0' + code;
-      }
-      return '%' + code;
-    })
-  );
-}
-function base64_url_decode(str) {
-  let output = str.replace(/-/g, '+').replace(/_/g, '/');
-  switch (output.length % 4) {
-    case 0:
-      break;
-    case 2:
-      output += '==';
-      break;
-    case 3:
-      output += '=';
-      break;
-    default:
-      throw new Error('Illegal base64url string!');
-  }
-  try {
-    return b64DecodeUnicode(output);
-  } catch (err) {
-    return exports.weAtob(output);
-  }
-}
-export function weAppJwtDecode(token, options) {
-  if (typeof token !== 'string') {
-    throw new Error('Invalid token specified');
-  }
-  options = options || {};
-  const pos = options.header === true ? 0 : 1;
-  try {
-    return JSON.parse(base64_url_decode(token.split('.')[pos]));
-  } catch (e) {
-    throw new Error('Invalid token specified: ' + (e as Error).message);
-  }
-}
+// function b64DecodeUnicode(str) {
+//   return decodeURIComponent(
+//     exports.weAtob(str).replace(/(.)/g, function (p) {
+//       let code = p.charCodeAt(0).toString(16).toUpperCase();
+//       if (code.length < 2) {
+//         code = '0' + code;
+//       }
+//       return '%' + code;
+//     })
+//   );
+// }
+// function base64_url_decode(str) {
+//   let output = str.replace(/-/g, '+').replace(/_/g, '/');
+//   switch (output.length % 4) {
+//     case 0:
+//       break;
+//     case 2:
+//       output += '==';
+//       break;
+//     case 3:
+//       output += '=';
+//       break;
+//     default:
+//       throw new Error('Illegal base64url string!');
+//   }
+//   try {
+//     return b64DecodeUnicode(output);
+//   } catch (err) {
+//     return exports.weAtob(output);
+//   }
+// }
+// export function weAppJwtDecode(token, options) {
+//   if (typeof token !== 'string') {
+//     throw new Error('Invalid token specified');
+//   }
+//   options = options || {};
+//   const pos = options.header === true ? 0 : 1;
+//   try {
+//     return JSON.parse(base64_url_decode(token.split('.')[pos]));
+//   } catch (e) {
+//     throw new Error('Invalid token specified: ' + (e as Error).message);
+//   }
+// }

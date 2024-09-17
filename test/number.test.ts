@@ -1,4 +1,4 @@
-import { numberToHex, numberAbbr } from '../src/number';
+import { numberToHex, numberAbbr, formatNumber } from '../src/number';
 
 test('numberToHex', () => {
   const n1 = '12345678901234567890';
@@ -81,4 +81,10 @@ test('numberAbbr 无单位', () => {
   expect(() => {
     numberAbbr(1, []);
   }).toThrow('单位');
+});
+test('formatNumber 格式化', () => {
+  const money = 123456789,
+    floatMoney = 123456.789;
+  expect(formatNumber(money)).toBe('123,456,789');
+  expect(formatNumber(floatMoney, 'float')).toBe('123,456.789');
 });
