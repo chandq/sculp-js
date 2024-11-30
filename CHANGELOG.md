@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.5.0](https://github.com/chandq/sculp-js/compare/v1.4.1...v1.5.0) (2024-11-30)
+
+### Features
+
+- add cross domain download utils func ([7262ad7](https://github.com/chandq/sculp-js/commit/7262ad7041929daf7924163a53202ff4d73dafe2))
+
 ### [1.4.1](https://github.com/chandq/sculp-js/compare/v1.4.0...v1.4.1) (2024-08-30)
 
 ### Features
