@@ -55,7 +55,7 @@ export function downloadBlob(blob: Blob, filename: string, callback?: Function):
  * @param {string} filename
  * @param {Function} callback
  */
-export function crossDomainDownload(url: string, filename: string, callback?: Function): void {
+export function crossOriginDownload(url: string, filename: string, callback?: Function): void {
   const xhr = new XMLHttpRequest();
   xhr.open('GET', url, true);
   xhr.responseType = 'blob';
