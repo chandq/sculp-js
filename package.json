@@ -19,7 +19,7 @@
     "release:major": "standard-version --release-as major",
     "commit": "git-cz"
   },
-  "author": "chendq <deqiaochen@foxmail.com>",
+  "author": "chendq <deqiaochen@gmail.com>",
   "main": "lib/cjs/index.js",
   "module": "lib/es/index.js",
   "browser": "lib/umd/index.js",
