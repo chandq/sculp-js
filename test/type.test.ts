@@ -3,6 +3,7 @@ import {
   isBigInt,
   isBoolean,
   isDate,
+  isEmpty,
   isError,
   isFunction,
   isJsonString,
@@ -100,4 +101,18 @@ test('isJsonString', () => {
     age: 30
   });
   expect(isJsonString(invalidJsonString)).toBe(false);
+});
+
+test('isEmpty', () => {
+  expect(isEmpty(null)).toBe(true);
+  expect(isEmpty(undefined)).toBe(true);
+  expect(isEmpty(function () {})).toBe(true);
+  expect(isEmpty(true)).toBe(true);
+  expect(isEmpty(1)).toBe(true);
+  expect(isEmpty([1, 2, 3])).toBe(false);
+  expect(isEmpty({ a: 1 })).toBe(false);
+  expect(isEmpty({})).toBe(true);
+  expect(isEmpty([])).toBe(true);
+  expect(isEmpty(new Set())).toBe(true);
+  expect(isEmpty(new Map())).toBe(true);
 });

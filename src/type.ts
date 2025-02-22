@@ -1,4 +1,7 @@
 // 常用类型定义
+
+import { arrayLike } from './array';
+
 /** 任意函数 */
 export type AnyFunc<R = any> = (...args: any[]) => R;
 
@@ -65,6 +68,45 @@ export function isJsonString(str: string): Object | boolean {
   } catch (e) {
     return false;
   }
+}
+
+/**
+ * Checks if `value` is an empty object, collection, map, or set.
+ *
+ * Objects are considered empty if they have no own enumerable string keyed
+ * properties.
+ *
+ * Array-like values such as `arguments` objects, arrays, buffers, strings, or
+ * jQuery-like collections are considered empty if they have a `length` of `0`.
+ * Similarly, maps and sets are considered empty if they have a `size` of `0`.
+ *
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is empty, else `false`.
+ * @example
+ *
+ * _.isEmpty(null);
+ * // => true
+ *
+ * _.isEmpty(true);
+ * // => true
+ *
+ * _.isEmpty(1);
+ * // => true
+ *
+ * _.isEmpty([1, 2, 3]);
+ * // => false
+ *
+ * _.isEmpty({ 'a': 1 });
+ * // => false
+ */
+export function isEmpty(value: any): boolean {
+  if (isNullOrUnDef(value) || Number.isNaN(value)) {
+    return true;
+  }
+  if (arrayLike(value) && (isArray(value) || isString(value) || isFunction(value.splice))) {
+    return !value.length;
+  }
+  return !Object.keys(value).length;
 }
 
 export default typeIs;
