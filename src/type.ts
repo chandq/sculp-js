@@ -1,7 +1,5 @@
 // 常用类型定义
 
-import { arrayLike } from './array';
-
 /** 任意函数 */
 export type AnyFunc<R = any> = (...args: any[]) => R;
 
@@ -19,6 +17,32 @@ export type AnyObject = Record<string | number, any>;
 export type PartialDeep<T> = {
   [P in keyof T]?: PartialDeep<T[P]>;
 };
+
+/**
+ * 判断对象内是否有该静态属性
+ * @param {object} obj
+ * @param {string} key
+ * @returns {boolean}
+ */
+export function objectHas<T extends AnyObject>(obj: T, key: keyof T): boolean {
+  return Object.prototype.hasOwnProperty.call(obj, key);
+}
+
+/**
+ * 判断一个对象是否为类数组
+ *
+ * @param any
+ * @returns {boolean}
+ */
+export function arrayLike(any: unknown): boolean {
+  if (isArray(any)) return true;
+
+  if (isString(any)) return true;
+
+  if (!isObject(any)) return false;
+
+  return objectHas(any, 'length');
+}
 
 /**
  * 判断任意值的数据类型

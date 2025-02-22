@@ -1,4 +1,13 @@
-import typeIs, { AnyArray, AnyObject, ArrayElements, isArray, isNumber, isObject, isUndefined } from './type';
+import typeIs, {
+  AnyArray,
+  AnyObject,
+  ArrayElements,
+  isArray,
+  isNumber,
+  isObject,
+  isUndefined,
+  objectHas
+} from './type';
 
 /**
  * 判断对象是否为纯对象
@@ -16,16 +25,6 @@ export const isPlainObject = (obj: unknown): boolean => {
   // 是否对象直接实例
   return proto === Object.prototype;
 };
-
-/**
- * 判断对象内是否有该静态属性
- * @param {object} obj
- * @param {string} key
- * @returns {boolean}
- */
-export function objectHas<T extends AnyObject>(obj: T, key: keyof T): boolean {
-  return Object.prototype.hasOwnProperty.call(obj, key);
-}
 
 /**
  * 遍历对象，返回 false 中断遍历

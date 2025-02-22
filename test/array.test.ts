@@ -1,4 +1,5 @@
-import { arrayEach, arrayEachAsync, arrayInsertBefore, arrayLike, arrayRemove } from '../src/array';
+import { arrayLike } from '../src/type';
+import { arrayEach, arrayEachAsync, arrayInsertBefore, arrayRemove } from '../src/array';
 import { wait } from '../src/async';
 
 test('arrayLike', () => {

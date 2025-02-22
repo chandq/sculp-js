@@ -1,21 +1,4 @@
-import { objectHas } from './object';
-import { AnyArray, isArray, isObject, isString } from './type';
-
-/**
- * 判断一个对象是否为类数组
- *
- * @param any
- * @returns {boolean}
- */
-export function arrayLike(any: unknown): boolean {
-  if (isArray(any)) return true;
-
-  if (isString(any)) return true;
-
-  if (!isObject(any)) return false;
-
-  return objectHas(any, 'length');
-}
+import { AnyArray, isArray, isObject } from './type';
 
 /**
  * 遍历数组，返回 false 中断遍历(支持continue和break操作)

@@ -2,7 +2,6 @@ import { wait } from '../src/async';
 import {
   objectAssign,
   objectEach,
-  objectHas,
   isPlainObject,
   objectFill,
   objectGet,
@@ -11,7 +10,7 @@ import {
   objectPick,
   objectOmit
 } from '../src/object';
-import { AnyObject, isNumber } from '../src/type';
+import { objectHas, AnyObject, isNumber } from '../src/type';
 
 test('isPlainObject', () => {
   expect(isPlainObject([])).toBe(false);
