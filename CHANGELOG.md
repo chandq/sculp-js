@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.6.0](https://github.com/chandq/sculp-js/compare/v1.5.1...v1.6.0) (2025-02-22)
+
+### Features
+
+- add isEmpty utils function ([efbba9a](https://github.com/chandq/sculp-js/commit/efbba9a5f603a105763ca16e65c55d02c6972709))
+- add math utils, fix bug of objectGet ([cb7f393](https://github.com/chandq/sculp-js/commit/cb7f393d8cf537a4a445359dea88d29cfebd62d1))
+- add utils for encode/decode base64 ([d5d1496](https://github.com/chandq/sculp-js/commit/d5d1496186fe49732b1dfc14cb5662ce1cdec294))
+
 ### [1.5.1](https://github.com/chandq/sculp-js/compare/v1.5.0...v1.5.1) (2024-11-30)
 
 ## [1.5.0](https://github.com/chandq/sculp-js/compare/v1.4.1...v1.5.0) (2024-11-30)
