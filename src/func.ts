@@ -140,7 +140,7 @@ export function setGlobal(key: string | number | symbol, val?: any) {
 }
 
 /**
- * 设置全局变量
+ * 获取全局变量
  * @param {string | number | symbol} key
  * @param val
  */

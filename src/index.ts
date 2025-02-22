@@ -21,3 +21,4 @@ export * from './tooltip';
 export * from './tree';
 export * from './math';
 export * from './we-decode';
+export * from './base64';

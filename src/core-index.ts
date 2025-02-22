@@ -12,3 +12,4 @@ export * from './unique';
 export * from './tree';
 export * from './math';
 export * from './we-decode';
+export * from './base64';
