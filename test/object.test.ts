@@ -17,7 +17,7 @@ test('isPlainObject', () => {
   expect(isPlainObject([])).toBe(false);
   expect(isPlainObject(Object.create(null))).toBe(true);
   expect(isPlainObject({})).toBe(true);
-  class Object2 extends Object { }
+  class Object2 extends Object {}
   expect(isPlainObject(new Object2())).toBe(false);
 });
 
@@ -363,5 +363,15 @@ test('objectGet', () => {
   expect(objectGet(o, 'a.d[0].f.0').k).toBeUndefined();
   expect(objectGet(o, 'a.d[0].f.0').v).toBeUndefined();
 
-  expect(() => objectGet(o, 'a.d[0].f.0', true)).toThrow('[berry/js-utils/object] objectGet path 路径不正确');
+  expect(() => objectGet(o, 'a.d[0].f.0', true)).toThrow('[Object] objectGet path 路径不正确');
+
+  const object2 = { a: [{ b: { c: 3 } }, 4] };
+  //@ts-ignore
+  expect(objectGet(object2, 'a[0].b.c').p).toBe(object2.a[0].b);
+  expect(objectGet(object2, 'a[0].b.c').k).toBe('c');
+  expect(objectGet(object2, 'a[0].b.c').v).toBe(3);
+
+  expect(objectGet(object2, 'a[1].b.c').p).toBeUndefined();
+  expect(objectGet(object2, 'a[1].b.c').k).toBeUndefined();
+  expect(objectGet(object2, 'a[1].b.c').v).toBeUndefined();
 });

@@ -234,23 +234,22 @@ export function objectGet(
   for (let len = keyArr.length; i < len - 1; ++i) {
     const key = keyArr[i];
 
-    if (key in tempObj) {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-assignment
+    if (isNumber(Number(key)) && Array.isArray(tempObj)) {
+      tempObj = tempObj[key];
+    } else if (isObject(tempObj) && objectHas(tempObj, key)) {
       tempObj = tempObj[key];
     } else {
       tempObj = undefined;
 
       if (strict) {
-        throw new Error('[berry/js-utils/object] objectGet path 路径不正确');
+        throw new Error('[Object] objectGet path 路径不正确');
       }
       break;
     }
   }
   return {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     p: tempObj,
     k: tempObj ? keyArr[i] : undefined,
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-assignment
     v: tempObj ? tempObj[keyArr[i]] : undefined
   };
 }

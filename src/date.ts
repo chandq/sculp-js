@@ -142,7 +142,6 @@ export function dateToEnd(value: DateValue): Date {
  * - DD：日
  * - dd: 日
  * - HH：时（24 小时制）
- * - hh：时（12 小时制）
  * - mm：分
  * - ss：秒
  * - SSS：毫秒
