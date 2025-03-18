@@ -135,7 +135,7 @@ export const stringFill = (length: number, value = ' '): string => new Array(len
 /**
  * 解析URL查询参数
  * @param {string} searchStr
- * @return {Record<string, string | string[]>}
+ * @returns {Record<string, string | string[]>}
  */
 export function parseQueryParams(searchStr: string = location.search): Record<string, string | string[]> {
   const queryObj = {};

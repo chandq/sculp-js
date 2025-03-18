@@ -4,7 +4,7 @@ const b64re = /^(?:[A-Za-z\d+\/]{4})*?(?:[A-Za-z\d+\/]{2}(?:==)?|[A-Za-z\d+\/]{3
 /**
  * 字符串编码成Base64 （适用于任何环境，包括小程序）
  * @param {string} string
- * @return {string}
+ * @returns {string}
  */
 export function weBtoa(string: string): string {
   // 同window.btoa: 字符串编码成Base64
@@ -33,7 +33,7 @@ export function weBtoa(string: string): string {
 /**
  * Base64解码为原始字符串（适用于任何环境，包括小程序）
  * @param {string} string
- * @return {string}
+ * @returns {string}
  */
 export function weAtob(string: string): string {
   // 同window.atob: Base64解码为原始字符串

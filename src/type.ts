@@ -83,7 +83,7 @@ export const isRegExp = (any: unknown): any is RegExp => typeIs(any) === 'RegExp
 /**
  * 判断一个字符串是否为有效的 JSON, 若有效则返回有效的JSON对象，否则false
  * @param {string} str
- * @return {Object | boolean}
+ * @returns {Object | boolean}
  */
 export function isJsonString(str: string): Object | boolean {
   try {

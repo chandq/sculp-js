@@ -325,7 +325,7 @@ export function formatTree(list: any[], options: IFieldOptions = defaultFieldOpt
  * 树形结构转扁平化
  * @param {any} treeList
  * @param {IFieldOptions} options
- * @return {*}
+ * @returns {*}
  */
 export function flatTree(treeList: any[], options: IFieldOptions = defaultFieldOptions): any[] {
   const { childField, keyField, pidField } = options;
@@ -352,7 +352,7 @@ export function flatTree(treeList: any[], options: IFieldOptions = defaultFieldO
  * @param {any[]} nodes
  * @param {string} query
  * @param {ISearchTreeOpts} options
- * @return {any[]}
+ * @returns {any[]}
  */
 export function fuzzySearchTree(
   nodes: any[],
