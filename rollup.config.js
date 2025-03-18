@@ -13,8 +13,8 @@ const isCore = process.env.BUILD_TARGET === 'core'; // 适用于web、node、小
 // banner
 const banner =
   '/*!\n' +
-  ` * ${pkgName} v${pkg.version}\n` +
-  ` * (c) 2023-${new Date().getFullYear()} chandq\n` +
+  ` * ${pkg.name} v${pkg.version}\n` +
+  ` * (c) 2023-present chandq\n` +
   ' * Released under the MIT License.\n' +
   ' */\n';
 // 转换命名为驼峰命名

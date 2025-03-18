@@ -9,7 +9,16 @@
 
 [API文档](https://chandq.github.io/sculp-js/)
 
-> TS + Rollup, native implementation, without relying on any third-party libraries, outputs products of three module modes: ESM, CJS, and UMD
+> TS + Rollup, native implementation, without relying on any third-party libraries, outputs products of three module modes: ESM, CJS, and UMD. sculp-js only used to Web environment, @sculp/core can be used to Web、Node.js、Mini Program.
+
+## Quickstart
+
+- Via CDN: `<script src="https://unpkg.com/sculp-js"></script>`
+- Via npm:
+
+  ```js
+  npm i sculp-js
+  ```
 
 ## Features
 
