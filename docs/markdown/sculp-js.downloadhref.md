@@ -9,15 +9,16 @@
 **Signature:**
 
 ```typescript
-declare function downloadHref(href: string, filename: string): void;
+declare function downloadHref(href: string, filename: string, callback?: Function): void;
 ```
 
 ## Parameters
 
-| Parameter | Type   | Description |
-| --------- | ------ | ----------- |
-| href      | string |             |
-| filename  | string |             |
+| Parameter | Type     | Description  |
+| --------- | -------- | ------------ |
+| href      | string   |              |
+| filename  | string   |              |
+| callback  | Function | _(Optional)_ |
 
 **Returns:**
 

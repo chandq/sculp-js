@@ -14,12 +14,14 @@ declare function fuzzySearchTree(nodes: any[], query: string, options?: ISearchT
 
 ## Parameters
 
-| Parameter | Type                                             | Description                            |
-| --------- | ------------------------------------------------ | -------------------------------------- |
-| nodes     | any\[\]                                          |                                        |
-| query     | string                                           |                                        |
-| options   | [ISearchTreeOpts](./sculp-js.isearchtreeopts.md) | _(Optional)_ {<!-- -->any\[\]<!-- -->} |
+| Parameter | Type                                             | Description  |
+| --------- | ------------------------------------------------ | ------------ |
+| nodes     | any\[\]                                          |              |
+| query     | string                                           |              |
+| options   | [ISearchTreeOpts](./sculp-js.isearchtreeopts.md) | _(Optional)_ |
 
 **Returns:**
 
 any\[\]
+
+{<!-- -->any\[\]<!-- -->}

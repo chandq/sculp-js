@@ -14,11 +14,13 @@ declare function flatTree(treeList: any[], options?: IFieldOptions): any[];
 
 ## Parameters
 
-| Parameter | Type                                         | Description                       |
-| --------- | -------------------------------------------- | --------------------------------- |
-| treeList  | any\[\]                                      |                                   |
-| options   | [IFieldOptions](./sculp-js.ifieldoptions.md) | _(Optional)_ {<!-- -->\*<!-- -->} |
+| Parameter | Type                                         | Description  |
+| --------- | -------------------------------------------- | ------------ |
+| treeList  | any\[\]                                      |              |
+| options   | [IFieldOptions](./sculp-js.ifieldoptions.md) | _(Optional)_ |
 
 **Returns:**
 
 any\[\]
+
+{<!-- -->\*<!-- -->}

@@ -34,6 +34,8 @@ after exec completely, will generate `api-extractor.json` file
 api-extractor run --local --verbose
 ```
 
+after exec completely, will generate temporary directory named temp which includes [packageName]-api.json、[packageName]-api.md、[packageName]-api.pdf files. Then, copy [packageName]-api.json to docs/input directory.
+
 3. Enter into docs directory
 
 ```bash

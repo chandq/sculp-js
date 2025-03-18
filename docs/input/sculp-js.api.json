@@ -173,6 +173,29 @@
       "preserveMemberOrder": false,
       "members": [
         {
+          "kind": "Variable",
+          "canonicalReference": "sculp-js!add:var",
+          "docComment": "/**\n * 数值安全加法\n *\n * @param arg1 - 数值1\n *\n * @param arg2 - 数值2\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "add: "
+            },
+            {
+              "kind": "Content",
+              "text": "(arg1: number, arg2: number) => number"
+            }
+          ],
+          "fileUrlPath": "lib/index.d.ts",
+          "isReadonly": true,
+          "releaseTag": "Public",
+          "name": "add",
+          "variableTypeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 2
+          }
+        },
+        {
           "kind": "Function",
           "canonicalReference": "sculp-js!addClass:function(1)",
           "docComment": "/**\n * 给元素增加样式名\n *\n * @param el - \n *\n * @param classNames - \n */\n",
@@ -1650,6 +1673,84 @@
           "name": "copyText"
         },
         {
+          "kind": "Function",
+          "canonicalReference": "sculp-js!crossOriginDownload:function(1)",
+          "docComment": "/**\n * 根据URL下载文件（解决跨域a.download不生效问题)\n *\n * @param url - \n *\n * @param filename - \n *\n * @param callback - \n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "declare function crossOriginDownload(url: "
+            },
+            {
+              "kind": "Content",
+              "text": "string"
+            },
+            {
+              "kind": "Content",
+              "text": ", filename: "
+            },
+            {
+              "kind": "Content",
+              "text": "string"
+            },
+            {
+              "kind": "Content",
+              "text": ", callback?: "
+            },
+            {
+              "kind": "Reference",
+              "text": "Function",
+              "canonicalReference": "!Function:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "): "
+            },
+            {
+              "kind": "Content",
+              "text": "void"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "fileUrlPath": "lib/index.d.ts",
+          "returnTypeTokenRange": {
+            "startIndex": 7,
+            "endIndex": 8
+          },
+          "releaseTag": "Public",
+          "overloadIndex": 1,
+          "parameters": [
+            {
+              "parameterName": "url",
+              "parameterTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "isOptional": false
+            },
+            {
+              "parameterName": "filename",
+              "parameterTypeTokenRange": {
+                "startIndex": 3,
+                "endIndex": 4
+              },
+              "isOptional": false
+            },
+            {
+              "parameterName": "callback",
+              "parameterTypeTokenRange": {
+                "startIndex": 5,
+                "endIndex": 6
+              },
+              "isOptional": true
+            }
+          ],
+          "name": "crossOriginDownload"
+        },
+        {
           "kind": "Interface",
           "canonicalReference": "sculp-js!DateObj:interface",
           "docComment": "",
@@ -2041,8 +2142,76 @@
         },
         {
           "kind": "Function",
+          "canonicalReference": "sculp-js!decodeFromBase64:function(1)",
+          "docComment": "/**\n * 将base64编码的字符串转换为原始字符串，包括对中文内容的处理(高性能，且支持Web、Node、小程序等任意平台)\n *\n * @param base64 - base64编码的字符串\n *\n * @returns 原始字符串，包括中文内容\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "declare function decodeFromBase64(base64: "
+            },
+            {
+              "kind": "Content",
+              "text": "string"
+            },
+            {
+              "kind": "Content",
+              "text": "): "
+            },
+            {
+              "kind": "Content",
+              "text": "string"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "fileUrlPath": "lib/index.d.ts",
+          "returnTypeTokenRange": {
+            "startIndex": 3,
+            "endIndex": 4
+          },
+          "releaseTag": "Public",
+          "overloadIndex": 1,
+          "parameters": [
+            {
+              "parameterName": "base64",
+              "parameterTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "isOptional": false
+            }
+          ],
+          "name": "decodeFromBase64"
+        },
+        {
+          "kind": "Variable",
+          "canonicalReference": "sculp-js!divide:var",
+          "docComment": "/**\n * 数值安全除法\n *\n * @param arg1 - 数值1\n *\n * @param arg2 - 数值2\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "divide: "
+            },
+            {
+              "kind": "Content",
+              "text": "(arg1: number, arg2: number) => number"
+            }
+          ],
+          "fileUrlPath": "lib/index.d.ts",
+          "isReadonly": true,
+          "releaseTag": "Public",
+          "name": "divide",
+          "variableTypeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 2
+          }
+        },
+        {
+          "kind": "Function",
           "canonicalReference": "sculp-js!downloadBlob:function(1)",
-          "docComment": "/**\n * 将大文件对象通过 A 链接的方式下载\n *\n * @param blob - \n *\n * @param filename - \n */\n",
+          "docComment": "/**\n * 将大文件对象通过 A 链接的方式下载\n *\n * @param blob - \n *\n * @param filename - \n *\n * @param callback - \n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -2063,6 +2232,15 @@
             },
             {
               "kind": "Content",
+              "text": ", callback?: "
+            },
+            {
+              "kind": "Reference",
+              "text": "Function",
+              "canonicalReference": "!Function:interface"
+            },
+            {
+              "kind": "Content",
               "text": "): "
             },
             {
@@ -2076,8 +2254,8 @@
           ],
           "fileUrlPath": "lib/index.d.ts",
           "returnTypeTokenRange": {
-            "startIndex": 5,
-            "endIndex": 6
+            "startIndex": 7,
+            "endIndex": 8
           },
           "releaseTag": "Public",
           "overloadIndex": 1,
@@ -2097,6 +2275,14 @@
                 "endIndex": 4
               },
               "isOptional": false
+            },
+            {
+              "parameterName": "callback",
+              "parameterTypeTokenRange": {
+                "startIndex": 5,
+                "endIndex": 6
+              },
+              "isOptional": true
             }
           ],
           "name": "downloadBlob"
@@ -2212,7 +2398,7 @@
         {
           "kind": "Function",
           "canonicalReference": "sculp-js!downloadHref:function(1)",
-          "docComment": "/**\n * 通过 A 链接的方式下载\n *\n * @param href - \n *\n * @param filename - \n */\n",
+          "docComment": "/**\n * 通过 A 链接的方式下载\n *\n * @param href - \n *\n * @param filename - \n *\n * @param callback - \n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -2232,6 +2418,15 @@
             },
             {
               "kind": "Content",
+              "text": ", callback?: "
+            },
+            {
+              "kind": "Reference",
+              "text": "Function",
+              "canonicalReference": "!Function:interface"
+            },
+            {
+              "kind": "Content",
               "text": "): "
             },
             {
@@ -2245,8 +2440,8 @@
           ],
           "fileUrlPath": "lib/index.d.ts",
           "returnTypeTokenRange": {
-            "startIndex": 5,
-            "endIndex": 6
+            "startIndex": 7,
+            "endIndex": 8
           },
           "releaseTag": "Public",
           "overloadIndex": 1,
@@ -2266,6 +2461,14 @@
                 "endIndex": 4
               },
               "isOptional": false
+            },
+            {
+              "parameterName": "callback",
+              "parameterTypeTokenRange": {
+                "startIndex": 5,
+                "endIndex": 6
+              },
+              "isOptional": true
             }
           ],
           "name": "downloadHref"
@@ -2333,6 +2536,186 @@
           "name": "downloadURL"
         },
         {
+          "kind": "Variable",
+          "canonicalReference": "sculp-js!EMAIL_REGEX:var",
+          "docComment": "",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "EMAIL_REGEX: "
+            },
+            {
+              "kind": "Reference",
+              "text": "RegExp",
+              "canonicalReference": "!RegExp:interface"
+            }
+          ],
+          "fileUrlPath": "lib/index.d.ts",
+          "isReadonly": true,
+          "releaseTag": "Public",
+          "name": "EMAIL_REGEX",
+          "variableTypeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 2
+          }
+        },
+        {
+          "kind": "Function",
+          "canonicalReference": "sculp-js!encodeToBase64:function(1)",
+          "docComment": "/**\n * 将原始字符串，包括中文内容，转换为base64编码的字符串(高性能，且支持Web、Node、小程序等任意平台)\n *\n * @param rawStr - 原始字符串，包括中文内容\n *\n * @returns base64编码的字符串\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "declare function encodeToBase64(rawStr: "
+            },
+            {
+              "kind": "Content",
+              "text": "string"
+            },
+            {
+              "kind": "Content",
+              "text": "): "
+            },
+            {
+              "kind": "Content",
+              "text": "string"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "fileUrlPath": "lib/index.d.ts",
+          "returnTypeTokenRange": {
+            "startIndex": 3,
+            "endIndex": 4
+          },
+          "releaseTag": "Public",
+          "overloadIndex": 1,
+          "parameters": [
+            {
+              "parameterName": "rawStr",
+              "parameterTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "isOptional": false
+            }
+          ],
+          "name": "encodeToBase64"
+        },
+        {
+          "kind": "Function",
+          "canonicalReference": "sculp-js!escapeRegExp:function(1)",
+          "docComment": "/**\n * 转义所有特殊字符\n *\n * @param str - 原字符串 reference: https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Regular_expressions\n *\n * @returns string\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "declare function escapeRegExp(str: "
+            },
+            {
+              "kind": "Content",
+              "text": "string"
+            },
+            {
+              "kind": "Content",
+              "text": "): "
+            },
+            {
+              "kind": "Content",
+              "text": "string"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "fileUrlPath": "lib/index.d.ts",
+          "returnTypeTokenRange": {
+            "startIndex": 3,
+            "endIndex": 4
+          },
+          "releaseTag": "Public",
+          "overloadIndex": 1,
+          "parameters": [
+            {
+              "parameterName": "str",
+              "parameterTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "isOptional": false
+            }
+          ],
+          "name": "escapeRegExp"
+        },
+        {
+          "kind": "Function",
+          "canonicalReference": "sculp-js!executeInScope:function(1)",
+          "docComment": "/**\n * 在指定作用域中执行代码\n *\n * @param code - 要执行的代码（需包含 return 语句或表达式）\n *\n * @param scope - 作用域对象（键值对形式的变量环境）\n *\n * @returns 代码执行结果\n *\n * @example\n *\n * // 测试用例 1: 基本变量访问 executeInScope(\"return a + b;\", { a: 1, b: 2 }); // 3\n *\n * // 测试用例 2: 支持复杂表达式和运算 executeInScope( \"return Array.from({ length: 3 }, (_, i) => base + i);\", { base: 100 } ); // [100, 101, 102]\n *\n * // 支持外传函数作用域执行 const scope = { $: { fun: { time: { now: function () { return new Date(); }, }, }, }, }; executeInScope(\"return $.fun.time.now()\", scope)\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "declare function executeInScope(code: "
+            },
+            {
+              "kind": "Content",
+              "text": "string"
+            },
+            {
+              "kind": "Content",
+              "text": ", scope?: "
+            },
+            {
+              "kind": "Reference",
+              "text": "Record",
+              "canonicalReference": "!Record:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<string, any>"
+            },
+            {
+              "kind": "Content",
+              "text": "): "
+            },
+            {
+              "kind": "Content",
+              "text": "any"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "fileUrlPath": "lib/index.d.ts",
+          "returnTypeTokenRange": {
+            "startIndex": 6,
+            "endIndex": 7
+          },
+          "releaseTag": "Public",
+          "overloadIndex": 1,
+          "parameters": [
+            {
+              "parameterName": "code",
+              "parameterTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "isOptional": false
+            },
+            {
+              "parameterName": "scope",
+              "parameterTypeTokenRange": {
+                "startIndex": 3,
+                "endIndex": 5
+              },
+              "isOptional": true
+            }
+          ],
+          "name": "executeInScope"
+        },
+        {
           "kind": "TypeAlias",
           "canonicalReference": "sculp-js!FileType:type",
           "docComment": "",
@@ -2361,7 +2744,7 @@
         {
           "kind": "Function",
           "canonicalReference": "sculp-js!flatTree:function(1)",
-          "docComment": "/**\n * 树形结构转扁平化\n *\n * @param treeList - \n *\n * @param options -  @return {*}\n */\n",
+          "docComment": "/**\n * 树形结构转扁平化\n *\n * @param treeList - \n *\n * @param options - \n *\n * @returns {*}\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -2681,7 +3064,7 @@
         {
           "kind": "Function",
           "canonicalReference": "sculp-js!formatDate:function(1)",
-          "docComment": "/**\n * 格式化为日期对象(带自定义格式化模板)\n *\n * @param value - 可以是数值、字符串或 Date 对象\n *\n * @param format - 模板，默认是 YYYY-MM-DD HH:mm:ss，模板字符： - YYYY：年 - yyyy: 年 - MM：月 - DD：日 - dd: 日 - HH：时（24 小时制） - hh：时（12 小时制） - mm：分 - ss：秒 - SSS：毫秒 - ww: 周\n *\n * @returns {string} 格式化后的日期字符串\n */\n",
+          "docComment": "/**\n * 格式化为日期对象(带自定义格式化模板)\n *\n * @param value - 可以是数值、字符串或 Date 对象\n *\n * @param format - 模板，默认是 YYYY-MM-DD HH:mm:ss，模板字符： - YYYY：年 - yyyy: 年 - MM：月 - DD：日 - dd: 日 - HH：时（24 小时制） - mm：分 - ss：秒 - SSS：毫秒 - ww: 周\n *\n * @returns {string} 格式化后的日期字符串\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -2866,7 +3249,7 @@
         {
           "kind": "Function",
           "canonicalReference": "sculp-js!fuzzySearchTree:function(1)",
-          "docComment": "/**\n * 模糊搜索函数，返回包含搜索字符的节点及其祖先节点, 适用于树型组件的字符过滤功能\n *\n * @param nodes - \n *\n * @param query - \n *\n * @param options -  @return {any[]}\n */\n",
+          "docComment": "/**\n * 模糊搜索函数，返回包含搜索字符的节点及其祖先节点, 适用于树型组件的字符过滤功能\n *\n * @param nodes - \n *\n * @param query - \n *\n * @param options - \n *\n * @returns {any[]}\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -3068,7 +3451,7 @@
         {
           "kind": "Function",
           "canonicalReference": "sculp-js!getGlobal:function(1)",
-          "docComment": "/**\n * 设置全局变量\n *\n * @param key - \n *\n * @param val - \n */\n",
+          "docComment": "/**\n * 获取全局变量\n *\n * @param key - \n *\n * @param val - \n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -3342,6 +3725,30 @@
           "isReadonly": true,
           "releaseTag": "Public",
           "name": "HEX_POOL",
+          "variableTypeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 2
+          }
+        },
+        {
+          "kind": "Variable",
+          "canonicalReference": "sculp-js!HTTP_URL_REGEX:var",
+          "docComment": "",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "HTTP_URL_REGEX: "
+            },
+            {
+              "kind": "Reference",
+              "text": "RegExp",
+              "canonicalReference": "!RegExp:interface"
+            }
+          ],
+          "fileUrlPath": "lib/index.d.ts",
+          "isReadonly": true,
+          "releaseTag": "Public",
+          "name": "HTTP_URL_REGEX",
           "variableTypeTokenRange": {
             "startIndex": 1,
             "endIndex": 2
@@ -3838,6 +4245,54 @@
         },
         {
           "kind": "Variable",
+          "canonicalReference": "sculp-js!IPV4_REGEX:var",
+          "docComment": "",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "IPV4_REGEX: "
+            },
+            {
+              "kind": "Reference",
+              "text": "RegExp",
+              "canonicalReference": "!RegExp:interface"
+            }
+          ],
+          "fileUrlPath": "lib/index.d.ts",
+          "isReadonly": true,
+          "releaseTag": "Public",
+          "name": "IPV4_REGEX",
+          "variableTypeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 2
+          }
+        },
+        {
+          "kind": "Variable",
+          "canonicalReference": "sculp-js!IPV6_REGEX:var",
+          "docComment": "",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "IPV6_REGEX: "
+            },
+            {
+              "kind": "Reference",
+              "text": "RegExp",
+              "canonicalReference": "!RegExp:interface"
+            }
+          ],
+          "fileUrlPath": "lib/index.d.ts",
+          "isReadonly": true,
+          "releaseTag": "Public",
+          "name": "IPV6_REGEX",
+          "variableTypeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 2
+          }
+        },
+        {
+          "kind": "Variable",
           "canonicalReference": "sculp-js!isArray:var",
           "docComment": "",
           "excerptTokens": [
@@ -3970,6 +4425,29 @@
           }
         },
         {
+          "kind": "Variable",
+          "canonicalReference": "sculp-js!isDigit:var",
+          "docComment": "/**\n * 判断字符串是否为数字，例如六位数字短信验证码（093031）\n *\n * @param value - \n *\n * @returns {boolean}\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "isDigit: "
+            },
+            {
+              "kind": "Content",
+              "text": "(value: string) => boolean"
+            }
+          ],
+          "fileUrlPath": "lib/index.d.ts",
+          "isReadonly": true,
+          "releaseTag": "Public",
+          "name": "isDigit",
+          "variableTypeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 2
+          }
+        },
+        {
           "kind": "Function",
           "canonicalReference": "sculp-js!isDomReady:function(1)",
           "docComment": "",
@@ -4098,6 +4576,74 @@
         },
         {
           "kind": "Variable",
+          "canonicalReference": "sculp-js!isEmail:var",
+          "docComment": "/**\n * 判断字符串是否为邮箱格式，不对邮箱真实性做验证，如域名是否正确等\n *\n * @param value - \n *\n * @returns {boolean}\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "isEmail: "
+            },
+            {
+              "kind": "Content",
+              "text": "(value: string) => boolean"
+            }
+          ],
+          "fileUrlPath": "lib/index.d.ts",
+          "isReadonly": true,
+          "releaseTag": "Public",
+          "name": "isEmail",
+          "variableTypeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 2
+          }
+        },
+        {
+          "kind": "Function",
+          "canonicalReference": "sculp-js!isEmpty:function(1)",
+          "docComment": "/**\n * Checks if `value` is an empty object, collection, map, or set.\n *\n * Objects are considered empty if they have no own enumerable string keyed properties.\n *\n * Array-like values such as `arguments` objects, arrays, buffers, strings, or jQuery-like collections are considered empty if they have a `length` of `0`. Similarly, maps and sets are considered empty if they have a `size` of `0`.\n *\n * @param value - The value to check.\n *\n * @returns {boolean} Returns `true` if `value` is empty, else `false`.\n *\n * @example\n *\n * isEmpty(null); // => true\n *\n * isEmpty(true); // => true\n *\n * isEmpty(1); // => true\n *\n * isEmpty([1, 2, 3]); // => false\n *\n * isEmpty({ 'a': 1 }); // => false\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "declare function isEmpty(value: "
+            },
+            {
+              "kind": "Content",
+              "text": "any"
+            },
+            {
+              "kind": "Content",
+              "text": "): "
+            },
+            {
+              "kind": "Content",
+              "text": "boolean"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "fileUrlPath": "lib/index.d.ts",
+          "returnTypeTokenRange": {
+            "startIndex": 3,
+            "endIndex": 4
+          },
+          "releaseTag": "Public",
+          "overloadIndex": 1,
+          "parameters": [
+            {
+              "parameterName": "value",
+              "parameterTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "isOptional": false
+            }
+          ],
+          "name": "isEmpty"
+        },
+        {
+          "kind": "Variable",
           "canonicalReference": "sculp-js!isError:var",
           "docComment": "",
           "excerptTokens": [
@@ -4131,6 +4677,29 @@
           "variableTypeTokenRange": {
             "startIndex": 1,
             "endIndex": 5
+          }
+        },
+        {
+          "kind": "Variable",
+          "canonicalReference": "sculp-js!isFloat:var",
+          "docComment": "/**\n * 判断字符串是否为浮点数，即必须有小数点的有理数\n *\n * @param value - \n *\n * @returns {boolean}\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "isFloat: "
+            },
+            {
+              "kind": "Content",
+              "text": "(value: string) => boolean"
+            }
+          ],
+          "fileUrlPath": "lib/index.d.ts",
+          "isReadonly": true,
+          "releaseTag": "Public",
+          "name": "isFloat",
+          "variableTypeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 2
           }
         },
         {
@@ -4171,9 +4740,101 @@
           }
         },
         {
+          "kind": "Variable",
+          "canonicalReference": "sculp-js!isIdNo:var",
+          "docComment": "/**\n * 判断字符串是否为身份证号码格式\n *\n * @param value - \n *\n * @returns {boolean}\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "isIdNo: "
+            },
+            {
+              "kind": "Content",
+              "text": "(value: string) => boolean"
+            }
+          ],
+          "fileUrlPath": "lib/index.d.ts",
+          "isReadonly": true,
+          "releaseTag": "Public",
+          "name": "isIdNo",
+          "variableTypeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 2
+          }
+        },
+        {
+          "kind": "Variable",
+          "canonicalReference": "sculp-js!isInteger:var",
+          "docComment": "/**\n * 判断字符串是否为整数（自然数），即 ...,-3,-2,-1,0,1,2,3,...\n *\n * @param value - \n *\n * @returns {boolean}\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "isInteger: "
+            },
+            {
+              "kind": "Content",
+              "text": "(value: string) => boolean"
+            }
+          ],
+          "fileUrlPath": "lib/index.d.ts",
+          "isReadonly": true,
+          "releaseTag": "Public",
+          "name": "isInteger",
+          "variableTypeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 2
+          }
+        },
+        {
+          "kind": "Variable",
+          "canonicalReference": "sculp-js!isIpV4:var",
+          "docComment": "/**\n * 判断字符串是否为 IPV4 格式，不对 ip 真实性做验证\n *\n * @param value - \n *\n * @returns {boolean}\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "isIpV4: "
+            },
+            {
+              "kind": "Content",
+              "text": "(value: string) => boolean"
+            }
+          ],
+          "fileUrlPath": "lib/index.d.ts",
+          "isReadonly": true,
+          "releaseTag": "Public",
+          "name": "isIpV4",
+          "variableTypeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 2
+          }
+        },
+        {
+          "kind": "Variable",
+          "canonicalReference": "sculp-js!isIpV6:var",
+          "docComment": "/**\n * 判断字符串是否为 IPV6 格式，不对 ip 真实性做验证\n *\n * @param value - \n *\n * @returns {boolean}\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "isIpV6: "
+            },
+            {
+              "kind": "Content",
+              "text": "(value: string) => boolean"
+            }
+          ],
+          "fileUrlPath": "lib/index.d.ts",
+          "isReadonly": true,
+          "releaseTag": "Public",
+          "name": "isIpV6",
+          "variableTypeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 2
+          }
+        },
+        {
           "kind": "Function",
           "canonicalReference": "sculp-js!isJsonString:function(1)",
-          "docComment": "/**\n * 判断一个字符串是否为有效的 JSON, 若有效则返回有效的JSON对象，否则false\n *\n * @param str -  @return {Object | boolean}\n */\n",
+          "docComment": "/**\n * 判断一个字符串是否为有效的 JSON, 若有效则返回有效的JSON对象，否则false\n *\n * @param str - \n *\n * @returns {Object | boolean}\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -4368,6 +5029,29 @@
         },
         {
           "kind": "Variable",
+          "canonicalReference": "sculp-js!isNumerical:var",
+          "docComment": "/**\n * 判断字符串是否为正确数值，包括整数和浮点数\n *\n * @param value - \n *\n * @returns {boolean}\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "isNumerical: "
+            },
+            {
+              "kind": "Content",
+              "text": "(value: string) => boolean"
+            }
+          ],
+          "fileUrlPath": "lib/index.d.ts",
+          "isReadonly": true,
+          "releaseTag": "Public",
+          "name": "isNumerical",
+          "variableTypeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 2
+          }
+        },
+        {
+          "kind": "Variable",
           "canonicalReference": "sculp-js!isObject:var",
           "docComment": "",
           "excerptTokens": [
@@ -4405,6 +5089,29 @@
           "variableTypeTokenRange": {
             "startIndex": 1,
             "endIndex": 6
+          }
+        },
+        {
+          "kind": "Variable",
+          "canonicalReference": "sculp-js!isPhone:var",
+          "docComment": "/**\n * 判断字符串是否为宽松手机格式，即首位为 1 的 11 位数字都属于手机号\n *\n * @param value - \n *\n * @returns {boolean}\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "isPhone: "
+            },
+            {
+              "kind": "Content",
+              "text": "(value: string) => boolean"
+            }
+          ],
+          "fileUrlPath": "lib/index.d.ts",
+          "isReadonly": true,
+          "releaseTag": "Public",
+          "name": "isPhone",
+          "variableTypeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 2
           }
         },
         {
@@ -4584,6 +5291,29 @@
           "variableTypeTokenRange": {
             "startIndex": 1,
             "endIndex": 4
+          }
+        },
+        {
+          "kind": "Variable",
+          "canonicalReference": "sculp-js!isUrl:var",
+          "docComment": "/**\n * 判断字符串是否为 url 格式，支持 http、https、ftp 协议，支持域名或者 ipV4\n *\n * @param value - \n *\n * @returns {boolean}\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "isUrl: "
+            },
+            {
+              "kind": "Content",
+              "text": "(url: string, includeFtp?: boolean) => boolean"
+            }
+          ],
+          "fileUrlPath": "lib/index.d.ts",
+          "isReadonly": true,
+          "releaseTag": "Public",
+          "name": "isUrl",
+          "variableTypeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 2
           }
         },
         {
@@ -4821,6 +5551,29 @@
           "typeTokenRange": {
             "startIndex": 1,
             "endIndex": 4
+          }
+        },
+        {
+          "kind": "Variable",
+          "canonicalReference": "sculp-js!multiply:var",
+          "docComment": "/**\n * 数值安全乘法\n *\n * @param arg1 - 数值1\n *\n * @param arg2 - 数值2\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "multiply: "
+            },
+            {
+              "kind": "Content",
+              "text": "(arg1: number, arg2: number) => number"
+            }
+          ],
+          "fileUrlPath": "lib/index.d.ts",
+          "isReadonly": true,
+          "releaseTag": "Public",
+          "name": "multiply",
+          "variableTypeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 2
           }
         },
         {
@@ -6192,7 +6945,7 @@
         {
           "kind": "Function",
           "canonicalReference": "sculp-js!parseQueryParams:function(1)",
-          "docComment": "/**\n * 解析URL查询参数\n *\n * @param searchStr -  @return {Record<string, string | string[]>}\n */\n",
+          "docComment": "/**\n * 解析URL查询参数\n *\n * @param searchStr - \n *\n * @returns {Record<string, string | string[]>}\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -6238,6 +6991,83 @@
             }
           ],
           "name": "parseQueryParams"
+        },
+        {
+          "kind": "Function",
+          "canonicalReference": "sculp-js!parseVarFromString:function(1)",
+          "docComment": "/**\n * 解析字符串的插值变量\n *\n * @param str - 字符串\n *\n * @param leftMatchSymbol - 变量左侧匹配符号，默认：{\n *\n * @param rightMatchSymbol - 变量右侧匹配符号，默认：}\n *\n * @returns string[]\n *\n * @example\n *\n * default match symbol {} same as /{\\s*([^{}\\s]*)\\s*}/g\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "declare function parseVarFromString(str: "
+            },
+            {
+              "kind": "Content",
+              "text": "string"
+            },
+            {
+              "kind": "Content",
+              "text": ", leftMatchSymbol?: "
+            },
+            {
+              "kind": "Content",
+              "text": "string"
+            },
+            {
+              "kind": "Content",
+              "text": ", rightMatchSymbol?: "
+            },
+            {
+              "kind": "Content",
+              "text": "string"
+            },
+            {
+              "kind": "Content",
+              "text": "): "
+            },
+            {
+              "kind": "Content",
+              "text": "string[]"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "fileUrlPath": "lib/index.d.ts",
+          "returnTypeTokenRange": {
+            "startIndex": 7,
+            "endIndex": 8
+          },
+          "releaseTag": "Public",
+          "overloadIndex": 1,
+          "parameters": [
+            {
+              "parameterName": "str",
+              "parameterTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "isOptional": false
+            },
+            {
+              "parameterName": "leftMatchSymbol",
+              "parameterTypeTokenRange": {
+                "startIndex": 3,
+                "endIndex": 4
+              },
+              "isOptional": true
+            },
+            {
+              "parameterName": "rightMatchSymbol",
+              "parameterTypeTokenRange": {
+                "startIndex": 5,
+                "endIndex": 6
+              },
+              "isOptional": true
+            }
+          ],
+          "name": "parseVarFromString"
         },
         {
           "kind": "TypeAlias",
@@ -6328,6 +7158,30 @@
           "isReadonly": true,
           "releaseTag": "Public",
           "name": "pathNormalize",
+          "variableTypeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 2
+          }
+        },
+        {
+          "kind": "Variable",
+          "canonicalReference": "sculp-js!PHONE_REGEX:var",
+          "docComment": "",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "PHONE_REGEX: "
+            },
+            {
+              "kind": "Reference",
+              "text": "RegExp",
+              "canonicalReference": "!RegExp:interface"
+            }
+          ],
+          "fileUrlPath": "lib/index.d.ts",
+          "isReadonly": true,
+          "releaseTag": "Public",
+          "name": "PHONE_REGEX",
           "variableTypeTokenRange": {
             "startIndex": 1,
             "endIndex": 2
@@ -6828,6 +7682,104 @@
             "startIndex": 1,
             "endIndex": 4
           }
+        },
+        {
+          "kind": "Function",
+          "canonicalReference": "sculp-js!replaceVarFromString:function(1)",
+          "docComment": "/**\n * 替换字符串中的插值变量\n *\n * @param sourceStr - \n *\n * @param targetObj - \n *\n * @param leftMatchSymbol - 变量左侧匹配符号，默认：{\n *\n * @param rightMatchSymbol - 变量右侧匹配符号，默认：}\n *\n * @returns string\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "declare function replaceVarFromString(sourceStr: "
+            },
+            {
+              "kind": "Content",
+              "text": "string"
+            },
+            {
+              "kind": "Content",
+              "text": ", targetObj: "
+            },
+            {
+              "kind": "Reference",
+              "text": "Record",
+              "canonicalReference": "!Record:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<string, any>"
+            },
+            {
+              "kind": "Content",
+              "text": ", leftMatchSymbol?: "
+            },
+            {
+              "kind": "Content",
+              "text": "string"
+            },
+            {
+              "kind": "Content",
+              "text": ", rightMatchSymbol?: "
+            },
+            {
+              "kind": "Content",
+              "text": "string"
+            },
+            {
+              "kind": "Content",
+              "text": "): "
+            },
+            {
+              "kind": "Content",
+              "text": "string"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "fileUrlPath": "lib/index.d.ts",
+          "returnTypeTokenRange": {
+            "startIndex": 10,
+            "endIndex": 11
+          },
+          "releaseTag": "Public",
+          "overloadIndex": 1,
+          "parameters": [
+            {
+              "parameterName": "sourceStr",
+              "parameterTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "isOptional": false
+            },
+            {
+              "parameterName": "targetObj",
+              "parameterTypeTokenRange": {
+                "startIndex": 3,
+                "endIndex": 5
+              },
+              "isOptional": false
+            },
+            {
+              "parameterName": "leftMatchSymbol",
+              "parameterTypeTokenRange": {
+                "startIndex": 6,
+                "endIndex": 7
+              },
+              "isOptional": true
+            },
+            {
+              "parameterName": "rightMatchSymbol",
+              "parameterTypeTokenRange": {
+                "startIndex": 8,
+                "endIndex": 9
+              },
+              "isOptional": true
+            }
+          ],
+          "name": "replaceVarFromString"
         },
         {
           "kind": "Function",
@@ -7747,6 +8699,68 @@
           "name": "stringKebabCase"
         },
         {
+          "kind": "Function",
+          "canonicalReference": "sculp-js!strip:function(1)",
+          "docComment": "/**\n * Correct the given number to specifying significant digits.\n *\n * @param num - The input number\n *\n * @param precision - An integer specifying the number of significant digits\n *\n * @example\n *\n * strip(0.09999999999999998) === 0.1 // true\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "declare function strip(num: "
+            },
+            {
+              "kind": "Reference",
+              "text": "NumberType",
+              "canonicalReference": "sculp-js!~NumberType:type"
+            },
+            {
+              "kind": "Content",
+              "text": ", precision?: "
+            },
+            {
+              "kind": "Content",
+              "text": "number"
+            },
+            {
+              "kind": "Content",
+              "text": "): "
+            },
+            {
+              "kind": "Content",
+              "text": "number"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "fileUrlPath": "lib/index.d.ts",
+          "returnTypeTokenRange": {
+            "startIndex": 5,
+            "endIndex": 6
+          },
+          "releaseTag": "Public",
+          "overloadIndex": 1,
+          "parameters": [
+            {
+              "parameterName": "num",
+              "parameterTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "isOptional": false
+            },
+            {
+              "parameterName": "precision",
+              "parameterTypeTokenRange": {
+                "startIndex": 3,
+                "endIndex": 4
+              },
+              "isOptional": true
+            }
+          ],
+          "name": "strip"
+        },
+        {
           "kind": "Interface",
           "canonicalReference": "sculp-js!Style:interface",
           "docComment": "",
@@ -7807,6 +8821,29 @@
             }
           ],
           "extendsTokenRanges": []
+        },
+        {
+          "kind": "Variable",
+          "canonicalReference": "sculp-js!subtract:var",
+          "docComment": "/**\n * 数值安全减法\n *\n * @param arg1 - 数值1\n *\n * @param arg2 - 数值2\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "subtract: "
+            },
+            {
+              "kind": "Content",
+              "text": "(arg1: number, arg2: number) => number"
+            }
+          ],
+          "fileUrlPath": "lib/index.d.ts",
+          "isReadonly": true,
+          "releaseTag": "Public",
+          "name": "subtract",
+          "variableTypeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 2
+          }
         },
         {
           "kind": "Function",
@@ -8314,6 +9351,75 @@
           "isReadonly": true,
           "releaseTag": "Public",
           "name": "uniqueString",
+          "variableTypeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 2
+          }
+        },
+        {
+          "kind": "Function",
+          "canonicalReference": "sculp-js!uniqueSymbol:function(1)",
+          "docComment": "/**\n * 去除字符串中重复字符\n *\n * @param str - \n *\n * @returns string\n *\n * @example\n *\n * uniqueSymbol('1a1bac'); // => '1abc'\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "declare function uniqueSymbol(str: "
+            },
+            {
+              "kind": "Content",
+              "text": "string"
+            },
+            {
+              "kind": "Content",
+              "text": "): "
+            },
+            {
+              "kind": "Content",
+              "text": "string"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "fileUrlPath": "lib/index.d.ts",
+          "returnTypeTokenRange": {
+            "startIndex": 3,
+            "endIndex": 4
+          },
+          "releaseTag": "Public",
+          "overloadIndex": 1,
+          "parameters": [
+            {
+              "parameterName": "str",
+              "parameterTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "isOptional": false
+            }
+          ],
+          "name": "uniqueSymbol"
+        },
+        {
+          "kind": "Variable",
+          "canonicalReference": "sculp-js!URL_REGEX:var",
+          "docComment": "",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "URL_REGEX: "
+            },
+            {
+              "kind": "Reference",
+              "text": "RegExp",
+              "canonicalReference": "!RegExp:interface"
+            }
+          ],
+          "fileUrlPath": "lib/index.d.ts",
+          "isReadonly": true,
+          "releaseTag": "Public",
+          "name": "URL_REGEX",
           "variableTypeTokenRange": {
             "startIndex": 1,
             "endIndex": 2
@@ -8883,69 +9989,8 @@
         },
         {
           "kind": "Function",
-          "canonicalReference": "sculp-js!weAppJwtDecode:function(1)",
-          "docComment": "",
-          "excerptTokens": [
-            {
-              "kind": "Content",
-              "text": "declare function weAppJwtDecode(token: "
-            },
-            {
-              "kind": "Content",
-              "text": "any"
-            },
-            {
-              "kind": "Content",
-              "text": ", options: "
-            },
-            {
-              "kind": "Content",
-              "text": "any"
-            },
-            {
-              "kind": "Content",
-              "text": "): "
-            },
-            {
-              "kind": "Content",
-              "text": "any"
-            },
-            {
-              "kind": "Content",
-              "text": ";"
-            }
-          ],
-          "fileUrlPath": "lib/index.d.ts",
-          "returnTypeTokenRange": {
-            "startIndex": 5,
-            "endIndex": 6
-          },
-          "releaseTag": "Public",
-          "overloadIndex": 1,
-          "parameters": [
-            {
-              "parameterName": "token",
-              "parameterTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              },
-              "isOptional": false
-            },
-            {
-              "parameterName": "options",
-              "parameterTypeTokenRange": {
-                "startIndex": 3,
-                "endIndex": 4
-              },
-              "isOptional": false
-            }
-          ],
-          "name": "weAppJwtDecode"
-        },
-        {
-          "kind": "Function",
           "canonicalReference": "sculp-js!weAtob:function(1)",
-          "docComment": "/**\n * Base64解码为原始字符串（适用于任何环境，包括小程序）\n *\n * @param string -  @return {string}\n */\n",
+          "docComment": "/**\n * Base64解码为原始字符串（适用于任何环境，包括小程序）\n *\n * @param string - \n *\n * @returns {string}\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -8990,7 +10035,7 @@
         {
           "kind": "Function",
           "canonicalReference": "sculp-js!weBtoa:function(1)",
-          "docComment": "/**\n * 字符串编码成Base64 （适用于任何环境，包括小程序）\n *\n * @param string -  @return {string}\n */\n",
+          "docComment": "/**\n * 字符串编码成Base64 （适用于任何环境，包括小程序）\n *\n * @param string - \n *\n * @returns {string}\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",

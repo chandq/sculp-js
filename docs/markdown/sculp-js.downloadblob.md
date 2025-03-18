@@ -9,15 +9,16 @@
 **Signature:**
 
 ```typescript
-declare function downloadBlob(blob: Blob, filename: string): void;
+declare function downloadBlob(blob: Blob, filename: string, callback?: Function): void;
 ```
 
 ## Parameters
 
-| Parameter | Type   | Description |
-| --------- | ------ | ----------- |
-| blob      | Blob   |             |
-| filename  | string |             |
+| Parameter | Type     | Description  |
+| --------- | -------- | ------------ |
+| blob      | Blob     |              |
+| filename  | string   |              |
+| callback  | Function | _(Optional)_ |
 
 **Returns:**
 

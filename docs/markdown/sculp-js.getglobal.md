@@ -4,7 +4,7 @@
 
 ## getGlobal() function
 
-设置全局变量
+获取全局变量
 
 **Signature:**
 

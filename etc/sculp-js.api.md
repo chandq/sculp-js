@@ -4,6 +4,9 @@
 
 ```ts
 // @public
+export const add: (arg1: number, arg2: number) => number;
+
+// @public
 export function addClass(el: HTMLElement, classNames: string): void;
 
 // @public
@@ -84,6 +87,9 @@ export function cookieSet(name: string, value: string, maxAge?: number | Date): 
 // @public
 export function copyText(text: string): void;
 
+// @public
+export function crossOriginDownload(url: string, filename: string, callback?: Function): void;
+
 // @public (undocumented)
 export interface DateObj {
   // (undocumented)
@@ -114,7 +120,13 @@ export interface DebounceFunc<F extends AnyFunc> {
 }
 
 // @public
-export function downloadBlob(blob: Blob, filename: string): void;
+export function decodeFromBase64(base64: string): string;
+
+// @public
+export const divide: (arg1: number, arg2: number) => number;
+
+// @public
+export function downloadBlob(blob: Blob, filename: string, callback?: Function): void;
 
 // @public
 export function downloadData(
@@ -125,10 +137,22 @@ export function downloadData(
 ): void;
 
 // @public
-export function downloadHref(href: string, filename: string): void;
+export function downloadHref(href: string, filename: string, callback?: Function): void;
 
 // @public
 export function downloadURL(url: string, params?: LooseParams): void;
+
+// @public (undocumented)
+export const EMAIL_REGEX: RegExp;
+
+// @public
+export function encodeToBase64(rawStr: string): string;
+
+// @public
+export function escapeRegExp(str: string): string;
+
+// @public
+export function executeInScope(code: string, scope?: Record<string, any>): any;
 
 // @public (undocumented)
 export type FileType = 'json' | 'csv' | 'xls' | 'xlsx';
@@ -200,6 +224,9 @@ export function hasClass(el: HTMLElement, className: string): boolean;
 export const HEX_POOL: string;
 
 // @public (undocumented)
+export const HTTP_URL_REGEX: RegExp;
+
+// @public (undocumented)
 export interface ICanvasWM {
   // (undocumented)
   container: HTMLElement;
@@ -244,6 +271,12 @@ export interface IFieldOptions {
 }
 
 // @public (undocumented)
+export const IPV4_REGEX: RegExp;
+
+// @public (undocumented)
+export const IPV6_REGEX: RegExp;
+
+// @public (undocumented)
 export const isArray: (any: unknown) => any is unknown[];
 
 // @public (undocumented)
@@ -254,6 +287,9 @@ export const isBoolean: (any: unknown) => any is boolean;
 
 // @public (undocumented)
 export const isDate: (any: unknown) => any is Date;
+
+// @public
+export const isDigit: (value: string) => boolean;
 
 // @public (undocumented)
 export function isDomReady(): boolean;
@@ -268,11 +304,32 @@ export interface ISearchTreeOpts {
   nameField: string;
 }
 
+// @public
+export const isEmail: (value: string) => boolean;
+
+// @public
+export function isEmpty(value: any): boolean;
+
 // @public (undocumented)
 export const isError: (any: unknown) => any is Error;
 
 // @public
+export const isFloat: (value: string) => boolean;
+
+// @public
 export const isFunction: (any: unknown) => any is Function;
+
+// @public
+export const isIdNo: (value: string) => boolean;
+
+// @public
+export const isInteger: (value: string) => boolean;
+
+// @public
+export const isIpV4: (value: string) => boolean;
+
+// @public
+export const isIpV6: (value: string) => boolean;
 
 // @public
 export function isJsonString(str: string): Object | boolean;
@@ -290,8 +347,14 @@ export function isNullOrUnDef(val: unknown): val is null | undefined;
 // @public (undocumented)
 export const isNumber: (any: unknown) => any is number;
 
+// @public
+export const isNumerical: (value: string) => boolean;
+
 // @public (undocumented)
 export const isObject: (any: unknown) => any is Record<string, unknown>;
+
+// @public
+export const isPhone: (value: string) => boolean;
 
 // @public
 export const isPlainObject: (obj: unknown) => boolean;
@@ -310,6 +373,9 @@ export const isSymbol: (any: unknown) => any is symbol;
 
 // @public (undocumented)
 export const isUndefined: (any: unknown) => any is undefined;
+
+// @public
+export const isUrl: (url: string, includeFtp?: boolean) => boolean;
 
 // @public (undocumented)
 export const isValidDate: (any: unknown) => any is Date;
@@ -330,6 +396,9 @@ export interface LooseParams<T = LooseParamValue> {
 
 // @public (undocumented)
 export type LooseParamValue = string | number | boolean | Date | null | undefined;
+
+// @public
+export const multiply: (arg1: number, arg2: number) => number;
 
 // @public
 export const numberAbbr: (num: number | string, units: Array<string>, ratio?: number, exponent?: number) => string;
@@ -420,6 +489,9 @@ export interface Params<T = string | number> {
 // @public
 export function parseQueryParams(searchStr?: string): Record<string, string | string[]>;
 
+// @public
+export function parseVarFromString(str: string, leftMatchSymbol?: string, rightMatchSymbol?: string): string[];
+
 // @public (undocumented)
 export type PartialDeep<T> = {
   [P in keyof T]?: PartialDeep<T[P]>;
@@ -430,6 +502,9 @@ export const pathJoin: (from: string, ...to: string[]) => string;
 
 // @public
 export const pathNormalize: (path: string) => string;
+
+// @public (undocumented)
+export const PHONE_REGEX: RegExp;
 
 // @public
 export function qsParse(queryString: string): Params;
@@ -466,6 +541,14 @@ export function removeClass(el: HTMLElement, classNames: string): void;
 
 // @public (undocumented)
 export type Replacer = (value: LooseParamValue) => string | null;
+
+// @public
+export function replaceVarFromString(
+  sourceStr: string,
+  targetObj: Record<string, any>,
+  leftMatchSymbol?: string,
+  rightMatchSymbol?: string
+): string;
 
 // @public
 export function searchTreeById<V>(tree: ArrayLike<V>, nodeId: IdLike, config?: ITreeConf): [IdLike[], ArrayLike<V>[]];
@@ -533,11 +616,19 @@ export function stringFormat(string: string, ...args: Array<unknown>): string;
 // @public
 export function stringKebabCase(string: string, separator?: string): string;
 
+// Warning: (ae-forgotten-export) The symbol "NumberType" needs to be exported by the entry point index.d.ts
+//
+// @public
+export function strip(num: NumberType, precision?: number): number;
+
 // @public (undocumented)
 export interface Style {
   // (undocumented)
   [propName: string]: string | number;
 }
+
+// @public
+export const subtract: (arg1: number, arg2: number) => number;
 
 // @public
 export function supportCanvas(): boolean;
@@ -583,6 +674,9 @@ export interface UniqueString {
 // @public
 export const uniqueString: UniqueString;
 
+// @public
+export function uniqueSymbol(str: string): string;
+
 // @public (undocumented)
 export interface Url {
   // (undocumented)
@@ -615,6 +709,9 @@ export interface Url {
   username: string;
 }
 
+// @public (undocumented)
+export const URL_REGEX: RegExp;
+
 // @public
 export const urlDelParams: (url: string, removeKeys: string[]) => string;
 
@@ -630,9 +727,6 @@ export const urlStringify: (url: Url) => string;
 // @public
 export function wait(timeout?: number): Promise<void>;
 
-// @public (undocumented)
-export function weAppJwtDecode(token: any, options: any): any;
-
 // @public
 export function weAtob(string: string): string;
 
@@ -646,8 +740,8 @@ export type WithChildren<T> = T & {
 
 // Warnings were encountered during analysis:
 //
-// lib/index.d.ts:715:5 - (ae-forgotten-export) The symbol "handleMouseEnter" needs to be exported by the entry point index.d.ts
-// lib/index.d.ts:716:5 - (ae-forgotten-export) The symbol "handleMouseLeave" needs to be exported by the entry point index.d.ts
+// lib/index.d.ts:753:5 - (ae-forgotten-export) The symbol "handleMouseEnter" needs to be exported by the entry point index.d.ts
+// lib/index.d.ts:754:5 - (ae-forgotten-export) The symbol "handleMouseLeave" needs to be exported by the entry point index.d.ts
 
 // (No @packageDocumentation comment for this package)
 ```

@@ -14,10 +14,12 @@ declare function weAtob(string: string): string;
 
 ## Parameters
 
-| Parameter | Type   | Description              |
-| --------- | ------ | ------------------------ |
-| string    | string | {<!-- -->string<!-- -->} |
+| Parameter | Type   | Description |
+| --------- | ------ | ----------- |
+| string    | string |             |
 
 **Returns:**
 
 string
+
+{<!-- -->string<!-- -->}

@@ -14,10 +14,10 @@ declare function formatDate(value: DateValue, format?: string): string;
 
 ## Parameters
 
-| Parameter | Type                                 | Description                                                                                                                                                                                   |
-| --------- | ------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| value     | [DateValue](./sculp-js.datevalue.md) | 可以是数值、字符串或 Date 对象                                                                                                                                                                |
-| format    | string                               | _(Optional)_ 模板，默认是 YYYY-MM-DD HH:mm:ss，模板字符： - YYYY：年 - yyyy: 年 - MM：月 - DD：日 - dd: 日 - HH：时（24 小时制） - hh：时（12 小时制） - mm：分 - ss：秒 - SSS：毫秒 - ww: 周 |
+| Parameter | Type                                 | Description                                                                                                                                                             |
+| --------- | ------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| value     | [DateValue](./sculp-js.datevalue.md) | 可以是数值、字符串或 Date 对象                                                                                                                                          |
+| format    | string                               | _(Optional)_ 模板，默认是 YYYY-MM-DD HH:mm:ss，模板字符： - YYYY：年 - yyyy: 年 - MM：月 - DD：日 - dd: 日 - HH：时（24 小时制） - mm：分 - ss：秒 - SSS：毫秒 - ww: 周 |
 
 **Returns:**
 

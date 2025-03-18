@@ -14,10 +14,12 @@ declare function isJsonString(str: string): Object | boolean;
 
 ## Parameters
 
-| Parameter | Type   | Description                         |
-| --------- | ------ | ----------------------------------- |
-| str       | string | {<!-- -->Object \| boolean<!-- -->} |
+| Parameter | Type   | Description |
+| --------- | ------ | ----------- |
+| str       | string |             |
 
 **Returns:**
 
 Object \| boolean
+
+{<!-- -->Object \| boolean<!-- -->}

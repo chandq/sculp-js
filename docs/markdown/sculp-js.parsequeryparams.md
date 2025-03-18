@@ -14,10 +14,12 @@ declare function parseQueryParams(searchStr?: string): Record<string, string | s
 
 ## Parameters
 
-| Parameter | Type   | Description                                                                                       |
-| --------- | ------ | ------------------------------------------------------------------------------------------------- |
-| searchStr | string | _(Optional)_ {<!-- -->Record<!-- -->&lt;<!-- -->string, string \| string\[\]<!-- -->&gt;<!-- -->} |
+| Parameter | Type   | Description  |
+| --------- | ------ | ------------ |
+| searchStr | string | _(Optional)_ |
 
 **Returns:**
 
 Record&lt;string, string \| string\[\]&gt;
+
+{<!-- -->Record<!-- -->&lt;<!-- -->string, string \| string\[\]<!-- -->&gt;<!-- -->}
