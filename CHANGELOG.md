@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.7.0](https://github.com/chandq/sculp-js/compare/v1.6.1...v1.7.0) (2025-03-18)
+
+### Features
+
+- add variable.ts and validator.ts ([0326633](https://github.com/chandq/sculp-js/commit/03266331e444fe1a757b188b68801abf3ff169c4))
+
 ### [1.6.1](https://github.com/chandq/sculp-js/compare/v1.6.0...v1.6.1) (2025-02-22)
 
 ### Bug Fixes

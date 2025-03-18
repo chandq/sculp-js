@@ -1,6 +1,6 @@
 {
   "name": "sculp-js",
-  "version": "1.6.1",
+  "version": "1.7.0",
   "packageManager": "npm@8.19.2",
   "description": "js工具库",
   "scripts": {
