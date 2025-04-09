@@ -1,3 +1,5 @@
+import { objectOmit } from './object';
+
 export interface IFieldOptions {
   keyField: string;
   childField: string;
@@ -88,7 +90,7 @@ export function forEachDeep<V>(
  * @param {boolean} isReverse  是否反向遍历
  * @returns {any[]} 新的一棵树
  */
-export function forEachMap<V>(
+export function mapDeep<V>(
   tree: ArrayLike<V>,
   iterator: (
     val: V,
@@ -116,7 +118,7 @@ export function forEachMap<V>(
         } else if (re === true) {
           continue;
         }
-        newTree.push(re);
+        newTree.push(objectOmit(re, [children]));
         // @ts-ignore
         if (arr[i] && Array.isArray(arr[i][children])) {
           newTree[newTree.length - 1][children] = [];
@@ -139,7 +141,7 @@ export function forEachMap<V>(
         } else if (re === true) {
           continue;
         }
-        newTree.push(re);
+        newTree.push(objectOmit(re, [children]));
         // @ts-ignore
         if (arr[i] && Array.isArray(arr[i][children])) {
           newTree[newTree.length - 1][children] = [];

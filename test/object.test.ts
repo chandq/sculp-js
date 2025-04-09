@@ -8,7 +8,8 @@ import {
   objectEachAsync,
   objectMap,
   objectPick,
-  objectOmit
+  objectOmit,
+  cloneDeep
 } from '../src/object';
 import { objectHas, AnyObject, isNumber } from '../src/type';
 
@@ -373,4 +374,130 @@ test('objectGet', () => {
   expect(objectGet(object2, 'a[1].b.c').p).toBeUndefined();
   expect(objectGet(object2, 'a[1].b.c').k).toBeUndefined();
   expect(objectGet(object2, 'a[1].b.c').v).toBeUndefined();
+});
+
+describe('cloneDeep', () => {
+  // 测试原始类型
+  test('primitive values', () => {
+    expect(cloneDeep(42)).toBe(42);
+    expect(cloneDeep('hello')).toBe('hello');
+    expect(cloneDeep(true)).toBe(true);
+    expect(cloneDeep(null)).toBeNull();
+    expect(cloneDeep(undefined)).toBeUndefined();
+    const sym = Symbol('test');
+    expect(cloneDeep(sym)).toBe(sym); // Symbol 直接返回引用
+  });
+
+  // 测试 Date 对象
+  test('Date', () => {
+    const date = new Date('2023-10-01');
+    const clonedDate = cloneDeep(date);
+    expect(clonedDate).toEqual(date);
+    expect(clonedDate).not.toBe(date);
+    expect(clonedDate.getTime()).toBe(date.getTime());
+  });
+
+  // 测试 RegExp 对象
+  test('RegExp', () => {
+    const regex = /test/gi;
+    const clonedRegex = cloneDeep(regex);
+    expect(clonedRegex.source).toBe(regex.source);
+    expect(clonedRegex.flags).toBe(regex.flags);
+    expect(clonedRegex).not.toBe(regex);
+  });
+
+  // 测试数组
+  test('Array', () => {
+    const arr = [1, { a: 2 }, [3]];
+    const clonedArr = cloneDeep(arr);
+    expect(clonedArr).toEqual(arr);
+    expect(clonedArr).not.toBe(arr);
+    expect(clonedArr[1]).not.toBe(arr[1]); // 深度校验
+  });
+
+  // 测试普通对象
+  test('Object', () => {
+    const obj = { a: 1, b: { c: 2 } };
+    const clonedObj = cloneDeep(obj);
+    expect(clonedObj).toEqual(obj);
+    expect(clonedObj).not.toBe(obj);
+    expect(clonedObj.b).not.toBe(obj.b);
+  });
+
+  // 测试 Symbol 键的对象
+  test('Object with Symbol keys', () => {
+    const key = Symbol('secret');
+    const obj = { [key]: 'value' };
+    const clonedObj = cloneDeep(obj);
+    expect(clonedObj[key]).toBe('value');
+    expect(Object.getOwnPropertySymbols(clonedObj)).toEqual([key]);
+  });
+
+  // 测试 Map
+  test('Map', () => {
+    const map = new Map().set('key', { value: 42 });
+    const clonedMap = cloneDeep(map);
+    expect(clonedMap).toBeInstanceOf(Map);
+    expect(clonedMap.get('key')).toEqual({ value: 42 });
+    expect(clonedMap.get('key')).not.toBe(map.get('key')); // 深度校验
+  });
+
+  // 测试 Set
+  test('Set', () => {
+    const set = new Set().add({ item: 42 });
+    const clonedSet = cloneDeep(set);
+    expect(clonedSet).toBeInstanceOf(Set);
+    expect([...clonedSet][0]).toEqual({ item: 42 });
+    expect([...clonedSet][0]).not.toBe([...set][0]); // 深度校验
+  });
+
+  // 测试 ArrayBuffer
+  test('ArrayBuffer', () => {
+    const buffer = new Uint8Array([1, 2, 3]).buffer;
+    const clonedBuffer = cloneDeep(buffer);
+    expect(clonedBuffer).toBeInstanceOf(ArrayBuffer);
+    expect(new Uint8Array(clonedBuffer)).toEqual(new Uint8Array(buffer));
+    expect(clonedBuffer).not.toBe(buffer);
+  });
+
+  // 测试原型链继承
+  test('prototype chain', () => {
+    class CustomClass {
+      public prop = 123;
+    }
+    const instance = new CustomClass();
+    const clonedInstance = cloneDeep(instance);
+    expect(clonedInstance).toBeInstanceOf(CustomClass);
+    expect(clonedInstance.prop).toBe(123);
+  });
+
+  // 测试循环引用
+  test('circular reference', () => {
+    const obj: any = { a: 1 };
+    obj.self = obj;
+    const clonedObj = cloneDeep(obj);
+    expect(clonedObj.self).toBe(clonedObj); // 指向克隆后的对象
+    expect(clonedObj.self).not.toBe(obj); // 不是原对象
+  });
+
+  // 测试函数直接引用（不克隆）
+  test('function', () => {
+    const func = () => console.log('test');
+    const clonedFunc = cloneDeep(func);
+    expect(clonedFunc).toBe(func); // 函数返回原引用
+  });
+
+  // 测试混合复杂结构
+  test('complex nested structure', () => {
+    const data = {
+      date: new Date(),
+      map: new Map().set('nested', [new Set([{ a: 42 }])]),
+      buffer: new ArrayBuffer(8)
+    };
+    const clonedData = cloneDeep(data);
+    expect(clonedData.date).toEqual(data.date);
+    expect(clonedData.map).toBeInstanceOf(Map);
+    expect([...clonedData.map.get('nested')][0]).toBeInstanceOf(Set);
+    expect(clonedData.buffer).not.toBe(data.buffer);
+  });
 });

@@ -1,5 +1,5 @@
 import { cloneDeep } from '../src/object';
-import { formatTree, searchTreeById, forEachDeep, buildTree, forEachMap, fuzzySearchTree, flatTree } from '../src/tree';
+import { formatTree, searchTreeById, forEachDeep, buildTree, mapDeep, fuzzySearchTree, flatTree } from '../src/tree';
 
 test('searchTreeById', () => {
   const tree = [
@@ -277,7 +277,7 @@ test('forEachDeep: insert tree item', () => {
   ]);
 });
 
-test('forEachMap', () => {
+test('mapDeep', () => {
   const tree = [
     { id: 1, name: 'row1', age: 1 },
     {
@@ -288,14 +288,45 @@ test('forEachMap', () => {
     },
     { id: 3, name: 'row3' }
   ];
+  const tree2 = [
+    { id: 1, name: 'row1', age: 1 },
+    {
+      id: 2,
+      name: 'row2',
+      age: 2,
+      childNodes: [{ id: 21, name: 'row2-1', age: 21 }]
+    },
+    { id: 3, name: 'row3' }
+  ];
 
+  let res0: any[] = [];
   let res1: any[] = [];
   let res2: any[] = [];
   let res3: any[] = [];
   let res4: any[] = [];
   let res5: any[] = [];
+  let res6: any[] = [];
 
-  res1 = forEachMap(tree, ({ id, name, children }) => {
+  // specified alias name of children
+  res0 = mapDeep(
+    tree2,
+    ({ id, name, childNodes }) => {
+      return { key: id, label: name, childNodes };
+    },
+    'childNodes'
+  );
+  expect(res0).toEqual([
+    { key: 1, label: 'row1' },
+    {
+      key: 2,
+      label: 'row2',
+      childNodes: [{ key: 21, label: 'row2-1' }]
+    },
+    { key: 3, label: 'row3' }
+  ]);
+
+  // customize item of element
+  res1 = mapDeep(tree, ({ id, name, children }) => {
     return { key: id, label: name, children };
   });
   expect(res1).toEqual([
@@ -309,7 +340,7 @@ test('forEachMap', () => {
   ]);
 
   // reverse traversal
-  res2 = forEachMap(
+  res2 = mapDeep(
     tree,
     ({ id, name, children }) => {
       return { key: id, label: name, children };
@@ -317,7 +348,6 @@ test('forEachMap', () => {
     'children',
     true
   );
-
   expect(res2).toEqual([
     { key: 3, label: 'row3' },
     {
@@ -328,7 +358,7 @@ test('forEachMap', () => {
     { key: 1, label: 'row1' }
   ]);
   // test continue
-  res3 = forEachMap(tree, ({ id, name, children }) => {
+  res3 = mapDeep(tree, ({ id, name, children }) => {
     if (id === 21) {
       return true;
     }
@@ -346,7 +376,7 @@ test('forEachMap', () => {
   ]);
 
   // test break
-  res4 = forEachMap(tree, ({ id, name, children }) => {
+  res4 = mapDeep(tree, ({ id, name, children }) => {
     if (id === 21) {
       return false;
     }
@@ -361,7 +391,7 @@ test('forEachMap', () => {
     }
   ]);
   // test insert tree item
-  res5 = forEachMap(tree, ({ id, name, children }, i, currentArr: any) => {
+  res5 = mapDeep(cloneDeep(tree), ({ id, name, children }, i, currentArr: any) => {
     if (id === 21) {
       currentArr.push({ id: 22, name: 'row2-2' });
     }
@@ -378,6 +408,30 @@ test('forEachMap', () => {
       ]
     },
     { key: 3, label: 'row3' }
+  ]);
+  // test return item self of element
+  res6 = mapDeep(tree, (item, i, currentArr: any) => {
+    if (item.id === 21) {
+      currentArr.push({ id: 22, name: 'row2-2' });
+    }
+    item.key = item.id;
+    item.label = item.name;
+    return item;
+  });
+  expect(res6).toEqual([
+    { key: 1, id: 1, label: 'row1', name: 'row1', age: 1 },
+    {
+      id: 2,
+      key: 2,
+      name: 'row2',
+      label: 'row2',
+      age: 2,
+      children: [
+        { key: 21, label: 'row2-1', id: 21, name: 'row2-1', age: 21 },
+        { key: 22, label: 'row2-2', id: 22, name: 'row2-2' }
+      ]
+    },
+    { key: 3, label: 'row3', id: 3, name: 'row3' }
   ]);
 });
 
