@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.7.1](https://github.com/chandq/sculp-js/compare/v1.7.0...v1.7.1) (2025-04-09)
+
+### Bug Fixes
+
+- improve cloneDeep and mapDeep ([0ba017c](https://github.com/chandq/sculp-js/commit/0ba017cd36d6c03a505044e5c45d8a98a5dde851))
+
 ## [1.7.0](https://github.com/chandq/sculp-js/compare/v1.6.1...v1.7.0) (2025-03-18)
 
 ### Features
