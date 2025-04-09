@@ -50,7 +50,7 @@
 - Tree
 
   - forEachDeep 高性能的深度优先遍历函数, 支持continue、break，可定制id、children
-  - forEachMap 高性能的深度优先遍历的Map函数, 支持continue、break，可定制id、children
+  - mapDeep 高性能的深度优先遍历的Map函数, 支持continue、break，可定制id、children
   - searchTreeById 在树中找到 id 为某个值的节点，并返回上游的所有父级节点
   - formatTree 高性能的数组转树函数
   - flatTree 树转数组
@@ -64,6 +64,7 @@
   - objectEach
   - objectEachAsync
   - objectGet
+  - cloneDeep
 
 - Number
 
