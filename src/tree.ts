@@ -1,5 +1,5 @@
 import { objectOmit } from './object';
-import { AnyObject, objectHas } from './type';
+import { AnyObject, isEmpty, objectHas } from './type';
 
 export interface IFieldOptions {
   keyField: string;
@@ -364,6 +364,7 @@ export function flatTree(treeList: any[], options: IFieldOptions = defaultFieldO
  *
  * 有以下特性：
  * 1. 可配置removeEmptyChild字段，来决定是否移除搜索结果中的空children字段
+ * 2. 若无任何过滤条件或keyword模式匹配且keyword为空串，返回原对象；其他情况返回新数组
  * @param {V[]} nodes
  * @param {IFilterCondition} filterCondition
  * @param {ISearchTreeOpts} options
@@ -374,7 +375,10 @@ export function fuzzySearchTree<V>(
   filterCondition: IFilterCondition<V>,
   options: ISearchTreeOpts = defaultSearchTreeOptions
 ): V[] {
-  if (!objectHas(filterCondition, 'filter') && !objectHas(filterCondition, 'keyword')) {
+  if (
+    !objectHas(filterCondition, 'filter') &&
+    (!objectHas(filterCondition, 'keyword') || isEmpty(filterCondition.keyword))
+  ) {
     return nodes;
   }
   const result: V[] = [];

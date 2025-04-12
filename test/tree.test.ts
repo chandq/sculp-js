@@ -636,6 +636,7 @@ describe('fuzzySearchTree', () => {
       }
     ];
     const query = 'An';
+    // keyword模式匹配，不忽略大小写
     const result1 = fuzzySearchTree(
       tree,
       { keyword: query },
@@ -674,7 +675,7 @@ describe('fuzzySearchTree', () => {
         ]
       }
     ]);
-
+    // 根据filter函数过滤
     const result2 = fuzzySearchTree(
       tree,
       {
@@ -717,5 +718,12 @@ describe('fuzzySearchTree', () => {
         ]
       }
     ]);
+    // 无过滤条件
+    const result3 = fuzzySearchTree(tree, {});
+    expect(result3).toBe(tree);
+
+    // keyword匹配模式，且keyword为空串
+    const result4 = fuzzySearchTree(tree, { keyword: '' });
+    expect(result4).toBe(tree);
   });
 });
