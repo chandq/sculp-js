@@ -91,28 +91,30 @@ export function forEachDeep<V>(
 
 /**
  * 创建一个新数组, 深度优先遍历的Map函数(支持continue和break操作), 可用于insert tree item 和 remove tree item
+ *
+ * 可遍历任何带有 length 属性和数字键的类数组对象
  * @param {ArrayLike<V>} tree  树形数据
  * @param {Function} iterator  迭代函数, 返回值为true时continue, 返回值为false时break
  * @param {string} children 定制子元素的key
  * @param {boolean} isReverse  是否反向遍历
  * @returns {any[]} 新的一棵树
  */
-export function mapDeep<V>(
-  tree: ArrayLike<V>,
+export function mapDeep<T>(
+  tree: T[],
   iterator: (
-    val: V,
+    val: T,
     i: number,
-    currentArr: ArrayLike<V>,
-    tree: ArrayLike<V>,
-    parent: V | null,
+    currentArr: T[],
+    tree: T[],
+    parent: T | null,
     level: number
   ) => { [k: string | number]: any } | boolean,
   children: string = 'children',
   isReverse = false
-): ArrayLike<AnyObject> {
+): any[] {
   let isBreak = false;
   const newTree = [];
-  const walk = (arr: ArrayLike<V>, parent: V | null, newTree: any[], level = 0) => {
+  const walk = (arr: T[], parent: T | null, newTree: any[], level = 0) => {
     if (isReverse) {
       for (let i = arr.length - 1; i >= 0; i--) {
         if (isBreak) {

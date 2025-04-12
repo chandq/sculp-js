@@ -301,12 +301,12 @@ test('mapDeep', () => {
   ];
 
   let res0: any[] = [];
-  let res1: ArrayLike<AnyObject> = [];
-  let res2: ArrayLike<AnyObject> = [];
-  let res3: ArrayLike<AnyObject> = [];
-  let res4: ArrayLike<AnyObject> = [];
-  let res5: ArrayLike<AnyObject> = [];
-  let res6: ArrayLike<AnyObject> = [];
+  let res1: any[] = [];
+  let res2: any[] = [];
+  let res3: any[] = [];
+  let res4: any[] = [];
+  let res5: any[] = [];
+  let res6: any[] = [];
 
   // specified alias name of children
   res0 = mapDeep(

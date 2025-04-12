@@ -255,7 +255,9 @@ export function objectGet(
 
 /**
  * 深拷贝堪称完全体 即：任何类型的数据都会被深拷贝
+ *
  * 包含对null、原始值、对象循环引用的处理
+ *
  * 对Map、Set、ArrayBuffer、Date、RegExp、Array、Object及原型链属性方法执行深拷贝
  * @param {T} source
  * @param {WeakMap} map
