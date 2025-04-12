@@ -101,7 +101,7 @@ export function objectPick<O extends AnyObject, K extends Extract<keyof O, strin
   return obj2;
 }
 /**
- * 对象祛除
+ * 对象去除
  * @param {O} obj
  * @param {K} keys
  * @returns {Pick<O, ArrayElements<K>>}
@@ -255,6 +255,8 @@ export function objectGet(
 
 /**
  * 深拷贝堪称完全体 即：任何类型的数据都会被深拷贝
+ * 包含对null、原始值、对象循环引用的处理
+ * 对Map、Set、ArrayBuffer、Date、RegExp、Array、Object及原型链属性方法执行深拷贝
  * @param {T} source
  * @param {WeakMap} map
  * @returns {T}
@@ -337,8 +339,8 @@ export function cloneDeep<T>(source: T, map = new WeakMap<any, any>()): T {
     const descriptors = Object.getOwnPropertyDescriptors(source);
     for (const key of Reflect.ownKeys(descriptors)) {
       Object.defineProperty(copy, key, {
-        ...descriptors[key],
-        value: cloneDeep(descriptors[key].value, map)
+        ...descriptors[key as any],
+        value: cloneDeep(descriptors[key as any].value, map)
       });
     }
 
@@ -351,7 +353,7 @@ export function cloneDeep<T>(source: T, map = new WeakMap<any, any>()): T {
 
   const descriptors = Object.getOwnPropertyDescriptors(source);
   for (const key of Reflect.ownKeys(descriptors)) {
-    const descriptor = descriptors[key];
+    const descriptor = descriptors[key as any];
 
     if ('value' in descriptor) {
       // 克隆数据属性

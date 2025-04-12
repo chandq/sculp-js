@@ -1,4 +1,5 @@
 import { objectOmit } from './object';
+import { AnyObject, objectHas } from './type';
 
 export interface IFieldOptions {
   keyField: string;
@@ -10,13 +11,19 @@ const defaultFieldOptions: IFieldOptions = { keyField: 'key', childField: 'child
 export interface ISearchTreeOpts {
   childField: string;
   nameField: string; // 匹配字段
-  ignoreEmptyChild: boolean; // 查询结果不包含空的children
+  removeEmptyChild: boolean; // 搜索结果中不包含空的children
+  ignoreCase: boolean; // 忽略大小写
 }
 const defaultSearchTreeOptions: ISearchTreeOpts = {
   childField: 'children',
   nameField: 'name',
-  ignoreEmptyChild: false
+  removeEmptyChild: false,
+  ignoreCase: true
 };
+export interface IFilterCondition<V> {
+  keyword?: string;
+  filter?: (args: V) => boolean;
+}
 
 /**
  * 深度优先遍历函数(支持continue和break操作), 可用于insert tree item 和 remove tree item
@@ -83,7 +90,7 @@ export function forEachDeep<V>(
 }
 
 /**
- * 深度优先遍历的Map函数(支持continue和break操作), 可用于insert tree item 和 remove tree item
+ * 创建一个新数组, 深度优先遍历的Map函数(支持continue和break操作), 可用于insert tree item 和 remove tree item
  * @param {ArrayLike<V>} tree  树形数据
  * @param {Function} iterator  迭代函数, 返回值为true时continue, 返回值为false时break
  * @param {string} children 定制子元素的key
@@ -99,10 +106,10 @@ export function mapDeep<V>(
     tree: ArrayLike<V>,
     parent: V | null,
     level: number
-  ) => boolean | any,
+  ) => { [k: string | number]: any } | boolean,
   children: string = 'children',
   isReverse = false
-): any[] {
+): ArrayLike<AnyObject> {
   let isBreak = false;
   const newTree = [];
   const walk = (arr: ArrayLike<V>, parent: V | null, newTree: any[], level = 0) => {
@@ -118,7 +125,7 @@ export function mapDeep<V>(
         } else if (re === true) {
           continue;
         }
-        newTree.push(objectOmit(re, [children]));
+        newTree.push(objectOmit(re, [children as any]));
         // @ts-ignore
         if (arr[i] && Array.isArray(arr[i][children])) {
           newTree[newTree.length - 1][children] = [];
@@ -141,7 +148,7 @@ export function mapDeep<V>(
         } else if (re === true) {
           continue;
         }
-        newTree.push(objectOmit(re, [children]));
+        newTree.push(objectOmit(re, [children as any]));
         // @ts-ignore
         if (arr[i] && Array.isArray(arr[i][children])) {
           newTree[newTree.length - 1][children] = [];
@@ -351,27 +358,43 @@ export function flatTree(treeList: any[], options: IFieldOptions = defaultFieldO
 
 /**
  * 模糊搜索函数，返回包含搜索字符的节点及其祖先节点, 适用于树型组件的字符过滤功能
- * @param {any[]} nodes
- * @param {string} query
+ * 以下搜索条件二选一，按先后优先级处理：
+ * 1. 过滤函数filter, 返回true/false
+ * 2. 匹配关键词，支持是否启用忽略大小写来判断
+ *
+ * 有以下特性：
+ * 1. 可配置removeEmptyChild字段，来决定是否移除搜索结果中的空children字段
+ * @param {V[]} nodes
+ * @param {IFilterCondition} filterCondition
  * @param {ISearchTreeOpts} options
- * @returns {any[]}
+ * @returns {V[]}
  */
-export function fuzzySearchTree(
-  nodes: any[],
-  query: string,
+export function fuzzySearchTree<V>(
+  nodes: V[],
+  filterCondition: IFilterCondition<V>,
   options: ISearchTreeOpts = defaultSearchTreeOptions
-): any[] {
-  const result: any[] = [];
+): V[] {
+  if (!objectHas(filterCondition, 'filter') && !objectHas(filterCondition, 'keyword')) {
+    return nodes;
+  }
+  const result: V[] = [];
 
   for (const node of nodes) {
     // 递归检查子节点是否匹配
     const matchedChildren =
       node[options.childField] && node[options.childField].length > 0
-        ? fuzzySearchTree(node[options.childField] || [], query, options)
+        ? fuzzySearchTree(node[options.childField] || [], filterCondition, options)
         : [];
 
     // 检查当前节点是否匹配或者有匹配的子节点
-    if (node[options.nameField].toLowerCase().includes(query.toLowerCase()) || matchedChildren.length > 0) {
+    if (
+      (objectHas(filterCondition as AnyObject, 'filter')
+        ? filterCondition.filter!(node)
+        : !options.ignoreCase
+        ? node[options.nameField].includes(filterCondition.keyword!)
+        : node[options.nameField].toLowerCase().includes(filterCondition.keyword!.toLowerCase())) ||
+      matchedChildren.length > 0
+    ) {
       // 将当前节点加入结果中
       if (node[options.childField]) {
         if (matchedChildren.length > 0) {
@@ -379,7 +402,7 @@ export function fuzzySearchTree(
             ...node,
             [options.childField]: matchedChildren // 包含匹配的子节点
           });
-        } else if (options.ignoreEmptyChild) {
+        } else if (options.removeEmptyChild) {
           node[options.childField] && delete node[options.childField];
           result.push({
             ...node

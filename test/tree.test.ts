@@ -1,3 +1,4 @@
+import { AnyObject } from './../src/type';
 import { cloneDeep } from '../src/object';
 import { formatTree, searchTreeById, forEachDeep, buildTree, mapDeep, fuzzySearchTree, flatTree } from '../src/tree';
 
@@ -300,12 +301,12 @@ test('mapDeep', () => {
   ];
 
   let res0: any[] = [];
-  let res1: any[] = [];
-  let res2: any[] = [];
-  let res3: any[] = [];
-  let res4: any[] = [];
-  let res5: any[] = [];
-  let res6: any[] = [];
+  let res1: ArrayLike<AnyObject> = [];
+  let res2: ArrayLike<AnyObject> = [];
+  let res3: ArrayLike<AnyObject> = [];
+  let res4: ArrayLike<AnyObject> = [];
+  let res5: ArrayLike<AnyObject> = [];
+  let res6: ArrayLike<AnyObject> = [];
 
   // specified alias name of children
   res0 = mapDeep(
@@ -314,7 +315,7 @@ test('mapDeep', () => {
       return { key: id, label: name, childNodes };
     },
     'childNodes'
-  );
+  ) as any[];
   expect(res0).toEqual([
     { key: 1, label: 'row1' },
     {
@@ -435,144 +436,286 @@ test('mapDeep', () => {
   ]);
 });
 
-test('fuzzySearchTree', () => {
-  // 定义树结构
-  const tree = [
-    {
-      id: 1,
-      name: 'root',
-      children: [
-        { id: 10, name: 'ap-2p', children: [] },
-        {
-          id: 2,
-          name: 'apple',
-          children: [
-            { id: 20, name: 'ab2p' },
-            {
-              id: 3,
-              name: 'apricot',
-              children: [{ id: 5, name: 'butterfly' }]
-            },
-            {
-              id: 4,
-              name: 'banana',
-              children: []
-            }
-          ]
-        },
-        {
-          id: 5,
-          name: 'orange',
-          children: []
+describe('fuzzySearchTree', () => {
+  test('search by keyword', () => {
+    // 定义树结构
+    const tree = [
+      {
+        id: 1,
+        name: 'root',
+        children: [
+          { id: 10, name: 'ap-2p', children: [] },
+          {
+            id: 2,
+            name: 'apple',
+            children: [
+              { id: 20, name: 'ab2p' },
+              {
+                id: 3,
+                name: 'apricot',
+                children: [{ id: 5, name: 'butterfly' }]
+              },
+              {
+                id: 4,
+                name: 'banana',
+                children: []
+              }
+            ]
+          },
+          {
+            id: 5,
+            name: 'orange',
+            children: []
+          }
+        ]
+      }
+    ];
+
+    // 测试keyword 1
+    const query = 'apr';
+    const result = fuzzySearchTree(tree, { keyword: query });
+
+    expect(result).toEqual([
+      {
+        id: 1,
+        name: 'root',
+        children: [
+          {
+            id: 2,
+            name: 'apple',
+            children: [
+              {
+                id: 3,
+                name: 'apricot',
+                children: []
+              }
+            ]
+          }
+        ]
+      }
+    ]);
+
+    // 测试keyword 2
+    const query2 = 'ap';
+    const result2 = fuzzySearchTree(tree, { keyword: query2 });
+
+    expect(result2).toEqual([
+      {
+        id: 1,
+        name: 'root',
+        children: [
+          {
+            id: 10,
+            name: 'ap-2p',
+            children: []
+          },
+          {
+            id: 2,
+            name: 'apple',
+            children: [
+              {
+                id: 3,
+                name: 'apricot',
+                children: []
+              }
+            ]
+          }
+        ]
+      }
+    ]);
+
+    // 测试keyword 3
+    const query3 = 'butter';
+    const result3 = fuzzySearchTree(tree, { keyword: query3 });
+    expect(result3).toEqual([
+      {
+        id: 1,
+        name: 'root',
+        children: [
+          {
+            id: 2,
+            name: 'apple',
+            children: [
+              {
+                id: 3,
+                name: 'apricot',
+                children: [
+                  {
+                    id: 5,
+                    name: 'butterfly'
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]);
+    // 测试keyword 4, removeEmptyChild:true移除空children字段, ignoreCase:true忽略大小写
+    const query4 = 'an';
+    const result4 = fuzzySearchTree(
+      tree,
+      { keyword: query4 },
+      { childField: 'children', nameField: 'name', removeEmptyChild: true, ignoreCase: true }
+    );
+
+    expect(result4).toEqual([
+      {
+        id: 1,
+        name: 'root',
+        children: [
+          {
+            id: 2,
+            name: 'apple',
+            children: [
+              {
+                id: 4,
+                name: 'banana'
+              }
+            ]
+          },
+          {
+            id: 5,
+            name: 'orange'
+          }
+        ]
+      }
+    ]);
+  });
+
+  test('search by filter function, include not ignore case', () => {
+    const res1 = [];
+    const res2 = [];
+    // 定义树结构
+    const tree = [
+      {
+        id: 1,
+        name: 'root',
+        children: [
+          { id: 10, name: 'ap-2p', children: [] },
+          {
+            id: 2,
+            name: 'apple',
+            children: [
+              { id: 20, name: 'ab2p' },
+              {
+                id: 3,
+                name: 'Anpricot',
+                children: [{ id: 5, name: 'butterfly' }]
+              },
+              {
+                id: 4,
+                name: 'banana',
+                children: []
+              }
+            ]
+          },
+          {
+            id: 5,
+            name: 'orAnge',
+            children: []
+          }
+        ]
+      },
+      {
+        id: 22,
+        name: 'apple',
+        children: [
+          { id: 220, name: 'ab2p' },
+          {
+            id: 23,
+            name: 'Anpricot',
+            children: [{ id: 25, name: 'butterfly' }]
+          },
+          {
+            id: 24,
+            name: 'banana',
+            children: []
+          }
+        ]
+      }
+    ];
+    const query = 'An';
+    const result1 = fuzzySearchTree(
+      tree,
+      { keyword: query },
+      { childField: 'children', nameField: 'name', removeEmptyChild: true, ignoreCase: false }
+    );
+
+    expect(result1).toEqual([
+      {
+        id: 1,
+        name: 'root',
+        children: [
+          {
+            id: 2,
+            name: 'apple',
+            children: [
+              {
+                id: 3,
+                name: 'Anpricot'
+              }
+            ]
+          },
+          {
+            id: 5,
+            name: 'orAnge'
+          }
+        ]
+      },
+      {
+        id: 22,
+        name: 'apple',
+        children: [
+          {
+            id: 23,
+            name: 'Anpricot'
+          }
+        ]
+      }
+    ]);
+
+    const result2 = fuzzySearchTree(
+      tree,
+      {
+        filter: item => {
+          return [3, 5, 23].includes(item.id);
         }
-      ]
-    }
-  ];
+      },
+      { childField: 'children', nameField: 'name', removeEmptyChild: true, ignoreCase: false }
+    );
 
-  // 测试1
-  const query = 'apr';
-  const result = fuzzySearchTree(tree, query);
-
-  expect(result).toEqual([
-    {
-      id: 1,
-      name: 'root',
-      children: [
-        {
-          id: 2,
-          name: 'apple',
-          children: [
-            {
-              id: 3,
-              name: 'apricot',
-              children: []
-            }
-          ]
-        }
-      ]
-    }
-  ]);
-
-  // 测试2
-  const query2 = 'ap';
-  const result2 = fuzzySearchTree(tree, query2);
-
-  expect(result2).toEqual([
-    {
-      id: 1,
-      name: 'root',
-      children: [
-        {
-          id: 10,
-          name: 'ap-2p',
-          children: []
-        },
-        {
-          id: 2,
-          name: 'apple',
-          children: [
-            {
-              id: 3,
-              name: 'apricot',
-              children: []
-            }
-          ]
-        }
-      ]
-    }
-  ]);
-
-  // 测试3
-  const query3 = 'butter';
-  const result3 = fuzzySearchTree(tree, query3);
-  expect(result3).toEqual([
-    {
-      id: 1,
-      name: 'root',
-      children: [
-        {
-          id: 2,
-          name: 'apple',
-          children: [
-            {
-              id: 3,
-              name: 'apricot',
-              children: [
-                {
-                  id: 5,
-                  name: 'butterfly'
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    }
-  ]);
-  // 测试4
-  const query4 = 'an';
-  const result4 = fuzzySearchTree(tree, query4, { childField: 'children', nameField: 'name', ignoreEmptyChild: true });
-
-  expect(result4).toEqual([
-    {
-      id: 1,
-      name: 'root',
-      children: [
-        {
-          id: 2,
-          name: 'apple',
-          children: [
-            {
-              id: 4,
-              name: 'banana'
-            }
-          ]
-        },
-        {
-          id: 5,
-          name: 'orange'
-        }
-      ]
-    }
-  ]);
+    expect(result2).toEqual([
+      {
+        id: 1,
+        name: 'root',
+        children: [
+          {
+            id: 2,
+            name: 'apple',
+            children: [
+              {
+                id: 3,
+                name: 'Anpricot'
+              }
+            ]
+          },
+          {
+            id: 5,
+            name: 'orAnge'
+          }
+        ]
+      },
+      {
+        id: 22,
+        name: 'apple',
+        children: [
+          {
+            id: 23,
+            name: 'Anpricot'
+          }
+        ]
+      }
+    ]);
+  });
 });
