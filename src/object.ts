@@ -286,7 +286,7 @@ export function cloneDeep<T>(source: T, map = new WeakMap<any, any>()): T {
   if (ArrayBuffer.isView(source)) {
     const constructor = (source as any).constructor;
     const bufferCopy = cloneDeep(source.buffer, map);
-    return new constructor(bufferCopy, source.byteOffset, source.length) as T;
+    return new constructor(bufferCopy, source.byteOffset, (source as any).length) as T;
   }
 
   // 处理 Date 对象
