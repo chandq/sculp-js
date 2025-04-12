@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.7.2](https://github.com/chandq/sculp-js/compare/v1.7.1...v1.7.2) (2025-04-12)
+
+### Bug Fixes
+
+- improve cloneDeep for more situation ([61e9ed0](https://github.com/chandq/sculp-js/commit/61e9ed04dcaf0e9f0183597cee3e6ff0e8c8e21d))
+- improve fuzzySearchTree, optimize handle not transfer filter conditions or keyword is '' ([1f90486](https://github.com/chandq/sculp-js/commit/1f904863818be6b53ec7926c8e9c883509d1c241))
+- improve fuzzySearchTree,support search by filter function or keyword ([48b0fa4](https://github.com/chandq/sculp-js/commit/48b0fa411a90af7bc0d15ebc4ac0a88404c9b0aa))
+
 ### [1.7.1](https://github.com/chandq/sculp-js/compare/v1.7.0...v1.7.1) (2025-04-09)
 
 ### Bug Fixes
