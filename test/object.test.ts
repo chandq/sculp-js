@@ -423,6 +423,45 @@ describe('cloneDeep', () => {
     expect(clonedObj).not.toBe(obj);
     expect(clonedObj.b).not.toBe(obj.b);
   });
+  //对象属性深度克隆验证
+  test('nested object cloning', () => {
+    const original = {
+      a: 1,
+      b: {
+        c: [2, { d: 3 }]
+      }
+    };
+
+    const cloned = cloneDeep(original);
+
+    // 验证层级结构
+    expect(cloned).toEqual(original);
+
+    // 验证无引用共享
+    expect(cloned.b).not.toBe(original.b);
+    expect(cloned.b.c).not.toBe(original.b.c);
+    expect(cloned.b.c[1]).not.toBe(original.b.c[1]);
+
+    // 修改克隆对象不影响原始对象
+    cloned.b.c[1].d = 4;
+    expect(original.b.c[1].d).toBe(3);
+  });
+  //循环引用处理验证
+  test('circular reference cloning', () => {
+    const obj: any = { name: 'root' };
+    obj.self = obj;
+    obj.children = [{ parent: obj }];
+
+    const cloned = cloneDeep(obj);
+
+    // 验证循环引用
+    expect(cloned.self).toBe(cloned);
+    expect(cloned.children[0].parent).toBe(cloned);
+
+    // 验证数据独立性
+    cloned.name = 'cloned';
+    expect(obj.name).toBe('root');
+  });
 
   // 测试 Symbol 键的对象
   test('Object with Symbol keys', () => {
@@ -460,6 +499,40 @@ describe('cloneDeep', () => {
     expect(clonedBuffer).not.toBe(buffer);
   });
 
+  //特殊数组类型验证
+  test('typed array cloning', () => {
+    const source = new Float32Array([1.1, 2.2, 3.3]);
+    const cloned = cloneDeep(source);
+
+    // 验证类型保持
+    expect(cloned).toBeInstanceOf(Float32Array);
+
+    // 验证数据独立性
+    cloned[0] = 9.9;
+    expect(source[0]).toBeCloseTo(1.1);
+  });
+  //访问器属性处理验证
+  test('object with accessors', () => {
+    const original = {
+      _value: 0,
+      get value() {
+        return this._value;
+      },
+      set value(v) {
+        this._value = v;
+      }
+    };
+
+    const cloned = cloneDeep(original);
+
+    // 验证访问器功能
+    cloned.value = 5;
+    expect(cloned.value).toBe(5);
+    expect(original.value).toBe(0);
+
+    // 验证引用独立性
+    expect(cloned.value).not.toBe(original.value);
+  });
   // 测试原型链继承
   test('prototype chain', () => {
     class CustomClass {

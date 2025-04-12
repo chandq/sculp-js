@@ -260,7 +260,7 @@ export function objectGet(
  * @returns {T}
  */
 export function cloneDeep<T>(source: T, map = new WeakMap<any, any>()): T {
-  // 处理原始类型（非对象/数组）和 null/undefined
+  // 处理原始类型和 null/undefined
   if (source === null || typeof source !== 'object') {
     return source;
   }
@@ -270,31 +270,37 @@ export function cloneDeep<T>(source: T, map = new WeakMap<any, any>()): T {
     return map.get(source);
   }
 
-  // 处理 Date 类型
+  // 处理 ArrayBuffer
+  if (source instanceof ArrayBuffer) {
+    const copy = new ArrayBuffer(source.byteLength);
+    new Uint8Array(copy).set(new Uint8Array(source));
+    map.set(source, copy);
+    return copy as T;
+  }
+
+  // 处理 DataView 和 TypedArray (Uint8Array 等)
+  if (ArrayBuffer.isView(source)) {
+    const constructor = (source as any).constructor;
+    const bufferCopy = cloneDeep(source.buffer, map);
+    return new constructor(bufferCopy, source.byteOffset, source.length) as T;
+  }
+
+  // 处理 Date 对象
   if (source instanceof Date) {
     const copy = new Date(source.getTime());
     map.set(source, copy);
     return copy as T;
   }
 
-  // 处理 RegExp 类型
+  // 处理 RegExp 对象
   if (source instanceof RegExp) {
     const copy = new RegExp(source.source, source.flags);
+    (copy as any).lastIndex = source.lastIndex; // 保留匹配状态
     map.set(source, copy);
     return copy as T;
   }
 
-  // 处理数组类型
-  if (Array.isArray(source)) {
-    const copy: any[] = [];
-    map.set(source, copy);
-    for (const item of source) {
-      copy.push(cloneDeep(item, map));
-    }
-    return copy as T;
-  }
-
-  // 处理 Map 类型
+  // 处理 Map
   if (source instanceof Map) {
     const copy = new Map();
     map.set(source, copy);
@@ -304,7 +310,7 @@ export function cloneDeep<T>(source: T, map = new WeakMap<any, any>()): T {
     return copy as T;
   }
 
-  // 处理 Set 类型
+  // 处理 Set
   if (source instanceof Set) {
     const copy = new Set();
     map.set(source, copy);
@@ -314,20 +320,54 @@ export function cloneDeep<T>(source: T, map = new WeakMap<any, any>()): T {
     return copy as T;
   }
 
-  // 处理 ArrayBuffer 类型
-  if (source instanceof ArrayBuffer) {
-    const copy = new ArrayBuffer(source.byteLength);
-    new Uint8Array(copy).set(new Uint8Array(source));
+  // 处理数组 (包含稀疏数组)
+  if (Array.isArray(source)) {
+    const copy: any[] = Array.from({ length: source.length });
     map.set(source, copy);
+
+    // 克隆所有有效索引
+    for (let i = 0; i < source.length; i++) {
+      if (i in source) {
+        // 保留空位
+        copy[i] = cloneDeep(source[i], map);
+      }
+    }
+
+    // 克隆数组的自定义属性
+    const descriptors = Object.getOwnPropertyDescriptors(source);
+    for (const key of Reflect.ownKeys(descriptors)) {
+      Object.defineProperty(copy, key, {
+        ...descriptors[key],
+        value: cloneDeep(descriptors[key].value, map)
+      });
+    }
+
     return copy as T;
   }
 
-  // 处理普通对象（包括原型链继承）
+  // 处理普通对象和类实例
   const copy = Object.create(Object.getPrototypeOf(source));
   map.set(source, copy);
-  for (const key of Reflect.ownKeys(source)) {
-    const value = (source as any)[key];
-    (copy as any)[key] = cloneDeep(value, map);
+
+  const descriptors = Object.getOwnPropertyDescriptors(source);
+  for (const key of Reflect.ownKeys(descriptors)) {
+    const descriptor = descriptors[key];
+
+    if ('value' in descriptor) {
+      // 克隆数据属性
+      descriptor.value = cloneDeep(descriptor.value, map);
+    } else {
+      // 处理访问器属性 (getter/setter)
+      if (descriptor.get) {
+        descriptor.get = cloneDeep(descriptor.get, map);
+      }
+      if (descriptor.set) {
+        descriptor.set = cloneDeep(descriptor.set, map);
+      }
+    }
+
+    Object.defineProperty(copy, key, descriptor);
   }
+
   return copy;
 }
