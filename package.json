@@ -2,7 +2,7 @@
   "name": "sculp-js",
   "version": "1.7.2",
   "packageManager": "npm@8.19.2",
-  "description": "js工具库",
+  "description": "js utils library, includes function library、class library",
   "scripts": {
     "prepare": "husky install",
     "build": "rollup  --bundleConfigAsCjs --config rollup.config.js",
