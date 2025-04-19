@@ -48,8 +48,7 @@
   "license": "MIT",
   "homepage": "https://github.com/chandq/sculp-js#readme",
   "dependencies": {
-    "bezier-easing": "^2.1.0",
-    "core-js": "^3.33.0"
+    "bezier-easing": "^2.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.23.2",
@@ -88,11 +87,6 @@
     "rollup-plugin-dts": "^6.1.0",
     "rollup-plugin-subpath-externals": "^3.4.0",
     "standard-version": "^9.5.0",
-    "stylelint": "14.16",
-    "stylelint-config-css-modules": "^4.3.0",
-    "stylelint-config-prettier": "^9.0.5",
-    "stylelint-config-standard": "^20.0.0",
-    "ts-loader": "^9.5.0",
     "typescript": "5.0.4"
   },
   "config": {

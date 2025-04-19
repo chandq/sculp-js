@@ -29,13 +29,14 @@
   - isNumber
   - isUndefined
   - isNull
-  - isNullOrUnDef
+  - isNullish
   - isPrimitive
   - isFunction
   - isObject
   - isArray
   - typeIs
   - isJsonString
+  - isEmpty
 
 - encode/decode
 
@@ -65,6 +66,7 @@
   - objectEachAsync
   - objectGet
   - cloneDeep
+  - isEqual
 
 - Number
 
