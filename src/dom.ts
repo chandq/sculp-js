@@ -140,34 +140,6 @@ export function smoothScroll(options?: Partial<SmoothScrollOptions>): Promise<vo
   });
 }
 
-export type ReadyCallback = () => void;
-const domReadyCallbacks: ReadyCallback[] = [];
-const eventType = 'DOMContentLoaded';
-const listener = () => {
-  domReadyCallbacks.forEach(callback => callback());
-  domReadyCallbacks.length = 0;
-  document.removeEventListener(eventType, listener);
-};
-document.addEventListener(eventType, listener);
-
-let readied = false;
-export function isDomReady(): boolean {
-  if (readied) return true;
-  readied = ['complete', 'loaded', 'interactive'].indexOf(document.readyState) !== -1;
-  return readied;
-}
-
-export function onDomReady(callback: ReadyCallback): void {
-  // document readied
-  if (isDomReady()) {
-    setTimeout(callback, 0);
-  }
-  // listen document to ready
-  else {
-    domReadyCallbacks.push(callback);
-  }
-}
-
 /**
  * 获取元素样式属性的计算值
  * @param {HTMLElement} el

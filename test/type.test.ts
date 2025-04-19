@@ -9,6 +9,7 @@ import {
   isJsonString,
   isNaN,
   isNull,
+  isNullish,
   isNumber,
   isObject,
   isRegExp,
@@ -51,6 +52,10 @@ test('isUndefined', () => {
 test('isNull', () => {
   expect(isNull(undefined)).toBe(false);
   expect(isNull(null)).toBe(true);
+});
+test('isNullish', () => {
+  expect(isNullish(undefined)).toBe(true);
+  expect(isNullish(null)).toBe(true);
 });
 
 test('isObject', () => {

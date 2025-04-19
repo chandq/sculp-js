@@ -1,5 +1,5 @@
 import { wait } from '../src/async';
-import { hasClass, addClass, removeClass, setStyle, getStyle, onDomReady } from '../src/dom';
+import { hasClass, addClass, removeClass, setStyle, getStyle } from '../src/dom';
 
 test('hasClass', () => {
   const el = document.createElement('div');
@@ -53,11 +53,4 @@ test('setStyle + getStyle', () => {
   expect(getStyle(el, 'height')).toEqual('20px');
   expect(getStyle(el, 'font-size')).toEqual('');
   expect(getStyle(el, 'backgroundColor')).toEqual('');
-});
-
-test('onDomReady', async () => {
-  const fn = jest.fn();
-  onDomReady(fn);
-  await wait(100);
-  expect(fn).toBeCalled();
 });

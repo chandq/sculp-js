@@ -214,7 +214,13 @@ export function objectFill<R extends AnyObject = AnyObject>(
 
   return source as R;
 }
-
+/**
+ * 获取对象指定层级下的属性值（现在可用ES6+的可选链?.来替代）
+ * @param {AnyObject} obj
+ * @param {string} path
+ * @param {boolean} strict
+ * @returns
+ */
 export function objectGet(
   obj: AnyObject,
   path: string,

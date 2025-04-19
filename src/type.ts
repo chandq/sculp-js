@@ -43,7 +43,19 @@ export function arrayLike(any: unknown): boolean {
 
   return objectHas(any, 'length');
 }
-type AssetType =
+
+/**
+ * 判断任意值的数据类型，检查非对象时不如typeof、instanceof的性能高
+ *
+ * 当检查类对象时是不可靠的，对象可以通过定义 Symbol.toStringTag 属性来更改检查结果
+ *
+ * 详见：https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/toString
+ * @param {unknown} any
+ * @returns
+ */
+export function typeIs(
+  any: unknown
+):
   | 'Null'
   | 'Undefined'
   | 'Symbol'
@@ -61,14 +73,9 @@ type AssetType =
   | 'Error'
   | 'BigInt'
   | 'Promise'
-  | 'AsyncFunction';
-/**
- * 判断任意值的数据类型
- * @param {unknown} any
- * @returns {AssetType}
- */
-export function typeIs(any: unknown): AssetType {
-  return Object.prototype.toString.call(any).slice(8, -1) as AssetType;
+  | 'AsyncFunction'
+  | string {
+  return Object.prototype.toString.call(any).slice(8, -1);
 }
 
 // 基本数据类型判断
