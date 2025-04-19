@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.8.0](https://github.com/chandq/sculp-js/compare/v1.7.2...v1.8.0) (2025-04-19)
+
+### Features
+
+- add isEqual function ([4aaad67](https://github.com/chandq/sculp-js/commit/4aaad67fe051b63b20143ce4f47357bb5e6a7cbc))
+
 ### [1.7.2](https://github.com/chandq/sculp-js/compare/v1.7.1...v1.7.2) (2025-04-12)
 
 ### Bug Fixes
