@@ -43,13 +43,33 @@ export function arrayLike(any: unknown): boolean {
 
   return objectHas(any, 'length');
 }
-
+type AssetType =
+  | 'Null'
+  | 'Undefined'
+  | 'Symbol'
+  | 'Boolean'
+  | 'Number'
+  | 'String'
+  | 'Function'
+  | 'Date'
+  | 'RegExp'
+  | 'Map'
+  | 'Set'
+  | 'ArrayBuffer'
+  | 'Object'
+  | 'Array'
+  | 'Error'
+  | 'BigInt'
+  | 'Promise'
+  | 'AsyncFunction';
 /**
  * 判断任意值的数据类型
  * @param {unknown} any
- * @returns {string}
+ * @returns {AssetType}
  */
-export const typeIs = (any: unknown): string => Object.prototype.toString.call(any).slice(8, -1);
+export function typeIs(any: unknown): AssetType {
+  return Object.prototype.toString.call(any).slice(8, -1) as AssetType;
+}
 
 // 基本数据类型判断
 export const isString = (any: unknown): any is string => typeof any === 'string';
@@ -63,6 +83,7 @@ export const isPrimitive = (any: unknown): boolean => any === null || typeof any
 export function isNullOrUnDef(val: unknown): val is null | undefined {
   return isUndefined(val) || isNull(val);
 }
+export { isNullOrUnDef as isNullish };
 
 // 复合数据类型判断
 export const isObject = (any: unknown): any is Record<string, unknown> => typeIs(any) === 'Object';
