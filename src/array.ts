@@ -90,7 +90,9 @@ export function arrayRemove<V>(array: V[], expect: (val: V, idx: number) => bool
     if (_expect(val, idx)) indexes.push(idx);
   });
 
-  indexes.forEach((val, idx) => array.splice(val - idx, 1));
+  arrayEach(indexes, (val, idx) => {
+    array.splice(val - idx, 1);
+  });
 
   return array;
 }
