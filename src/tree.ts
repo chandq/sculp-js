@@ -1,3 +1,4 @@
+import { arrayEach } from './array';
 import { objectOmit } from './object';
 import { AnyObject, isEmpty, objectHas } from './type';
 
@@ -67,7 +68,7 @@ export function forEachDeep<V>(
         }
       }
     } else {
-      for (let i = 0; i < arr.length; i++) {
+      for (let i = 0, len = arr.length; i < len; i++) {
         if (isBreak) {
           break;
         }
@@ -207,7 +208,7 @@ export function searchTreeById<V>(tree: ArrayLike<V>, nodeId: IdLike, config?: I
 }
 
 /**
- * 扁平化数组转换成树(效率高于buildTree)
+ * 扁平化数组转换成树
  * @param {any[]} list
  * @param {IFieldOptions} options
  * @returns {any[]}
@@ -216,11 +217,11 @@ export function formatTree(list: any[], options: IFieldOptions = defaultFieldOpt
   const { keyField, childField, pidField } = options;
   const treeArr: any[] = [];
   const sourceMap = {};
-  list.forEach(item => {
+  arrayEach(list, item => {
     sourceMap[item[keyField]] = item;
   });
 
-  list.forEach(item => {
+  arrayEach(list, item => {
     const parent = sourceMap[item[pidField]];
     if (parent) {
       (parent[childField] || (parent[childField] = [])).push(item);
@@ -228,6 +229,7 @@ export function formatTree(list: any[], options: IFieldOptions = defaultFieldOpt
       treeArr.push(item);
     }
   });
+
   return treeArr;
 }
 
@@ -239,7 +241,8 @@ export function formatTree(list: any[], options: IFieldOptions = defaultFieldOpt
  */
 export function flatTree(treeList: any[], options: IFieldOptions = defaultFieldOptions): any[] {
   const { childField, keyField, pidField } = options;
-  return treeList.reduce((res, node) => {
+  let res: any[] = [];
+  arrayEach(treeList, node => {
     const item = {
       ...node,
       [childField]: [] // 清空子级
@@ -253,8 +256,8 @@ export function flatTree(treeList: any[], options: IFieldOptions = defaultFieldO
       }));
       res = res.concat(flatTree(children, options));
     }
-    return res;
-  }, []);
+  });
+  return res;
 }
 
 /**
@@ -284,7 +287,7 @@ export function fuzzySearchTree<V>(
   }
   const result: V[] = [];
 
-  for (const node of nodes) {
+  arrayEach(nodes, node => {
     // 递归检查子节点是否匹配
     const matchedChildren =
       node[options.childField] && node[options.childField].length > 0
@@ -326,6 +329,6 @@ export function fuzzySearchTree<V>(
         });
       }
     }
-  }
+  });
   return result;
 }

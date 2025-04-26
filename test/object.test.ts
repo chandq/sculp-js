@@ -13,6 +13,10 @@ import {
   isEqual
 } from '../src/object';
 import { objectHas, AnyObject, isNumber } from '../src/type';
+import { cloneDeep as cloneDeep2 } from '../src/cloneDeep';
+// import { isEqual as isEqual2 } from '../src/isEqual';
+// import { isEqual } from '../src/isEqual';
+// import { isEqual, cloneDeep as a2 } from 'lodash';
 
 test('isPlainObject', () => {
   expect(isPlainObject([])).toBe(false);
@@ -573,6 +577,27 @@ describe('cloneDeep', () => {
     expect(clonedData.map).toBeInstanceOf(Map);
     expect([...clonedData.map.get('nested')][0]).toBeInstanceOf(Set);
     expect(clonedData.buffer).not.toBe(data.buffer);
+  });
+  test('perf', () => {
+    // 测试用例：100万级数据
+    // const data = {
+    //   arr: new Float64Array(1e5).map(() => Math.random()),
+    //   map: new Map([...Array(1e3)].map((_, i) => [i, { id: i }])),
+    //   nested: [...Array(1000)].map(() => ({
+    //     child: {
+    //       set: new Set([1, 2, 3]),
+    //       buf: new ArrayBuffer(1024)
+    //     }
+    //   }))
+    // };
+    // // 测试结果
+    // console.time('cloneDeep');
+    // const cloned = cloneDeep(data);
+    // console.timeEnd('cloneDeep'); // ~120ms (Chrome 115)
+    // console.time('isEqual');
+    // console.log(isEqual(data, cloned)); // true
+    // console.timeEnd('isEqual'); // ~85ms (Chrome 115)
+    // console.log('is Same: ', Object.is(data, cloned));
   });
 });
 

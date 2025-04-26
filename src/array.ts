@@ -21,7 +21,7 @@ export function arrayEach<V>(
       else if (re === true) continue;
     }
   } else {
-    for (let idx = 0; idx < array.length; idx++) {
+    for (let idx = 0, len = array.length; idx < len; idx++) {
       const val = array[idx];
 
       const re = iterator(val, idx, array);
@@ -49,7 +49,7 @@ export async function arrayEachAsync<V>(
       if ((await iterator(val, idx)) === false) break;
     }
   } else {
-    for (let idx = 0; idx < array.length; idx++) {
+    for (let idx = 0, len = array.length; idx < len; idx++) {
       const val = array[idx];
 
       if ((await iterator(val, idx)) === false) break;

@@ -181,7 +181,7 @@ export function objectAssign<R = AnyObject | AnyArray>(
 ): R {
   const map = new Map();
 
-  for (let i = 0; i < targets.length; i++) {
+  for (let i = 0, len = targets.length; i < len; i++) {
     const target = targets[i];
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
@@ -332,11 +332,11 @@ export function cloneDeep<T>(source: T, map = new WeakMap<any, any>()): T {
 
   // 处理数组 (包含稀疏数组)
   if (Array.isArray(source)) {
-    const copy: any[] = Array.from({ length: source.length });
+    const copy: any[] = new Array(source.length);
     map.set(source, copy);
 
     // 克隆所有有效索引
-    for (let i = 0; i < source.length; i++) {
+    for (let i = 0, len = source.length; i < len; i++) {
       if (i in source) {
         // 保留空位
         copy[i] = cloneDeep(source[i], map);
@@ -520,7 +520,7 @@ function compareArrays(a: any[], b: any[], compared: WeakMap<any, any>): boolean
   if (keysA.length !== keysB.length) return false;
 
   // 递归比较每个元素
-  for (let i = 0; i < a.length; i++) {
+  for (let i = 0, len = a.length; i < len; i++) {
     if (!deepEqual(a[i], b[i], compared)) return false;
   }
 

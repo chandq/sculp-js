@@ -2,7 +2,7 @@ const b64 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
 // eslint-disable-next-line
 const b64re = /^(?:[A-Za-z\d+\/]{4})*?(?:[A-Za-z\d+\/]{2}(?:==)?|[A-Za-z\d+\/]{3}=?)?$/;
 /**
- * 字符串编码成Base64 （适用于任何环境，包括小程序）
+ * 字符串编码成Base64, 平替浏览器的btoa, 不包含中文的处理 （适用于任何环境，包括小程序）
  * @param {string} string
  * @returns {string}
  */
@@ -15,8 +15,9 @@ export function weBtoa(string: string): string {
     c,
     result = '',
     i = 0;
-  const rest = string.length % 3;
-  for (; i < string.length; ) {
+  const strLen = string.length;
+  const rest = strLen % 3;
+  for (; i < strLen; ) {
     if ((a = string.charCodeAt(i++)) > 255 || (b = string.charCodeAt(i++)) > 255 || (c = string.charCodeAt(i++)) > 255)
       throw new TypeError(
         "Failed to execute 'btoa' on 'Window': The string to be encoded contains characters outside of the Latin1 range."
@@ -31,7 +32,7 @@ export function weBtoa(string: string): string {
   return rest ? result.slice(0, rest - 3) + '==='.substring(rest) : result;
 }
 /**
- * Base64解码为原始字符串（适用于任何环境，包括小程序）
+ * Base64解码为原始字符串，平替浏览器的atob, 不包含中文的处理（适用于任何环境，包括小程序）
  * @param {string} string
  * @returns {string}
  */
@@ -46,7 +47,7 @@ export function weAtob(string: string): string {
     r1,
     r2,
     i = 0;
-  for (; i < string.length; ) {
+  for (const strLen = string.length; i < strLen; ) {
     bitmap =
       (b64.indexOf(string.charAt(i++)) << 18) |
       (b64.indexOf(string.charAt(i++)) << 12) |

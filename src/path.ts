@@ -4,7 +4,7 @@
  * @returns {string}
  */
 export const pathNormalize = (path: string): string => {
-  const slicees = path
+  const slices = path
     .replace(/\\/g, '/')
     .replace(/\/{2,}/g, '/')
     .replace(/\.{3,}/g, '..')
@@ -31,7 +31,7 @@ export const pathNormalize = (path: string): string => {
     }
   };
 
-  slicees.forEach(slice => {
+  slices.forEach(slice => {
     const isCurrent = isCurrentSlice(slice);
     const isParent = isParentSlice(slice);
 
