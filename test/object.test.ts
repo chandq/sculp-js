@@ -13,8 +13,6 @@ import {
   isEqual
 } from '../src/object';
 import { objectHas, AnyObject, isNumber } from '../src/type';
-import { cloneDeep as cloneDeep2 } from '../src/cloneDeep';
-// import { isEqual as isEqual2 } from '../src/isEqual';
 // import { isEqual } from '../src/isEqual';
 // import { isEqual, cloneDeep as a2 } from 'lodash';
 
