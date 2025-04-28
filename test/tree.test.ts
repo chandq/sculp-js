@@ -231,7 +231,9 @@ test('compare formatTree buildTree', () => {
   const startTime2 = Date.now();
   const tree2 = formatTree(arr, { keyField: 'id', childField: 'children', pidField: 'pid' });
   console.log('formatTree time:', Date.now() - startTime2);
-
+  console.time('forEachDeep');
+  forEachDeep(tree2, item => {});
+  console.timeEnd('forEachDeep');
   expect(tree1).toEqual(tree2);
 });
 
@@ -267,8 +269,10 @@ test('flatTree', () => {
       ]
     }
   ];
-
+  console.time('flatTree');
   const res = flatTree(tree, { keyField: 'id', childField: 'children', pidField: 'pid' });
+  console.timeEnd('flatTree');
+
   expect(res).toEqual([
     { id: 1, name: 'root' },
     { id: 10, name: 'ap-2p', pid: 1 },
