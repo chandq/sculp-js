@@ -24,3 +24,5 @@ export * from './we-decode';
 export * from './base64';
 export * from './validator';
 export * from './variable';
+export * from './cloneDeep';
+export * from './isEqual';

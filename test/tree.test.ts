@@ -1,5 +1,5 @@
 import { AnyObject } from './../src/type';
-import { cloneDeep } from '../src/object';
+import { cloneDeep } from '../src/cloneDeep';
 import { formatTree, searchTreeById, forEachDeep, mapDeep, fuzzySearchTree, flatTree } from '../src/tree';
 
 test('searchTreeById', () => {
@@ -231,9 +231,7 @@ test('compare formatTree buildTree', () => {
   const startTime2 = Date.now();
   const tree2 = formatTree(arr, { keyField: 'id', childField: 'children', pidField: 'pid' });
   console.log('formatTree time:', Date.now() - startTime2);
-  console.time('forEachDeep');
-  forEachDeep(tree2, item => {});
-  console.timeEnd('forEachDeep');
+
   expect(tree1).toEqual(tree2);
 });
 

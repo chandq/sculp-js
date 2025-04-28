@@ -9,7 +9,6 @@ export const multiply = (arg1: number, arg2: number): number => {
   const s2 = arg2.toString();
 
   if (s1.split('.')[1] !== undefined) m += s1.split('.')[1].length;
-
   if (s2.split('.')[1] !== undefined) m += s2.split('.')[1].length;
 
   return (Number(s1.replace('.', '')) * Number(s2.replace('.', ''))) / Math.pow(10, m);
@@ -61,7 +60,6 @@ export const divide = (arg1: number, arg2: number): number => {
   let r2 = 0;
 
   if (arg1.toString().split('.')[1] !== undefined) t1 = arg1.toString().split('.')[1].length;
-
   if (arg2.toString().split('.')[1] !== undefined) t2 = arg2.toString().split('.')[1].length;
 
   r1 = Number(arg1.toString().replace('.', ''));

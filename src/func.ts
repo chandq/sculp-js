@@ -103,13 +103,10 @@ export const once = <F extends AnyFunc = AnyFunc>(func: F): OnceFunc<F> => {
   let result: ReturnType<F>;
 
   return function (...args) {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     if (called) return result;
 
     called = true;
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     result = func.call(this, ...args);
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     return result;
   };
 };
@@ -120,21 +117,9 @@ export const once = <F extends AnyFunc = AnyFunc>(func: F): OnceFunc<F> => {
  * @param val
  */
 export function setGlobal(key: string | number | symbol, val?: any) {
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   if (typeof globalThis !== 'undefined') globalThis[key] = val;
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   else if (typeof window !== 'undefined') window[key] = val;
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   else if (typeof global !== 'undefined') global[key] = val;
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   else if (typeof self !== 'undefined') self[key] = val;
   else throw new SyntaxError('当前环境下无法设置全局属性');
 }
@@ -145,20 +130,8 @@ export function setGlobal(key: string | number | symbol, val?: any) {
  * @param val
  */
 export function getGlobal<T>(key: string | number | symbol): T | void {
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   if (typeof globalThis !== 'undefined') return globalThis[key] as T;
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   else if (typeof window !== 'undefined') return window[key] as T;
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   else if (typeof global !== 'undefined') return global[key] as T;
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   else if (typeof self !== 'undefined') return self[key] as T;
 }

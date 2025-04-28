@@ -67,7 +67,6 @@ export async function arrayEachAsync<V>(
 export function arrayInsertBefore(array: AnyArray, start: number, to: number): void {
   if (start === to || start + 1 === to) return;
 
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const [source] = array.splice(start, 1);
   const insertIndex = to < start ? to : to - 1;
 
@@ -90,7 +89,7 @@ export function arrayRemove<V>(array: V[], expect: (val: V, idx: number) => bool
     if (_expect(val, idx)) indexes.push(idx);
   });
 
-  arrayEach(indexes, (val, idx) => {
+  indexes.forEach((val, idx) => {
     array.splice(val - idx, 1);
   });
 
