@@ -1,5 +1,5 @@
 import { LooseParams } from './qs';
-import { AnyObject, isFunction } from './type';
+import { AnyObject, isFunction, isNullish, isString } from './type';
 import { urlSetParams } from './url';
 
 /**
@@ -49,18 +49,46 @@ export function downloadBlob(blob: Blob, filename: string, callback?: Function):
     }
   });
 }
+type CrossOriginDownloadParams = { successCode?: number; successCallback?: Function; failCallback?: Function };
 /**
  * 根据URL下载文件（解决跨域a.download不生效问题)
+ *
+ * 可定制下载成功的状态码status(浏览器原生状态码)
+ *
+ * 支持下载操作成功、失败后的回调
  * @param {string} url
  * @param {string} filename
- * @param {Function} callback
+ * @param {CrossOriginDownloadParams} options
  */
-export function crossOriginDownload(url: string, filename: string, callback?: Function): void {
+export function crossOriginDownload(url: string, filename: string, options?: CrossOriginDownloadParams): void {
+  const {
+    successCode = 200,
+    successCallback,
+    failCallback
+  } = isNullish(options) ? { successCode: 200, successCallback: void 0, failCallback: void 0 } : options;
   const xhr = new XMLHttpRequest();
   xhr.open('GET', url, true);
   xhr.responseType = 'blob';
   xhr.onload = function () {
-    if (xhr.status === 200) downloadBlob(xhr.response, filename, callback);
+    if (xhr.status === successCode) downloadBlob(xhr.response, filename, successCallback);
+    else if (isFunction(failCallback)) {
+      const status = xhr.status;
+      const responseType = xhr.getResponseHeader('Content-Type');
+      if (isString(responseType) && responseType.includes('application/json')) {
+        const reader = new FileReader();
+        reader.onload = () => {
+          failCallback({ status, response: reader.result });
+        };
+        reader.readAsText(xhr.response);
+      } else {
+        failCallback(xhr);
+      }
+    }
+  };
+  xhr.onerror = e => {
+    if (isFunction(failCallback)) {
+      failCallback({ status: 0, code: 'ERROR_CONNECTION_REFUSED' });
+    }
   };
   xhr.send();
 }

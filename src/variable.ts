@@ -1,4 +1,4 @@
-import { objectHas } from './type';
+import { isNullish, objectHas } from './type';
 
 /**
  * 去除字符串中重复字符
@@ -51,7 +51,10 @@ export function parseVarFromString(
   leftMatchSymbol: string = '{',
   rightMatchSymbol: string = '}'
 ): string[] {
-  return Array.from(str.matchAll(parseVariableRegExp(leftMatchSymbol, rightMatchSymbol))).map(el => el?.[1]);
+  // @ts-ignore
+  return Array.from(str.matchAll(parseVariableRegExp(leftMatchSymbol, rightMatchSymbol))).map(el =>
+    isNullish(el) ? void 0 : el[1]
+  );
 }
 /**
  * 替换字符串中的插值变量
