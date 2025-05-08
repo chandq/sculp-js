@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.8.4](https://github.com/chandq/sculp-js/compare/v1.8.3...v1.8.4) (2025-05-08)
+
+### Bug Fixes
+
+- support callback of download success and fail ([bb0c27c](https://github.com/chandq/sculp-js/commit/bb0c27c1157fbdfc5ea7f6fd4807ba93b93edf0a))
+
 ### [1.8.3](https://github.com/chandq/sculp-js/compare/v1.8.2...v1.8.3) (2025-04-29)
 
 ### [1.8.2](https://github.com/chandq/sculp-js/compare/v1.8.1...v1.8.2) (2025-04-28)
