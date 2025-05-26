@@ -13,6 +13,7 @@ import {
 
 test('isUrl', () => {
   expect(isUrl('')).toBe(false);
+  // expect(isUrl('http://xxxxxx')).toBe(false);
   expect(isUrl('htt1p://aba.com')).toBe(false);
   expect(isUrl('http://aba.monster')).toBe(true);
   expect(isUrl('http://aba.com')).toBe(true);

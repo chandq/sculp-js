@@ -54,8 +54,6 @@ describe('numberAbbr fileSize', () => {
 });
 
 describe('humanFileSize', () => {
-  const fileSymbols = ['B', 'KB', 'MB', 'GB', 'TB'];
-
   test('B', () => {
     const value = humanFileSize(1, { si: true });
     const value2 = humanFileSize(1, { si: false });
@@ -66,9 +64,9 @@ describe('humanFileSize', () => {
   test('KB', () => {
     const value = humanFileSize(1024, { si: true });
     const value2 = humanFileSize(1024, { si: false });
-    const value3 = humanFileSize(1024, { si: true, precision: 2 });
-    const value4 = humanFileSize(1024, { si: false, precision: 2 });
-    const value5 = humanFileSize(1024, { si: false, precision: 2, separator: '' });
+    const value3 = humanFileSize(1024, { si: true, decimals: 2 });
+    const value4 = humanFileSize(1024, { si: false, decimals: 2 });
+    const value5 = humanFileSize(1024, { si: false, decimals: 2, separator: '' });
     expect(value).toEqual('1 kB');
     expect(value2).toEqual('1 KiB');
     expect(value3).toEqual('1.02 kB');
@@ -98,14 +96,14 @@ describe('humanFileSize', () => {
   });
 
   test('more TB', () => {
-    const value = humanFileSize(5 * Math.pow(1024, 5), { si: true, precision: 2, maxUnit: 'TB' });
-    const value2 = humanFileSize(5 * Math.pow(1024, 5), { si: false, precision: 2, maxUnit: 'TiB' });
+    const value = humanFileSize(5 * Math.pow(1024, 5), { si: true, decimals: 2, maxUnit: 'TB' });
+    const value2 = humanFileSize(5 * Math.pow(1024, 5), { si: false, decimals: 2, maxUnit: 'TiB' });
     expect(value).toEqual('5629.50 TB');
     expect(value2).toEqual('5120.00 TiB');
   });
   test('PB', () => {
-    const value = humanFileSize(5 * Math.pow(1024, 5), { si: true, precision: 2 });
-    const value2 = humanFileSize(5 * Math.pow(1024, 5), { si: false, precision: 2 });
+    const value = humanFileSize(5 * Math.pow(1024, 5), { si: true, decimals: 2 });
+    const value2 = humanFileSize(5 * Math.pow(1024, 5), { si: false, decimals: 2 });
     expect(value).toEqual('5.63 PB');
     expect(value2).toEqual('5.00 PiB');
   });
@@ -115,17 +113,17 @@ describe('numberAbbr meter', () => {
   const meterSymbols = ['米', '千米'];
 
   test('米', () => {
-    const value = numberAbbr(0.123456789, meterSymbols, { ratio: 1000, precision: 2, separator: '' });
+    const value = numberAbbr(0.123456789, meterSymbols, { ratio: 1000, decimals: 2, separator: '' });
     expect(value).toEqual('0.12米');
   });
 
   test('米2', () => {
-    const value = numberAbbr(12.123456789, meterSymbols, { ratio: 1000, precision: 2, separator: '' });
+    const value = numberAbbr(12.123456789, meterSymbols, { ratio: 1000, decimals: 2, separator: '' });
     expect(value).toEqual('12.12米');
   });
 
   test('千米', () => {
-    const value = numberAbbr(1234.123456789, meterSymbols, { ratio: 1000, precision: 2, separator: '' });
+    const value = numberAbbr(1234.123456789, meterSymbols, { ratio: 1000, decimals: 2, separator: '' });
     expect(value).toEqual('1.23千米');
   });
 
@@ -144,5 +142,6 @@ test('formatNumber 格式化', () => {
   const money = 123456789,
     floatMoney = 123456.789;
   expect(formatNumber(money)).toBe('123,456,789');
-  expect(formatNumber(floatMoney, 'float')).toBe('123,456.789');
+  expect(formatNumber(floatMoney, 2)).toBe('123,456.79');
+  expect(formatNumber(floatMoney, -1)).toBe('123,457');
 });

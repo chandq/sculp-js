@@ -1,7 +1,6 @@
-import { arrayEach } from './array';
 import { getGlobal } from './func';
 import { STRING_ARABIC_NUMERALS, STRING_LOWERCASE_ALPHA, STRING_UPPERCASE_ALPHA } from './string';
-import { isNullish } from './type';
+import { isNullish, isNumber } from './type';
 
 export const HEX_POOL = `${STRING_ARABIC_NUMERALS}${STRING_UPPERCASE_ALPHA}${STRING_LOWERCASE_ALPHA}`;
 
@@ -55,22 +54,22 @@ export function numberToHex(decimal: number | string, hexPool: string = HEX_POOL
 }
 interface INumberAbbr {
   ratio?: number;
-  precision?: number;
+  decimals?: number;
   separator?: string;
 }
 /**
  * 将数字转换为携带单位的字符串
  * @param {number | string} num
  * @param {Array<string>} units
- * @param {INumberAbbr} options default: { ratio: 1000, precision: 0, separator: ' ' }
+ * @param {INumberAbbr} options default: { ratio: 1000, decimals: 0, separator: ' ' }
  * @returns {string}
  */
 export const numberAbbr = (
   num: number | string,
   units: Array<string>,
-  options: INumberAbbr = { ratio: 1000, precision: 0, separator: ' ' }
+  options: INumberAbbr = { ratio: 1000, decimals: 0, separator: ' ' }
 ): string => {
-  const { ratio = 1000, precision = 0, separator = ' ' } = options;
+  const { ratio = 1000, decimals = 0, separator = ' ' } = options;
   const { length } = units;
   if (length === 0) throw new Error('At least one unit is required');
 
@@ -82,12 +81,12 @@ export const numberAbbr = (
     times++;
   }
 
-  const value = num2.toFixed(precision);
+  const value = num2.toFixed(decimals);
   const unit = units[times];
   return String(value) + separator + unit;
 };
 interface IHumanFileSizeOptions {
-  precision?: number;
+  decimals?: number;
   si?: boolean;
   separator?: string;
   maxUnit?: string;
@@ -96,7 +95,7 @@ interface IHumanFileSizeOptions {
  * Converting file size in bytes to human-readable string
  *  reference: https://zh.wikipedia.org/wiki/%E5%8D%83%E5%AD%97%E8%8A%82
  * @param {number | string} num bytes Number in Bytes
- * @param {IHumanFileSizeOptions} options default: { precision = 0, si = false, separator = ' ' }
+ * @param {IHumanFileSizeOptions} options default: { decimals = 0, si = false, separator = ' ' }
  *        si: True to use metric (SI) units, aka powers of 1000, the units is
  *            ['B', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'].
  *            False to use binary (IEC), aka powers of 1024, the units is
@@ -104,7 +103,7 @@ interface IHumanFileSizeOptions {
  * @returns
  */
 export function humanFileSize(num: number | string, options: IHumanFileSizeOptions): string {
-  const { precision = 0, si = false, separator = ' ', maxUnit } = options;
+  const { decimals = 0, si = false, separator = ' ', maxUnit } = options;
   const units = si
     ? ['B', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
     : ['Byte', 'KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB'];
@@ -114,15 +113,25 @@ export function humanFileSize(num: number | string, options: IHumanFileSizeOptio
       units.splice(targetIndex + 1);
     }
   }
-  return numberAbbr(num, units, { ratio: si ? 1000 : 1024, precision, separator });
+  return numberAbbr(num, units, { ratio: si ? 1000 : 1024, decimals, separator });
 }
 
 /**
  * 将数字格式化成千位分隔符显示的字符串
- * @param {number} val 数字
- * @param {'int' | 'float'} type 展示分段显示的类型 int:整型 | float:浮点型
+ * @param {number|string} num 数字
+ * @param {number} decimals 格式化成指定小数位精度的参数
  * @returns {string}
  */
-export function formatNumber(val: number, type = 'int'): string {
-  return type === 'int' ? parseInt(String(val)).toLocaleString() : Number(val).toLocaleString('en-US');
+export function formatNumber(num: number | string, decimals?: number): string {
+  if (isNullish(decimals)) {
+    return parseInt(String(num)).toLocaleString();
+  }
+  let prec = 0;
+  if (!isNumber(decimals)) {
+    throw new Error('Decimals must be a positive number not less than zero');
+  } else if (decimals > 0) {
+    prec = decimals;
+  }
+  return Number(Number(num).toFixed(prec)).toLocaleString('en-US');
 }
+export { formatNumber as formatMoney };
