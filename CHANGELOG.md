@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.9.0](https://github.com/chandq/sculp-js/compare/v1.8.4...v1.9.0) (2025-05-28)
+
+### Features
+
+- **number:** add humanFileSize utils function ([61b6d45](https://github.com/chandq/sculp-js/commit/61b6d45636390d07492195a7f955f59d6b3c46ff))
+
+### Bug Fixes
+
+- optimize formatNumber ([b759fc5](https://github.com/chandq/sculp-js/commit/b759fc59bc7bd19dd1f11902b1dc5614b46fc489))
+- validate issue ([951d81b](https://github.com/chandq/sculp-js/commit/951d81ba35269b1b80fea87dd943ea6f72087734))
+
 ### [1.8.4](https://github.com/chandq/sculp-js/compare/v1.8.3...v1.8.4) (2025-05-08)
 
 ### Bug Fixes
