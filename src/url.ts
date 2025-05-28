@@ -26,6 +26,7 @@ export interface Url {
  * @returns {Url}
  */
 export const urlParse = (url: string, isModernApi: boolean = true): Url => {
+  // @ts-ignore
   let urlObj: Nullable<URL | HTMLAnchorElement> = null;
 
   if (isFunction(URL) && isModernApi) {
