@@ -20,7 +20,8 @@ module.exports = {
     sourceType: 'module'
   },
   globals: {
-    globalThis: true
+    globalThis: true,
+    Nullable: true
   },
   rules: {
     'no-undef': 'error',

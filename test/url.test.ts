@@ -17,6 +17,11 @@ test('urlParse 完整', () => {
   expect(url.pathname).toBe('/a/b');
   expect(url.path).toBe('/a/b?c=d&e=f');
   expect(url.href).toBe(href);
+
+  const url2 = urlParse(href, false);
+  expect(url2.pathname).toBe('/a/b');
+  expect(url2.path).toBe('/a/b?c=d&e=f');
+  expect(url2.href).toBe(href);
 });
 
 test('urlParse 普通', () => {

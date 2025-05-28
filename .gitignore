@@ -27,8 +27,6 @@ dist_electron
 # 单元测试覆盖率
 coverage
 
-types
-
 temp
 
 

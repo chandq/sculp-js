@@ -1,8 +1,6 @@
-import { AnyObject } from './type';
+import { AnyObject, isFunction } from './type';
 import { pathJoin } from './path';
 import { Params, qsParse as parseSearchParams, qsStringify as stringifySearchParams } from './qs';
-
-const anchorEl: HTMLAnchorElement = document.createElement('a');
 
 export interface Url {
   protocol: string;
@@ -24,17 +22,26 @@ export interface Url {
 /**
  * url 解析
  * @param {string} url
+ * @param {boolean} isModernApi 使用现代API:URL, 默认true (对无效url解析会抛错), 否则使用a标签来解析（兼容性更强）
  * @returns {Url}
  */
-export const urlParse = (url: string): Url => {
-  anchorEl.href = url;
-  const { protocol, username, password, host, port, hostname, hash, search, pathname: _pathname } = anchorEl;
+export const urlParse = (url: string, isModernApi: boolean = true): Url => {
+  let urlObj: Nullable<URL | HTMLAnchorElement> = null;
+
+  if (isFunction(URL) && isModernApi) {
+    urlObj = new URL(url);
+  } else {
+    urlObj = document.createElement('a');
+    urlObj.href = url;
+  }
+  const { protocol, username, password, host, port, hostname, hash, search, pathname: _pathname } = urlObj;
   // fix: ie 浏览器下，解析出来的 pathname 是没有 / 根的
   const pathname = pathJoin('/', _pathname);
   const auth = username && password ? `${username}:${password}` : '';
   const query = search.replace(/^\?/, '');
   const searchParams = parseSearchParams(query);
   const path = `${pathname}${search}`;
+  urlObj = null;
 
   return {
     protocol,
