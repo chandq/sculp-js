@@ -247,7 +247,7 @@ export function flatTree(treeList: any[], options: IFieldOptions = defaultFieldO
       ...node,
       [childField]: [] // 清空子级
     };
-    item.hasOwnProperty([childField]) && delete item[childField];
+    objectHas(item, childField) && delete item[childField];
     res.push(item);
     if (node[childField]) {
       const children = node[childField].map(item => ({
