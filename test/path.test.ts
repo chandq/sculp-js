@@ -1,4 +1,5 @@
 import { pathJoin, pathNormalize } from '../src/path';
+import './utils';
 
 test('.normalize: 标准', () => {
   expect(pathNormalize('/a/b/c')).toEqual('/a/b/c');

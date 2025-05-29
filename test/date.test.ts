@@ -7,6 +7,7 @@ import {
   calculateDate,
   calculateDateTime
 } from '../src/date';
+import './utils';
 
 test('.isValidDate', () => {
   expect(isValidDate(new Date())).toBe(true);

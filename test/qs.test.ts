@@ -1,6 +1,7 @@
 import { qsStringify, qsParse, Replacer } from '../src/qs';
 import { formatDate } from '../src/date';
 import { isBoolean, isDate, isFunction, isNull, isNumber, isString, isUndefined } from '../src/type';
+import './utils';
 
 test('qsParse', () => {
   expect(qsParse('a=1')).toEqual({ a: '1' });

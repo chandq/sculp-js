@@ -10,6 +10,7 @@ import {
   stringFill,
   parseQueryParams
 } from '../src/string';
+import './utils';
 
 test('stringCamelCase', () => {
   expect(stringCamelCase('hello-world')).toBe('helloWorld');

@@ -1,4 +1,5 @@
 import { escapeRegExp, executeInScope, parseVarFromString, replaceVarFromString, uniqueSymbol } from '../src/variable';
+import './utils';
 
 test('uniqueSymbol', () => {
   const res = uniqueSymbol('1a1bac');

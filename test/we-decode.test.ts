@@ -1,4 +1,5 @@
 import { weAtob, weBtoa } from '../src/we-decode';
+import './utils';
 
 test('weBtoa', () => {
   const str = 'hello, welcome to js world';

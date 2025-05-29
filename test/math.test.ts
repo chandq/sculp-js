@@ -1,4 +1,5 @@
 import { add, subtract, multiply, divide, strip } from '../src/math';
+import './utils';
 
 test('add', () => {
   expect(add(0.1, 0.2)).toBe(0.3);

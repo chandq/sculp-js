@@ -1,4 +1,5 @@
 import { numberToHex, numberAbbr, formatNumber, humanFileSize } from '../src/number';
+import './utils';
 
 test('numberToHex', () => {
   const n1 = '12345678901234567890';

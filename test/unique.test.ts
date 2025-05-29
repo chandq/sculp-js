@@ -1,5 +1,6 @@
 import { AnyObject } from '../src/type';
 import { uniqueNumber, uniqueString, UNIQUE_NUMBER_SAFE_LENGTH } from '../src/unique';
+import './utils';
 
 test('uniqueNumber()', () => {
   const n1 = uniqueNumber();

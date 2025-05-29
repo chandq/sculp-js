@@ -1,4 +1,5 @@
 import { decodeFromBase64, encodeToBase64 } from '../src/base64';
+import './utils';
 
 test('encodeToBase64,decodeFromBase64', () => {
   const rawStr = '"https://www.runoob.com/"::hello, #1Link-  欢迎来到前端JS世界&You like it?';

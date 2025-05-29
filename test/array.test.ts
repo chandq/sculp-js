@@ -1,6 +1,7 @@
 import { arrayLike } from '../src/type';
 import { arrayEach, arrayEachAsync, arrayInsertBefore, arrayRemove } from '../src/array';
 import { wait } from '../src/async';
+import './utils';
 
 test('arrayLike', () => {
   expect(arrayLike([])).toBe(true);
