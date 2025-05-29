@@ -1,4 +1,5 @@
 import { urlParse, urlDelParams, urlStringify, urlSetParams } from '../src/url';
+import './utils';
 
 test('urlParse 完整', () => {
   const href = 'http://u:p@www.baidu.com:3001/a/b?c=d&e=f#gggh';

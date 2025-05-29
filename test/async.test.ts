@@ -31,7 +31,7 @@ test('asyncMap 并发', async () => {
   await asyncMap(
     list,
     async (val, idx) => {
-      console.log(new Date().getMilliseconds(), val, idx);
+      // console.log(new Date().getMilliseconds(), val, idx);
       fn();
       await wait(10);
       return val * 3;

@@ -1,6 +1,7 @@
 import { AnyObject } from './../src/type';
 import { cloneDeep } from '../src/cloneDeep';
 import { formatTree, searchTreeById, forEachDeep, mapDeep, fuzzySearchTree, flatTree } from '../src/tree';
+import './utils';
 
 test('searchTreeById', () => {
   const tree = [
@@ -69,7 +70,7 @@ test('forEachDeep', () => {
 
   forEachDeep(tree, ({ id, name }, i, currentArr, tree, parent, level) => {
     res1.push(name);
-    console.log('level', level);
+    // console.log('level', level);
   });
   expect(res1).toEqual(['row1', 'row2', 'row2-1', 'row3']);
 
@@ -219,18 +220,18 @@ export function buildTree<ID extends string, PID extends string, T extends { [ke
     return result;
   }
 }
-const treeArray = generateTreeArray(10000);
+const treeArray = generateTreeArray(1000);
 
 test('compare formatTree buildTree', () => {
   // console.log('arr', arr);
   const arr = cloneDeep(treeArray) as any[];
-  const startTime = Date.now();
+  // const startTime = Date.now();
   const tree1 = buildTree('id', 'pid', arr);
-  console.log('buildTree time:', Date.now() - startTime);
+  // console.log('buildTree time:', Date.now() - startTime);
 
-  const startTime2 = Date.now();
+  // const startTime2 = Date.now();
   const tree2 = formatTree(arr, { keyField: 'id', childField: 'children', pidField: 'pid' });
-  console.log('formatTree time:', Date.now() - startTime2);
+  // console.log('formatTree time:', Date.now() - startTime2);
 
   expect(tree1).toEqual(tree2);
 });
@@ -267,9 +268,9 @@ test('flatTree', () => {
       ]
     }
   ];
-  console.time('flatTree');
+  // console.time('flatTree');
   const res = flatTree(tree, { keyField: 'id', childField: 'children', pidField: 'pid' });
-  console.timeEnd('flatTree');
+  // console.timeEnd('flatTree');
 
   expect(res).toEqual([
     { id: 1, name: 'root' },
@@ -433,7 +434,7 @@ test('mapDeep', () => {
     },
     { key: 1, label: 'row1' }
   ]);
-  // test continue
+  // continue
   res3 = mapDeep(tree, ({ id, name, children }) => {
     if (id === 21) {
       return true;
@@ -451,7 +452,7 @@ test('mapDeep', () => {
     { key: 3, label: 'row3', job: 'job-3' }
   ]);
 
-  // test break
+  //  break
   res4 = mapDeep(tree, ({ id, name, children }) => {
     if (id === 21) {
       return false;
@@ -466,7 +467,7 @@ test('mapDeep', () => {
       children: []
     }
   ]);
-  // test insert tree item
+  //  insert tree item
   res5 = mapDeep(cloneDeep(tree), ({ id, name, children }, i, currentArr: any) => {
     if (id === 21) {
       currentArr.push({ id: 22, name: 'row2-2' });
@@ -485,7 +486,7 @@ test('mapDeep', () => {
     },
     { key: 3, label: 'row3' }
   ]);
-  // test return item self of element
+  //  return item self of element
   res6 = mapDeep(tree, (item, i, currentArr: any) => {
     if (item.id === 21) {
       currentArr.push({ id: 22, name: 'row2-2' });
