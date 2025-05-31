@@ -2,7 +2,7 @@
 // https://jestjs.io/docs/en/configuration.html
 
 module.exports = {
-  collectCoverageFrom: ['src/**/*.ts'],
+  collectCoverageFrom: ['src/**/*.ts', '!src/index.ts', '!src/core-index.ts'],
   testMatch: ['<rootDir>/test/**/*.test.ts'],
 
   testEnvironment: 'jsdom',

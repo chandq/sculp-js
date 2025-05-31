@@ -8,7 +8,7 @@
 import { isNullish, isString } from './type';
 
 export interface ICanvasWM {
-  element?: HTMLElement | string;
+  rootContainer?: HTMLElement | string;
   width?: string;
   height?: string;
   textAlign?: CanvasTextAlign; //eslint-disable-line
@@ -18,6 +18,7 @@ export interface ICanvasWM {
   fillStyle?: string;
   rotate?: number;
   zIndex?: number;
+  watermarkId?: string;
 }
 
 /**
@@ -27,7 +28,7 @@ export interface ICanvasWM {
  */
 export function genCanvasWM(content = '请勿外传', canvasWM?: ICanvasWM): void {
   const {
-    element = document.body,
+    rootContainer = document.body,
     width = '300px',
     height = '150px',
     textAlign = 'center',
@@ -37,11 +38,12 @@ export function genCanvasWM(content = '请勿外传', canvasWM?: ICanvasWM): voi
     fillStyle = 'rgba(189, 177, 167, .3)',
 
     rotate = -20,
-    zIndex = 2147483647
+    zIndex = 2147483647,
+    watermarkId = '__wm'
   } = isNullish(canvasWM) ? {} : canvasWM;
-  const container: HTMLElement | null = isString(element) ? document.querySelector(element) : element;
+  const container: HTMLElement | null = isString(rootContainer) ? document.querySelector(rootContainer) : rootContainer;
   if (!container) {
-    throw new Error(`${element} is not valid Html Element or element selector`);
+    throw new Error(`${rootContainer} is not valid Html Element or element selector`);
   }
   const canvas = document.createElement('canvas');
   canvas.setAttribute('width', width);
@@ -57,11 +59,12 @@ export function genCanvasWM(content = '请勿外传', canvasWM?: ICanvasWM): voi
   ctx!.fillText(content, parseFloat(width) / 4, parseFloat(height) / 2);
 
   const base64Url = canvas.toDataURL();
-  const __wm = document.querySelector('.__wm');
+  const __wm = document.querySelector(`#${watermarkId}`);
   const watermarkDiv = __wm || document.createElement('div');
   const styleStr = `opacity: 1 !important; display: block !important; visibility: visible !important;         position:absolute;          left:0; top:0;         width:100%;          height:100%;          z-index:${zIndex};          pointer-events:none;          background-repeat:repeat;          background-image:url('${base64Url}')`;
   watermarkDiv.setAttribute('style', styleStr);
-  watermarkDiv.classList.add('__wm');
+  watermarkDiv.setAttribute('id', watermarkId);
+
   watermarkDiv.classList.add('nav-height');
   if (!__wm) {
     container.style.position = 'relative';
@@ -80,7 +83,7 @@ export function genCanvasWM(content = '请勿外传', canvasWM?: ICanvasWM): voi
   const MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
   if (MutationObserver) {
     let mo: MutationObserver | null = new MutationObserver(function () {
-      const __wm: HTMLElement | null = document.querySelector('.__wm'); // 只在__wm元素变动才重新调用 __canvasWM
+      const __wm: HTMLElement | null = document.querySelector(`#${watermarkId}`); // 只在__wm元素变动才重新调用 __canvasWM
       if (!__wm) {
         // 避免一直触发
         // console.log('regenerate watermark by delete::')
