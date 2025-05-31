@@ -5,10 +5,10 @@
  * @desc 网页加水印的工具类
  */
 
-import { isNullish } from './type';
+import { isNullish, isString } from './type';
 
 export interface ICanvasWM {
-  container?: HTMLElement;
+  element?: HTMLElement | string;
   width?: string;
   height?: string;
   textAlign?: CanvasTextAlign; //eslint-disable-line
@@ -19,6 +19,7 @@ export interface ICanvasWM {
   rotate?: number;
   zIndex?: number;
 }
+
 /**
  * canvas 实现 水印, 具备防删除功能
  * @param {ICanvasWM} canvasWM
@@ -26,22 +27,22 @@ export interface ICanvasWM {
  */
 export function genCanvasWM(content = '请勿外传', canvasWM?: ICanvasWM): void {
   const {
-    container = document.body,
+    element = document.body,
     width = '300px',
-    height = '200px',
+    height = '150px',
     textAlign = 'center',
     textBaseline = 'middle',
     font = '20px PingFangSC-Medium,PingFang SC',
     // fontWeight = 500,
     fillStyle = 'rgba(189, 177, 167, .3)',
 
-    rotate = 30,
+    rotate = -20,
     zIndex = 2147483647
   } = isNullish(canvasWM) ? {} : canvasWM;
-  // 仅限主页面添加水印
-  // if (!location.pathname.includes('/home')) {
-  //   return;
-  // }
+  const container: HTMLElement | null = isString(element) ? document.querySelector(element) : element;
+  if (!container) {
+    throw new Error(`${element} is not valid Html Element or element selector`);
+  }
   const canvas = document.createElement('canvas');
   canvas.setAttribute('width', width);
   canvas.setAttribute('height', height);
@@ -54,6 +55,7 @@ export function genCanvasWM(content = '请勿外传', canvasWM?: ICanvasWM): voi
   ctx!.fillStyle = fillStyle;
   ctx!.rotate((Math.PI / 180) * rotate);
   ctx!.fillText(content, parseFloat(width) / 4, parseFloat(height) / 2);
+
   const base64Url = canvas.toDataURL();
   const __wm = document.querySelector('.__wm');
   const watermarkDiv = __wm || document.createElement('div');

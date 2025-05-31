@@ -32,7 +32,9 @@ function handleMouseEnter({
 }: ITooltipParams): void {
   try {
     const $rootEl = isString(rootContainer) ? document.querySelector(rootContainer) : rootContainer;
-    console.assert($rootEl !== null, `未找到id为 ${rootContainer} 的dom元素`);
+    if (!$rootEl) {
+      throw new Error(`${rootContainer} is not valid Html Element or element selector`);
+    }
     let $customTitle: HTMLDivElement | null = null;
     const styleId = 'style-tooltip-inner1494304949567';
     // 动态创建class样式，并加入到head中
