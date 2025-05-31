@@ -156,20 +156,24 @@ export function getComputedCssVal(el: HTMLElement, property: string, reNumber: b
  * 字符串的像素宽度
  * @param {string} str 目标字符串
  * @param {number} fontSize 字符串字体大小
- * @param {boolean} isRemoveDom 计算后是否移除中间dom元素
+ * @param {boolean} isRemove 计算后是否移除创建的dom元素
  * @returns {*}
  */
-export function getStrWidthPx(str: string, fontSize: number = 14, isRemoveDom: boolean = false): number {
+export function getStrWidthPx(str: string, fontSize: number = 14, isRemove: boolean = true): number {
   let strWidth = 0;
   console.assert(isString(str), `${str} 不是有效的字符串`);
   if (isString(str) && str.length > 0) {
-    let getEle: HTMLSpanElement | null = document.querySelector('#getStrWidth1494304949567');
+    const id = 'getStrWidth1494304949567';
+    let getEle: HTMLSpanElement | null = document.querySelector(`#${id}`);
     if (!getEle) {
       const _ele = document.createElement('span');
-      _ele.id = 'getStrWidth1494304949567';
+      _ele.id = id;
       _ele.style.fontSize = fontSize + 'px';
       _ele.style.whiteSpace = 'nowrap';
       _ele.style.visibility = 'hidden';
+      _ele.style.position = 'absolute';
+      _ele.style.top = '-9999px';
+      _ele.style.left = '-9999px';
       _ele.textContent = str;
       document.body.appendChild(_ele);
       getEle = _ele;
@@ -177,8 +181,8 @@ export function getStrWidthPx(str: string, fontSize: number = 14, isRemoveDom: b
 
     getEle!.textContent = str;
     strWidth = getEle!.offsetWidth;
-    if (isRemoveDom) {
-      document.body.appendChild(getEle);
+    if (isRemove) {
+      getEle.remove();
     }
   }
   return strWidth;

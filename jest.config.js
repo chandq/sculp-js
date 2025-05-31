@@ -15,5 +15,6 @@ module.exports = {
       lines: 70,
       statements: 70
     }
-  }
+  },
+  setupFiles: ['jest-canvas-mock']
 };

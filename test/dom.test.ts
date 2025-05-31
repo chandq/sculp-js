@@ -1,5 +1,4 @@
-import { wait } from '../src/async';
-import { hasClass, addClass, removeClass, setStyle, getStyle } from '../src/dom';
+import { hasClass, addClass, removeClass, setStyle, getStyle, getComputedCssVal, getStrWidthPx } from '../src/dom';
 
 test('hasClass', () => {
   const el = document.createElement('div');
@@ -53,4 +52,16 @@ test('setStyle + getStyle', () => {
   expect(getStyle(el, 'height')).toEqual('20px');
   expect(getStyle(el, 'font-size')).toEqual('');
   expect(getStyle(el, 'backgroundColor')).toEqual('');
+});
+
+test('getComputedCssVal', () => {
+  const el = document.createElement('div');
+  setStyle(el, 'width', '10px');
+
+  expect(getComputedCssVal(el, 'width')).toBe(10);
+  expect(getComputedCssVal(el, 'width', false)).toBe('10px');
+});
+test('getStrWidthPx', () => {
+  const width = getStrWidthPx('hello javascript');
+  console.log('width', width);
 });

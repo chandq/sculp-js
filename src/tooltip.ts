@@ -3,16 +3,19 @@
  * @Desc 自定义的tooltip方法, 支持拖动悬浮提示
  * Created by chendeqiao on 2017/5/8.
  * @example
- *  <span onmouseleave="handleMouseLeave('#root')" onmousemove="handleMouseEnter({rootElId: '#root', title: 'title content', event: event})"
- * 		onmouseenter="handleMouseEnter({'#root', title: 'title content', event: event})">title content </span>
+ *  <span onmouseleave="handleMouseLeave('#root')" onmousemove="handleMouseEnter({rootContainer: '#root', title: 'title content', event: event})"
+ * 		onmouseenter="handleMouseEnter({rootContainer:'#root', title: 'title content', event: event})">title content </span>
  */
 
 import { getStrWidthPx } from './dom';
+import { isString } from './type';
 
 interface ITooltipParams {
-  rootElId: string;
+  rootContainer: HTMLElement | string;
   title: string;
-  event: PointerEvent;
+  event: PointerEvent | MouseEvent;
+  bgColor?: string;
+  color?: string;
 }
 
 /**
@@ -20,37 +23,43 @@ interface ITooltipParams {
  * @param {ITooltipParams} param1
  * @returns {*}
  */
-function handleMouseEnter({ rootElId = '#root', title, event }: ITooltipParams): void {
+function handleMouseEnter({
+  rootContainer = '#root',
+  title,
+  event,
+  bgColor = '#000',
+  color = '#fff'
+}: ITooltipParams): void {
   try {
-    const $rootEl = document.querySelector(rootElId);
-    console.assert($rootEl !== null, `未找到id为 ${rootElId} 的dom元素`);
+    const $rootEl = isString(rootContainer) ? document.querySelector(rootContainer) : rootContainer;
+    console.assert($rootEl !== null, `未找到id为 ${rootContainer} 的dom元素`);
     let $customTitle: HTMLDivElement | null = null;
+    const styleId = 'style-tooltip-inner1494304949567';
     // 动态创建class样式，并加入到head中
-    if (!document.querySelector('.tooltip-inner1494304949567')) {
+    if (!document.querySelector(`#${styleId}`)) {
       const tooltipWrapperClass = document.createElement('style');
       tooltipWrapperClass.type = 'text/css';
+      tooltipWrapperClass.id = styleId;
       tooltipWrapperClass.innerHTML = `
         .tooltip-inner1494304949567 {
           max-width: 250px;
           padding: 3px 8px;
-          color: #fff;
+          color: ${color};
           text-decoration: none;
           border-radius: 4px;
           text-align: left;
+          background-color: ${bgColor};
         }
       `;
       document.querySelector('head')!.appendChild(tooltipWrapperClass);
     }
-
-    if (document.querySelector('#customTitle1494304949567')) {
-      $customTitle = document.querySelector('#customTitle1494304949567');
+    $customTitle = document.querySelector('#customTitle1494304949567');
+    if ($customTitle) {
       mouseenter($customTitle!, title, event);
     } else {
       const $contentContainer = document.createElement('div');
-      $contentContainer.className = 'customTitle';
       $contentContainer.id = 'customTitle1494304949567';
-      $contentContainer.className = 'tooltip';
-      $contentContainer.style.cssText = 'z-index: 99999999; visibility: hidden;';
+      $contentContainer.style.cssText = 'z-index: 99999999; visibility: hidden; position: absolute;';
       $contentContainer.innerHTML =
         '<div class="tooltip-inner1494304949567" style="word-wrap: break-word; max-width: 44px;">皮肤</div>';
       $rootEl!.appendChild($contentContainer);
@@ -72,7 +81,7 @@ function handleMouseEnter({ rootElId = '#root', title, event }: ITooltipParams):
  * @param {PointerEvent} e 事件对象
  * @returns {*}
  */
-function mouseenter($customTitle: HTMLDivElement, title: string, e: PointerEvent) {
+function mouseenter($customTitle: HTMLDivElement, title: string, e: PointerEvent | MouseEvent) {
   let diffValueX = 200 + 50; //默认设置弹出div的宽度为250px
   let x = 13;
   const y = 23;
@@ -102,11 +111,11 @@ function mouseenter($customTitle: HTMLDivElement, title: string, e: PointerEvent
 }
 /**
  * 移除提示文案dom的事件句柄
- * @param {string} rootElId
+ * @param {string} rootContainer
  * @returns {*}
  */
-function handleMouseLeave(rootElId: string = '#root'): void {
-  const rootEl = document.querySelector(rootElId),
+function handleMouseLeave(rootContainer: HTMLElement | string = '#root'): void {
+  const rootEl = isString(rootContainer) ? document.querySelector(rootContainer) : rootContainer,
     titleEl = document.querySelector('#customTitle1494304949567');
   if (rootEl && titleEl) {
     rootEl.removeChild(titleEl);

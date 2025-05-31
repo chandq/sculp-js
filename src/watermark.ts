@@ -5,25 +5,26 @@
  * @desc 网页加水印的工具类
  */
 
+import { isNullish } from './type';
+
 export interface ICanvasWM {
-  container: HTMLElement;
-  width: string;
-  height: string;
-  textAlign: CanvasTextAlign; //eslint-disable-line
-  textBaseline: CanvasTextBaseline; //eslint-disable-line
-  font: string;
+  container?: HTMLElement;
+  width?: string;
+  height?: string;
+  textAlign?: CanvasTextAlign; //eslint-disable-line
+  textBaseline?: CanvasTextBaseline; //eslint-disable-line
+  font?: string;
   // fontWeight: number;
-  fillStyle: string;
-  content: string;
-  rotate: number;
-  zIndex: number;
+  fillStyle?: string;
+  rotate?: number;
+  zIndex?: number;
 }
 /**
  * canvas 实现 水印, 具备防删除功能
  * @param {ICanvasWM} canvasWM
  * @example genCanvasWM({ content: 'QQMusicFE' })
  */
-export function genCanvasWM(canvasWM: ICanvasWM): void {
+export function genCanvasWM(content = '请勿外传', canvasWM?: ICanvasWM): void {
   const {
     container = document.body,
     width = '300px',
@@ -33,15 +34,14 @@ export function genCanvasWM(canvasWM: ICanvasWM): void {
     font = '20px PingFangSC-Medium,PingFang SC',
     // fontWeight = 500,
     fillStyle = 'rgba(189, 177, 167, .3)',
-    content = '请勿外传',
+
     rotate = 30,
     zIndex = 2147483647
-  } = canvasWM;
+  } = isNullish(canvasWM) ? {} : canvasWM;
   // 仅限主页面添加水印
   // if (!location.pathname.includes('/home')) {
   //   return;
   // }
-  const args = canvasWM;
   const canvas = document.createElement('canvas');
   canvas.setAttribute('width', width);
   canvas.setAttribute('height', height);
@@ -66,12 +66,12 @@ export function genCanvasWM(canvasWM: ICanvasWM): void {
     container.appendChild(watermarkDiv);
   }
   const getMutableStyle = (ele: HTMLElement) => {
-    const computedStle = getComputedStyle(ele);
+    const computedStyle = getComputedStyle(ele);
     return {
-      opacity: computedStle.getPropertyValue('opacity'),
-      zIndex: computedStle.getPropertyValue('z-index'),
-      display: computedStle.getPropertyValue('display'),
-      visibility: computedStle.getPropertyValue('visibility')
+      opacity: computedStyle.getPropertyValue('opacity'),
+      zIndex: computedStyle.getPropertyValue('z-index'),
+      display: computedStyle.getPropertyValue('display'),
+      visibility: computedStyle.getPropertyValue('visibility')
     };
   };
   //@ts-ignore
@@ -84,7 +84,7 @@ export function genCanvasWM(canvasWM: ICanvasWM): void {
         // console.log('regenerate watermark by delete::')
         mo!.disconnect();
         mo = null;
-        genCanvasWM(JSON.parse(JSON.stringify(args)));
+        genCanvasWM(content, canvasWM);
       } else {
         const { opacity, zIndex, display, visibility } = getMutableStyle(__wm);
         if (
@@ -97,7 +97,7 @@ export function genCanvasWM(canvasWM: ICanvasWM): void {
           mo!.disconnect();
           mo = null;
           container.removeChild(__wm);
-          genCanvasWM(JSON.parse(JSON.stringify(args)));
+          genCanvasWM(content, canvasWM);
         }
       }
     });
