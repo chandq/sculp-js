@@ -78,8 +78,14 @@ describe('humanFileSize', () => {
   test('MB', () => {
     const value = humanFileSize(1024 * 1024, { si: true });
     const value2 = humanFileSize(1024 * 1024, { si: false });
+    const value3 = humanFileSize(1024 * 1024, { baseUnit: 'KiB', si: false });
+    const value4 = humanFileSize(1024 * 1024);
+    const value5 = humanFileSize(1024 * 1024, { baseUnit: 'nb' }); // invalid baseUnit arg
     expect(value).toEqual('1 MB');
     expect(value2).toEqual('1 MiB');
+    expect(value3).toEqual('1 GiB');
+    expect(value4).toEqual('1 MiB');
+    expect(value5).toEqual('1 MiB');
   });
 
   test('GB', () => {

@@ -89,6 +89,7 @@ interface IHumanFileSizeOptions {
   decimals?: number;
   si?: boolean;
   separator?: string;
+  baseUnit?: string;
   maxUnit?: string;
 }
 /**
@@ -102,11 +103,20 @@ interface IHumanFileSizeOptions {
  *            ['Byte', 'KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB']
  * @returns
  */
-export function humanFileSize(num: number | string, options: IHumanFileSizeOptions): string {
-  const { decimals = 0, si = false, separator = ' ', maxUnit } = options;
-  const units = si
+export function humanFileSize(
+  num: number | string,
+  options: IHumanFileSizeOptions = { decimals: 0, si: false, separator: ' ' }
+): string {
+  const { decimals = 0, si = false, separator = ' ', baseUnit, maxUnit } = options;
+  let units = si
     ? ['B', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
     : ['Byte', 'KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB'];
+  if (!isNullish(baseUnit)) {
+    const targetIndex = units.findIndex(el => el === baseUnit);
+    if (targetIndex !== -1) {
+      units = units.slice(targetIndex);
+    }
+  }
   if (!isNullish(maxUnit)) {
     const targetIndex = units.findIndex(el => el === maxUnit);
     if (targetIndex !== -1) {
