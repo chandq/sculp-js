@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.10.0](https://github.com/chandq/sculp-js/compare/v1.9.0...v1.10.0) (2025-05-31)
+
+### Features
+
+- formatNumber support set baseUnit arg ([2c128b6](https://github.com/chandq/sculp-js/commit/2c128b6fe585ed803078cf006e93aedab8cbb4ce))
+
+### Bug Fixes
+
+- improve watermark to cover more situation ([3108176](https://github.com/chandq/sculp-js/commit/31081762f6722c2cc6d059420deb3daba39bf307))
+- optimize watermark style ([bafee99](https://github.com/chandq/sculp-js/commit/bafee99becff30530f75822f1bb006cbda7ec86b))
+
 ## [1.9.0](https://github.com/chandq/sculp-js/compare/v1.8.4...v1.9.0) (2025-05-28)
 
 ### Features
