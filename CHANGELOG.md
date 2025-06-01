@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.10.1](https://github.com/chandq/sculp-js/compare/v1.10.0...v1.10.1) (2025-06-01)
+
+### Bug Fixes
+
+- **file:** improve compressImg, support large image ([1f14c46](https://github.com/chandq/sculp-js/commit/1f14c46abadc90f2a7157c018fa3a82972951e6e))
+
 ## [1.10.0](https://github.com/chandq/sculp-js/compare/v1.9.0...v1.10.0) (2025-05-31)
 
 ### Features
