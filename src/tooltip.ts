@@ -1,10 +1,13 @@
 /**
- * @title tooltip
+ * 自定义的 tooltip, 支持鼠标移动动悬浮提示
  * @Desc 自定义的tooltip方法, 支持拖动悬浮提示
  * Created by chendeqiao on 2017/5/8.
  * @example
- *  <span onmouseleave="handleMouseLeave('#root')" onmousemove="handleMouseEnter({rootContainer: '#root', title: 'title content', event: event})"
- * 		onmouseenter="handleMouseEnter({rootContainer:'#root', title: 'title content', event: event})">title content </span>
+ *  <span onmouseleave="handleMouseLeave('#root')"
+ *        onmousemove="handleMouseEnter({rootContainer: '#root', title: 'title content', event: event})"
+ * 		    onmouseenter="handleMouseEnter({rootContainer:'#root', title: 'title content', event: event})">
+ *    title content
+ *  </span>
  */
 
 import { getStrWidthPx } from './dom';
@@ -20,7 +23,7 @@ interface ITooltipParams {
 
 /**
  * 自定义title提示功能的mouseenter事件句柄
- * @param {ITooltipParams} param1
+ * @param {ITooltipParams} param
  * @returns {*}
  */
 function handleMouseEnter({

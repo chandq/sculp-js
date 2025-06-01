@@ -36,6 +36,23 @@ export function arrayEach<V>(
  * @param {ArrayLike<V>} array 数组
  * @param {(val: V, idx: number) => Promise<any>} iterator  支持Promise类型的回调函数
  * @param {boolean} reverse  是否反向遍历
+ * @example
+ *    使用范例如下:
+ * const start = async () => {
+ *   await arrayEachAsync(result, async (item) => {
+ *     await request(item);
+ *     count++;
+ *   })
+ *   console.log('发送次数', count);
+ * }
+
+ * for await...of 使用范例如下
+ * const loadImages =  async (images) => {
+ *   for await (const item of images) {
+ *      await request(item);
+ *      count++;
+ *    }
+ * }
  */
 export async function arrayEachAsync<V>(
   array: ArrayLike<V>,
@@ -94,33 +111,4 @@ export function arrayRemove<V>(array: V[], expect: (val: V, idx: number) => bool
   });
 
   return array;
-}
-
-/**
- * 异步ForEach函数
- * @param {array} array
- * @param {asyncFuntion} callback
- * // asyncForEach 使用范例如下
-// const start = async () => {
-//   await asyncForEach(result, async (item) => {
-//     await request(item);
-//     count++;
-//   });
-
-//   console.log('发送次数', count);
-// }
-
-// for await...of 使用范例如下
-// const loadImages =  async (images) => {
-//   for await (const item of images) {
-//      await request(item);
-//      count++;
-//    }
-// }
- * @returns {*}
- */
-async function asyncForEach(array: any[], callback: Function) {
-  for (let index = 0, len = array.length; index < len; index++) {
-    await callback(array[index], index, array);
-  }
 }
