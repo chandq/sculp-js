@@ -1,5 +1,4 @@
 import { isObject } from './type';
-import { weAtob } from './we-decode';
 
 /**
  * 判断是否支持canvas
@@ -88,8 +87,15 @@ function calculateSize({
 function scalingByAspectRatio({ sizeKB, originWidth, originHeight }): { width: number; height: number } {
   let targetWidth = originWidth,
     targetHeight = originHeight;
-  if (1 * 1024 <= sizeKB && sizeKB < 10 * 1024) {
-    // [1MB, 10MB)
+  if (sizeKB <= 500) {
+    // [50KB, 500KB]
+    const maxWidth = 1200,
+      maxHeight = 1200;
+    const { width, height } = calculateSize({ maxWidth, maxHeight, originWidth, originHeight });
+    targetWidth = width;
+    targetHeight = height;
+  } else if (sizeKB < 10 * 1024) {
+    // (500KB, 10MB)
     const maxWidth = 1600,
       maxHeight = 1600;
     const { width, height } = calculateSize({ maxWidth, maxHeight, originWidth, originHeight });
@@ -97,8 +103,8 @@ function scalingByAspectRatio({ sizeKB, originWidth, originHeight }): { width: n
     targetHeight = height;
   } else if (10 * 1024 <= sizeKB) {
     // [10MB, Infinity)
-    const maxWidth = originWidth > 15000 ? 8192 : originWidth > 10000 ? 4096 : 2000,
-      maxHeight = originHeight > 15000 ? 8192 : originHeight > 10000 ? 4096 : 2000;
+    const maxWidth = originWidth > 15000 ? 8192 : originWidth > 10000 ? 4096 : 2048,
+      maxHeight = originHeight > 15000 ? 8192 : originHeight > 10000 ? 4096 : 2048;
 
     const { width, height } = calculateSize({ maxWidth, maxHeight, originWidth, originHeight });
     targetWidth = width;
@@ -112,41 +118,48 @@ function scalingByAspectRatio({ sizeKB, originWidth, originHeight }): { width: n
  * Web端：等比例压缩图片批量处理 (size小于200KB，不压缩)
  *
  * @param {File | FileList} file 图片或图片数组
- * @param {ICompressOptions} options 压缩图片配置项，default: {quality:0.52,mime:'image/jpeg'}
+ * @param {ICompressOptions} options 压缩图片配置项，default: {mime:'image/jpeg'}
  * @returns {Promise<object> | undefined}
  */
 export function compressImg(
   file: File | FileList,
-  options: ICompressOptions = { quality: 0.52, mime: 'image/jpeg' }
+  options: ICompressOptions = { mime: 'image/jpeg' }
 ): Promise<object> | undefined {
   if (!(file instanceof File || file instanceof FileList)) {
     throw new Error(`${file} require be File or FileList`);
   } else if (!supportCanvas()) {
     throw new Error(`Current runtime environment not support Canvas`);
   }
-  const { quality = 0.52, mime = 'image/jpeg' }: ICompressOptions = isObject(options) ? options : {};
+  const { quality, mime = 'image/jpeg' }: ICompressOptions = isObject(options) ? options : {};
+
   let targetQuality = quality;
-  if (file instanceof File) {
+  if (quality) {
+    targetQuality = quality;
+  } else if (file instanceof File) {
     const sizeKB = +parseInt((file.size / 1024).toFixed(2));
-    if (sizeKB < 1 * 1024) {
+    if (sizeKB < 1 * 50) {
+      targetQuality = 1;
+    } else if (sizeKB < 1 * 1024) {
       targetQuality = 0.85;
-    } else if (sizeKB >= 1 * 1024 && sizeKB < 5 * 1024) {
-      targetQuality = 0.62;
-    } else if (sizeKB >= 5 * 1024 && sizeKB < 10 * 1024) {
+    } else if (sizeKB < 5 * 1024) {
+      targetQuality = 0.8;
+    } else {
       targetQuality = 0.75;
-    } else if (sizeKB >= 10 * 1024) {
-      targetQuality = 0.92;
     }
   }
-  if (options.quality) {
-    targetQuality = options.quality;
-  }
+
   if (file instanceof FileList) {
-    return Promise.all(Array.from(file).map(el => compressImg(el, { mime: options.mime, quality: targetQuality }))); // 如果是 file 数组返回 Promise 数组
+    return Promise.all(Array.from(file).map(el => compressImg(el, { mime: mime, quality: targetQuality }))); // 如果是 file 数组返回 Promise 数组
   } else if (file instanceof File) {
     return new Promise(resolve => {
+      const ext = {
+        'image/webp': 'webp',
+        'image/jpeg': 'jpg',
+        'image/png': 'png'
+      };
+      const fileName = [...file.name.split('.').slice(0, -1), ext[mime]].join('.');
       const sizeKB = +parseInt((file.size / 1024).toFixed(2));
-      if (+(file.size / 1024).toFixed(2) < 200) {
+      if (+(file.size / 1024).toFixed(2) < 50) {
         resolve({
           file: file
         });
@@ -168,14 +181,14 @@ export function compressImg(
             context!.clearRect(0, 0, width, height);
             context!.drawImage(image, 0, 0, width, height); // 绘制 canvas
             const canvasURL = canvas.toDataURL(mime, targetQuality);
-            const buffer = weAtob(canvasURL.split(',')[1]);
+            const buffer = atob(canvasURL.split(',')[1]);
             let length = buffer.length;
             const bufferArray = new Uint8Array(new ArrayBuffer(length));
             while (length--) {
               bufferArray[length] = buffer.charCodeAt(length);
             }
-            const miniFile = new File([bufferArray], file.name, {
-              type: options.mime
+            const miniFile = new File([bufferArray], fileName, {
+              type: mime
             });
             resolve({
               file: miniFile,
