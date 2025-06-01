@@ -115,7 +115,7 @@ function scalingByAspectRatio({ sizeKB, originWidth, originHeight }): { width: n
 }
 
 /**
- * Web端：等比例压缩图片批量处理 (size小于200KB，不压缩)
+ * Web端：等比例压缩图片批量处理 (size小于50KB，不压缩)
  *
  * @param {File | FileList} file 图片或图片数组
  * @param {ICompressOptions} options 压缩图片配置项，default: {mime:'image/jpeg'}
