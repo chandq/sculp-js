@@ -87,15 +87,22 @@ function calculateSize({
 function scalingByAspectRatio({ sizeKB, originWidth, originHeight }): { width: number; height: number } {
   let targetWidth = originWidth,
     targetHeight = originHeight;
-  if (sizeKB <= 500) {
-    // [50KB, 500KB]
+  if (sizeKB < 500) {
+    // [50KB, 500KB)
     const maxWidth = 1200,
       maxHeight = 1200;
     const { width, height } = calculateSize({ maxWidth, maxHeight, originWidth, originHeight });
     targetWidth = width;
     targetHeight = height;
+  } else if (sizeKB < 5 * 1024) {
+    // [500KB, 5MB)
+    const maxWidth = 1400,
+      maxHeight = 1400;
+    const { width, height } = calculateSize({ maxWidth, maxHeight, originWidth, originHeight });
+    targetWidth = width;
+    targetHeight = height;
   } else if (sizeKB < 10 * 1024) {
-    // (500KB, 10MB)
+    // [5MB, 10MB)
     const maxWidth = 1600,
       maxHeight = 1600;
     const { width, height } = calculateSize({ maxWidth, maxHeight, originWidth, originHeight });
@@ -115,7 +122,10 @@ function scalingByAspectRatio({ sizeKB, originWidth, originHeight }): { width: n
 }
 
 /**
- * Web端：等比例压缩图片批量处理 (size小于50KB，不压缩)
+ * Web端：等比例压缩图片批量处理 (size小于50KB，不压缩), 支持压缩全景图或长截图
+ *
+ *        1. 默认根据图片原始size及宽高适当地调整quality、width、height
+ *        2. 也可指定quality, 来适当调整width、height
  *
  * @param {File | FileList} file 图片或图片数组
  * @param {ICompressOptions} options 压缩图片配置项，default: {mime:'image/jpeg'}
@@ -159,7 +169,7 @@ export function compressImg(
       };
       const fileName = [...file.name.split('.').slice(0, -1), ext[mime]].join('.');
       const sizeKB = +parseInt((file.size / 1024).toFixed(2));
-      if (+(file.size / 1024).toFixed(2) < 50) {
+      if (sizeKB < 50) {
         resolve({
           file: file
         });
