@@ -1,4 +1,4 @@
-import { isObject } from './type';
+import { isNumber, isObject } from './type';
 
 /**
  * 判断是否支持canvas
@@ -38,6 +38,8 @@ export interface ICompressOptions {
   quality?: number;
   /** 图片类型 */
   mime?: ImageType;
+  /* 最大图片尺寸, 即width、height的最大值，不能小于1200 */
+  maxSize?: number;
 }
 
 /**
@@ -79,15 +81,20 @@ function calculateSize({
 /**
  * 根据原始图片的不同尺寸计算等比例缩放后的宽高尺寸
  *
- * @param {number} sizeKB
- * @param {number} originWidth
- * @param {number} originHeight
- * @returns {*}
+ * @param {number} sizeKB Image volume size, unit KB
+ * @param {number} maxSize Image max size
+ * @param {number} originWidth Image original width, unit px
+ * @param {number} originHeight Image original height, unit px
+ * @returns {*} {width, height}
  */
-function scalingByAspectRatio({ sizeKB, originWidth, originHeight }): { width: number; height: number } {
+function scalingByAspectRatio({ sizeKB, maxSize, originWidth, originHeight }): { width: number; height: number } {
   let targetWidth = originWidth,
     targetHeight = originHeight;
-  if (sizeKB < 500) {
+  if (isNumber(maxSize)) {
+    const { width, height } = calculateSize({ maxWidth: maxSize, maxHeight: maxSize, originWidth, originHeight });
+    targetWidth = width;
+    targetHeight = height;
+  } else if (sizeKB < 500) {
     // [50KB, 500KB)
     const maxWidth = 1200,
       maxHeight = 1200;
@@ -125,7 +132,8 @@ function scalingByAspectRatio({ sizeKB, originWidth, originHeight }): { width: n
  * Web端：等比例压缩图片批量处理 (size小于50KB，不压缩), 支持压缩全景图或长截图
  *
  *        1. 默认根据图片原始size及宽高适当地调整quality、width、height
- *        2. 也可指定quality, 来适当调整width、height
+ *        2. 可指定压缩的图片质量 quality（若不指定则根据原始图片大小来计算）, 来适当调整width、height
+ *        3. 可指定压缩的图片最大宽高 maxSize（若不指定则根据原始图片宽高来计算）, 满足大屏幕图片展示的场景
  *
  * @param {File | FileList} file 图片或图片数组
  * @param {ICompressOptions} options 压缩图片配置项，default: {mime:'image/jpeg'}
@@ -140,9 +148,10 @@ export function compressImg(
   } else if (!supportCanvas()) {
     throw new Error(`Current runtime environment not support Canvas`);
   }
-  const { quality, mime = 'image/jpeg' }: ICompressOptions = isObject(options) ? options : {};
+  const { quality, mime = 'image/jpeg', maxSize: size }: ICompressOptions = isObject(options) ? options : {};
 
-  let targetQuality = quality;
+  let targetQuality = quality,
+    maxSize;
   if (quality) {
     targetQuality = quality;
   } else if (file instanceof File) {
@@ -158,8 +167,12 @@ export function compressImg(
     }
   }
 
+  if (isNumber(size)) {
+    maxSize = size >= 1200 ? size : 1200;
+  }
+
   if (file instanceof FileList) {
-    return Promise.all(Array.from(file).map(el => compressImg(el, { mime: mime, quality: targetQuality }))); // 如果是 file 数组返回 Promise 数组
+    return Promise.all(Array.from(file).map(el => compressImg(el, { maxSize, mime: mime, quality: targetQuality }))); // 如果是 file 数组返回 Promise 数组
   } else if (file instanceof File) {
     return new Promise(resolve => {
       const ext = {
@@ -184,7 +197,7 @@ export function compressImg(
             const originWidth = image.width;
             const originHeight = image.height;
 
-            const { width, height } = scalingByAspectRatio({ sizeKB, originWidth, originHeight });
+            const { width, height } = scalingByAspectRatio({ sizeKB, maxSize, originWidth, originHeight });
 
             canvas.width = width;
             canvas.height = height;
