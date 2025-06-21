@@ -40,6 +40,7 @@ export interface ICompressOptions {
   mime?: ImageType;
   /* 最大图片尺寸, 即width、height的最大值，不能小于1200 */
   maxSize?: number;
+  minFileSizeKB?: number;
 }
 
 /**
@@ -128,27 +129,42 @@ function scalingByAspectRatio({ sizeKB, maxSize, originWidth, originHeight }): {
   return { width: targetWidth, height: targetHeight };
 }
 
+export interface ICompressImgResult {
+  file: File;
+  bufferArray?: Uint8Array;
+  origin?: File;
+  beforeSrc?: string;
+  afterSrc?: string;
+  beforeKB?: number;
+  afterKB?: number;
+}
+
 /**
- * Web端：等比例压缩图片批量处理 (size小于50KB，不压缩), 支持压缩全景图或长截图
+ * Web端：等比例压缩图片批量处理 (小于minFileSizeKB：50，不压缩), 支持压缩全景图或长截图
  *
  *        1. 默认根据图片原始size及宽高适当地调整quality、width、height
  *        2. 可指定压缩的图片质量 quality（若不指定则根据原始图片大小来计算）, 来适当调整width、height
  *        3. 可指定压缩的图片最大宽高 maxSize（若不指定则根据原始图片宽高来计算）, 满足大屏幕图片展示的场景
  *
  * @param {File | FileList} file 图片或图片数组
- * @param {ICompressOptions} options 压缩图片配置项，default: {mime:'image/jpeg'}
- * @returns {Promise<object> | undefined}
+ * @param {ICompressOptions} options 压缩图片配置项，default: {mime:'image/jpeg', minFileSizeKB: 50}
+ * @returns {Promise<ICompressImgResult | ICompressImgResult[] | null>}
  */
 export function compressImg(
   file: File | FileList,
-  options: ICompressOptions = { mime: 'image/jpeg' }
-): Promise<object> | undefined {
+  options: ICompressOptions = { mime: 'image/jpeg', minFileSizeKB: 50 }
+): Promise<ICompressImgResult | ICompressImgResult[] | null> {
   if (!(file instanceof File || file instanceof FileList)) {
     throw new Error(`${file} require be File or FileList`);
   } else if (!supportCanvas()) {
     throw new Error(`Current runtime environment not support Canvas`);
   }
-  const { quality, mime = 'image/jpeg', maxSize: size }: ICompressOptions = isObject(options) ? options : {};
+  const {
+    quality,
+    mime = 'image/jpeg',
+    maxSize: size,
+    minFileSizeKB = 50
+  }: ICompressOptions = isObject(options) ? options : {};
 
   let targetQuality = quality,
     maxSize;
@@ -156,7 +172,7 @@ export function compressImg(
     targetQuality = quality;
   } else if (file instanceof File) {
     const sizeKB = +parseInt((file.size / 1024).toFixed(2));
-    if (sizeKB < 1 * 50) {
+    if (sizeKB < minFileSizeKB) {
       targetQuality = 1;
     } else if (sizeKB < 1 * 1024) {
       targetQuality = 0.85;
@@ -172,7 +188,9 @@ export function compressImg(
   }
 
   if (file instanceof FileList) {
-    return Promise.all(Array.from(file).map(el => compressImg(el, { maxSize, mime: mime, quality: targetQuality }))); // 如果是 file 数组返回 Promise 数组
+    return Promise.all(
+      Array.from(file).map(el => compressImg(el, { maxSize, mime: mime, quality: targetQuality }))
+    ) as Promise<ICompressImgResult[]>; // 如果是 file 数组返回 Promise 数组
   } else if (file instanceof File) {
     return new Promise(resolve => {
       const ext = {
@@ -182,7 +200,7 @@ export function compressImg(
       };
       const fileName = [...file.name.split('.').slice(0, -1), ext[mime]].join('.');
       const sizeKB = +parseInt((file.size / 1024).toFixed(2));
-      if (sizeKB < 50) {
+      if (sizeKB < minFileSizeKB) {
         resolve({
           file: file
         });
@@ -219,7 +237,7 @@ export function compressImg(
               origin: file,
               beforeSrc: src,
               afterSrc: canvasURL,
-              beforeKB: Number((file.size / 1024).toFixed(2)),
+              beforeKB: sizeKB,
               afterKB: Number((miniFile.size / 1024).toFixed(2))
             });
           };
@@ -229,4 +247,5 @@ export function compressImg(
       }
     });
   }
+  return Promise.resolve(null);
 }
