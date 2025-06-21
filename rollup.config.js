@@ -6,6 +6,7 @@ import subpathExternals from 'rollup-plugin-subpath-externals';
 import { dts } from 'rollup-plugin-dts';
 import clear from 'rollup-plugin-clear';
 import pkg from './package.json' assert { type: 'json' };
+import terser from '@rollup/plugin-terser';
 
 const pkgName = pkg.name.includes('/') ? pkg.name.split('/')[1] : pkg.name;
 const isCore = process.env.BUILD_TARGET === 'core'; // 适用于web、node、小程序等任何js运行环境
@@ -48,13 +49,6 @@ export default [
         preserveModulesRoot: 'src',
         exports: 'named',
         banner
-      },
-      {
-        dir: 'lib/umd',
-        format: 'umd',
-        entryFileNames: 'index.js',
-        name: moduleName,
-        banner
       }
     ],
     plugins: [
@@ -69,6 +63,26 @@ export default [
         include: ['src/**/*.ts']
       }),
       json()
+    ]
+  },
+  {
+    input: `src/${isCore ? 'core-index.ts' : 'index.ts'}`,
+    output: {
+      dir: 'lib/umd',
+      format: 'umd',
+      entryFileNames: 'index.js',
+      name: moduleName,
+      banner
+    },
+    plugins: [
+      resolve(),
+      commonjs(),
+      typescript({
+        tsconfig: 'tsconfig.json',
+        include: ['src/**/*.ts']
+      }),
+      json(),
+      terser()
     ]
   },
   {

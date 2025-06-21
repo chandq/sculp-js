@@ -40,6 +40,7 @@ export interface ICompressOptions {
   mime?: ImageType;
   /* 最大图片尺寸, 即width、height的最大值，不能小于1200 */
   maxSize?: number;
+  // 最小图片体积，小于该数值则不压缩，默认50KB
   minFileSizeKB?: number;
 }
 
