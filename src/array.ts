@@ -15,16 +15,13 @@ export function arrayEach<V>(
 ): void {
   if (reverse) {
     for (let idx = array.length - 1; idx >= 0; idx--) {
-      const val = array[idx];
-      const re = iterator(val, idx, array);
+      const re = iterator(array[idx], idx, array);
       if (re === false) break;
       else if (re === true) continue;
     }
   } else {
     for (let idx = 0, len = array.length; idx < len; idx++) {
-      const val = array[idx];
-
-      const re = iterator(val, idx, array);
+      const re = iterator(array[idx], idx, array);
       if (re === false) break;
       else if (re === true) continue;
     }
@@ -61,15 +58,11 @@ export async function arrayEachAsync<V>(
 ): Promise<void> {
   if (reverse) {
     for (let idx = array.length - 1; idx >= 0; idx--) {
-      const val = array[idx];
-
-      if ((await iterator(val, idx)) === false) break;
+      if ((await iterator(array[idx], idx)) === false) break;
     }
   } else {
     for (let idx = 0, len = array.length; idx < len; idx++) {
-      const val = array[idx];
-
-      if ((await iterator(val, idx)) === false) break;
+      if ((await iterator(array[idx], idx)) === false) break;
     }
   }
 }

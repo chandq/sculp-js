@@ -1,5 +1,5 @@
 // 常用类型定义
-
+const { toString, hasOwnProperty } = Object.prototype;
 /** 任意函数 */
 export type AnyFunc<R = any> = (...args: any[]) => R;
 
@@ -25,7 +25,7 @@ export type PartialDeep<T> = {
  * @returns {boolean}
  */
 export function objectHas<T extends AnyObject>(obj: T, key: keyof T): boolean {
-  return Object.prototype.hasOwnProperty.call(obj, key);
+  return hasOwnProperty.call(obj, key);
 }
 
 /**
@@ -75,7 +75,7 @@ export function typeIs(
   | 'Promise'
   | 'AsyncFunction'
   | string {
-  return Object.prototype.toString.call(any).slice(8, -1);
+  return toString.call(any).slice(8, -1);
 }
 
 // 基本数据类型判断
