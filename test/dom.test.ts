@@ -63,5 +63,4 @@ test('getComputedCssVal', () => {
 });
 test('getStrWidthPx', () => {
   const width = getStrWidthPx('hello javascript');
-  console.log('width', width);
 });

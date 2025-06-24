@@ -225,13 +225,13 @@ const treeArray = generateTreeArray(1000);
 test('compare formatTree buildTree', () => {
   // console.log('arr', arr);
   const arr = cloneDeep(treeArray) as any[];
-  // const startTime = Date.now();
+  console.time('buildTree time');
   const tree1 = buildTree('id', 'pid', arr);
-  // console.log('buildTree time:', Date.now() - startTime);
+  console.timeEnd('buildTree time');
 
-  // const startTime2 = Date.now();
+  console.time('formatTree time');
   const tree2 = formatTree(arr, { keyField: 'id', childField: 'children', pidField: 'pid' });
-  // console.log('formatTree time:', Date.now() - startTime2);
+  console.timeEnd('formatTree time');
 
   expect(tree1).toEqual(tree2);
 });

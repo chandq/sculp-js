@@ -26,6 +26,8 @@ export function arrayEach<V>(
       else if (re === true) continue;
     }
   }
+  // @ts-ignore
+  array = null;
 }
 
 /**

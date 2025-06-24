@@ -88,6 +88,8 @@ export function forEachDeep<V>(
     }
   };
   walk(tree, null);
+  // @ts-ignore
+  tree = null;
 }
 
 /**
@@ -165,6 +167,9 @@ export function mapDeep<T>(
     }
   };
   walk(tree, null, newTree);
+
+  // @ts-ignore
+  tree = null;
   return newTree;
 }
 export type IdLike = number | string;
@@ -229,7 +234,8 @@ export function formatTree(list: any[], options: IFieldOptions = defaultFieldOpt
       treeArr.push(item);
     }
   });
-
+  // @ts-ignore
+  list = null;
   return treeArr;
 }
 

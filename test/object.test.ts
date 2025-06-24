@@ -378,4 +378,7 @@ test('objectGet', () => {
   expect(objectGet(object2, 'a[1].b.c').p).toBeUndefined();
   expect(objectGet(object2, 'a[1].b.c').k).toBeUndefined();
   expect(objectGet(object2, 'a[1].b.c').v).toBeUndefined();
+
+  expect(objectGet([11, { aa: 1 }], '[0]').v).toBe(11);
+  expect(objectGet(undefined, '[0]').v).toBeUndefined();
 });

@@ -36,6 +36,8 @@ export function objectEach<O extends AnyObject>(
     if (!objectHas(obj, key)) continue;
     if (iterator(obj[key], key) === false) break;
   }
+  // @ts-ignore
+  obj = null;
 }
 
 /**
@@ -69,7 +71,8 @@ export function objectMap<O extends AnyObject, T>(
     if (!objectHas(obj, key)) continue;
     obj2[key] = iterator(obj[key], key);
   }
-
+  // @ts-ignore
+  obj = null;
   return obj2;
 }
 
@@ -90,6 +93,8 @@ export function objectPick<O extends AnyObject, K extends Extract<keyof O, strin
       obj2[k] = v;
     }
   });
+  // @ts-ignore
+  obj = null;
   return obj2;
 }
 /**
@@ -109,6 +114,8 @@ export function objectOmit<O extends AnyObject, K extends Extract<keyof O, strin
       obj2[k] = v;
     }
   });
+  // @ts-ignore
+  obj = null;
   return obj2;
 }
 
@@ -205,14 +212,14 @@ export function objectFill<R extends AnyObject = AnyObject>(
   return source as R;
 }
 /**
- * 获取对象指定层级下的属性值（现在可用ES6+的可选链?.来替代）
+ * 获取对象/数组指定层级下的属性值（现在可用ES6+的可选链?.来替代）
  * @param {AnyObject} obj
  * @param {string} path
  * @param {boolean} strict
  * @returns
  */
 export function objectGet(
-  obj: AnyObject,
+  obj: AnyObject | AnyArray | undefined,
   path: string,
   strict = false
 ): {
