@@ -7,7 +7,6 @@ import { AsyncCallback, isFunction, isNullish } from './type';
  */
 export function copyText(text: string, options?: AsyncCallback): void {
   const { successCallback = void 0, failCallback = void 0 } = isNullish(options) ? {} : options;
-  console.log('navigator.clipboard', navigator.clipboard, text);
   if (navigator.clipboard) {
     navigator.clipboard
       .writeText(text)
@@ -44,7 +43,6 @@ export function fallbackCopyText(text: string, options?: AsyncCallback): void {
   try {
     document.execCommand('copy');
     textEl.blur();
-    document.body.removeChild(textEl);
     if (isFunction(successCallback)) {
       successCallback();
     }
@@ -52,5 +50,7 @@ export function fallbackCopyText(text: string, options?: AsyncCallback): void {
     if (isFunction(failCallback)) {
       failCallback(err);
     }
+  } finally {
+    document.body.removeChild(textEl);
   }
 }
