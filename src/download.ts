@@ -1,5 +1,5 @@
 import { LooseParams } from './qs';
-import { AnyObject, isFunction, isNullish, isString } from './type';
+import { AnyObject, AsyncCallback, isFunction, isNullish, isString } from './type';
 import { urlSetParams } from './url';
 
 /**
@@ -49,7 +49,7 @@ export function downloadBlob(blob: Blob, filename: string, callback?: Function):
     }
   });
 }
-type CrossOriginDownloadParams = { successCode?: number; successCallback?: Function; failCallback?: Function };
+type CrossOriginDownloadParams = AsyncCallback & { successCode?: number };
 /**
  * 根据URL下载文件（解决跨域a.download不生效问题)
  *

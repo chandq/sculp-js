@@ -11,6 +11,12 @@ export type ArrayElements<A> = A extends Array<infer R> ? R : never;
 /** 任意对象 */
 export type AnyObject = Record<string | number, any>;
 
+/** 异步回调函数 */
+export type AsyncCallback = {
+  successCallback?: Function;
+  failCallback?: Function;
+};
+
 // 浅对象
 // 如原对象是 {a: {b: {c: 1, d: 2}}}
 // 浅对象可以提取为：{a: {b: {c: 1}}}
