@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.11.0](https://github.com/chandq/sculp-js/compare/v1.10.5...v1.11.0) (2025-07-13)
+
+### Features
+
+- firstly use navigator.clipboard to copy text ([22f0a40](https://github.com/chandq/sculp-js/commit/22f0a40542e27d3089d7e1db7bc0aab73c2602c2))
+
+### Bug Fixes
+
+- **isEmpty:** validate empty set or map ([e15988a](https://github.com/chandq/sculp-js/commit/e15988afea9efdaada65e288d945a2c6d4e42456))
+- timely remove dom element ([bbe7fac](https://github.com/chandq/sculp-js/commit/bbe7fac1a75fe0624f9e83ca3cfcf6a336d1e5bf))
+
 ### [1.10.5](https://github.com/chandq/sculp-js/compare/v1.10.4...v1.10.5) (2025-06-24)
 
 ### [1.10.4](https://github.com/chandq/sculp-js/compare/v1.10.3...v1.10.4) (2025-06-21)
