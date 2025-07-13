@@ -35,6 +35,7 @@ export function fallbackCopyText(text: string, options?: AsyncCallback): void {
   textEl.style.position = 'absolute';
   textEl.style.top = '-9999px';
   textEl.style.left = '-9999px';
+  textEl.style.opacity = '0';
   textEl.value = text;
   document.body.appendChild(textEl);
   textEl.focus({ preventScroll: true });

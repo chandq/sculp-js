@@ -109,6 +109,8 @@ test('isJsonString', () => {
 });
 
 test('isEmpty', () => {
+  expect(isEmpty('')).toBe(true);
+  expect(isEmpty('231')).toBe(false);
   expect(isEmpty(null)).toBe(true);
   expect(isEmpty(undefined)).toBe(true);
   expect(isEmpty(function () {})).toBe(true);
@@ -120,4 +122,30 @@ test('isEmpty', () => {
   expect(isEmpty([])).toBe(true);
   expect(isEmpty(new Set())).toBe(true);
   expect(isEmpty(new Map())).toBe(true);
+  expect(isEmpty(new Set([1, 2, 3]))).toBe(false);
+  expect(
+    isEmpty(
+      new Map([
+        [1, 2],
+        [2, 3]
+      ])
+    )
+  ).toBe(false);
+  expect(
+    isEmpty(
+      (function () {
+        // eslint-disable-next-line
+        return arguments;
+      })()
+    )
+  ).toBe(true);
+  expect(
+    isEmpty(
+      (function () {
+        // eslint-disable-next-line
+        return arguments;
+        // @ts-ignore
+      })(1, 2)
+    )
+  ).toBe(false);
 });

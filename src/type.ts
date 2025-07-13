@@ -1,5 +1,5 @@
 // 常用类型定义
-const { toString, hasOwnProperty } = Object.prototype;
+const { toString, hasOwnProperty, propertyIsEnumerable } = Object.prototype;
 /** 任意函数 */
 export type AnyFunc<R = any> = (...args: any[]) => R;
 
@@ -161,9 +161,15 @@ export function isEmpty(value: any): boolean {
   if (isNullOrUnDef(value) || Number.isNaN(value)) {
     return true;
   }
-  if (arrayLike(value) && (isArray(value) || isString(value) || isFunction(value.splice))) {
+  const tag = typeIs(value);
+
+  if (arrayLike(value) || 'Arguments' === tag) {
     return !value.length;
   }
+  if ('Set' === tag || 'Map' === tag) {
+    return !value.size;
+  }
+
   return !Object.keys(value).length;
 }
 
