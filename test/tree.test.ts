@@ -491,7 +491,9 @@ test('mapDeep', () => {
     if (item.id === 21) {
       currentArr.push({ id: 22, name: 'row2-2' });
     }
+    //@ts-ignore
     item.key = item.id;
+    //@ts-ignore
     item.label = item.name;
     return item;
   });

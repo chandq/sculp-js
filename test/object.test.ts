@@ -8,9 +8,7 @@ import {
   objectEachAsync,
   objectMap,
   objectPick,
-  objectOmit,
-  cloneDeep,
-  isEqual
+  objectOmit
 } from '../src/object';
 import { objectHas, AnyObject, isNumber } from '../src/type';
 import './utils';
