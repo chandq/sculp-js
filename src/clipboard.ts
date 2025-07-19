@@ -1,3 +1,4 @@
+import { select } from './dom';
 import { AsyncCallback, isFunction, isNullish } from './type';
 
 /**
@@ -33,13 +34,12 @@ export function fallbackCopyText(text: string, options?: AsyncCallback): void {
 
   const textEl = createFakeElement(text);
   document.body.appendChild(textEl);
-  textEl.focus({ preventScroll: true });
-  textEl.select();
-  textEl.setSelectionRange(0, text.length); // iOS 兼容
+
+  select(textEl);
 
   try {
-    document.execCommand('copy');
-    if (isFunction(successCallback)) {
+    const res = document.execCommand('copy');
+    if (res && isFunction(successCallback)) {
       successCallback();
     }
   } catch (err) {

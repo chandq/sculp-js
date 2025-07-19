@@ -187,3 +187,51 @@ export function getStrWidthPx(str: string, fontSize: number = 14, isRemove: bool
   }
   return strWidth;
 }
+/**
+ * Programmatically select the text of a HTML element
+ *
+ * @param {HTMLElement} element The element whose text you wish to select
+ * @returns
+ */
+export function select(element: HTMLElement) {
+  let selectedText;
+
+  if (element.nodeName === 'SELECT') {
+    element.focus();
+    // @ts-ignore
+    selectedText = element.value;
+  } else if (element.nodeName === 'INPUT' || element.nodeName === 'TEXTAREA') {
+    const isReadOnly = element.hasAttribute('readonly');
+
+    if (!isReadOnly) {
+      element.setAttribute('readonly', '');
+    }
+
+    // @ts-ignore
+    element.select();
+    // @ts-ignore
+    element.setSelectionRange(0, element.value.length);
+
+    if (!isReadOnly) {
+      element.removeAttribute('readonly');
+    }
+
+    // @ts-ignore
+    selectedText = element.value;
+  } else {
+    if (element.hasAttribute('contenteditable')) {
+      element.focus();
+    }
+
+    const selection = window.getSelection();
+    const range = document.createRange();
+
+    range.selectNodeContents(element);
+    selection!.removeAllRanges();
+    selection!.addRange(range);
+
+    selectedText = selection!.toString();
+  }
+
+  return selectedText;
+}
