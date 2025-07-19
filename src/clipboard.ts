@@ -31,19 +31,14 @@ export function copyText(text: string, options?: AsyncCallback): void {
 export function fallbackCopyText(text: string, options?: AsyncCallback): void {
   const { successCallback = void 0, failCallback = void 0 } = isNullish(options) ? {} : options;
 
-  const textEl = document.createElement('textarea');
-  textEl.style.position = 'absolute';
-  textEl.style.top = '-9999px';
-  textEl.style.left = '-9999px';
-  textEl.style.opacity = '0';
-  textEl.value = text;
+  const textEl = createFakeElement(text);
   document.body.appendChild(textEl);
   textEl.focus({ preventScroll: true });
   textEl.select();
+  textEl.setSelectionRange(0, text.length); // iOS 兼容
 
   try {
     document.execCommand('copy');
-    textEl.blur();
     if (isFunction(successCallback)) {
       successCallback();
     }
@@ -53,5 +48,33 @@ export function fallbackCopyText(text: string, options?: AsyncCallback): void {
     }
   } finally {
     document.body.removeChild(textEl);
+    window.getSelection()?.removeAllRanges(); // 清除选区
   }
+}
+
+/**
+ * Creates a fake textarea element with a value.
+ * @param {String} value
+ * @return {HTMLElement}
+ */
+function createFakeElement(value) {
+  const isRTL = document.documentElement.getAttribute('dir') === 'rtl';
+  const fakeElement = document.createElement('textarea');
+  // Prevent zooming on iOS
+  fakeElement.style.fontSize = '12pt';
+  // Reset box model
+  fakeElement.style.border = '0';
+  fakeElement.style.padding = '0';
+  fakeElement.style.margin = '0';
+  // Move element out of screen horizontally
+  fakeElement.style.position = 'absolute';
+  fakeElement.style[isRTL ? 'right' : 'left'] = '-9999px';
+  // Move element to the same position vertically
+  const yPosition = window.pageYOffset || document.documentElement.scrollTop;
+  fakeElement.style.top = `${yPosition}px`;
+
+  fakeElement.setAttribute('readonly', '');
+  fakeElement.value = value;
+
+  return fakeElement;
 }

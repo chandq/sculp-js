@@ -14,7 +14,7 @@ export function supportCanvas(): boolean {
  * @param {Function} changeCb 选择文件回调
  * @returns {HTMLInputElement}
  */
-export function chooseLocalFile(accept: string, changeCb: (FileList) => any): HTMLInputElement {
+export function chooseLocalFile(accept: string, changeCb: (FileList) => any): void {
   const inputObj: HTMLInputElement = document.createElement('input');
   inputObj.setAttribute('id', String(Date.now()));
   inputObj.setAttribute('type', 'file');
@@ -28,7 +28,6 @@ export function chooseLocalFile(accept: string, changeCb: (FileList) => any): HT
 
     setTimeout(() => document.body.removeChild(inputObj));
   };
-  return inputObj;
 }
 
 type ImageType = 'image/jpeg' | 'image/png' | 'image/webp';
