@@ -1,12 +1,14 @@
 import { select } from './dom';
 import { AsyncCallback, isFunction, isNullish } from './type';
 
+type CopyTextOptions = AsyncCallback & { container?: HTMLElement };
+
 /**
  * 复制文本，优先使用navigator.clipboard，若不支持则回退使用execCommand方式
  * @param {string} text
- * @param {AsyncCallback} options 可选参数：成功回调、失败回调
+ * @param {AsyncCallback} options 可选参数：成功回调、失败回调、容器元素
  */
-export function copyText(text: string, options?: AsyncCallback): void {
+export function copyText(text: string, options?: CopyTextOptions): void {
   const { successCallback = void 0, failCallback = void 0 } = isNullish(options) ? {} : options;
   if (navigator.clipboard) {
     navigator.clipboard
@@ -29,11 +31,15 @@ export function copyText(text: string, options?: AsyncCallback): void {
  * @param text
  * @param options
  */
-export function fallbackCopyText(text: string, options?: AsyncCallback): void {
-  const { successCallback = void 0, failCallback = void 0 } = isNullish(options) ? {} : options;
+export function fallbackCopyText(text: string, options?: CopyTextOptions): void {
+  const {
+    successCallback = void 0,
+    failCallback = void 0,
+    container = document.body
+  } = isNullish(options) ? {} : options;
 
   const textEl = createFakeElement(text);
-  document.body.appendChild(textEl);
+  container.appendChild(textEl);
 
   select(textEl);
 
@@ -47,7 +53,7 @@ export function fallbackCopyText(text: string, options?: AsyncCallback): void {
       failCallback(err);
     }
   } finally {
-    document.body.removeChild(textEl);
+    container.removeChild(textEl);
     window.getSelection()?.removeAllRanges(); // 清除选区
   }
 }
