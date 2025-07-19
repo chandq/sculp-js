@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.11.1-alpha.2](https://github.com/chandq/sculp-js/compare/v1.11.1-alpha.1...v1.11.1-alpha.2) (2025-07-19)
+
+### Bug Fixes
+
+- copyText issue ([4dc17cc](https://github.com/chandq/sculp-js/commit/4dc17cce6077c40558d398996840e4ec59bf226c))
+
 ### [1.11.1-alpha.1](https://github.com/chandq/sculp-js/compare/v1.11.1-alpha.0...v1.11.1-alpha.1) (2025-07-19)
 
 ### [1.11.1-alpha.0](https://github.com/chandq/sculp-js/compare/v1.11.0...v1.11.1-alpha.0) (2025-07-19)

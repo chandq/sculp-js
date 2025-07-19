@@ -1,6 +1,6 @@
 {
   "name": "sculp-js",
-  "version": "1.11.1-alpha.1",
+  "version": "1.11.1-alpha.2",
   "packageManager": "npm@8.19.2",
   "description": "js utils library, includes function library、class library",
   "scripts": {
