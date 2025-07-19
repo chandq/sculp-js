@@ -4,9 +4,11 @@ import { AsyncCallback, isFunction, isNullish } from './type';
 type CopyTextOptions = AsyncCallback & { container?: HTMLElement };
 
 /**
- * 复制文本，优先使用navigator.clipboard，若不支持则回退使用execCommand方式
+ * 复制文本，优先使用navigator.clipboard，仅在安全上下文(HTTPS/localhost)下生效，若不支持则回退使用execCommand方式
  * @param {string} text
- * @param {AsyncCallback} options 可选参数：成功回调、失败回调、容器元素
+ * @param {AsyncCallback} options 可选参数：成功回调successCallback、失败回调failCallback、容器元素container
+ *                      （默认document.body, 当不支持clipboard时必须传复制按钮元素，包裹模拟选择操作的临时元素，
+ *                        解决脱离文档流的元素无法复制的问题，如Modal内复制操作)
  */
 export function copyText(text: string, options?: CopyTextOptions): void {
   const { successCallback = void 0, failCallback = void 0 } = isNullish(options) ? {} : options;
