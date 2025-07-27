@@ -222,18 +222,22 @@ export function formatTree(list: any[], options: IFieldOptions = defaultFieldOpt
   const { keyField, childField, pidField } = options;
   const treeArr: any[] = [];
   const sourceMap = {};
-  arrayEach(list, item => {
-    sourceMap[item[keyField]] = item;
-  });
 
-  arrayEach(list, item => {
+  for (let i = 0, len = list.length; i < len; i++) {
+    const item = list[i];
+    sourceMap[item[keyField]] = item;
+  }
+
+  for (let i = 0, len = list.length; i < len; i++) {
+    const item = list[i];
     const parent = sourceMap[item[pidField]];
     if (parent) {
       (parent[childField] || (parent[childField] = [])).push(item);
     } else {
       treeArr.push(item);
     }
-  });
+  }
+
   // @ts-ignore
   list = null;
   return treeArr;
@@ -248,7 +252,8 @@ export function formatTree(list: any[], options: IFieldOptions = defaultFieldOpt
 export function flatTree(treeList: any[], options: IFieldOptions = defaultFieldOptions): any[] {
   const { childField, keyField, pidField } = options;
   let res: any[] = [];
-  arrayEach(treeList, node => {
+  for (let i = 0, len = treeList.length; i < len; i++) {
+    const node = treeList[i];
     const item = {
       ...node,
       [childField]: [] // 清空子级
@@ -262,7 +267,8 @@ export function flatTree(treeList: any[], options: IFieldOptions = defaultFieldO
       }));
       res = res.concat(flatTree(children, options));
     }
-  });
+  }
+
   return res;
 }
 

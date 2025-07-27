@@ -17,6 +17,34 @@ export type AsyncCallback = {
   failCallback?: Function;
 };
 
+export interface Fn<T = any, R = T> {
+  (...arg: T[]): R;
+}
+
+export interface PromiseFn<T = any, R = T> {
+  (...arg: T[]): Promise<R>;
+}
+
+/**
+ * 将除指定属性外的所有属性变为必填
+ *
+ * Change all properties except the specified properties to required
+ */
+export type ChangeRequiredExcept<T, K extends keyof T> = Required<Omit<T, K>> & Partial<Pick<T, K>>;
+/**
+ * 将指定属性变为可选
+ *
+ * Change the specified properties to optional
+ */
+export type ChangeOptional<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>;
+
+/**
+ * 将指定属性变为必填
+ *
+ * Change the specified properties to required
+ */
+export type ChangeRequired<T, K extends keyof T> = Omit<T, K> & Required<Pick<T, K>>;
+
 // 浅对象
 // 如原对象是 {a: {b: {c: 1, d: 2}}}
 // 浅对象可以提取为：{a: {b: {c: 1}}}

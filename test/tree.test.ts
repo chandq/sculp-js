@@ -63,16 +63,34 @@ test('forEachDeep', () => {
     { id: 3, name: 'row3' }
   ];
 
+  const tree2 = [
+    { id: 1, name: 'row1' },
+    {
+      id: 2,
+      name: 'row2',
+      children: [{ id: 21, name: 'row2-1' }]
+    },
+    { id: 3, name: 'row3' },
+    { id: 4, name: 'row4' },
+    { id: 5, name: 'row5' }
+  ];
+
   const res1: string[] = [];
   const res2: string[] = [];
   const res3: string[] = [];
   const res4: string[] = [];
 
-  forEachDeep(tree, ({ id, name }, i, currentArr, tree, parent, level) => {
+  forEachDeep(tree2, ({ id, name }, i, currentArr, tree, parent, level) => {
+    if (name === 'row2') {
+      return true;
+    }
+    if (id === 4) {
+      return false;
+    }
     res1.push(name);
     // console.log('level', level);
   });
-  expect(res1).toEqual(['row1', 'row2', 'row2-1', 'row3']);
+  expect(res1).toEqual(['row1', 'row3']);
 
   forEachDeep(
     tree,
