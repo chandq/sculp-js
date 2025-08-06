@@ -59,3 +59,35 @@ export function asyncMap<T, R>(
     }
   });
 }
+
+/**
+ * Execute a promise safely
+ *
+ * @param { Promise } promise
+ * @param { Object= } errorExt - Additional Information you can pass to the err object
+ * @return { Promise }
+ * @example
+ * async function asyncTaskWithCb(cb) {
+     let err, user, savedTask, notification;
+
+     [ err, user ] = await to(UserModel.findById(1));
+     if(!user) return cb('No user found');
+
+     [ err, savedTask ] = await to(TaskModel({userId: user.id, name: 'Demo Task'}));
+     if(err) return cb('Error occurred while saving task')
+
+    cb(null, savedTask);
+}
+ */
+export function safeAwait<T, U = Error>(promise: Promise<T>, errorExt?: object): Promise<[U, undefined] | [null, T]> {
+  return promise
+    .then<[null, T]>((data: T) => [null, data])
+    .catch<[U, undefined]>((err: U) => {
+      if (errorExt) {
+        const parsedError = Object.assign({}, err, errorExt);
+        return [parsedError, undefined];
+      }
+
+      return [err, undefined];
+    });
+}
