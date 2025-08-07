@@ -1,7 +1,6 @@
 {
   "name": "sculp-js",
   "version": "1.11.1-alpha.3",
-  "packageManager": "npm@8.19.2",
   "description": "js utils library, includes function library、class library",
   "scripts": {
     "prepare": "husky install",
@@ -38,8 +37,8 @@
   ],
   "keywords": [
     "sculp-js",
-    "js-utils",
-    "typescript"
+    "es6",
+    "util"
   ],
   "engines": {
     "node": ">=16"

@@ -299,7 +299,8 @@ export function fuzzySearchTree<V>(
   }
   const result: V[] = [];
 
-  arrayEach(nodes, node => {
+  for (let i = 0, len = nodes.length; i < len; i++) {
+    const node = nodes[i];
     // 递归检查子节点是否匹配
     const matchedChildren =
       node[options.childField] && node[options.childField].length > 0
@@ -323,24 +324,20 @@ export function fuzzySearchTree<V>(
             [options.childField]: matchedChildren // 包含匹配的子节点
           });
         } else if (options.removeEmptyChild) {
-          node[options.childField] && delete node[options.childField];
-          result.push({
-            ...node
-          });
+          const { [options.childField]: _, ...other } = node as any;
+          result.push(other);
         } else {
           result.push({
             ...node,
-            ...{ [options.childField]: [] }
+            [options.childField]: []
           });
         }
       } else {
-        node[options.childField] && delete node[options.childField];
-
-        result.push({
-          ...node
-        });
+        const { [options.childField]: _, ...other } = node as any;
+        result.push(other);
       }
     }
-  });
+  }
+
   return result;
 }

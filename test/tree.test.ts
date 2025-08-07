@@ -532,7 +532,7 @@ test('mapDeep', () => {
   ]);
 });
 
-describe('fuzzySearchTree', () => {
+describe('fuzzySearchTree: keywords', () => {
   test('search by keyword', () => {
     // 定义树结构
     const tree = [
@@ -566,6 +566,7 @@ describe('fuzzySearchTree', () => {
         ]
       }
     ];
+    const clone = cloneDeep(tree);
 
     // 测试keyword 1
     const query = 'apr';
@@ -677,9 +678,10 @@ describe('fuzzySearchTree', () => {
         ]
       }
     ]);
+    expect(tree).toEqual(clone);
   });
 
-  test('search by filter function, include not ignore case', () => {
+  test('fuzzySearchTree: search by filter function, include not ignore case', () => {
     const res1 = [];
     const res2 = [];
     // 定义树结构
@@ -697,7 +699,7 @@ describe('fuzzySearchTree', () => {
               {
                 id: 3,
                 name: 'Anpricot',
-                children: [{ id: 5, name: 'butterfly' }]
+                children: [{ id: 35, name: 'butterfly' }]
               },
               {
                 id: 4,
@@ -731,6 +733,7 @@ describe('fuzzySearchTree', () => {
         ]
       }
     ];
+    const clone = cloneDeep(tree);
     const query = 'An';
     // keyword模式匹配，不忽略大小写
     const result1 = fuzzySearchTree(
@@ -821,5 +824,7 @@ describe('fuzzySearchTree', () => {
     // keyword匹配模式，且keyword为空串
     const result4 = fuzzySearchTree(tree, { keyword: '' });
     expect(result4).toBe(tree);
+
+    expect(tree).toEqual(clone);
   });
 });
