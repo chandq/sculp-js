@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.12.0](https://github.com/chandq/sculp-js/compare/v1.11.1-alpha.3...v1.12.0) (2025-08-07)
+
+### Features
+
+- add safeAwait func ([48dbfd5](https://github.com/chandq/sculp-js/commit/48dbfd5483944e1d974b18d3ecac82e0c5efd8ad))
+
+### Bug Fixes
+
+- change fuzzySearchTree to pure function ([7ed2d7a](https://github.com/chandq/sculp-js/commit/7ed2d7ab76162e6a62a328548e00fae5ebe899fc))
+- improve func comment ([70e8f69](https://github.com/chandq/sculp-js/commit/70e8f696d5224ea689dd3b34b7aa85870cf25c27))
+
 ### [1.11.1-alpha.3](https://github.com/chandq/sculp-js/compare/v1.11.1-alpha.2...v1.11.1-alpha.3) (2025-07-19)
 
 ### Bug Fixes
