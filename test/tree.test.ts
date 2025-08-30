@@ -75,6 +75,18 @@ test('forEachDeep', () => {
     { id: 5, name: 'row5' }
   ];
 
+  const tree22 = [
+    { id: 1, name: 'row1' },
+    {
+      id: 2,
+      name: 'row2',
+      child: [{ id: 21, name: 'row2-1' }]
+    },
+    { id: 3, name: 'row3' },
+    { id: 4, name: 'row4' },
+    { id: 5, name: 'row5' }
+  ];
+
   const tree3 = [
     { id: 1, name: 'row1' },
     {
@@ -121,10 +133,21 @@ test('forEachDeep', () => {
   const res2: string[] = [];
   const res3: string[] = [];
   const res4: string[] = [];
-  const breadthRes1: string[] = [];
+  let breadthRes1: string[] = [];
   const breadthRes2: string[] = [];
   const breadthRes3: string[] = [];
 
+  forEachDeep(
+    tree22,
+    ({ id, name }, i, currentArr, tree, parent, level) => {
+      breadthRes1.push(name);
+      // console.log('level', level);
+    },
+    { breadthFirst: true, childField: 'child' }
+  );
+  expect(breadthRes1).toEqual(['row1', 'row2', 'row3', 'row4', 'row5', 'row2-1']);
+
+  breadthRes1 = [];
   forEachDeep(
     tree2,
     ({ id, name }, i, currentArr, tree, parent, level) => {
@@ -159,7 +182,6 @@ test('forEachDeep', () => {
     },
     { breadthFirst: true }
   );
-  console.log('breadthRes3', breadthRes3);
   expect(breadthRes3).toEqual([
     'row1',
     'row2',

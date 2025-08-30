@@ -31,7 +31,7 @@ export interface IFilterCondition<V> {
  * @param {ArrayLike<V>} tree  树形数据
  * @param {Function} iterator  迭代函数, 返回值为true时continue, 返回值为false时break
  * @param {options} options 支持定制子元素名称、反向遍历、广度优先遍历，默认{
-    children: 'children',
+    childField: 'children',
     reverse: false,
     breadthFirst: false
   }
@@ -47,17 +47,22 @@ export function forEachDeep<V>(
     parent: V | null,
     level: number
   ) => boolean | void,
-
-  options: { children?: string; reverse?: boolean; breadthFirst?: boolean } = {
-    children: 'children',
+  options: { childField?: string; reverse?: boolean; breadthFirst?: boolean } = {
+    childField: 'children',
     reverse: false,
     breadthFirst: false
   }
 ): void {
-  const { children = 'children', reverse = false, breadthFirst = false } = isObject(options) ? options : {};
+  const { childField = 'children', reverse = false, breadthFirst = false } = isObject(options) ? options : {};
   let isBreak = false;
-  const queue: { item: V; index: number; array: ArrayLike<V>; tree: ArrayLike<V>; parent: V | null; level: number }[] =
-    [];
+  const queue: {
+    item: V;
+    index: number;
+    array: ArrayLike<V>;
+    tree: ArrayLike<V>;
+    parent: V | null;
+    level: number;
+  }[] = [];
   const walk = (arr: ArrayLike<V>, parent: V | null, level = 0) => {
     if (reverse) {
       for (let index = arr.length - 1; index >= 0; index--) {
@@ -67,7 +72,7 @@ export function forEachDeep<V>(
         const item = arr[index];
         // 广度优先
         if (breadthFirst) {
-          queue.push({ item, index: index, array: arr, tree, parent, level });
+          queue.push({ item, index, array: arr, tree, parent, level });
         } else {
           const re = iterator(item, index, arr, tree, parent, level);
           if (re === false) {
@@ -77,13 +82,14 @@ export function forEachDeep<V>(
             continue;
           }
           // @ts-ignore
-          if (item && Array.isArray(item[children])) {
+          if (item && Array.isArray(item[childField])) {
             // @ts-ignore
-            walk(item[children], item, level + 1);
+            walk(item[childField], item, level + 1);
           }
         }
       }
       if (breadthFirst) {
+        // Process queue
         while (!isBreak) {
           const current = queue.shift();
 
@@ -99,9 +105,9 @@ export function forEachDeep<V>(
           }
 
           // @ts-ignore
-          if (item && Array.isArray(item[children])) {
+          if (item && Array.isArray(item[childField])) {
             // @ts-ignore
-            walk(item[children], item, level + 1);
+            walk(item[childField], item, level + 1);
           }
         }
       }
@@ -125,9 +131,9 @@ export function forEachDeep<V>(
             continue;
           }
           // @ts-ignore
-          if (item && Array.isArray(item[children])) {
+          if (item && Array.isArray(item[childField])) {
             // @ts-ignore
-            walk(item[children], item, level + 1);
+            walk(item[childField], item, level + 1);
           }
         }
       }
@@ -146,15 +152,15 @@ export function forEachDeep<V>(
           }
 
           // @ts-ignore
-          if (item && Array.isArray(item[children])) {
+          if (item && Array.isArray(item[childField])) {
             // @ts-ignore
-            walk(item[children], item, level + 1);
+            walk(item[childField], item, level + 1);
           }
         }
       }
     }
   };
-  walk(tree, null);
+  walk(tree, null, 0);
   // @ts-ignore
   tree = null;
 }
@@ -352,7 +358,12 @@ export function flatTree(treeList: any[], options: IFieldOptions = defaultFieldO
  * 2. 若无任何过滤条件或keyword模式匹配且keyword为空串，返回原对象；其他情况返回新数组
  * @param {V[]} nodes
  * @param {IFilterCondition} filterCondition
- * @param {ISearchTreeOpts} options
+ * @param {ISearchTreeOpts} options 默认配置项 {
+      childField: 'children',
+      nameField: 'name',
+      removeEmptyChild: false,
+      ignoreCase: true
+    }
  * @returns {V[]}
  */
 export function fuzzySearchTree<V>(
