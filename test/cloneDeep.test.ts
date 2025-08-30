@@ -164,8 +164,10 @@ describe('cloneDeep', () => {
     }
     const instance = new CustomClass();
     const clonedInstance = cloneDeep(instance);
+    clonedInstance.prop = 456;
     expect(clonedInstance).toBeInstanceOf(CustomClass);
-    expect(clonedInstance.prop).toBe(123);
+    expect(clonedInstance.prop).toBe(456);
+    expect(instance.prop).toBe(123);
   });
 
   // 测试循环引用

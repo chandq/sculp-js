@@ -1,6 +1,6 @@
 import { arrayEach } from './array';
 import { objectOmit } from './object';
-import { AnyObject, isEmpty, objectHas } from './type';
+import { AnyObject, isEmpty, isObject, objectHas } from './type';
 
 export interface IFieldOptions {
   keyField: string;
@@ -27,62 +27,129 @@ export interface IFilterCondition<V> {
 }
 
 /**
- * 深度优先遍历函数(支持continue和break操作), 可用于insert tree item 和 remove tree item
+ * 树遍历函数(支持continue和break操作), 可用于insert tree item 和 remove tree item
  * @param {ArrayLike<V>} tree  树形数据
  * @param {Function} iterator  迭代函数, 返回值为true时continue, 返回值为false时break
- * @param {string} children 定制子元素的key
- * @param {boolean} isReverse  是否反向遍历
+ * @param {options} options 支持定制子元素名称、反向遍历、广度优先遍历，默认{
+    children: 'children',
+    reverse: false,
+    breadthFirst: false
+  }
  * @returns {*}
  */
 export function forEachDeep<V>(
   tree: ArrayLike<V>,
   iterator: (
     val: V,
-    i: number,
+    index: number,
     currentArr: ArrayLike<V>,
     tree: ArrayLike<V>,
     parent: V | null,
     level: number
   ) => boolean | void,
-  children: string = 'children',
-  isReverse = false
+
+  options: { children?: string; reverse?: boolean; breadthFirst?: boolean } = {
+    children: 'children',
+    reverse: false,
+    breadthFirst: false
+  }
 ): void {
+  const { children = 'children', reverse = false, breadthFirst = false } = isObject(options) ? options : {};
   let isBreak = false;
+  const queue: { item: V; index: number; array: ArrayLike<V>; tree: ArrayLike<V>; parent: V | null; level: number }[] =
+    [];
   const walk = (arr: ArrayLike<V>, parent: V | null, level = 0) => {
-    if (isReverse) {
-      for (let i = arr.length - 1; i >= 0; i--) {
+    if (reverse) {
+      for (let index = arr.length - 1; index >= 0; index--) {
         if (isBreak) {
           break;
         }
-        const re = iterator(arr[i], i, arr, tree, parent, level);
-        if (re === false) {
-          isBreak = true;
-          break;
-        } else if (re === true) {
-          continue;
-        }
-        // @ts-ignore
-        if (arr[i] && Array.isArray(arr[i][children])) {
+        const item = arr[index];
+        // 广度优先
+        if (breadthFirst) {
+          queue.push({ item, index: index, array: arr, tree, parent, level });
+        } else {
+          const re = iterator(item, index, arr, tree, parent, level);
+          if (re === false) {
+            isBreak = true;
+            break;
+          } else if (re === true) {
+            continue;
+          }
           // @ts-ignore
-          walk(arr[i][children], arr[i], level + 1);
+          if (item && Array.isArray(item[children])) {
+            // @ts-ignore
+            walk(item[children], item, level + 1);
+          }
+        }
+      }
+      if (breadthFirst) {
+        while (!isBreak) {
+          const current = queue.shift();
+
+          // iterate(info);
+          // @ts-ignore
+          const { item, index, array, tree, parent, level } = current;
+          const re = iterator(item, index, array, tree, parent, level);
+          if (re === false) {
+            isBreak = true;
+            break;
+          } else if (re === true) {
+            continue;
+          }
+
+          // @ts-ignore
+          if (item && Array.isArray(item[children])) {
+            // @ts-ignore
+            walk(item[children], item, level + 1);
+          }
         }
       }
     } else {
-      for (let i = 0, len = arr.length; i < len; i++) {
+      for (let index = 0, len = arr.length; index < len; index++) {
         if (isBreak) {
           break;
         }
-        const re = iterator(arr[i], i, arr, tree, parent, level);
-        if (re === false) {
-          isBreak = true;
-          break;
-        } else if (re === true) {
-          continue;
-        }
-        // @ts-ignore
-        if (arr[i] && Array.isArray(arr[i][children])) {
+        const item = arr[index];
+
+        if (breadthFirst) {
+          // 广度优先
+          queue.push({ item, index: index, array: arr, tree, parent, level });
+        } else {
+          // 深度优先
+          const re = iterator(item, index, arr, tree, parent, level);
+          if (re === false) {
+            isBreak = true;
+            break;
+          } else if (re === true) {
+            continue;
+          }
           // @ts-ignore
-          walk(arr[i][children], arr[i], level + 1);
+          if (item && Array.isArray(item[children])) {
+            // @ts-ignore
+            walk(item[children], item, level + 1);
+          }
+        }
+      }
+      if (breadthFirst) {
+        while (!isBreak) {
+          const current = queue.shift();
+          if (!current) break;
+          // @ts-ignore
+          const { item, index, array, tree, parent, level } = current;
+          const re = iterator(item, index, array, tree, parent, level);
+          if (re === false) {
+            isBreak = true;
+            break;
+          } else if (re === true) {
+            continue;
+          }
+
+          // @ts-ignore
+          if (item && Array.isArray(item[children])) {
+            // @ts-ignore
+            walk(item[children], item, level + 1);
+          }
         }
       }
     }
@@ -215,11 +282,12 @@ export function searchTreeById<V>(tree: ArrayLike<V>, nodeId: IdLike, config?: I
 /**
  * 扁平化数组转换成树
  * @param {any[]} list
- * @param {IFieldOptions} options
+ * @param {IFieldOptions} options 定制id字段名，子元素字段名，父元素字段名，默认
+ *        { keyField: 'key', childField: 'children', pidField: 'pid' }
  * @returns {any[]}
  */
 export function formatTree(list: any[], options: IFieldOptions = defaultFieldOptions): any[] {
-  const { keyField, childField, pidField } = options;
+  const { keyField = 'key', childField = 'children', pidField = 'pid' } = isObject(options) ? options : {};
   const treeArr: any[] = [];
   const sourceMap = {};
 
@@ -245,12 +313,13 @@ export function formatTree(list: any[], options: IFieldOptions = defaultFieldOpt
 
 /**
  * 树形结构转扁平化
- * @param {any} treeList
- * @param {IFieldOptions} options
- * @returns {*}
+ * @param {any[]} treeList
+ * @param {IFieldOptions} options 定制id字段名，子元素字段名，父元素字段名，默认
+ *        { keyField: 'key', childField: 'children', pidField: 'pid' }
+ * @returns {any[]}
  */
 export function flatTree(treeList: any[], options: IFieldOptions = defaultFieldOptions): any[] {
-  const { childField, keyField, pidField } = options;
+  const { keyField = 'key', childField = 'children', pidField = 'pid' } = isObject(options) ? options : {};
   let res: any[] = [];
   for (let i = 0, len = treeList.length; i < len; i++) {
     const node = treeList[i];

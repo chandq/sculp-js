@@ -75,10 +75,107 @@ test('forEachDeep', () => {
     { id: 5, name: 'row5' }
   ];
 
+  const tree3 = [
+    { id: 1, name: 'row1' },
+    {
+      id: 2,
+      name: 'row2',
+      children: [
+        {
+          id: 21,
+          name: 'row2-1',
+          children: [
+            { id: 211, name: 'row21-1' },
+            { id: 212, name: 'row21-2' }
+          ]
+        },
+        {
+          id: 22,
+          name: 'row2-2',
+          children: [
+            { id: 221, name: 'row22-1' },
+            { id: 222, name: 'row22-2' }
+          ]
+        }
+      ]
+    },
+    { id: 3, name: 'row3' },
+    {
+      id: 4,
+      name: 'row4',
+      children: [
+        {
+          id: 41,
+          name: 'row4-1',
+          children: [
+            { id: 411, name: 'row41-1' },
+            { id: 412, name: 'row41-2' }
+          ]
+        }
+      ]
+    },
+    { id: 5, name: 'row5' }
+  ];
+
   const res1: string[] = [];
   const res2: string[] = [];
   const res3: string[] = [];
   const res4: string[] = [];
+  const breadthRes1: string[] = [];
+  const breadthRes2: string[] = [];
+  const breadthRes3: string[] = [];
+
+  forEachDeep(
+    tree2,
+    ({ id, name }, i, currentArr, tree, parent, level) => {
+      breadthRes1.push(name);
+      // console.log('level', level);
+    },
+    { breadthFirst: true }
+  );
+  expect(breadthRes1).toEqual(['row1', 'row2', 'row3', 'row4', 'row5', 'row2-1']);
+
+  forEachDeep(
+    tree2,
+    ({ id, name }, i, currentArr, tree, parent, level) => {
+      if (name === 'row2') {
+        return true;
+      }
+      if (id === 4) {
+        return false;
+      }
+      breadthRes2.push(name);
+      // console.log('level', level);
+    },
+    { breadthFirst: true }
+  );
+  expect(breadthRes2).toEqual(['row1', 'row3']);
+
+  forEachDeep(
+    tree3,
+    ({ id, name }, i, currentArr, tree, parent, level) => {
+      breadthRes3.push(name);
+      // console.log('level', level);
+    },
+    { breadthFirst: true }
+  );
+  console.log('breadthRes3', breadthRes3);
+  expect(breadthRes3).toEqual([
+    'row1',
+    'row2',
+    'row3',
+    'row4',
+    'row5',
+    'row2-1',
+    'row2-2',
+    'row4-1',
+    'row21-1',
+    'row21-2',
+    'row22-1',
+    'row22-2',
+    'row41-1',
+    'row41-2'
+  ]);
 
   forEachDeep(tree2, ({ id, name }, i, currentArr, tree, parent, level) => {
     if (name === 'row2') {
@@ -97,8 +194,7 @@ test('forEachDeep', () => {
     ({ id, name }) => {
       res2.push(name);
     },
-    'children',
-    true
+    { reverse: true }
   );
   expect(res2).toEqual(['row1', 'row2-1', 'row2', 'row3'].reverse());
 
