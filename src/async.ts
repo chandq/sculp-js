@@ -64,16 +64,16 @@ export function asyncMap<T, R>(
  * Execute a promise safely
  *
  * @param { Promise } promise
- * @param { Object= } errorExt - Additional Information you can pass to the err object
+ * @param { Object= } errorExt - Additional Information you can pass safeAwait the err object
  * @return { Promise }
  * @example
  * async function asyncTaskWithCb(cb) {
      let err, user, savedTask, notification;
 
-     [ err, user ] = await to(UserModel.findById(1));
+     [ err, user ] = await safeAwait(UserModel.findById(1));
      if(!user) return cb('No user found');
 
-     [ err, savedTask ] = await to(TaskModel({userId: user.id, name: 'Demo Task'}));
+     [ err, savedTask ] = await safeAwait(TaskModel({userId: user.id, name: 'Demo Task'}));
      if(err) return cb('Error occurred while saving task')
 
     cb(null, savedTask);
