@@ -1,4 +1,3 @@
-import { AnyObject } from './../src/type';
 import { cloneDeep } from '../src/cloneDeep';
 import { formatTree, searchTreeById, forEachDeep, mapDeep, fuzzySearchTree, flatTree } from '../src/tree';
 import './utils';
@@ -26,7 +25,7 @@ test('searchTreeById', () => {
 
   const res1 = searchTreeById(tree, 3);
   const res2 = searchTreeById(tree, 21);
-  const res3 = searchTreeById(tree2, 21, { id: 'key', children: 'child' });
+  const res3 = searchTreeById(tree2, 21, { keyField: 'key', childField: 'child' });
   expect(res1).toStrictEqual([[3], [{ id: 3, name: 'row3' }]]);
   expect(res2).toStrictEqual([
     [2, 21],
@@ -526,7 +525,7 @@ test('mapDeep', () => {
     ({ id, name, childNodes }) => {
       return { key: id, label: name, childNodes };
     },
-    'childNodes'
+    { childField: 'childNodes' }
   ) as any[];
   expect(res0).toEqual([
     { key: 1, label: 'row1' },
@@ -558,8 +557,7 @@ test('mapDeep', () => {
     ({ id, name, children }) => {
       return { key: id, label: name, children };
     },
-    'children',
-    true
+    { reverse: true }
   );
   expect(res2).toEqual([
     { key: 3, label: 'row3' },

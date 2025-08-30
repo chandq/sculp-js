@@ -90,7 +90,7 @@ export function forEachDeep<V>(
       }
       if (breadthFirst) {
         // Process queue
-        while (!isBreak) {
+        while (queue.length > 0 && !isBreak) {
           const current = queue.shift();
 
           // iterate(info);
@@ -138,7 +138,7 @@ export function forEachDeep<V>(
         }
       }
       if (breadthFirst) {
-        while (!isBreak) {
+        while (queue.length > 0 && !isBreak) {
           const current = queue.shift();
           if (!current) break;
           // @ts-ignore
@@ -171,47 +171,54 @@ export function forEachDeep<V>(
  * 可遍历任何带有 length 属性和数字键的类数组对象
  * @param {ArrayLike<V>} tree  树形数据
  * @param {Function} iterator  迭代函数, 返回值为true时continue, 返回值为false时break
- * @param {string} children 定制子元素的key
- * @param {boolean} isReverse  是否反向遍历
+ * @param {options} options 支持定制子元素名称、反向遍历，默认{
+    childField: 'children',
+    reverse: false,
+  }
  * @returns {any[]} 新的一棵树
  */
 export function mapDeep<T>(
   tree: T[],
   iterator: (
     val: T,
-    i: number,
+    index: number,
     currentArr: T[],
     tree: T[],
     parent: T | null,
     level: number
   ) => { [k: string | number]: any } | boolean,
-  children: string = 'children',
-  isReverse = false
+  options: { childField?: string; reverse?: boolean; breadthFirst?: boolean } = {
+    childField: 'children',
+    reverse: false
+  }
 ): any[] {
+  const { childField = 'children', reverse = false } = isObject(options) ? options : {};
   let isBreak = false;
   const newTree = [];
   const walk = (arr: T[], parent: T | null, newTree: any[], level = 0) => {
-    if (isReverse) {
+    if (reverse) {
       for (let i = arr.length - 1; i >= 0; i--) {
         if (isBreak) {
           break;
         }
-        const re = iterator(arr[i], i, arr, tree, parent, level);
+
+        const item = arr[i];
+        const re = iterator(item, i, arr, tree, parent, level);
         if (re === false) {
           isBreak = true;
           break;
         } else if (re === true) {
           continue;
         }
-        newTree.push(objectOmit(re, [children as any]));
+        newTree.push(objectOmit(re, [childField as any]));
         // @ts-ignore
-        if (arr[i] && Array.isArray(arr[i][children])) {
-          newTree[newTree.length - 1][children] = [];
+        if (item && Array.isArray(item[childField])) {
+          newTree[newTree.length - 1][childField] = [];
           // @ts-ignore
-          walk(arr[i][children], arr[i], newTree[newTree.length - 1][children], level + 1);
+          walk(item[childField], item, newTree[newTree.length - 1][childField], level + 1);
         } else {
           // children非有效数组时，移除该属性字段
-          delete re[children];
+          delete re[childField];
         }
       }
     } else {
@@ -219,22 +226,23 @@ export function mapDeep<T>(
         if (isBreak) {
           break;
         }
-        const re = iterator(arr[i], i, arr, tree, parent, level);
+        const item = arr[i];
+        const re = iterator(item, i, arr, tree, parent, level);
         if (re === false) {
           isBreak = true;
           break;
         } else if (re === true) {
           continue;
         }
-        newTree.push(objectOmit(re, [children as any]));
+        newTree.push(objectOmit(re, [childField as any]));
         // @ts-ignore
-        if (arr[i] && Array.isArray(arr[i][children])) {
-          newTree[newTree.length - 1][children] = [];
+        if (item && Array.isArray(item[childField])) {
+          newTree[newTree.length - 1][childField] = [];
           // @ts-ignore
-          walk(arr[i][children], arr[i], newTree[newTree.length - 1][children], level + 1);
+          walk(item[childField], item, newTree[newTree.length - 1][childField], level + 1);
         } else {
           // children非有效数组时，移除该属性字段
-          delete re[children];
+          delete re[childField];
         }
       }
     }
@@ -246,39 +254,41 @@ export function mapDeep<T>(
   return newTree;
 }
 export type IdLike = number | string;
-export interface ITreeConf {
-  id: string | number;
-  children: string;
-}
+export type ITreeConf = Omit<IFieldOptions, 'pidField'>;
 /**
  * 在树中找到 id 为某个值的节点，并返回上游的所有父级节点
  *
  * @param {ArrayLike<T>} tree - 树形数据
- * @param {IdLike} nodeId - 元素ID
- * @param {ITreeConf} config - 迭代配置项
- * @returns {[IdLike[], ITreeItem<V>[]]} - 由parentId...childId, parentObject-childObject组成的二维数组
+ * @param {number | string} nodeId - 目标元素ID
+ * @param {ITreeConf} options - 迭代配置项, 默认：{ children = 'children', id = 'id' }
+ * @returns {[(number | string)[], V[]]} - 由parentId...childId, parentObject-childObject组成的二维数组
  */
-export function searchTreeById<V>(tree: ArrayLike<V>, nodeId: IdLike, config?: ITreeConf): [IdLike[], ArrayLike<V>[]] {
-  const { children = 'children', id = 'id' } = config || {};
+export function searchTreeById<V>(
+  tree: ArrayLike<V>,
+  nodeId: IdLike,
+  options: ITreeConf = { childField: 'children', keyField: 'id' }
+): [(number | string)[], ArrayLike<V>[]] {
+  const { childField = 'children', keyField = 'id' } = isObject(options) ? options : {};
+
   const toFlatArray = (tree, parentId?: IdLike, parent?: any) => {
     return tree.reduce((t, _) => {
-      const child = _[children];
+      const child = _[childField];
       return [
         ...t,
         parentId ? { ..._, parentId, parent } : _,
-        ...(child && child.length ? toFlatArray(child, _[id], _) : [])
+        ...(child && child.length ? toFlatArray(child, _[keyField], _) : [])
       ];
     }, []);
   };
   const getIds = (flatArray): [IdLike[], ArrayLike<V>[]] => {
-    let child = flatArray.find(_ => _[id] === nodeId);
+    let child = flatArray.find(_ => _[keyField] === nodeId);
     const { parent, parentId, ...other } = child;
     let ids = [nodeId],
       nodes = [other];
     while (child && child.parentId) {
       ids = [child.parentId, ...ids];
       nodes = [child.parent, ...nodes];
-      child = flatArray.find(_ => _[id] === child.parentId); // eslint-disable-line
+      child = flatArray.find(_ => _[keyField] === child.parentId); // eslint-disable-line
     }
     return [ids, nodes];
   };
