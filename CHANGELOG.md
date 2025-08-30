@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.13.0](https://github.com/chandq/sculp-js/compare/v1.12.0...v1.13.0) (2025-08-30)
+
+### Features
+
+- forEachDeep support breadth first traversal ([02e31b8](https://github.com/chandq/sculp-js/commit/02e31b8d2e7f2aebd7249c68a1e8656c545fc251))
+
+### Bug Fixes
+
+- improve params naming ([7f3f33f](https://github.com/chandq/sculp-js/commit/7f3f33f45624b7eb24e286a0f68bf1fda3876733))
+
 ## [1.12.0](https://github.com/chandq/sculp-js/compare/v1.11.1-alpha.3...v1.12.0) (2025-08-07)
 
 ### Features
