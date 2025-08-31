@@ -1,4 +1,3 @@
-import { arrayEach } from './array';
 import { objectOmit } from './object';
 import { AnyObject, isEmpty, isObject, objectHas } from './type';
 
@@ -81,9 +80,7 @@ export function forEachDeep<V>(
           } else if (re === true) {
             continue;
           }
-          // @ts-ignore
           if (item && Array.isArray(item[childField])) {
-            // @ts-ignore
             walk(item[childField], item, level + 1);
           }
         }
@@ -92,10 +89,7 @@ export function forEachDeep<V>(
         // Process queue
         while (queue.length > 0 && !isBreak) {
           const current = queue.shift();
-
-          // iterate(info);
-          // @ts-ignore
-          const { item, index, array, tree, parent, level } = current;
+          const { item, index, array, tree, parent, level } = current!;
           const re = iterator(item, index, array, tree, parent, level);
           if (re === false) {
             isBreak = true;
@@ -104,9 +98,7 @@ export function forEachDeep<V>(
             continue;
           }
 
-          // @ts-ignore
           if (item && Array.isArray(item[childField])) {
-            // @ts-ignore
             walk(item[childField], item, level + 1);
           }
         }
@@ -117,7 +109,6 @@ export function forEachDeep<V>(
           break;
         }
         const item = arr[index];
-
         if (breadthFirst) {
           // 广度优先
           queue.push({ item, index: index, array: arr, tree, parent, level });
@@ -130,9 +121,8 @@ export function forEachDeep<V>(
           } else if (re === true) {
             continue;
           }
-          // @ts-ignore
+
           if (item && Array.isArray(item[childField])) {
-            // @ts-ignore
             walk(item[childField], item, level + 1);
           }
         }
@@ -141,7 +131,6 @@ export function forEachDeep<V>(
         while (queue.length > 0 && !isBreak) {
           const current = queue.shift();
           if (!current) break;
-          // @ts-ignore
           const { item, index, array, tree, parent, level } = current;
           const re = iterator(item, index, array, tree, parent, level);
           if (re === false) {
@@ -151,9 +140,7 @@ export function forEachDeep<V>(
             continue;
           }
 
-          // @ts-ignore
           if (item && Array.isArray(item[childField])) {
-            // @ts-ignore
             walk(item[childField], item, level + 1);
           }
         }
@@ -211,10 +198,8 @@ export function mapDeep<T>(
           continue;
         }
         newTree.push(objectOmit(re, [childField as any]));
-        // @ts-ignore
         if (item && Array.isArray(item[childField])) {
           newTree[newTree.length - 1][childField] = [];
-          // @ts-ignore
           walk(item[childField], item, newTree[newTree.length - 1][childField], level + 1);
         } else {
           // children非有效数组时，移除该属性字段
@@ -235,10 +220,8 @@ export function mapDeep<T>(
           continue;
         }
         newTree.push(objectOmit(re, [childField as any]));
-        // @ts-ignore
         if (item && Array.isArray(item[childField])) {
           newTree[newTree.length - 1][childField] = [];
-          // @ts-ignore
           walk(item[childField], item, newTree[newTree.length - 1][childField], level + 1);
         } else {
           // children非有效数组时，移除该属性字段
