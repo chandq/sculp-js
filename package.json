@@ -12,24 +12,105 @@
     "coveralls": "jest --coverage --coverageReporters=text-lcov | coveralls",
     "lint": "eslint ./src --ext .vue,.js,jsx,.ts,tsx",
     "lint:fix": "eslint --fix ./src --ext .vue,.js,jsx,.ts,tsx",
-    "prettier": "prettier -c --write \"**/*.{vue,ts,js,jsx,css,less,scss,json}\"",
-    "release:patch": "standard-version --release-as patch",
-    "release:minor": "standard-version --release-as minor",
-    "release:major": "standard-version --release-as major",
-    "commit": "git-cz"
+    "prettier": "prettier -c --write \"**/*.{vue,ts,js,jsx,css,less,scss,json}\""
   },
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "browser": "dist/umd/index.min.js",
   "unpkg": "dist/umd/index.min.js",
   "types": "dist/types/index.d.ts",
-  "typings": "dist/types/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "./array": [
+        "./dist/types/array.d.ts"
+      ],
+      "./async": [
+        "./dist/types/async.d.ts"
+      ],
+      "./base64": [
+        "./dist/types/base64.d.ts"
+      ],
+      "./clipboard": [
+        "./dist/types/clipboard.d.ts"
+      ],
+      "./cloneDeep": [
+        "./dist/types/cloneDeep.d.ts"
+      ],
+      "./cookie": [
+        "./dist/types/cookie.d.ts"
+      ],
+      "./date": [
+        "./dist/types/date.d.ts"
+      ],
+      "./dom": [
+        "./dist/types/dom.d.ts"
+      ],
+      "./download": [
+        "./dist/types/download.d.ts"
+      ],
+      "./easing": [
+        "./dist/types/easing.d.ts"
+      ],
+      "./file": [
+        "./dist/types/file.d.ts"
+      ],
+      "./func": [
+        "./dist/types/func.d.ts"
+      ],
+      "./math": [
+        "./dist/types/math.d.ts"
+      ],
+      "./number": [
+        "./dist/types/number.d.ts"
+      ],
+      "./object": [
+        "./dist/types/object.d.ts"
+      ],
+      "./path": [
+        "./dist/types/path.d.ts"
+      ],
+      "./qs": [
+        "./dist/types/qs.d.ts"
+      ],
+      "./random": [
+        "./dist/types/random.d.ts"
+      ],
+      "./string": [
+        "./dist/types/string.d.ts"
+      ],
+      "./tooltip": [
+        "./dist/types/tooltip.d.ts"
+      ],
+      "./tree": [
+        "./dist/types/tree.d.ts"
+      ],
+      "./type": [
+        "./dist/types/type.d.ts"
+      ],
+      "./unique": [
+        "./dist/types/unique.d.ts"
+      ],
+      "./url": [
+        "./dist/types/url.d.ts"
+      ],
+      "./validator": [
+        "./dist/types/validator.d.ts"
+      ],
+      "./variable": [
+        "./dist/types/variable.d.ts"
+      ],
+      "./watermark": [
+        "./dist/types/watermark.d.ts"
+      ]
+    }
+  },
   "exports": {
     ".": {
       "import": "./dist/esm/index.js",
       "require": "./dist/cjs/index.js",
       "types": "./dist/types/index.d.ts"
     },
+    "./package.json": "./package.json",
     "./array": {
       "import": "./dist/esm/array.js",
       "require": "./dist/cjs/array.js",
