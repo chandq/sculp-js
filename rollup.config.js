@@ -29,48 +29,88 @@ function transformCamel(str) {
 const moduleName = transformCamel(pkgName);
 
 export default [
+  // ESM build (JavaScript only)
   {
     input: `src/${isCore ? 'core-index.ts' : 'index.ts'}`,
-    output: [
-      {
-        dir: 'lib/cjs',
-        format: 'cjs',
-        entryFileNames: '[name].js',
-        preserveModules: true,
-        preserveModulesRoot: 'src',
-        exports: 'named',
-        banner
-      },
-      {
-        dir: 'lib/es',
-        format: 'esm',
-        entryFileNames: '[name].js',
-        preserveModules: true,
-        preserveModulesRoot: 'src',
-        exports: 'named',
-        banner
-      }
-    ],
+    output: {
+      dir: 'dist/esm',
+      format: 'esm',
+      entryFileNames: '[name].js',
+      preserveModules: true,
+      preserveModulesRoot: 'src',
+      exports: 'named',
+      banner
+    },
     plugins: [
       clear({
-        targets: ['lib']
+        targets: ['dist']
       }),
       subpathExternals(pkg),
       resolve(),
       commonjs(),
       typescript({
         tsconfig: 'tsconfig.json',
-        include: ['src/**/*.ts']
+        include: ['src/**/*.ts'],
+        // declaration: true,
+        declarationMap: true,
+        outDir: 'dist/esm'
       }),
       json()
     ]
   },
+  // CJS build (JavaScript only)
   {
     input: `src/${isCore ? 'core-index.ts' : 'index.ts'}`,
     output: {
-      dir: 'lib/umd',
+      dir: 'dist/cjs',
+      format: 'cjs',
+      entryFileNames: '[name].js',
+      preserveModules: true,
+      preserveModulesRoot: 'src',
+      exports: 'named',
+      banner
+    },
+    plugins: [
+      resolve(),
+      commonjs(),
+      typescript({
+        tsconfig: 'tsconfig.json',
+        include: ['src/**/*.ts'],
+        // declaration: true,
+        declarationMap: true,
+        outDir: 'dist/cjs'
+      }),
+      json()
+    ]
+  },
+  // Type declarations build (separate build for .d.ts files)
+  {
+    input: `src/${isCore ? 'core-index.ts' : 'index.ts'}`,
+    output: {
+      dir: 'dist/types',
+      format: 'esm'
+    },
+    plugins: [
+      resolve(),
+      commonjs(),
+      typescript({
+        tsconfig: 'tsconfig.json',
+        include: ['src/**/*.ts'],
+        declaration: true,
+        declarationMap: true,
+        outDir: 'dist/types',
+        emitDeclarationOnly: true
+      }),
+      json()
+    ]
+  },
+  // UMD build (JavaScript only)
+  {
+    input: `src/${isCore ? 'core-index.ts' : 'index.ts'}`,
+    output: {
+      dir: 'dist/umd',
       format: 'umd',
-      entryFileNames: 'index.js',
+      entryFileNames: 'index.min.js',
       name: moduleName,
       banner
     },
@@ -84,14 +124,5 @@ export default [
       json(),
       terser()
     ]
-  },
-  {
-    // 生成 .d.ts 类型声明文件
-    input: `src/${isCore ? 'core-index.ts' : 'index.ts'}`,
-    output: {
-      file: pkg.types,
-      format: 'esm'
-    },
-    plugins: [dts()]
   }
 ];

@@ -12,8 +12,6 @@ import {
 } from '../src/object';
 import { objectHas, AnyObject, isNumber } from '../src/type';
 import './utils';
-// import { isEqual } from '../src/isEqual';
-// import { isEqual, cloneDeep as a2 } from 'lodash';
 
 test('isPlainObject', () => {
   expect(isPlainObject([])).toBe(false);

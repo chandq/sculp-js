@@ -18,22 +18,157 @@
     "release:major": "standard-version --release-as major",
     "commit": "git-cz"
   },
-  "main": "lib/cjs/index.js",
-  "module": "lib/es/index.js",
-  "browser": "lib/umd/index.js",
-  "unpkg": "lib/umd/index.js",
-  "types": "lib/index.d.ts",
-  "typings": "lib/index.d.ts",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "browser": "dist/umd/index.min.js",
+  "unpkg": "dist/umd/index.min.js",
+  "types": "dist/types/index.d.ts",
+  "typings": "dist/types/index.d.ts",
   "exports": {
     ".": {
-      "import": "./lib/es/index.js",
-      "require": "./lib/cjs/index.js",
-      "types": "./lib/index.d.ts"
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js",
+      "types": "./dist/types/index.d.ts"
+    },
+    "./array": {
+      "import": "./dist/esm/array.js",
+      "require": "./dist/cjs/array.js",
+      "types": "./dist/types/array.d.ts"
+    },
+    "./async": {
+      "import": "./dist/esm/async.js",
+      "require": "./dist/cjs/async.js",
+      "types": "./dist/types/async.d.ts"
+    },
+    "./base64": {
+      "import": "./dist/esm/base64.js",
+      "require": "./dist/cjs/base64.js",
+      "types": "./dist/types/base64.d.ts"
+    },
+    "./clipboard": {
+      "import": "./dist/esm/clipboard.js",
+      "require": "./dist/cjs/clipboard.js",
+      "types": "./dist/types/clipboard.d.ts"
+    },
+    "./cloneDeep": {
+      "import": "./dist/esm/cloneDeep.js",
+      "require": "./dist/cjs/cloneDeep.js",
+      "types": "./dist/types/cloneDeep.d.ts"
+    },
+    "./cookie": {
+      "import": "./dist/esm/cookie.js",
+      "require": "./dist/cjs/cookie.js",
+      "types": "./dist/types/cookie.d.ts"
+    },
+    "./date": {
+      "import": "./dist/esm/date.js",
+      "require": "./dist/cjs/date.js",
+      "types": "./dist/types/date.d.ts"
+    },
+    "./dom": {
+      "import": "./dist/esm/dom.js",
+      "require": "./dist/cjs/dom.js",
+      "types": "./dist/types/dom.d.ts"
+    },
+    "./download": {
+      "import": "./dist/esm/download.js",
+      "require": "./dist/cjs/download.js",
+      "types": "./dist/types/download.d.ts"
+    },
+    "./easing": {
+      "import": "./dist/esm/easing.js",
+      "require": "./dist/cjs/easing.js",
+      "types": "./dist/types/easing.d.ts"
+    },
+    "./file": {
+      "import": "./dist/esm/file.js",
+      "require": "./dist/cjs/file.js",
+      "types": "./dist/types/file.d.ts"
+    },
+    "./func": {
+      "import": "./dist/esm/func.js",
+      "require": "./dist/cjs/func.js",
+      "types": "./dist/types/func.d.ts"
+    },
+    "./math": {
+      "import": "./dist/esm/math.js",
+      "require": "./dist/cjs/math.js",
+      "types": "./dist/types/math.d.ts"
+    },
+    "./number": {
+      "import": "./dist/esm/number.js",
+      "require": "./dist/cjs/number.js",
+      "types": "./dist/types/number.d.ts"
+    },
+    "./object": {
+      "import": "./dist/esm/object.js",
+      "require": "./dist/cjs/object.js",
+      "types": "./dist/types/object.d.ts"
+    },
+    "./path": {
+      "import": "./dist/esm/path.js",
+      "require": "./dist/cjs/path.js",
+      "types": "./dist/types/path.d.ts"
+    },
+    "./qs": {
+      "import": "./dist/esm/qs.js",
+      "require": "./dist/cjs/qs.js",
+      "types": "./dist/types/qs.d.ts"
+    },
+    "./random": {
+      "import": "./dist/esm/random.js",
+      "require": "./dist/cjs/random.js",
+      "types": "./dist/types/random.d.ts"
+    },
+    "./string": {
+      "import": "./dist/esm/string.js",
+      "require": "./dist/cjs/string.js",
+      "types": "./dist/types/string.d.ts"
+    },
+    "./tooltip": {
+      "import": "./dist/esm/tooltip.js",
+      "require": "./dist/cjs/tooltip.js",
+      "types": "./dist/types/tooltip.d.ts"
+    },
+    "./tree": {
+      "import": "./dist/esm/tree.js",
+      "require": "./dist/cjs/tree.js",
+      "types": "./dist/types/tree.d.ts"
+    },
+    "./type": {
+      "import": "./dist/esm/type.js",
+      "require": "./dist/cjs/type.js",
+      "types": "./dist/types/type.d.ts"
+    },
+    "./unique": {
+      "import": "./dist/esm/unique.js",
+      "require": "./dist/cjs/unique.js",
+      "types": "./dist/types/unique.d.ts"
+    },
+    "./url": {
+      "import": "./dist/esm/url.js",
+      "require": "./dist/cjs/url.js",
+      "types": "./dist/types/url.d.ts"
+    },
+    "./validator": {
+      "import": "./dist/esm/validator.js",
+      "require": "./dist/cjs/validator.js",
+      "types": "./dist/types/validator.d.ts"
+    },
+    "./variable": {
+      "import": "./dist/esm/variable.js",
+      "require": "./dist/cjs/variable.js",
+      "types": "./dist/types/variable.d.ts"
+    },
+    "./watermark": {
+      "import": "./dist/esm/watermark.js",
+      "require": "./dist/cjs/watermark.js",
+      "types": "./dist/types/watermark.d.ts"
     }
   },
   "sideEffects": false,
   "files": [
-    "lib"
+    "dist"
   ],
   "keywords": [
     "sculp-js",

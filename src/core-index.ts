@@ -11,7 +11,6 @@ export * from './number';
 export * from './unique';
 export * from './tree';
 export * from './math';
-export * from './we-decode';
 export * from './base64';
 export * from './validator';
 export * from './variable';

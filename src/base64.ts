@@ -1,6 +1,70 @@
 import { getGlobal } from './func';
 import { isNullOrUnDef } from './type';
-import { weAtob, weBtoa } from './we-decode';
+
+const b64 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
+// eslint-disable-next-line
+const b64re = /^(?:[A-Za-z\d+\/]{4})*?(?:[A-Za-z\d+\/]{2}(?:==)?|[A-Za-z\d+\/]{3}=?)?$/;
+/**
+ * 字符串编码成Base64, 平替浏览器的btoa, 不包含中文的处理 （适用于任何环境，包括小程序）
+ * @param {string} string
+ * @returns {string}
+ */
+export function weBtoa(string: string): string {
+  // 同window.btoa: 字符串编码成Base64
+  string = String(string);
+  let bitmap,
+    a,
+    b,
+    c,
+    result = '',
+    i = 0;
+  const strLen = string.length;
+  const rest = strLen % 3;
+  for (; i < strLen; ) {
+    if ((a = string.charCodeAt(i++)) > 255 || (b = string.charCodeAt(i++)) > 255 || (c = string.charCodeAt(i++)) > 255)
+      throw new TypeError(
+        "Failed to execute 'btoa' on 'Window': The string to be encoded contains characters outside of the Latin1 range."
+      );
+    bitmap = (a << 16) | (b << 8) | c;
+    result +=
+      b64.charAt((bitmap >> 18) & 63) +
+      b64.charAt((bitmap >> 12) & 63) +
+      b64.charAt((bitmap >> 6) & 63) +
+      b64.charAt(bitmap & 63);
+  }
+  return rest ? result.slice(0, rest - 3) + '==='.substring(rest) : result;
+}
+/**
+ * Base64解码为原始字符串，平替浏览器的atob, 不包含中文的处理（适用于任何环境，包括小程序）
+ * @param {string} string
+ * @returns {string}
+ */
+export function weAtob(string: string): string {
+  // 同window.atob: Base64解码为原始字符串
+  string = String(string).replace(/[\t\n\f\r ]+/g, '');
+  if (!b64re.test(string))
+    throw new TypeError("Failed to execute 'atob' on 'Window': The string to be decoded is not correctly encoded.");
+  string += '=='.slice(2 - (string.length & 3));
+  let bitmap,
+    result = '',
+    r1,
+    r2,
+    i = 0;
+  for (const strLen = string.length; i < strLen; ) {
+    bitmap =
+      (b64.indexOf(string.charAt(i++)) << 18) |
+      (b64.indexOf(string.charAt(i++)) << 12) |
+      ((r1 = b64.indexOf(string.charAt(i++))) << 6) |
+      (r2 = b64.indexOf(string.charAt(i++)));
+    result +=
+      r1 === 64
+        ? String.fromCharCode((bitmap >> 16) & 255)
+        : r2 === 64
+        ? String.fromCharCode((bitmap >> 16) & 255, (bitmap >> 8) & 255)
+        : String.fromCharCode((bitmap >> 16) & 255, (bitmap >> 8) & 255, bitmap & 255);
+  }
+  return result;
+}
 
 function stringToUint8Array(str) {
   const utf8 = encodeURIComponent(str); // 将字符串转换为 UTF-8 编码
@@ -19,7 +83,7 @@ function uint8ArrayToString(uint8Array) {
  * @param base64 base64编码的字符串
  * @returns 原始字符串，包括中文内容
  */
-export function decodeFromBase64(base64: string): string {
+export function b64decode(base64: string): string {
   const binaryString = !isNullOrUnDef(getGlobal('atob')) ? (getGlobal('atob') as any)(base64) : weAtob(base64);
   const len = binaryString.length;
   const bytes = new Uint8Array(len);
@@ -37,7 +101,7 @@ export function decodeFromBase64(base64: string): string {
  * @param rawStr 原始字符串，包括中文内容
  * @returns base64编码的字符串
  */
-export function encodeToBase64(rawStr: string): string {
+export function b64encode(rawStr: string): string {
   const utf8Array = !isNullOrUnDef(getGlobal('TextEncoder'))
     ? new (getGlobal('TextEncoder') as any)().encode(rawStr)
     : stringToUint8Array(rawStr);
