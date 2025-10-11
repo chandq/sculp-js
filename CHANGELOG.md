@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.13.3-beta.0](https://github.com/chandq/sculp-js/compare/v1.13.2...v1.13.3-beta.0) (2025-10-11)
+
+### Features
+
+- add isNodeList func ([e62ea8d](https://github.com/chandq/sculp-js/commit/e62ea8d4a4d5b110762f4c00316bdd5ea4e3e59e))
+
+### Bug Fixes
+
+- forEachDeep support traversal NodeList ([a282ce0](https://github.com/chandq/sculp-js/commit/a282ce0a6f4c94b6d73b18e52db9da6d96566847))
+
 ### [1.13.2](https://github.com/chandq/sculp-js/compare/v1.13.1...v1.13.2) (2025-08-31)
 
 ### [1.13.1](https://github.com/chandq/sculp-js/compare/v1.13.0...v1.13.1) (2025-08-30)
