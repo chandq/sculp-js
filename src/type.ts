@@ -201,4 +201,11 @@ export function isEmpty(value: any): boolean {
   return !Object.keys(value).length;
 }
 
+/**
+ * Checks if `value` is an NodeList object
+ */
+export function isNodeList(value: any) {
+  return NodeList.prototype.isPrototypeOf(value);
+}
+
 export default typeIs;
