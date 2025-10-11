@@ -234,6 +234,26 @@ test('forEachDeep', () => {
     res4.push(name);
   });
   expect(res4).toEqual(['row1', 'row2']);
+
+  const divEl = document.createElement('div');
+  divEl.textContent = 'div1';
+  const divEl2 = document.createElement('div');
+  divEl2.textContent = 'div2';
+  const divEl3 = document.createElement('div');
+  divEl3.textContent = 'div3';
+  divEl2.appendChild(divEl3);
+  const nodeContent: string[] = [];
+  document.body.appendChild(divEl);
+  document.body.appendChild(divEl2);
+
+  forEachDeep(
+    document.body.children,
+    val => {
+      val.nodeType === Node.TEXT_NODE && nodeContent.push(val.nodeValue!);
+    },
+    { isDomNode: true, childField: 'childNodes' }
+  );
+  expect(nodeContent).toEqual(['div1', 'div2', 'div3']);
 });
 
 function generateTreeArray(length) {

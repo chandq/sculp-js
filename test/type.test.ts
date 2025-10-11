@@ -8,6 +8,7 @@ import {
   isFunction,
   isJsonString,
   isNaN,
+  isNodeList,
   isNull,
   isNullish,
   isNumber,
@@ -148,4 +149,12 @@ test('isEmpty', () => {
       })(1, 2)
     )
   ).toBe(false);
+});
+
+test('isNodeList', () => {
+  const divEl = document.createElement('div');
+
+  document.body.appendChild(divEl);
+  expect(isNodeList(document.body.childNodes)).toBe(true);
+  expect(isNodeList([])).toBe(false);
 });

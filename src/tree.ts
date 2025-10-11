@@ -1,5 +1,5 @@
 import { objectOmit } from './object';
-import { AnyObject, isEmpty, isObject, objectHas } from './type';
+import { AnyObject, isEmpty, isNodeList, isObject, objectHas } from './type';
 
 export interface IFieldOptions {
   keyField: string;
@@ -26,7 +26,7 @@ export interface IFilterCondition<V> {
 }
 
 /**
- * 树遍历函数(支持continue和break操作), 可用于insert tree item 和 remove tree item
+ * 树遍历函数(支持continue和break操作), 可用于遍历Array和NodeList类型的数据
  * @param {ArrayLike<V>} tree  树形数据
  * @param {Function} iterator  迭代函数, 返回值为true时continue, 返回值为false时break
  * @param {options} options 支持定制子元素名称、反向遍历、广度优先遍历，默认{
@@ -46,13 +46,19 @@ export function forEachDeep<V>(
     parent: V | null,
     level: number
   ) => boolean | void,
-  options: { childField?: string; reverse?: boolean; breadthFirst?: boolean } = {
+  options: { childField?: string; reverse?: boolean; breadthFirst?: boolean; isDomNode?: boolean } = {
     childField: 'children',
     reverse: false,
-    breadthFirst: false
+    breadthFirst: false,
+    isDomNode: false
   }
 ): void {
-  const { childField = 'children', reverse = false, breadthFirst = false } = isObject(options) ? options : {};
+  const {
+    childField = 'children',
+    reverse = false,
+    breadthFirst = false,
+    isDomNode = false
+  } = isObject(options) ? options : {};
   let isBreak = false;
   const queue: {
     item: V;
@@ -80,7 +86,7 @@ export function forEachDeep<V>(
           } else if (re === true) {
             continue;
           }
-          if (item && Array.isArray(item[childField])) {
+          if (item && (isDomNode ? isNodeList(item[childField]) : Array.isArray(item[childField]))) {
             walk(item[childField], item, level + 1);
           }
         }
@@ -98,7 +104,7 @@ export function forEachDeep<V>(
             continue;
           }
 
-          if (item && Array.isArray(item[childField])) {
+          if (item && (isDomNode ? isNodeList(item[childField]) : Array.isArray(item[childField]))) {
             walk(item[childField], item, level + 1);
           }
         }
@@ -122,7 +128,7 @@ export function forEachDeep<V>(
             continue;
           }
 
-          if (item && Array.isArray(item[childField])) {
+          if (item && (isDomNode ? isNodeList(item[childField]) : Array.isArray(item[childField]))) {
             walk(item[childField], item, level + 1);
           }
         }
@@ -140,7 +146,7 @@ export function forEachDeep<V>(
             continue;
           }
 
-          if (item && Array.isArray(item[childField])) {
+          if (item && (isDomNode ? isNodeList(item[childField]) : Array.isArray(item[childField]))) {
             walk(item[childField], item, level + 1);
           }
         }
