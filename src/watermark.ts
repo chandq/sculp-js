@@ -83,7 +83,7 @@ export function genCanvasWM(content = '请勿外传', canvasWM?: ICanvasWM): voi
   const MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
   if (MutationObserver) {
     let mo: MutationObserver | null = new MutationObserver(function () {
-      const __wm: HTMLElement | null = document.querySelector(`#${watermarkId}`); // 只在__wm元素变动才重新调用 __canvasWM
+      let __wm: HTMLElement | null = document.querySelector(`#${watermarkId}`); // 只在__wm元素变动才重新调用 __canvasWM
       if (!__wm) {
         // 避免一直触发
         // console.log('regenerate watermark by delete::')
@@ -102,6 +102,9 @@ export function genCanvasWM(content = '请勿外传', canvasWM?: ICanvasWM): voi
           mo!.disconnect();
           mo = null;
           container.removeChild(__wm);
+
+          // @ts-ignore
+          __wm = null;
           genCanvasWM(content, canvasWM);
         }
       }

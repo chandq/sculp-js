@@ -15,7 +15,7 @@ export function supportCanvas(): boolean {
  * @returns {HTMLInputElement}
  */
 export function chooseLocalFile(accept: string, changeCb: (FileList) => any): void {
-  const inputObj: HTMLInputElement = document.createElement('input');
+  let inputObj: HTMLInputElement = document.createElement('input');
   inputObj.setAttribute('id', String(Date.now()));
   inputObj.setAttribute('type', 'file');
   inputObj.setAttribute('style', 'visibility:hidden');
@@ -26,7 +26,12 @@ export function chooseLocalFile(accept: string, changeCb: (FileList) => any): vo
   inputObj.onchange = (e: PointerEvent): any => {
     changeCb((<HTMLInputElement>e.target).files);
 
-    setTimeout(() => document.body.removeChild(inputObj));
+    setTimeout(() => {
+      document.body.removeChild(inputObj);
+
+      // @ts-ignore
+      inputObj = null;
+    });
   };
 }
 

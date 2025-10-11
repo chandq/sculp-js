@@ -18,7 +18,7 @@ export function downloadURL(url: string, params?: LooseParams): void {
  * @param {Function} callback
  */
 export function downloadHref(href: string, filename: string, callback?: Function): void {
-  const eleLink = document.createElement('a');
+  let eleLink = document.createElement('a');
   eleLink.download = filename;
   eleLink.style.display = 'none';
   eleLink.href = href;
@@ -26,6 +26,8 @@ export function downloadHref(href: string, filename: string, callback?: Function
   eleLink.click();
   setTimeout(() => {
     document.body.removeChild(eleLink);
+    // @ts-ignore
+    eleLink = null;
     if (isFunction(callback)) {
       callback();
     }

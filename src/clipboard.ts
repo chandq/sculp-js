@@ -40,7 +40,7 @@ export function fallbackCopyText(text: string, options?: CopyTextOptions): void 
     container = document.body
   } = isNullish(options) ? {} : options;
 
-  const textEl = createFakeElement(text);
+  let textEl = createFakeElement(text);
   container.appendChild(textEl);
 
   select(textEl);
@@ -56,6 +56,8 @@ export function fallbackCopyText(text: string, options?: CopyTextOptions): void 
     }
   } finally {
     container.removeChild(textEl);
+    // @ts-ignore
+    textEl = null;
     window.getSelection()?.removeAllRanges(); // 清除选区
   }
 }

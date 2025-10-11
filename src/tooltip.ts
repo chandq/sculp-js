@@ -120,10 +120,12 @@ function mouseenter($customTitle: HTMLDivElement, title: string, e: PointerEvent
  * @returns {*}
  */
 function handleMouseLeave(rootContainer: HTMLElement | string = '#root'): void {
-  const rootEl = isString(rootContainer) ? document.querySelector(rootContainer) : rootContainer,
-    titleEl = document.querySelector('#customTitle1494304949567');
+  const rootEl = isString(rootContainer) ? document.querySelector(rootContainer) : rootContainer;
+  let titleEl = document.querySelector('#customTitle1494304949567');
   if (rootEl && titleEl) {
     rootEl.removeChild(titleEl);
+    // @ts-ignore
+    titleEl = null;
   }
 }
 const tooltipEvent = { handleMouseEnter, handleMouseLeave };
