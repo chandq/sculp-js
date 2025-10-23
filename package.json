@@ -1,6 +1,6 @@
 {
   "name": "sculp-js",
-  "version": "1.13.3",
+  "version": "1.13.4",
   "description": "Utils function library for modern javascript",
   "scripts": {
     "prepare": "husky install",
