@@ -9,7 +9,7 @@
 **Signature:**
 
 ```typescript
-declare function executeInScope(code: string, scope?: Record<string, any>): any;
+export declare function executeInScope(code: string, scope?: Record<string, any>): any;
 ```
 
 ## Parameters

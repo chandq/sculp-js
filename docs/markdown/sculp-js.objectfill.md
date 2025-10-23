@@ -9,7 +9,7 @@
 **Signature:**
 
 ```typescript
-declare function objectFill<R extends AnyObject = AnyObject>(
+export declare function objectFill<R extends AnyObject = AnyObject>(
   source: Partial<R>,
   target: Partial<R>,
   fillable?: (s: typeof source, t: typeof target, key: keyof R) => boolean

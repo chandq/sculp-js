@@ -9,14 +9,15 @@ canvas 实现 水印, 具备防删除功能
 **Signature:**
 
 ```typescript
-declare function genCanvasWM(canvasWM: ICanvasWM): void;
+export declare function genCanvasWM(content?: string, canvasWM?: ICanvasWM): void;
 ```
 
 ## Parameters
 
-| Parameter | Type                                 | Description |
-| --------- | ------------------------------------ | ----------- |
-| canvasWM  | [ICanvasWM](./sculp-js.icanvaswm.md) |             |
+| Parameter | Type                                 | Description  |
+| --------- | ------------------------------------ | ------------ |
+| content   | string                               | _(Optional)_ |
+| canvasWM  | [ICanvasWM](./sculp-js.icanvaswm.md) | _(Optional)_ |
 
 **Returns:**
 

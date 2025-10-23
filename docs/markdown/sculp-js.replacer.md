@@ -7,7 +7,7 @@
 **Signature:**
 
 ```typescript
-type Replacer = (value: LooseParamValue) => string | null;
+export type Replacer = (value: LooseParamValue) => string | null;
 ```
 
 **References:** [LooseParamValue](./sculp-js.looseparamvalue.md)

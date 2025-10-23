@@ -9,7 +9,7 @@
 **Signature:**
 
 ```typescript
-declare function dateToEnd(value: DateValue): Date;
+export declare function dateToEnd(value: DateValue): Date;
 ```
 
 ## Parameters

@@ -7,5 +7,5 @@
 **Signature:**
 
 ```typescript
-interface OnceFunc<F extends AnyFunc>
+export interface OnceFunc<F extends AnyFunc>
 ```

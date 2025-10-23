@@ -7,5 +7,5 @@
 **Signature:**
 
 ```typescript
-type FileType = 'json' | 'csv' | 'xls' | 'xlsx';
+export type FileType = 'json' | 'csv' | 'xls' | 'xlsx';
 ```

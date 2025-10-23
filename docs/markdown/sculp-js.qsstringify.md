@@ -9,7 +9,7 @@
 **Signature:**
 
 ```typescript
-declare function qsStringify(query: LooseParams, replacer?: Replacer): string;
+export declare function qsStringify(query: LooseParams, replacer?: Replacer): string;
 ```
 
 ## Parameters

@@ -9,18 +9,18 @@
 **Signature:**
 
 ```typescript
-declare function flatTree(treeList: any[], options?: IFieldOptions): any[];
+export declare function flatTree(treeList: any[], options?: IFieldOptions): any[];
 ```
 
 ## Parameters
 
-| Parameter | Type                                         | Description  |
-| --------- | -------------------------------------------- | ------------ |
-| treeList  | any\[\]                                      |              |
-| options   | [IFieldOptions](./sculp-js.ifieldoptions.md) | _(Optional)_ |
+| Parameter | Type                                         | Description                                                                                                              |
+| --------- | -------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| treeList  | any\[\]                                      |                                                                                                                          |
+| options   | [IFieldOptions](./sculp-js.ifieldoptions.md) | _(Optional)_ 定制id字段名，子元素字段名，父元素字段名，默认 { keyField: 'key', childField: 'children', pidField: 'pid' } |
 
 **Returns:**
 
 any\[\]
 
-{<!-- -->\*<!-- -->}
+{<!-- -->any\[\]<!-- -->}

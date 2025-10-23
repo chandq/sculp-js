@@ -7,5 +7,5 @@
 **Signature:**
 
 ```typescript
-interface DateObj
+export interface DateObj
 ```

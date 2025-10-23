@@ -4,12 +4,12 @@
 
 ## weBtoa() function
 
-字符串编码成Base64 （适用于任何环境，包括小程序）
+字符串编码成Base64, 平替浏览器的btoa, 不包含中文的处理 （适用于任何环境，包括小程序）
 
 **Signature:**
 
 ```typescript
-declare function weBtoa(string: string): string;
+export declare function weBtoa(string: string): string;
 ```
 
 ## Parameters

@@ -2,17 +2,12 @@
 
 [Home](./index.md) &gt; [sculp-js](./sculp-js.md) &gt; [ITreeConf](./sculp-js.itreeconf.md)
 
-## ITreeConf interface
+## ITreeConf type
 
 **Signature:**
 
 ```typescript
-interface ITreeConf
+export type ITreeConf = Omit<IFieldOptions, 'pidField'>;
 ```
 
-## Properties
-
-| Property                                     | Modifiers | Type             | Description |
-| -------------------------------------------- | --------- | ---------------- | ----------- |
-| [children](./sculp-js.itreeconf.children.md) |           | string           |             |
-| [id](./sculp-js.itreeconf.id.md)             |           | string \| number |             |
+**References:** [IFieldOptions](./sculp-js.ifieldoptions.md)

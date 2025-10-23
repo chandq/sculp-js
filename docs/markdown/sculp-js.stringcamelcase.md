@@ -9,7 +9,7 @@
 **Signature:**
 
 ```typescript
-declare function stringCamelCase(string: string, bigger?: boolean): string;
+export declare function stringCamelCase(string: string, bigger?: boolean): string;
 ```
 
 ## Parameters

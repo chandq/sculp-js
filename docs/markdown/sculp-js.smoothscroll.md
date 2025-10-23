@@ -7,7 +7,7 @@
 **Signature:**
 
 ```typescript
-declare function smoothScroll(options?: Partial<SmoothScrollOptions>): Promise<void>;
+export declare function smoothScroll(options?: Partial<SmoothScrollOptions>): Promise<void>;
 ```
 
 ## Parameters

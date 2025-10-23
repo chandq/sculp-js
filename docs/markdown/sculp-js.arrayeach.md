@@ -9,7 +9,7 @@
 **Signature:**
 
 ```typescript
-declare function arrayEach<V>(
+export declare function arrayEach<V>(
   array: ArrayLike<V>,
   iterator: (val: V, idx: number, arr: ArrayLike<V>) => boolean | void,
   reverse?: boolean

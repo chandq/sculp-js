@@ -7,7 +7,7 @@
 **Signature:**
 
 ```typescript
-interface ThrottleFunc<F extends AnyFunc>
+export interface ThrottleFunc<F extends AnyFunc>
 ```
 
 ## Properties

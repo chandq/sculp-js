@@ -7,7 +7,7 @@
 **Signature:**
 
 ```typescript
-interface ISearchTreeOpts
+export interface ISearchTreeOpts
 ```
 
 ## Properties
@@ -15,5 +15,6 @@ interface ISearchTreeOpts
 | Property                                                           | Modifiers | Type    | Description |
 | ------------------------------------------------------------------ | --------- | ------- | ----------- |
 | [childField](./sculp-js.isearchtreeopts.childfield.md)             |           | string  |             |
-| [ignoreEmptyChild](./sculp-js.isearchtreeopts.ignoreemptychild.md) |           | boolean |             |
+| [ignoreCase](./sculp-js.isearchtreeopts.ignorecase.md)             |           | boolean |             |
 | [nameField](./sculp-js.isearchtreeopts.namefield.md)               |           | string  |             |
+| [removeEmptyChild](./sculp-js.isearchtreeopts.removeemptychild.md) |           | boolean |             |

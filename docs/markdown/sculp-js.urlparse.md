@@ -9,5 +9,5 @@ url 解析
 **Signature:**
 
 ```typescript
-urlParse: (url: string) => Url;
+urlParse: (url: string, isModernApi?: boolean) => Url;
 ```

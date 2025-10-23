@@ -7,12 +7,14 @@
 **Signature:**
 
 ```typescript
-interface ICompressOptions
+export interface ICompressOptions
 ```
 
 ## Properties
 
-| Property                                           | Modifiers | Type      | Description                       |
-| -------------------------------------------------- | --------- | --------- | --------------------------------- |
-| [mime?](./sculp-js.icompressoptions.mime.md)       |           | ImageType | _(Optional)_ 图片类型             |
-| [quality?](./sculp-js.icompressoptions.quality.md) |           | number    | _(Optional)_ 压缩质量 0 \~ 1 之间 |
+| Property                                                       | Modifiers | Type      | Description                       |
+| -------------------------------------------------------------- | --------- | --------- | --------------------------------- |
+| [maxSize?](./sculp-js.icompressoptions.maxsize.md)             |           | number    | _(Optional)_                      |
+| [mime?](./sculp-js.icompressoptions.mime.md)                   |           | ImageType | _(Optional)_ 图片类型             |
+| [minFileSizeKB?](./sculp-js.icompressoptions.minfilesizekb.md) |           | number    | _(Optional)_                      |
+| [quality?](./sculp-js.icompressoptions.quality.md)             |           | number    | _(Optional)_ 压缩质量 0 \~ 1 之间 |

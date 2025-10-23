@@ -9,7 +9,7 @@
 **Signature:**
 
 ```typescript
-declare function removeClass(el: HTMLElement, classNames: string): void;
+export declare function removeClass(el: HTMLElement, classNames: string): void;
 ```
 
 ## Parameters

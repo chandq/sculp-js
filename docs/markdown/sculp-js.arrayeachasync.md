@@ -9,7 +9,7 @@
 **Signature:**
 
 ```typescript
-declare function arrayEachAsync<V>(
+export declare function arrayEachAsync<V>(
   array: ArrayLike<V>,
   iterator: (val: V, idx: number) => Promise<any> | any,
   reverse?: boolean
@@ -27,3 +27,9 @@ declare function arrayEachAsync<V>(
 **Returns:**
 
 Promise&lt;void&gt;
+
+## Example
+
+使用范例如下: const start = async () =<!-- -->&gt; { await arrayEachAsync(result, async (item) =<!-- -->&gt; { await request(item); count++; }<!-- -->) console.log('发送次数', count); }
+
+for await...of 使用范例如下 const loadImages = async (images) =<!-- -->&gt; { for await (const item of images) { await request(item); count++; } }

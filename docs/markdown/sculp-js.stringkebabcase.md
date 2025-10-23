@@ -9,7 +9,7 @@
 **Signature:**
 
 ```typescript
-declare function stringKebabCase(string: string, separator?: string): string;
+export declare function stringKebabCase(string: string, separator?: string): string;
 ```
 
 ## Parameters

@@ -9,7 +9,7 @@
 **Signature:**
 
 ```typescript
-declare function uniqueSymbol(str: string): string;
+export declare function uniqueSymbol(str: string): string;
 ```
 
 ## Parameters

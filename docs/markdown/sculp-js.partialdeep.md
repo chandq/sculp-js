@@ -7,7 +7,7 @@
 **Signature:**
 
 ```typescript
-type PartialDeep<T> = {
+export type PartialDeep<T> = {
   [P in keyof T]?: PartialDeep<T[P]>;
 };
 ```

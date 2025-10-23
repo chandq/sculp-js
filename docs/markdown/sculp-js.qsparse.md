@@ -9,7 +9,7 @@
 **Signature:**
 
 ```typescript
-declare function qsParse(queryString: string): Params;
+export declare function qsParse(queryString: string): Params;
 ```
 
 ## Parameters

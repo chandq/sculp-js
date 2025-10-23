@@ -9,7 +9,7 @@
 **Signature:**
 
 ```typescript
-declare function chooseLocalFile(accept: string, changeCb: (FileList: any) => any): HTMLInputElement;
+export declare function chooseLocalFile(accept: string, changeCb: (FileList: any) => any): void;
 ```
 
 ## Parameters
@@ -21,6 +21,6 @@ declare function chooseLocalFile(accept: string, changeCb: (FileList: any) => an
 
 **Returns:**
 
-HTMLInputElement
+void
 
 {<!-- -->HTMLInputElement<!-- -->}

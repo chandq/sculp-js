@@ -9,7 +9,7 @@
 **Signature:**
 
 ```typescript
-declare function downloadBlob(blob: Blob, filename: string, callback?: Function): void;
+export declare function downloadBlob(blob: Blob, filename: string, callback?: Function): void;
 ```
 
 ## Parameters

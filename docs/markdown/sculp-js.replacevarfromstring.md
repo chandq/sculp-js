@@ -9,7 +9,7 @@
 **Signature:**
 
 ```typescript
-declare function replaceVarFromString(
+export declare function replaceVarFromString(
   sourceStr: string,
   targetObj: Record<string, any>,
   leftMatchSymbol?: string,

@@ -9,7 +9,7 @@
 **Signature:**
 
 ```typescript
-declare function cookieSet(name: string, value: string, maxAge?: number | Date): void;
+export declare function cookieSet(name: string, value: string, maxAge?: number | Date): void;
 ```
 
 ## Parameters

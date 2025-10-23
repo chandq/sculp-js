@@ -7,20 +7,20 @@
 **Signature:**
 
 ```typescript
-interface ICanvasWM
+export interface ICanvasWM
 ```
 
 ## Properties
 
-| Property                                             | Modifiers | Type               | Description |
-| ---------------------------------------------------- | --------- | ------------------ | ----------- |
-| [container](./sculp-js.icanvaswm.container.md)       |           | HTMLElement        |             |
-| [content](./sculp-js.icanvaswm.content.md)           |           | string             |             |
-| [fillStyle](./sculp-js.icanvaswm.fillstyle.md)       |           | string             |             |
-| [font](./sculp-js.icanvaswm.font.md)                 |           | string             |             |
-| [height](./sculp-js.icanvaswm.height.md)             |           | string             |             |
-| [rotate](./sculp-js.icanvaswm.rotate.md)             |           | number             |             |
-| [textAlign](./sculp-js.icanvaswm.textalign.md)       |           | CanvasTextAlign    |             |
-| [textBaseline](./sculp-js.icanvaswm.textbaseline.md) |           | CanvasTextBaseline |             |
-| [width](./sculp-js.icanvaswm.width.md)               |           | string             |             |
-| [zIndex](./sculp-js.icanvaswm.zindex.md)             |           | number             |             |
+| Property                                                | Modifiers | Type                  | Description  |
+| ------------------------------------------------------- | --------- | --------------------- | ------------ |
+| [fillStyle?](./sculp-js.icanvaswm.fillstyle.md)         |           | string                | _(Optional)_ |
+| [font?](./sculp-js.icanvaswm.font.md)                   |           | string                | _(Optional)_ |
+| [height?](./sculp-js.icanvaswm.height.md)               |           | string                | _(Optional)_ |
+| [rootContainer?](./sculp-js.icanvaswm.rootcontainer.md) |           | HTMLElement \| string | _(Optional)_ |
+| [rotate?](./sculp-js.icanvaswm.rotate.md)               |           | number                | _(Optional)_ |
+| [textAlign?](./sculp-js.icanvaswm.textalign.md)         |           | CanvasTextAlign       | _(Optional)_ |
+| [textBaseline?](./sculp-js.icanvaswm.textbaseline.md)   |           | CanvasTextBaseline    | _(Optional)_ |
+| [watermarkId?](./sculp-js.icanvaswm.watermarkid.md)     |           | string                | _(Optional)_ |
+| [width?](./sculp-js.icanvaswm.width.md)                 |           | string                | _(Optional)_ |
+| [zIndex?](./sculp-js.icanvaswm.zindex.md)               |           | number                | _(Optional)_ |

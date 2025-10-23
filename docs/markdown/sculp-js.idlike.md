@@ -7,5 +7,5 @@
 **Signature:**
 
 ```typescript
-type IdLike = number | string;
+export type IdLike = number | string;
 ```

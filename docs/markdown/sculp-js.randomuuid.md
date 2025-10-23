@@ -9,7 +9,7 @@
 **Signature:**
 
 ```typescript
-declare function randomUuid(): string;
+export declare function randomUuid(): string;
 ```
 
 **Returns:**

@@ -9,7 +9,7 @@
 **Signature:**
 
 ```typescript
-declare function addClass(el: HTMLElement, classNames: string): void;
+export declare function addClass(el: HTMLElement, classNames: string): void;
 ```
 
 ## Parameters

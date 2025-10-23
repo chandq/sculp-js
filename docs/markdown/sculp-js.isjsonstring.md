@@ -9,7 +9,7 @@
 **Signature:**
 
 ```typescript
-declare function isJsonString(str: string): Object | boolean;
+export declare function isJsonString(str: string): Object | boolean;
 ```
 
 ## Parameters

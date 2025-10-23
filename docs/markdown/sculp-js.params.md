@@ -7,5 +7,5 @@
 **Signature:**
 
 ```typescript
-interface Params<T = string | number>
+export interface Params<T = string | number>
 ```

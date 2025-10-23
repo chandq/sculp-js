@@ -9,7 +9,7 @@
 **Signature:**
 
 ```typescript
-declare function wait(timeout?: number): Promise<void>;
+export declare function wait(timeout?: number): Promise<void>;
 ```
 
 ## Parameters

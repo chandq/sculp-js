@@ -9,7 +9,7 @@
 **Signature:**
 
 ```typescript
-declare function arrayInsertBefore(array: AnyArray, start: number, to: number): void;
+export declare function arrayInsertBefore(array: AnyArray, start: number, to: number): void;
 ```
 
 ## Parameters

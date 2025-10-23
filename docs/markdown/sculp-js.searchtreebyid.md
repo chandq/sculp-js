@@ -9,19 +9,23 @@
 **Signature:**
 
 ```typescript
-declare function searchTreeById<V>(tree: ArrayLike<V>, nodeId: IdLike, config?: ITreeConf): [IdLike[], ArrayLike<V>[]];
+export declare function searchTreeById<V>(
+  tree: ArrayLike<V>,
+  nodeId: IdLike,
+  options?: ITreeConf
+): [(number | string)[], ArrayLike<V>[]];
 ```
 
 ## Parameters
 
-| Parameter | Type                                 | Description             |
-| --------- | ------------------------------------ | ----------------------- |
-| tree      | ArrayLike&lt;V&gt;                   | 树形数据                |
-| nodeId    | [IdLike](./sculp-js.idlike.md)       | 元素ID                  |
-| config    | [ITreeConf](./sculp-js.itreeconf.md) | _(Optional)_ 迭代配置项 |
+| Parameter | Type                                 | Description                                                                 |
+| --------- | ------------------------------------ | --------------------------------------------------------------------------- |
+| tree      | ArrayLike&lt;V&gt;                   | 树形数据                                                                    |
+| nodeId    | [IdLike](./sculp-js.idlike.md)       | 目标元素ID                                                                  |
+| options   | [ITreeConf](./sculp-js.itreeconf.md) | _(Optional)_ 迭代配置项, 默认：<!-- -->{ children = 'children', id = 'id' } |
 
 **Returns:**
 
-\[[IdLike](./sculp-js.idlike.md)<!-- -->\[\], ArrayLike&lt;V&gt;\[\]\]
+\[(number \| string)\[\], ArrayLike&lt;V&gt;\[\]\]
 
-{<!-- -->\[IdLike\[\], ITreeItem<V>\[\]\]<!-- -->} - 由parentId...childId, parentObject-childObject组成的二维数组
+{<!-- -->\[(number \| string)\[\], V\[\]\]<!-- -->} - 由parentId...childId, parentObject-childObject组成的二维数组

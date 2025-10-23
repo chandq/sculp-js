@@ -4,20 +4,20 @@
 
 ## formatTree() function
 
-扁平化数组转换成树(效率高于buildTree)
+扁平化数组转换成树
 
 **Signature:**
 
 ```typescript
-declare function formatTree(list: any[], options?: IFieldOptions): any[];
+export declare function formatTree(list: any[], options?: IFieldOptions): any[];
 ```
 
 ## Parameters
 
-| Parameter | Type                                         | Description  |
-| --------- | -------------------------------------------- | ------------ |
-| list      | any\[\]                                      |              |
-| options   | [IFieldOptions](./sculp-js.ifieldoptions.md) | _(Optional)_ |
+| Parameter | Type                                         | Description                                                                                                              |
+| --------- | -------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| list      | any\[\]                                      |                                                                                                                          |
+| options   | [IFieldOptions](./sculp-js.ifieldoptions.md) | _(Optional)_ 定制id字段名，子元素字段名，父元素字段名，默认 { keyField: 'key', childField: 'children', pidField: 'pid' } |
 
 **Returns:**
 

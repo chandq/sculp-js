@@ -7,14 +7,14 @@
 **Signature:**
 
 ```typescript
-interface SmoothScrollOptions
+export interface SmoothScrollOptions
 ```
 
 ## Properties
 
-| Property                                               | Modifiers | Type          | Description |
-| ------------------------------------------------------ | --------- | ------------- | ----------- |
-| [duration](./sculp-js.smoothscrolloptions.duration.md) |           | number        |             |
-| [easing](./sculp-js.smoothscrolloptions.easing.md)     |           | EasingName    |             |
-| [el](./sculp-js.smoothscrolloptions.el.md)             |           | ScrollElement |             |
-| [to](./sculp-js.smoothscrolloptions.to.md)             |           | number        |             |
+| Property                                               | Modifiers | Type                                   | Description |
+| ------------------------------------------------------ | --------- | -------------------------------------- | ----------- |
+| [duration](./sculp-js.smoothscrolloptions.duration.md) |           | number                                 |             |
+| [easing](./sculp-js.smoothscrolloptions.easing.md)     |           | [EasingName](./sculp-js.easingname.md) |             |
+| [el](./sculp-js.smoothscrolloptions.el.md)             |           | ScrollElement                          |             |
+| [to](./sculp-js.smoothscrolloptions.to.md)             |           | number                                 |             |

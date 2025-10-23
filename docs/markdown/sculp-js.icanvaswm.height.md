@@ -7,5 +7,5 @@
 **Signature:**
 
 ```typescript
-height: string;
+height?: string;
 ```

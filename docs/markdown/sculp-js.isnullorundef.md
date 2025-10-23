@@ -7,7 +7,7 @@
 **Signature:**
 
 ```typescript
-declare function isNullOrUnDef(val: unknown): val is null | undefined;
+export declare function isNullOrUnDef(val: unknown): val is null | undefined;
 ```
 
 ## Parameters

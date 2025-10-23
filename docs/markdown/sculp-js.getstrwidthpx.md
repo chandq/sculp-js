@@ -9,16 +9,16 @@
 **Signature:**
 
 ```typescript
-declare function getStrWidthPx(str: string, fontSize?: number, isRemoveDom?: boolean): number;
+export declare function getStrWidthPx(str: string, fontSize?: number, isRemove?: boolean): number;
 ```
 
 ## Parameters
 
-| Parameter   | Type    | Description                            |
-| ----------- | ------- | -------------------------------------- |
-| str         | string  | 目标字符串                             |
-| fontSize    | number  | _(Optional)_ 字符串字体大小            |
-| isRemoveDom | boolean | _(Optional)_ 计算后是否移除中间dom元素 |
+| Parameter | Type    | Description                              |
+| --------- | ------- | ---------------------------------------- |
+| str       | string  | 目标字符串                               |
+| fontSize  | number  | _(Optional)_ 字符串字体大小              |
+| isRemove  | boolean | _(Optional)_ 计算后是否移除创建的dom元素 |
 
 **Returns:**
 

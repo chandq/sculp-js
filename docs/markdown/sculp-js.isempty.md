@@ -13,7 +13,7 @@ Array-like values such as `arguments` objects, arrays, buffers, strings, or jQue
 **Signature:**
 
 ```typescript
-declare function isEmpty(value: any): boolean;
+export declare function isEmpty(value: any): boolean;
 ```
 
 ## Parameters

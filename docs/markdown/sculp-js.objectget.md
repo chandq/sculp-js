@@ -4,11 +4,13 @@
 
 ## objectGet() function
 
+获取对象/数组指定层级下的属性值（现在可用ES6+的可选链?.来替代）
+
 **Signature:**
 
 ```typescript
-declare function objectGet(
-  obj: AnyObject,
+export declare function objectGet(
+  obj: AnyObject | AnyArray | undefined,
   path: string,
   strict?: boolean
 ): {
@@ -20,11 +22,11 @@ declare function objectGet(
 
 ## Parameters
 
-| Parameter | Type                                 | Description  |
-| --------- | ------------------------------------ | ------------ |
-| obj       | [AnyObject](./sculp-js.anyobject.md) |              |
-| path      | string                               |              |
-| strict    | boolean                              | _(Optional)_ |
+| Parameter | Type                                                                                    | Description  |
+| --------- | --------------------------------------------------------------------------------------- | ------------ |
+| obj       | [AnyObject](./sculp-js.anyobject.md) \| [AnyArray](./sculp-js.anyarray.md) \| undefined |              |
+| path      | string                                                                                  |              |
+| strict    | boolean                                                                                 | _(Optional)_ |
 
 **Returns:**
 

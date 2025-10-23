@@ -9,7 +9,7 @@
 **Signature:**
 
 ```typescript
-declare function asyncMap<T, R>(
+export declare function asyncMap<T, R>(
   list: Array<T>,
   mapper: (val: T, idx: number, list: Array<T>) => Promise<R>,
   concurrency?: number

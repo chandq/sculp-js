@@ -7,5 +7,5 @@
 **Signature:**
 
 ```typescript
-rotate: number;
+rotate?: number;
 ```

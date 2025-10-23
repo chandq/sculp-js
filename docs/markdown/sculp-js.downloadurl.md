@@ -9,7 +9,7 @@
 **Signature:**
 
 ```typescript
-declare function downloadURL(url: string, params?: LooseParams): void;
+export declare function downloadURL(url: string, params?: LooseParams): void;
 ```
 
 ## Parameters

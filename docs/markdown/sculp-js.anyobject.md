@@ -9,5 +9,5 @@
 **Signature:**
 
 ```typescript
-type AnyObject = Record<string | number, any>;
+export type AnyObject = Record<string | number, any>;
 ```

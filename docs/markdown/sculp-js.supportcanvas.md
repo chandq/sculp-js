@@ -9,7 +9,7 @@
 **Signature:**
 
 ```typescript
-declare function supportCanvas(): boolean;
+export declare function supportCanvas(): boolean;
 ```
 
 **Returns:**

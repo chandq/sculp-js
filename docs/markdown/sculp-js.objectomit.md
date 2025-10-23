@@ -4,12 +4,12 @@
 
 ## objectOmit() function
 
-对象祛除
+对象去除
 
 **Signature:**
 
 ```typescript
-declare function objectOmit<O extends AnyObject, K extends Extract<keyof O, string>[]>(
+export declare function objectOmit<O extends AnyObject, K extends Extract<keyof O, string>[]>(
   obj: O,
   keys: K
 ): Omit<O, ArrayElements<K>>;

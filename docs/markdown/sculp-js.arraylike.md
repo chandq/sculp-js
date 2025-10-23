@@ -9,7 +9,7 @@
 **Signature:**
 
 ```typescript
-declare function arrayLike(any: unknown): boolean;
+export declare function arrayLike(any: unknown): boolean;
 ```
 
 ## Parameters

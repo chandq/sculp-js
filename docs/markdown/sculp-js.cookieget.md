@@ -9,7 +9,7 @@
 **Signature:**
 
 ```typescript
-declare function cookieGet(name: string): string;
+export declare function cookieGet(name: string): string;
 ```
 
 ## Parameters

@@ -7,7 +7,7 @@
 **Signature:**
 
 ```typescript
-interface Url
+export interface Url
 ```
 
 ## Properties

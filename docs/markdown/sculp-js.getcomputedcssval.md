@@ -9,7 +9,7 @@
 **Signature:**
 
 ```typescript
-declare function getComputedCssVal(el: HTMLElement, property: string, reNumber?: boolean): string | number;
+export declare function getComputedCssVal(el: HTMLElement, property: string, reNumber?: boolean): string | number;
 ```
 
 ## Parameters

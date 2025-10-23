@@ -9,7 +9,7 @@
 **Signature:**
 
 ```typescript
-declare function objectMap<O extends AnyObject, T>(
+export declare function objectMap<O extends AnyObject, T>(
   obj: O,
   iterator: (val: O[keyof O], key: Extract<keyof O, string>) => any
 ): Record<Extract<keyof O, string>, T>;

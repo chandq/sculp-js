@@ -7,5 +7,5 @@
 **Signature:**
 
 ```typescript
-fillStyle: string;
+fillStyle?: string;
 ```

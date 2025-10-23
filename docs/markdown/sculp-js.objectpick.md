@@ -9,7 +9,7 @@
 **Signature:**
 
 ```typescript
-declare function objectPick<O extends AnyObject, K extends Extract<keyof O, string>[]>(
+export declare function objectPick<O extends AnyObject, K extends Extract<keyof O, string>[]>(
   obj: O,
   keys: K
 ): Pick<O, ArrayElements<K>>;

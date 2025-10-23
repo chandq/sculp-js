@@ -7,7 +7,7 @@
 **Signature:**
 
 ```typescript
-type ObjectAssignItem = AnyObject | AnyArray;
+export type ObjectAssignItem = AnyObject | AnyArray;
 ```
 
 **References:** [AnyObject](./sculp-js.anyobject.md)<!-- -->, [AnyArray](./sculp-js.anyarray.md)

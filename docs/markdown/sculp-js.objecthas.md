@@ -9,7 +9,7 @@
 **Signature:**
 
 ```typescript
-declare function objectHas<T extends AnyObject>(obj: T, key: keyof T): boolean;
+export declare function objectHas<T extends AnyObject>(obj: T, key: keyof T): boolean;
 ```
 
 ## Parameters

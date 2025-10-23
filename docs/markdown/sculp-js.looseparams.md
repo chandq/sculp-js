@@ -7,5 +7,5 @@
 **Signature:**
 
 ```typescript
-interface LooseParams<T = LooseParamValue>
+export interface LooseParams<T = LooseParamValue>
 ```

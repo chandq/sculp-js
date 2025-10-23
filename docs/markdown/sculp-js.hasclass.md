@@ -9,7 +9,7 @@
 **Signature:**
 
 ```typescript
-declare function hasClass(el: HTMLElement, className: string): boolean;
+export declare function hasClass(el: HTMLElement, className: string): boolean;
 ```
 
 ## Parameters

@@ -9,7 +9,7 @@
 **Signature:**
 
 ```typescript
-declare function arrayRemove<V>(array: V[], expect: (val: V, idx: number) => boolean): V[];
+export declare function arrayRemove<V>(array: V[], expect: (val: V, idx: number) => boolean): V[];
 ```
 
 ## Parameters

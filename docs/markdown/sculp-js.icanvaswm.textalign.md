@@ -7,5 +7,5 @@
 **Signature:**
 
 ```typescript
-textAlign: CanvasTextAlign;
+textAlign?: CanvasTextAlign;
 ```

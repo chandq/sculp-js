@@ -9,7 +9,12 @@
 **Signature:**
 
 ```typescript
-declare function calculateDateTime(originDateTime: DateValue, n: number, dateSep?: string, timeSep?: string): string;
+export declare function calculateDateTime(
+  originDateTime: DateValue,
+  n: number,
+  dateSep?: string,
+  timeSep?: string
+): string;
 ```
 
 ## Parameters

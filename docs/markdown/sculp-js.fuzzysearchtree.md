@@ -4,24 +4,30 @@
 
 ## fuzzySearchTree() function
 
-模糊搜索函数，返回包含搜索字符的节点及其祖先节点, 适用于树型组件的字符过滤功能
+模糊搜索函数，返回包含搜索字符的节点及其祖先节点, 适用于树型组件的字符过滤功能 以下搜索条件二选一，按先后优先级处理： 1. 过滤函数filter, 返回true/false 2. 匹配关键词，支持是否启用忽略大小写来判断
+
+有以下特性： 1. 可配置removeEmptyChild字段，来决定是否移除搜索结果中的空children字段 2. 若无任何过滤条件或keyword模式匹配且keyword为空串，返回原对象；其他情况返回新数组
 
 **Signature:**
 
 ```typescript
-declare function fuzzySearchTree(nodes: any[], query: string, options?: ISearchTreeOpts): any[];
+export declare function fuzzySearchTree<V>(
+  nodes: V[],
+  filterCondition: IFilterCondition<V>,
+  options?: ISearchTreeOpts
+): V[];
 ```
 
 ## Parameters
 
-| Parameter | Type                                             | Description  |
-| --------- | ------------------------------------------------ | ------------ |
-| nodes     | any\[\]                                          |              |
-| query     | string                                           |              |
-| options   | [ISearchTreeOpts](./sculp-js.isearchtreeopts.md) | _(Optional)_ |
+| Parameter       | Type                                                                | Description                                                                                                      |
+| --------------- | ------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| nodes           | V\[\]                                                               |                                                                                                                  |
+| filterCondition | [IFilterCondition](./sculp-js.ifiltercondition.md)<!-- -->&lt;V&gt; |                                                                                                                  |
+| options         | [ISearchTreeOpts](./sculp-js.isearchtreeopts.md)                    | _(Optional)_ 默认配置项 { childField: 'children', nameField: 'name', removeEmptyChild: false, ignoreCase: true } |
 
 **Returns:**
 
-any\[\]
+V\[\]
 
-{<!-- -->any\[\]<!-- -->}
+{<!-- -->V\[\]<!-- -->}

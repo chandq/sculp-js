@@ -6,21 +6,25 @@
 
 深拷贝堪称完全体 即：任何类型的数据都会被深拷贝
 
+包含对null、原始值、对象循环引用的处理
+
+对Map、Set、ArrayBuffer、Date、RegExp、Array、Object及原型链属性方法执行深拷贝
+
 **Signature:**
 
 ```typescript
-declare function cloneDeep(obj: Object, map?: WeakMap<object, any>): AnyObject | AnyArray;
+export declare function cloneDeep<T>(source: T, map?: WeakMap<any, any>): T;
 ```
 
 ## Parameters
 
-| Parameter | Type                       | Description  |
-| --------- | -------------------------- | ------------ |
-| obj       | Object                     |              |
-| map       | WeakMap&lt;object, any&gt; | _(Optional)_ |
+| Parameter | Type                    | Description  |
+| --------- | ----------------------- | ------------ |
+| source    | T                       |              |
+| map       | WeakMap&lt;any, any&gt; | _(Optional)_ |
 
 **Returns:**
 
-[AnyObject](./sculp-js.anyobject.md) \| [AnyArray](./sculp-js.anyarray.md)
+T
 
-{<!-- -->AnyObject \| AnyArray<!-- -->}
+{<!-- -->T<!-- -->}

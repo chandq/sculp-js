@@ -9,7 +9,7 @@
 **Signature:**
 
 ```typescript
-declare function getStyle(el: HTMLElement, key: string): string;
+export declare function getStyle(el: HTMLElement, key: string): string;
 ```
 
 ## Parameters

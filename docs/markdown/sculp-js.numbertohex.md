@@ -9,7 +9,7 @@
 **Signature:**
 
 ```typescript
-declare function numberToHex(decimal: number | string, hexPool?: string): string;
+export declare function numberToHex(decimal: number | string, hexPool?: string): string;
 ```
 
 ## Parameters

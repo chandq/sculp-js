@@ -7,5 +7,5 @@
 **Signature:**
 
 ```typescript
-interface Style
+export interface Style
 ```

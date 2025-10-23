@@ -9,7 +9,7 @@
 **Signature:**
 
 ```typescript
-declare function parseVarFromString(str: string, leftMatchSymbol?: string, rightMatchSymbol?: string): string[];
+export declare function parseVarFromString(str: string, leftMatchSymbol?: string, rightMatchSymbol?: string): string[];
 ```
 
 ## Parameters

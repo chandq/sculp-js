@@ -9,7 +9,7 @@
 **Signature:**
 
 ```typescript
-declare function downloadData(
+export declare function downloadData(
   data: AnyObject | AnyObject[],
   fileType: FileType,
   filename: string,

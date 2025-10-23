@@ -7,5 +7,5 @@
 **Signature:**
 
 ```typescript
-type DateValue = number | string | Date;
+export type DateValue = number | string | Date;
 ```

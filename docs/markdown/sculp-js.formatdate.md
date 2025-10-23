@@ -9,7 +9,7 @@
 **Signature:**
 
 ```typescript
-declare function formatDate(value: DateValue, format?: string): string;
+export declare function formatDate(value: DateValue, format?: string): string;
 ```
 
 ## Parameters

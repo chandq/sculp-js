@@ -4,12 +4,12 @@
 
 ## weAtob() function
 
-Base64解码为原始字符串（适用于任何环境，包括小程序）
+Base64解码为原始字符串，平替浏览器的atob, 不包含中文的处理（适用于任何环境，包括小程序）
 
 **Signature:**
 
 ```typescript
-declare function weAtob(string: string): string;
+export declare function weAtob(string: string): string;
 ```
 
 ## Parameters

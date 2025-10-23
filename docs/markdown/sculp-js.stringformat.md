@@ -9,7 +9,7 @@
 **Signature:**
 
 ```typescript
-declare function stringFormat(string: string, ...args: Array<unknown>): string;
+export declare function stringFormat(string: string, ...args: Array<unknown>): string;
 ```
 
 ## Parameters

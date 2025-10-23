@@ -2,12 +2,47 @@
 
 [Home](./index.md) &gt; [sculp-js](./sculp-js.md) &gt; [typeIs](./sculp-js.typeis.md)
 
-## typeIs variable
+## typeIs() function
 
-判断任意值的数据类型
+判断任意值的数据类型，检查非对象时不如typeof、instanceof的性能高
+
+当检查类对象时是不可靠的，对象可以通过定义 Symbol.toStringTag 属性来更改检查结果
+
+详见：https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global\_Objects/Object/toString
 
 **Signature:**
 
 ```typescript
-typeIs: (any: unknown) => string;
+export declare function typeIs(
+  any: unknown
+):
+  | 'Null'
+  | 'Undefined'
+  | 'Symbol'
+  | 'Boolean'
+  | 'Number'
+  | 'String'
+  | 'Function'
+  | 'Date'
+  | 'RegExp'
+  | 'Map'
+  | 'Set'
+  | 'ArrayBuffer'
+  | 'Object'
+  | 'Array'
+  | 'Error'
+  | 'BigInt'
+  | 'Promise'
+  | 'AsyncFunction'
+  | string;
 ```
+
+## Parameters
+
+| Parameter | Type    | Description |
+| --------- | ------- | ----------- |
+| any       | unknown |             |
+
+**Returns:**
+
+'Null' \| 'Undefined' \| 'Symbol' \| 'Boolean' \| 'Number' \| 'String' \| 'Function' \| 'Date' \| 'RegExp' \| 'Map' \| 'Set' \| 'ArrayBuffer' \| 'Object' \| 'Array' \| 'Error' \| 'BigInt' \| 'Promise' \| 'AsyncFunction' \| string

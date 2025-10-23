@@ -9,7 +9,7 @@
 **Signature:**
 
 ```typescript
-declare function parseQueryParams(searchStr?: string): Record<string, string | string[]>;
+export declare function parseQueryParams(searchStr?: string): Record<string, string | string[]>;
 ```
 
 ## Parameters

@@ -9,7 +9,7 @@
 **Signature:**
 
 ```typescript
-declare function objectAssign<R = AnyObject | AnyArray>(
+export declare function objectAssign<R = AnyObject | AnyArray>(
   source: ObjectAssignItem,
   ...targets: (ObjectAssignItem | undefined)[]
 ): R;

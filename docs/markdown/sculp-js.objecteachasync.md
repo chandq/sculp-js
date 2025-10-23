@@ -9,7 +9,7 @@
 **Signature:**
 
 ```typescript
-declare function objectEachAsync<O extends AnyObject>(
+export declare function objectEachAsync<O extends AnyObject>(
   obj: O,
   iterator: (val: O[keyof O], key: Extract<keyof O, string>) => Promise<any> | any
 ): Promise<void>;

@@ -4,10 +4,10 @@
 
 ## numberAbbr variable
 
-缩写
+将数字转换为携带单位的字符串
 
 **Signature:**
 
 ```typescript
-numberAbbr: (num: number | string, units: Array<string>, ratio?: number, exponent?: number) => string;
+numberAbbr: (num: number | string, units: Array<string>, options?: INumberAbbr) => string;
 ```

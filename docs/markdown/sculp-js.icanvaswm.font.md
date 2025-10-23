@@ -7,5 +7,5 @@
 **Signature:**
 
 ```typescript
-font: string;
+font?: string;
 ```

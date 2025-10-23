@@ -9,5 +9,5 @@
 **Signature:**
 
 ```typescript
-type AnyArray = any[];
+export type AnyArray = any[];
 ```

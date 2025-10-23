@@ -9,7 +9,7 @@
 **Signature:**
 
 ```typescript
-declare function setGlobal(key: string | number | symbol, val?: any): void;
+export declare function setGlobal(key: string | number | symbol, val?: any): void;
 ```
 
 ## Parameters

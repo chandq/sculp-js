@@ -7,7 +7,7 @@
 **Signature:**
 
 ```typescript
-interface IFieldOptions
+export interface IFieldOptions
 ```
 
 ## Properties

@@ -9,7 +9,7 @@ Correct the given number to specifying significant digits.
 **Signature:**
 
 ```typescript
-declare function strip(num: NumberType, precision?: number): number;
+export declare function strip(num: NumberType, precision?: number): number;
 ```
 
 ## Parameters

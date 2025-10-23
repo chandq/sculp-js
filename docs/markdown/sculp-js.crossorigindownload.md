@@ -6,19 +6,23 @@
 
 根据URL下载文件（解决跨域a.download不生效问题)
 
+可定制下载成功的状态码status(浏览器原生状态码)
+
+支持下载操作成功、失败后的回调
+
 **Signature:**
 
 ```typescript
-declare function crossOriginDownload(url: string, filename: string, callback?: Function): void;
+export declare function crossOriginDownload(url: string, filename: string, options?: CrossOriginDownloadParams): void;
 ```
 
 ## Parameters
 
-| Parameter | Type     | Description  |
-| --------- | -------- | ------------ |
-| url       | string   |              |
-| filename  | string   |              |
-| callback  | Function | _(Optional)_ |
+| Parameter | Type                      | Description  |
+| --------- | ------------------------- | ------------ |
+| url       | string                    |              |
+| filename  | string                    |              |
+| options   | CrossOriginDownloadParams | _(Optional)_ |
 
 **Returns:**
 

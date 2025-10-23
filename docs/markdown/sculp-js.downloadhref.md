@@ -9,7 +9,7 @@
 **Signature:**
 
 ```typescript
-declare function downloadHref(href: string, filename: string, callback?: Function): void;
+export declare function downloadHref(href: string, filename: string, callback?: Function): void;
 ```
 
 ## Parameters

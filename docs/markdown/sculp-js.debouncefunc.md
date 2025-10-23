@@ -7,7 +7,7 @@
 **Signature:**
 
 ```typescript
-interface DebounceFunc<F extends AnyFunc>
+export interface DebounceFunc<F extends AnyFunc>
 ```
 
 ## Properties

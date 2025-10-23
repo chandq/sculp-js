@@ -9,5 +9,5 @@
 **Signature:**
 
 ```typescript
-type ArrayElements<A> = A extends Array<infer R> ? R : never;
+export type ArrayElements<A> = A extends Array<infer R> ? R : never;
 ```

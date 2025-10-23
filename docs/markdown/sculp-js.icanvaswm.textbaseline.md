@@ -7,5 +7,5 @@
 **Signature:**
 
 ```typescript
-textBaseline: CanvasTextBaseline;
+textBaseline?: CanvasTextBaseline;
 ```

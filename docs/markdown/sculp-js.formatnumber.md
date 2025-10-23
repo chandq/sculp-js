@@ -9,15 +9,15 @@
 **Signature:**
 
 ```typescript
-declare function formatNumber(val: number, type?: string): string;
+export declare function formatNumber(num: number | string, decimals?: number): string;
 ```
 
 ## Parameters
 
-| Parameter | Type   | Description                                              |
-| --------- | ------ | -------------------------------------------------------- |
-| val       | number | 数字                                                     |
-| type      | string | _(Optional)_ 展示分段显示的类型 int:整型 \| float:浮点型 |
+| Parameter | Type             | Description                               |
+| --------- | ---------------- | ----------------------------------------- |
+| num       | number \| string | 数字                                      |
+| decimals  | number           | _(Optional)_ 格式化成指定小数位精度的参数 |
 
 **Returns:**
 

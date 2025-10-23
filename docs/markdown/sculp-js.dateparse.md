@@ -9,7 +9,7 @@
 **Signature:**
 
 ```typescript
-declare function dateParse(value: DateValue): Date;
+export declare function dateParse(value: DateValue): Date;
 ```
 
 ## Parameters
