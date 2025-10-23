@@ -5,6 +5,7 @@
   "scripts": {
     "prepare": "husky install",
     "build": "rollup  --bundleConfigAsCjs --config rollup.config.js",
+    "build:types": "tsc --emitDeclarationOnly --declaration --outDir dist/types src/index.ts",
     "build:core": "BUILD_TARGET=core rollup  --bundleConfigAsCjs --config rollup.config.js",
     "build:terser": "node scripts/build.js",
     "test:unit": "jest",

@@ -51,8 +51,7 @@ export default [
       typescript({
         tsconfig: 'tsconfig.json',
         include: ['src/**/*.ts'],
-        // declaration: true,
-        // declarationMap: true,
+        declaration: false,
         outDir: 'dist/esm'
       }),
       json()
@@ -76,34 +75,32 @@ export default [
       typescript({
         tsconfig: 'tsconfig.json',
         include: ['src/**/*.ts'],
-        // declaration: true,
-        // declarationMap: true,
+        declaration: false,
         outDir: 'dist/cjs'
       }),
       json()
     ]
   },
   // Type declarations build (separate build for .d.ts files)
-  {
-    input: `src/${isCore ? 'core-index.ts' : 'index.ts'}`,
-    output: {
-      dir: 'dist/types',
-      format: 'esm'
-    },
-    plugins: [
-      resolve(),
-      commonjs(),
-      typescript({
-        tsconfig: 'tsconfig.json',
-        include: ['src/**/*.ts'],
-        declaration: true,
-        declarationMap: false,
-        outDir: 'dist/types',
-        emitDeclarationOnly: true
-      }),
-      json()
-    ]
-  },
+  // {
+  //   input: `src/${isCore ? 'core-index.ts' : 'index.ts'}`,
+  //   output: {
+  //     dir: 'dist/types',
+  //     format: 'esm'
+  //   },
+  //   plugins: [
+  //     resolve(),
+  //     commonjs(),
+  //     typescript({
+  //       tsconfig: 'tsconfig.json',
+  //       include: ['src/**/*.ts'],
+  //       declaration: true,
+  //       outDir: 'dist/types',
+  //       emitDeclarationOnly: true
+  //     }),
+  //     json()
+  //   ]
+  // },
   // UMD build (JavaScript only)
   {
     input: `src/${isCore ? 'core-index.ts' : 'index.ts'}`,

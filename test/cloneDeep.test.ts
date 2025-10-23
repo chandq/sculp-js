@@ -67,7 +67,9 @@ describe('cloneDeep', () => {
     expect(cloned.b.c[1]).not.toBe(original.b.c[1]);
 
     // 修改克隆对象不影响原始对象
+    // @ts-ignore
     cloned.b.c[1].d = 4;
+    // @ts-ignore
     expect(original.b.c[1].d).toBe(3);
   });
   //循环引用处理验证

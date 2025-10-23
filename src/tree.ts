@@ -46,7 +46,7 @@ export function forEachDeep<V>(
     tree: ArrayLike<V>,
     parent: V | null,
     level: number
-  ) => boolean | undefined,
+  ) => boolean | void,
   options: { childField?: string; reverse?: boolean; breadthFirst?: boolean; isDomNode?: boolean } = {
     childField: 'children',
     reverse: false,
