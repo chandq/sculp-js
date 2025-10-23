@@ -97,7 +97,7 @@ export default [
         tsconfig: 'tsconfig.json',
         include: ['src/**/*.ts'],
         declaration: true,
-        declarationMap: true,
+        declarationMap: false,
         outDir: 'dist/types',
         emitDeclarationOnly: true
       }),

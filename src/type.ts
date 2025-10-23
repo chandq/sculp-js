@@ -70,11 +70,8 @@ export function objectHas<T extends AnyObject>(obj: T, key: keyof T): boolean {
  */
 export function arrayLike(any: unknown): boolean {
   if (isArray(any)) return true;
-
   if (isString(any)) return true;
-
   if (!isObject(any)) return false;
-
   return objectHas(any, 'length');
 }
 
@@ -190,14 +187,12 @@ export function isEmpty(value: any): boolean {
     return true;
   }
   const tag = typeIs(value);
-
   if (arrayLike(value) || 'Arguments' === tag) {
     return !value.length;
   }
   if ('Set' === tag || 'Map' === tag) {
     return !value.size;
   }
-
   return !Object.keys(value).length;
 }
 

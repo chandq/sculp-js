@@ -32,7 +32,8 @@ export interface IFilterCondition<V> {
  * @param {options} options 支持定制子元素名称、反向遍历、广度优先遍历，默认{
     childField: 'children',
     reverse: false,
-    breadthFirst: false
+    breadthFirst: false,
+    isDomNode: false,
   }
  * @returns {*}
  */
@@ -45,7 +46,7 @@ export function forEachDeep<V>(
     tree: ArrayLike<V>,
     parent: V | null,
     level: number
-  ) => boolean | void,
+  ) => boolean | undefined,
   options: { childField?: string; reverse?: boolean; breadthFirst?: boolean; isDomNode?: boolean } = {
     childField: 'children',
     reverse: false,
@@ -68,92 +69,88 @@ export function forEachDeep<V>(
     parent: V | null;
     level: number;
   }[] = [];
-  const walk = (arr: ArrayLike<V>, parent: V | null, level = 0) => {
-    if (reverse) {
-      for (let index = arr.length - 1; index >= 0; index--) {
-        if (isBreak) {
-          break;
-        }
-        const item = arr[index];
-        // 广度优先
-        if (breadthFirst) {
-          queue.push({ item, index, array: arr, tree, parent, level });
-        } else {
-          const re = iterator(item, index, arr, tree, parent, level);
-          if (re === false) {
-            isBreak = true;
-            break;
-          } else if (re === true) {
-            continue;
-          }
-          if (item && (isDomNode ? isNodeList(item[childField]) : Array.isArray(item[childField]))) {
-            walk(item[childField], item, level + 1);
-          }
-        }
+  const reverseWalk = (arr: ArrayLike<V>, parent: V | null, level = 0) => {
+    for (let index = arr.length - 1; index >= 0; index--) {
+      if (isBreak) {
+        break;
       }
+      const item = arr[index];
+      // 广度优先
       if (breadthFirst) {
-        // Process queue
-        while (queue.length > 0 && !isBreak) {
-          const current = queue.shift();
-          const { item, index, array, tree, parent, level } = current!;
-          const re = iterator(item, index, array, tree, parent, level);
-          if (re === false) {
-            isBreak = true;
-            break;
-          } else if (re === true) {
-            continue;
-          }
-
-          if (item && (isDomNode ? isNodeList(item[childField]) : Array.isArray(item[childField]))) {
-            walk(item[childField], item, level + 1);
-          }
-        }
-      }
-    } else {
-      for (let index = 0, len = arr.length; index < len; index++) {
-        if (isBreak) {
+        queue.push({ item, index, array: arr, tree, parent, level });
+      } else {
+        const re = iterator(item, index, arr, tree, parent, level);
+        if (re === false) {
+          isBreak = true;
           break;
+        } else if (re === true) {
+          continue;
         }
-        const item = arr[index];
-        if (breadthFirst) {
-          // 广度优先
-          queue.push({ item, index: index, array: arr, tree, parent, level });
-        } else {
-          // 深度优先
-          const re = iterator(item, index, arr, tree, parent, level);
-          if (re === false) {
-            isBreak = true;
-            break;
-          } else if (re === true) {
-            continue;
-          }
-
-          if (item && (isDomNode ? isNodeList(item[childField]) : Array.isArray(item[childField]))) {
-            walk(item[childField], item, level + 1);
-          }
+        if (item && (isDomNode ? isNodeList(item[childField]) : Array.isArray(item[childField]))) {
+          reverseWalk(item[childField], item, level + 1);
         }
       }
-      if (breadthFirst) {
-        while (queue.length > 0 && !isBreak) {
-          const current = queue.shift();
-          if (!current) break;
-          const { item, index, array, tree, parent, level } = current;
-          const re = iterator(item, index, array, tree, parent, level);
-          if (re === false) {
-            isBreak = true;
-            break;
-          } else if (re === true) {
-            continue;
-          }
-
-          if (item && (isDomNode ? isNodeList(item[childField]) : Array.isArray(item[childField]))) {
-            walk(item[childField], item, level + 1);
-          }
+    }
+    if (breadthFirst) {
+      // Process queue
+      while (queue.length > 0 && !isBreak) {
+        const current = queue.shift();
+        const { item, index, array, tree, parent, level } = current!;
+        const re = iterator(item, index, array, tree, parent, level);
+        if (re === false) {
+          isBreak = true;
+          break;
+        } else if (re === true) {
+          continue;
+        }
+        if (item && (isDomNode ? isNodeList(item[childField]) : Array.isArray(item[childField]))) {
+          reverseWalk(item[childField], item, level + 1);
         }
       }
     }
   };
-  walk(tree, null, 0);
+  const walk = (arr: ArrayLike<V>, parent: V | null, level = 0) => {
+    for (let index = 0, len = arr.length; index < len; index++) {
+      if (isBreak) {
+        break;
+      }
+      const item = arr[index];
+      if (breadthFirst) {
+        // 广度优先
+        queue.push({ item, index: index, array: arr, tree, parent, level });
+      } else {
+        // 深度优先
+        const re = iterator(item, index, arr, tree, parent, level);
+        if (re === false) {
+          isBreak = true;
+          break;
+        } else if (re === true) {
+          continue;
+        }
+        if (item && (isDomNode ? isNodeList(item[childField]) : Array.isArray(item[childField]))) {
+          walk(item[childField], item, level + 1);
+        }
+      }
+    }
+    if (breadthFirst) {
+      while (queue.length > 0 && !isBreak) {
+        const current = queue.shift();
+        if (!current) break;
+        const { item, index, array, tree, parent, level } = current;
+        const re = iterator(item, index, array, tree, parent, level);
+        if (re === false) {
+          isBreak = true;
+          break;
+        } else if (re === true) {
+          continue;
+        }
+        if (item && (isDomNode ? isNodeList(item[childField]) : Array.isArray(item[childField]))) {
+          walk(item[childField], item, level + 1);
+        }
+      }
+    }
+  };
+  reverse ? reverseWalk(tree, null, 0) : walk(tree, null, 0);
   // @ts-ignore
   tree = null;
 }
