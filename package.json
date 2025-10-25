@@ -17,9 +17,10 @@
   },
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
+  "types": "dist/types/index.d.ts",
   "browser": "dist/umd/index.min.js",
   "unpkg": "dist/umd/index.min.js",
-  "types": "dist/types/index.d.ts",
+  "jsdelivr": "dist/umd/index.min.js",
   "typesVersions": {
     "*": {
       "./array": [
@@ -258,11 +259,14 @@
     "es6",
     "util"
   ],
-  "engines": {
-    "node": ">=16"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chandq/sculp-js.git"
   },
-  "repository": "git@github.com:chandq/sculp-js.git",
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/chandq/sculp-js/issues"
+  },
   "homepage": "https://github.com/chandq/sculp-js#readme",
   "dependencies": {
     "bezier-easing": "^2.1.0"
