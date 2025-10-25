@@ -7,6 +7,7 @@ import subpathExternals from 'rollup-plugin-subpath-externals';
 import clear from 'rollup-plugin-clear';
 import pkg from './package.json' assert { type: 'json' };
 import terser from '@rollup/plugin-terser';
+import prettier from 'rollup-plugin-prettier';
 
 const pkgName = pkg.name.includes('/') ? pkg.name.split('/')[1] : pkg.name;
 const isCore = process.env.BUILD_TARGET === 'core'; // 适用于web、node、小程序等任何js运行环境
@@ -34,7 +35,7 @@ export default [
     input: `src/${isCore ? 'core-index.ts' : 'index.ts'}`,
     output: {
       dir: 'dist/esm',
-      format: 'esm',
+      format: 'es',
       entryFileNames: '[name].js',
       preserveModules: true,
       preserveModulesRoot: 'src',
@@ -44,6 +45,12 @@ export default [
     plugins: [
       clear({
         targets: ['dist']
+      }),
+      // Run plugin with prettier options.
+      prettier({
+        parser: 'typescript',
+        tabWidth: 2,
+        singleQuote: true
       }),
       subpathExternals(pkg),
       resolve(),
@@ -70,6 +77,12 @@ export default [
       banner
     },
     plugins: [
+      // Run plugin with prettier options.
+      prettier({
+        parser: 'typescript',
+        tabWidth: 2,
+        singleQuote: true
+      }),
       resolve(),
       commonjs(),
       typescript({
@@ -81,26 +94,6 @@ export default [
       json()
     ]
   },
-  // Type declarations build (separate build for .d.ts files)
-  // {
-  //   input: `src/${isCore ? 'core-index.ts' : 'index.ts'}`,
-  //   output: {
-  //     dir: 'dist/types',
-  //     format: 'esm'
-  //   },
-  //   plugins: [
-  //     resolve(),
-  //     commonjs(),
-  //     typescript({
-  //       tsconfig: 'tsconfig.json',
-  //       include: ['src/**/*.ts'],
-  //       declaration: true,
-  //       outDir: 'dist/types',
-  //       emitDeclarationOnly: true
-  //     }),
-  //     json()
-  //   ]
-  // },
   // UMD build (JavaScript only)
   {
     input: `src/${isCore ? 'core-index.ts' : 'index.ts'}`,

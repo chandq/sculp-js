@@ -305,9 +305,10 @@
     "jest-environment-jsdom": "^29.7.0",
     "lint-staged": "^13.2.2",
     "prettier": "^3.0.3",
-    "rollup": "^3.29.4",
+    "rollup": "^4.52.5",
     "rollup-plugin-clear": "^2.0.7",
     "rollup-plugin-dts": "^6.1.0",
+    "rollup-plugin-prettier": "^4.1.2",
     "rollup-plugin-subpath-externals": "^3.4.0",
     "standard-version": "^9.5.0",
     "typescript": "5.0.4"
