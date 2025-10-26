@@ -151,4 +151,7 @@ test('formatNumber 格式化', () => {
   expect(formatNumber(money)).toBe('123,456,789');
   expect(formatNumber(floatMoney, 2)).toBe('123,456.79');
   expect(formatNumber(floatMoney, -1)).toBe('123,457');
+  expect(() => {
+    numberAbbr(1, []);
+  }).toThrow('At least one unit is required');
 });

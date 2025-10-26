@@ -1,5 +1,14 @@
 import { cloneDeep } from '../src/cloneDeep';
-import { formatTree, searchTreeById, forEachDeep, mapDeep, fuzzySearchTree, flatTree } from '../src/tree';
+import {
+  formatTree,
+  searchTreeById,
+  forEachDeep,
+  mapDeep,
+  fuzzySearchTree,
+  flatTree,
+  findDeep,
+  filterDeep
+} from '../src/tree';
 import './utils';
 
 test('searchTreeById', () => {
@@ -130,9 +139,11 @@ test('forEachDeep', () => {
 
   const res1: string[] = [];
   const res2: string[] = [];
+  const res21: string[] = [];
   const res3: string[] = [];
   const res4: string[] = [];
   let breadthRes1: string[] = [];
+  const breadthRes12: string[] = [];
   const breadthRes2: string[] = [];
   const breadthRes3: string[] = [];
 
@@ -145,6 +156,22 @@ test('forEachDeep', () => {
     { breadthFirst: true, childField: 'child' }
   );
   expect(breadthRes1).toEqual(['row1', 'row2', 'row3', 'row4', 'row5', 'row2-1']);
+
+  forEachDeep(
+    tree22,
+    ({ id, name }, i, currentArr, tree, parent, level) => {
+      if (name === 'row5') {
+        return true;
+      }
+      if (name === 'row2-1') {
+        return false;
+      }
+      breadthRes12.push(name);
+      // console.log('level', level);
+    },
+    { reverse: true, breadthFirst: true, childField: 'child' }
+  );
+  expect(breadthRes12).toEqual(['row4', 'row3', 'row2', 'row1']);
 
   breadthRes1 = [];
   forEachDeep(
@@ -176,7 +203,13 @@ test('forEachDeep', () => {
   forEachDeep(
     tree3,
     ({ id, name }, i, currentArr, tree, parent, level) => {
+      if (name === 'row5') {
+        return true;
+      }
       breadthRes3.push(name);
+      if (name === 'row41-1') {
+        return false;
+      }
       // console.log('level', level);
     },
     { breadthFirst: true }
@@ -186,7 +219,7 @@ test('forEachDeep', () => {
     'row2',
     'row3',
     'row4',
-    'row5',
+    // 'row5',
     'row2-1',
     'row2-2',
     'row4-1',
@@ -194,8 +227,8 @@ test('forEachDeep', () => {
     'row21-2',
     'row22-1',
     'row22-2',
-    'row41-1',
-    'row41-2'
+    'row41-1'
+    // 'row41-2'
   ]);
 
   forEachDeep(tree2, ({ id, name }, i, currentArr, tree, parent, level) => {
@@ -213,11 +246,26 @@ test('forEachDeep', () => {
   forEachDeep(
     tree,
     ({ id, name }) => {
+      if (res2.length > 2) {
+        return true;
+      }
       res2.push(name);
     },
     { reverse: true }
   );
-  expect(res2).toEqual(['row1', 'row2-1', 'row2', 'row3'].reverse());
+  expect(res2).toEqual(['row2-1', 'row2', 'row3'].reverse());
+
+  forEachDeep(
+    tree,
+    ({ id, name }) => {
+      res21.push(name);
+      if (res21.length > 2) {
+        return false;
+      }
+    },
+    { reverse: true }
+  );
+  expect(res21).toEqual(['row2-1', 'row2', 'row3'].reverse());
 
   forEachDeep(tree, ({ id, name }) => {
     if (id === 21) {
@@ -254,6 +302,21 @@ test('forEachDeep', () => {
     { isDomNode: true, childField: 'childNodes' }
   );
   expect(nodeContent).toEqual(['div1', 'div2', 'div3']);
+
+  const find1 = findDeep(tree2, val => val.id === 21);
+  const find2 = findDeep(tree2, val => val.name === 'row4');
+  expect(find1).toEqual({ id: 21, name: 'row2-1' });
+  expect(find2).toEqual({ id: 4, name: 'row4' });
+
+  const filterRes = filterDeep(tree2, val => val.name.includes('row2'));
+  expect(filterRes).toEqual([
+    {
+      id: 2,
+      name: 'row2',
+      children: [{ id: 21, name: 'row2-1' }]
+    },
+    { id: 21, name: 'row2-1' }
+  ]);
 });
 
 function generateTreeArray(length) {

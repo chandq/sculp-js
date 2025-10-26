@@ -137,9 +137,7 @@ export function formatNumber(num: number | string, decimals?: number): string {
     return parseInt(String(num)).toLocaleString();
   }
   let prec = 0;
-  if (!isNumber(decimals)) {
-    throw new Error('Decimals must be a positive number not less than zero');
-  } else if (decimals > 0) {
+  if (decimals > 0) {
     prec = decimals;
   }
   return Number(Number(num).toFixed(prec)).toLocaleString('en-US');

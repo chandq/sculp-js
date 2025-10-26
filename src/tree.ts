@@ -156,6 +156,91 @@ export function forEachDeep<V>(
 }
 
 /**
+ * 树查找函数, 可用于查找Array和NodeList类型的数据
+ * @param {ArrayLike<V>} tree  树形数据
+ * @param {Function} predicate  断言函数
+ * @param {options} options 支持定制子元素名称、反向遍历、广度优先遍历，默认{
+    childField: 'children',
+    reverse: false,
+    breadthFirst: false,
+    isDomNode: false,
+  }
+ * @returns {V|null}
+ */
+export function findDeep<V>(
+  tree: ArrayLike<V>,
+  predicate: (
+    val: V,
+    index: number,
+    currentArr: ArrayLike<V>,
+    tree: ArrayLike<V>,
+    parent: V | null,
+    level: number
+  ) => boolean | void,
+  options: { childField?: string; reverse?: boolean; breadthFirst?: boolean; isDomNode?: boolean } = {
+    childField: 'children',
+    reverse: false,
+    breadthFirst: false,
+    isDomNode: false
+  }
+): V | null {
+  let result: null | V = null;
+  forEachDeep(
+    tree,
+    (...args) => {
+      if (predicate(...args)) {
+        result = args[0];
+        return false;
+      }
+    },
+    options
+  );
+  return result;
+}
+
+/**
+ * 树过滤函数, 可用于过滤Array和NodeList类型的数据
+ * @param {ArrayLike<V>} tree  树形数据
+ * @param {Function} predicate  断言函数
+ * @param {options} options 支持定制子元素名称、反向遍历、广度优先遍历，默认{
+    childField: 'children',
+    reverse: false,
+    breadthFirst: false,
+    isDomNode: false,
+  }
+ * @returns {V|null}
+ */
+export function filterDeep<V>(
+  tree: ArrayLike<V>,
+  predicate: (
+    val: V,
+    index: number,
+    currentArr: ArrayLike<V>,
+    tree: ArrayLike<V>,
+    parent: V | null,
+    level: number
+  ) => boolean | void,
+  options: { childField?: string; reverse?: boolean; breadthFirst?: boolean; isDomNode?: boolean } = {
+    childField: 'children',
+    reverse: false,
+    breadthFirst: false,
+    isDomNode: false
+  }
+): V[] {
+  const result: V[] = [];
+  forEachDeep(
+    tree,
+    (...args) => {
+      if (predicate(...args)) {
+        result.push(args[0]);
+      }
+    },
+    options
+  );
+  return result;
+}
+
+/**
  * 创建一个新数组, 深度优先遍历的Map函数(支持continue和break操作), 可用于insert tree item 和 remove tree item
  *
  * 可遍历任何带有 length 属性和数字键的类数组对象
@@ -367,10 +452,7 @@ export function fuzzySearchTree<V>(
   filterCondition: IFilterCondition<V>,
   options: ISearchTreeOpts = defaultSearchTreeOptions
 ): V[] {
-  if (
-    !objectHas(filterCondition, 'filter') &&
-    (!objectHas(filterCondition, 'keyword') || isEmpty(filterCondition.keyword))
-  ) {
+  if (!objectHas(filterCondition, 'filter') && !filterCondition.keyword) {
     return nodes;
   }
   const result: V[] = [];
