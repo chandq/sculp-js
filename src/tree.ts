@@ -208,7 +208,7 @@ export function findDeep<V>(
     breadthFirst: false,
     isDomNode: false,
   }
- * @returns {V|null}
+ * @returns {V[]}
  */
 export function filterDeep<V>(
   tree: ArrayLike<V>,
