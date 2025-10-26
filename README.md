@@ -52,6 +52,8 @@
 
   - forEachDeep
   - mapDeep
+  - findDeep
+  - filterDeep
   - searchTreeById
   - formatTree
   - flatTree
@@ -100,7 +102,7 @@
 - File (web)
 
   - chooseLocalFile
-  - compressImg 压缩图片
+  - compressImg
 
 - Dom （web）
 
