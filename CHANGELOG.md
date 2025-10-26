@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.14.0](https://github.com/chandq/sculp-js/compare/v1.13.6...v1.14.0) (2025-10-26)
+
+### Features
+
+- add findDeep、filterDeep func and unit test cases ([f0ace04](https://github.com/chandq/sculp-js/commit/f0ace043e6c542ef57d743945ec6a941cd99b6d9))
+
 ### [1.13.6](https://github.com/chandq/sculp-js/compare/v1.13.5...v1.13.6) (2025-10-25)
 
 ### [1.13.5](https://github.com/chandq/sculp-js/compare/v1.13.4...v1.13.5) (2025-10-25)
