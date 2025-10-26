@@ -112,7 +112,6 @@
       "require": "./dist/cjs/index.js",
       "types": "./dist/types/index.d.ts"
     },
-    "./package.json": "./package.json",
     "./array": {
       "import": "./dist/esm/array.js",
       "require": "./dist/cjs/array.js",
