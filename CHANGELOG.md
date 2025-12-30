@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.15.0](https://github.com/chandq/sculp-js/compare/v1.14.0...v1.15.0) (2025-12-30)
+
+### Features
+
+- add concurrentLimit utils ([c0dce65](https://github.com/chandq/sculp-js/commit/c0dce65cb29eec0071650214dcf8353b044319ca))
+
 ## [1.14.0](https://github.com/chandq/sculp-js/compare/v1.13.6...v1.14.0) (2025-10-26)
 
 ### Features
