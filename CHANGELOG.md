@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.16.0](https://github.com/chandq/sculp-js/compare/v1.15.1...v1.16.0) (2025-12-31)
+
+### Features
+
+- improved and enhanced concurrent actuator ([ec8c738](https://github.com/chandq/sculp-js/commit/ec8c7380d71eb5ee7a2f9abfb9a67176e685fb12))
+
+### Bug Fixes
+
+- strip concurrent task utils to independent npm package ([71241b0](https://github.com/chandq/sculp-js/commit/71241b056528587f0b2a55acd77e5a181b3c9459))
+
 ### [1.15.1](https://github.com/chandq/sculp-js/compare/v1.15.0...v1.15.1) (2025-12-30)
 
 ## [1.15.0](https://github.com/chandq/sculp-js/compare/v1.14.0...v1.15.0) (2025-12-30)
