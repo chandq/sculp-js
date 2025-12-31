@@ -38,9 +38,6 @@
       "./cloneDeep": [
         "./dist/types/cloneDeep.d.ts"
       ],
-      "./concurrentLimit": [
-        "./dist/types/concurrentLimit.d.ts"
-      ],
       "./cookie": [
         "./dist/types/cookie.d.ts"
       ],
@@ -139,11 +136,6 @@
       "import": "./dist/esm/cloneDeep.js",
       "require": "./dist/cjs/cloneDeep.js",
       "types": "./dist/types/cloneDeep.d.ts"
-    },
-    "./concurrentLimit": {
-      "import": "./dist/esm/concurrentLimit.js",
-      "require": "./dist/cjs/concurrentLimit.js",
-      "types": "./dist/types/concurrentLimit.d.ts"
     },
     "./cookie": {
       "import": "./dist/esm/cookie.js",

@@ -25,4 +25,3 @@ export * from './validator';
 export * from './variable';
 export * from './cloneDeep';
 export * from './easing';
-export * from './concurrentLimit';
