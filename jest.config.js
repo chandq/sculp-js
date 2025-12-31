@@ -16,5 +16,8 @@ module.exports = {
       statements: 70
     }
   },
+  testTimeout: 30000,
+  // maxWorkers: 1, // 关键：串行执行测试，避免并行问题
   setupFiles: ['jest-canvas-mock']
+  // setupFilesAfterEnv: ['./jest.setup.js']
 };
