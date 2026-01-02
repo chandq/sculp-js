@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.17.0](https://github.com/chandq/sculp-js/compare/v1.16.0...v1.17.0) (2026-01-02)
+
+### Features
+
+- add isEqual util func ([6942db8](https://github.com/chandq/sculp-js/commit/6942db859f36faa139adeda9c27ebe931585bcb0))
+
+### Bug Fixes
+
+- remove unnecessary module ([860a5c0](https://github.com/chandq/sculp-js/commit/860a5c02c4956ea2cdb5ebc58163d2628217f984))
+
 ## [1.16.0](https://github.com/chandq/sculp-js/compare/v1.15.1...v1.16.0) (2025-12-31)
 
 ### Features
