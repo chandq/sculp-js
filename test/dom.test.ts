@@ -1,13 +1,4 @@
-import {
-  hasClass,
-  addClass,
-  removeClass,
-  setStyle,
-  getStyle,
-  getComputedCssVal,
-  getStrWidthPx,
-  smoothScroll
-} from '../src/dom';
+import { hasClass, addClass, removeClass, setStyle, getStyle, getComputedCssVal, getStrWidthPx } from '../src/dom';
 
 test('hasClass', () => {
   const el = document.createElement('div');
@@ -72,10 +63,4 @@ test('getComputedCssVal', () => {
 });
 test('getStrWidthPx', () => {
   const width = getStrWidthPx('hello javascript');
-});
-
-test('smoothScroll', () => {
-  const el = document.createElement('div');
-  setStyle(el, 'height', '500px');
-  smoothScroll({ el, to: 150 });
 });

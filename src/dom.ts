@@ -1,5 +1,3 @@
-import { arrayEach } from './array';
-import { easingFunctional, EasingName } from './easing';
 import { objectEach, objectMerge } from './object';
 import { stringKebabCase } from './string';
 import { isObject, isString } from './type';
@@ -72,72 +70,6 @@ export const setStyle: SetStyle = (el: HTMLElement, key: string | Style, val?: s
  */
 export function getStyle(el: HTMLElement, key: string): string {
   return getComputedStyle(el).getPropertyValue(key);
-}
-
-type ScrollElement = HTMLElement | Document | Window;
-export interface SmoothScrollOptions {
-  // 滚动元素，默认：document
-  el: ScrollElement;
-  // 滚动位置，默认：0
-  to: number;
-  // 时长，单位毫秒，默认：567
-  duration: number;
-  // 缓冲名称，默认：ease
-  easing: EasingName;
-}
-
-export function smoothScroll(options?: Partial<SmoothScrollOptions>): Promise<void> {
-  return new Promise(resolve => {
-    const defaults: SmoothScrollOptions = {
-      el: document,
-      to: 0,
-      duration: 567,
-      easing: 'ease'
-    };
-    const { el, to, duration, easing } = objectMerge<SmoothScrollOptions>(defaults, options);
-    const htmlEl = document.documentElement;
-    const bodyEl = document.body;
-    const globalMode = el === window || el === document || el === htmlEl || el === bodyEl;
-    const els: ScrollElement[] = globalMode ? [htmlEl, bodyEl] : [el];
-    const query = () => {
-      let value = 0;
-
-      arrayEach(els, el => {
-        if ('scrollTop' in el) {
-          value = el.scrollTop;
-          return false;
-        }
-      });
-
-      return value;
-    };
-    const update = (val: number) => {
-      els.forEach(el => {
-        if ('scrollTop' in el) {
-          el.scrollTop = val;
-        }
-      });
-    };
-    let startTime: number;
-    const startValue = query();
-    const length = to - startValue;
-    const easingFn = easingFunctional(easing);
-    const render = () => {
-      const now = performance.now();
-      const passingTime = startTime ? now - startTime : 0;
-      const t = passingTime / duration;
-      const p = easingFn(t);
-
-      if (!startTime) startTime = now;
-
-      update(startValue + length * p);
-
-      if (t >= 1) resolve();
-      else requestAnimationFrame(render);
-    };
-
-    render();
-  });
 }
 
 /**

@@ -275,9 +275,6 @@
     "url": "https://github.com/chandq/sculp-js/issues"
   },
   "homepage": "https://github.com/chandq/sculp-js#readme",
-  "dependencies": {
-    "bezier-easing": "^2.1.0"
-  },
   "devDependencies": {
     "@babel/core": "^7.23.2",
     "@babel/eslint-parser": "^7.22.15",
