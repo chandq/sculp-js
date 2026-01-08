@@ -1,5 +1,5 @@
 import { arrayLike } from '../src/type';
-import { arrayEach, arrayEachAsync, arrayInsertBefore, arrayRemove } from '../src/array';
+import { arrayEach, arrayEachAsync, arrayInsertBefore, arrayRemove, diffArray } from '../src/array';
 import { wait } from '../src/async';
 import './utils';
 
@@ -188,4 +188,90 @@ test('arrayRemove', () => {
   //   const el = val;
   // });
   // console.timeEnd('myEach');
+});
+
+describe('diffArray (getKey optional)', () => {
+  test('diff number array without getKey', () => {
+    const result = diffArray([1, 2, 3], [2, 3, 4]);
+
+    expect(result).toEqual({
+      add: [4],
+      delete: [1]
+    });
+  });
+
+  test('diff string array without getKey', () => {
+    const result = diffArray(['a', 'b'], ['b', 'c']);
+
+    expect(result).toEqual({
+      add: ['c'],
+      delete: ['a']
+    });
+  });
+
+  test('diff symbol array without getKey', () => {
+    const a = Symbol('a');
+    const b = Symbol('b');
+    const c = Symbol('c');
+
+    const result = diffArray([a, b], [b, c]);
+
+    expect(result).toEqual({
+      add: [c],
+      delete: [a]
+    });
+  });
+
+  test('diff object array with getKey', () => {
+    const source = [{ id: 1 }, { id: 2 }];
+    const target = [{ id: 2 }, { id: 3 }];
+
+    const result = diffArray(source, target, item => item.id);
+
+    expect(result.add).toEqual([{ id: 3 }]);
+    expect(result.delete).toEqual([{ id: 1 }]);
+  });
+
+  test('return empty diff for equal arrays', () => {
+    const result = diffArray([1, 2], [1, 2]);
+
+    expect(result).toEqual({
+      add: [],
+      delete: []
+    });
+  });
+
+  test('handle empty source array', () => {
+    const result = diffArray([], [1, 2]);
+
+    expect(result).toEqual({
+      add: [1, 2],
+      delete: []
+    });
+  });
+
+  test('handle empty target array', () => {
+    const result = diffArray([1, 2], []);
+
+    expect(result).toEqual({
+      add: [],
+      delete: [1, 2]
+    });
+  });
+
+  test('throw error when object array without getKey', () => {
+    expect(() => diffArray([{ id: 1 }], [{ id: 2 }])).toThrow(
+      'diffArray: getKey is required when item is not a primitive value'
+    );
+  });
+
+  test('should not mutate input arrays', () => {
+    const source = [1];
+    const target = [2];
+
+    diffArray(source, target);
+
+    expect(source).toEqual([1]);
+    expect(target).toEqual([2]);
+  });
 });

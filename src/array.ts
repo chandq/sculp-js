@@ -107,3 +107,95 @@ export function arrayRemove<V>(array: V[], expect: (val: V, idx: number) => bool
 
   return array;
 }
+
+/**
+ * Diff result type
+ */
+export interface DiffResult<T> {
+  /** Items that exist in target but not in source */
+  add: T[];
+  /** Items that exist in source but not in target */
+  delete: T[];
+}
+
+/**
+ * Get unique key function
+ */
+export type GetKey<T> = (item: T) => string | number | symbol;
+
+/**
+ * Compare source array and target array, return diff result (add / delete).
+ *
+ * - If `getKey` is not provided:
+ *   - Primitive values (string | number | symbol) will be used as keys directly.
+ * - If `getKey` is provided:
+ *   - It will be used to extract unique keys from items.
+ *
+ * @template T
+ * @param source - Source array (original data)
+ * @param target - Target array (new data)
+ * @param getKey - Optional function to get unique key
+ *
+ * @returns DiffResult<T>
+ *
+ * @example
+ * ```ts
+ * diffArray([1, 2, 3], [2, 3, 4])
+ * // => { add: [4], delete: [1] }
+ * ```
+ *
+ * @example
+ * ```ts
+ * diffArray(['a', 'b'], ['b', 'c'])
+ * // => { add: ['c'], delete: ['a'] }
+ * ```
+ *
+ * @example
+ * ```ts
+ * diffArray(
+ *   [{ id: 1 }, { id: 2 }],
+ *   [{ id: 2 }, { id: 3 }],
+ *   item => item.id
+ * )
+ * // => { add: [{ id: 3 }], delete: [{ id: 1 }] }
+ * ```
+ */
+export function diffArray<T>(source: readonly T[], target: readonly T[], getKey?: GetKey<T>): DiffResult<T> {
+  const resolveKey = (item: T): string | number | symbol => {
+    if (getKey) return getKey(item);
+
+    if (typeof item === 'string' || typeof item === 'number' || typeof item === 'symbol') {
+      return item;
+    }
+
+    throw new Error('diffArray: getKey is required when item is not a primitive value');
+  };
+
+  const sourceMap = new Map<string | number | symbol, T>();
+  const targetMap = new Map<string | number | symbol, T>();
+
+  for (const item of source) {
+    sourceMap.set(resolveKey(item), item);
+  }
+
+  for (const item of target) {
+    targetMap.set(resolveKey(item), item);
+  }
+
+  const add: T[] = [];
+  const del: T[] = [];
+
+  for (const [key, item] of targetMap) {
+    if (!sourceMap.has(key)) {
+      add.push(item);
+    }
+  }
+
+  for (const [key, item] of sourceMap) {
+    if (!targetMap.has(key)) {
+      del.push(item);
+    }
+  }
+
+  return { add, delete: del };
+}
