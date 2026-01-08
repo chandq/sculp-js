@@ -195,8 +195,8 @@ describe('diffArray (getKey optional)', () => {
     const result = diffArray([1, 2, 3], [2, 3, 4]);
 
     expect(result).toEqual({
-      add: [4],
-      delete: [1]
+      added: [4],
+      removed: [1]
     });
   });
 
@@ -204,8 +204,8 @@ describe('diffArray (getKey optional)', () => {
     const result = diffArray(['a', 'b'], ['b', 'c']);
 
     expect(result).toEqual({
-      add: ['c'],
-      delete: ['a']
+      added: ['c'],
+      removed: ['a']
     });
   });
 
@@ -217,8 +217,8 @@ describe('diffArray (getKey optional)', () => {
     const result = diffArray([a, b], [b, c]);
 
     expect(result).toEqual({
-      add: [c],
-      delete: [a]
+      added: [c],
+      removed: [a]
     });
   });
 
@@ -228,16 +228,16 @@ describe('diffArray (getKey optional)', () => {
 
     const result = diffArray(source, target, item => item.id);
 
-    expect(result.add).toEqual([{ id: 3 }]);
-    expect(result.delete).toEqual([{ id: 1 }]);
+    expect(result.added).toEqual([{ id: 3 }]);
+    expect(result.removed).toEqual([{ id: 1 }]);
   });
 
   test('return empty diff for equal arrays', () => {
     const result = diffArray([1, 2], [1, 2]);
 
     expect(result).toEqual({
-      add: [],
-      delete: []
+      added: [],
+      removed: []
     });
   });
 
@@ -245,8 +245,8 @@ describe('diffArray (getKey optional)', () => {
     const result = diffArray([], [1, 2]);
 
     expect(result).toEqual({
-      add: [1, 2],
-      delete: []
+      added: [1, 2],
+      removed: []
     });
   });
 
@@ -254,8 +254,8 @@ describe('diffArray (getKey optional)', () => {
     const result = diffArray([1, 2], []);
 
     expect(result).toEqual({
-      add: [],
-      delete: [1, 2]
+      added: [],
+      removed: [1, 2]
     });
   });
 

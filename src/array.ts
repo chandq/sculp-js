@@ -113,9 +113,9 @@ export function arrayRemove<V>(array: V[], expect: (val: V, idx: number) => bool
  */
 export interface DiffResult<T> {
   /** Items that exist in target but not in source */
-  add: T[];
+  added: T[];
   /** Items that exist in source but not in target */
-  delete: T[];
+  removed: T[];
 }
 
 /**
@@ -124,7 +124,7 @@ export interface DiffResult<T> {
 export type GetKey<T> = (item: T) => string | number | symbol;
 
 /**
- * Compare source array and target array, return diff result (add / delete).
+ * Compare source array and target array, return diff result (added / removed).
  *
  * - If `getKey` is not provided:
  *   - Primitive values (string | number | symbol) will be used as keys directly.
@@ -141,13 +141,13 @@ export type GetKey<T> = (item: T) => string | number | symbol;
  * @example
  * ```ts
  * diffArray([1, 2, 3], [2, 3, 4])
- * // => { add: [4], delete: [1] }
+ * // => { added: [4], removed: [1] }
  * ```
  *
  * @example
  * ```ts
  * diffArray(['a', 'b'], ['b', 'c'])
- * // => { add: ['c'], delete: ['a'] }
+ * // => { added: ['c'], removed: ['a'] }
  * ```
  *
  * @example
@@ -157,7 +157,7 @@ export type GetKey<T> = (item: T) => string | number | symbol;
  *   [{ id: 2 }, { id: 3 }],
  *   item => item.id
  * )
- * // => { add: [{ id: 3 }], delete: [{ id: 1 }] }
+ * // => { added: [{ id: 3 }], removed: [{ id: 1 }] }
  * ```
  */
 export function diffArray<T>(source: readonly T[], target: readonly T[], getKey?: GetKey<T>): DiffResult<T> {
@@ -182,12 +182,12 @@ export function diffArray<T>(source: readonly T[], target: readonly T[], getKey?
     targetMap.set(resolveKey(item), item);
   }
 
-  const add: T[] = [];
+  const added: T[] = [];
   const del: T[] = [];
 
   for (const [key, item] of targetMap) {
     if (!sourceMap.has(key)) {
-      add.push(item);
+      added.push(item);
     }
   }
 
@@ -197,5 +197,5 @@ export function diffArray<T>(source: readonly T[], target: readonly T[], getKey?
     }
   }
 
-  return { add, delete: del };
+  return { added, removed: del };
 }
