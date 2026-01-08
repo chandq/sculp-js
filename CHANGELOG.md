@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.17.2](https://github.com/chandq/sculp-js/compare/v1.17.1...v1.17.2) (2026-01-08)
+
+### Bug Fixes
+
+- rename output parameter ([3f93880](https://github.com/chandq/sculp-js/commit/3f93880ce4b43513c9788db9e27805c6c92e52b8))
+
 ### [1.17.1](https://github.com/chandq/sculp-js/compare/v1.17.0...v1.17.1) (2026-01-08)
 
 ### Features
