@@ -2422,6 +2422,191 @@
           "extendsTokenRanges": []
         },
         {
+          "kind": "Function",
+          "canonicalReference": "sculp-js!diffArray:function(1)",
+          "docComment": "/**\n * Compare source array and target array, return diff result (added / removed).\n *\n * - If `getKey` is not provided: - Primitive values (string | number | symbol) will be used as keys directly. - If `getKey` is provided: - It will be used to extract unique keys from items.\n *\n * @template T\n *\n * @param source - Source array (original data)\n *\n * @param target - Target array (new data)\n *\n * @param getKey - Optional function to get unique key\n *\n * @returns DiffResult<T>\n *\n * @example\n * ```ts\n * diffArray([1, 2, 3], [2, 3, 4])\n * // => { added: [4], removed: [1] }\n * ```\n *\n * @example\n * ```ts\n * diffArray(['a', 'b'], ['b', 'c'])\n * // => { added: ['c'], removed: ['a'] }\n * ```\n *\n * @example\n * ```ts\n * diffArray(\n *   [{ id: 1 }, { id: 2 }],\n *   [{ id: 2 }, { id: 3 }],\n *   item => item.id\n * )\n * // => { added: [{ id: 3 }], removed: [{ id: 1 }] }\n * ```\n *\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export declare function diffArray<T>(source: "
+            },
+            {
+              "kind": "Content",
+              "text": "readonly T[]"
+            },
+            {
+              "kind": "Content",
+              "text": ", target: "
+            },
+            {
+              "kind": "Content",
+              "text": "readonly T[]"
+            },
+            {
+              "kind": "Content",
+              "text": ", getKey?: "
+            },
+            {
+              "kind": "Reference",
+              "text": "GetKey",
+              "canonicalReference": "sculp-js!GetKey:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<T>"
+            },
+            {
+              "kind": "Content",
+              "text": "): "
+            },
+            {
+              "kind": "Reference",
+              "text": "DiffResult",
+              "canonicalReference": "sculp-js!DiffResult:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "<T>"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "fileUrlPath": "dist/types/array.d.ts",
+          "returnTypeTokenRange": {
+            "startIndex": 8,
+            "endIndex": 10
+          },
+          "releaseTag": "Public",
+          "overloadIndex": 1,
+          "parameters": [
+            {
+              "parameterName": "source",
+              "parameterTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "isOptional": false
+            },
+            {
+              "parameterName": "target",
+              "parameterTypeTokenRange": {
+                "startIndex": 3,
+                "endIndex": 4
+              },
+              "isOptional": false
+            },
+            {
+              "parameterName": "getKey",
+              "parameterTypeTokenRange": {
+                "startIndex": 5,
+                "endIndex": 7
+              },
+              "isOptional": true
+            }
+          ],
+          "typeParameters": [
+            {
+              "typeParameterName": "T",
+              "constraintTokenRange": {
+                "startIndex": 0,
+                "endIndex": 0
+              },
+              "defaultTypeTokenRange": {
+                "startIndex": 0,
+                "endIndex": 0
+              }
+            }
+          ],
+          "name": "diffArray"
+        },
+        {
+          "kind": "Interface",
+          "canonicalReference": "sculp-js!DiffResult:interface",
+          "docComment": "/**\n * Diff result type\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export interface DiffResult<T> "
+            }
+          ],
+          "fileUrlPath": "dist/types/array.d.ts",
+          "releaseTag": "Public",
+          "typeParameters": [
+            {
+              "typeParameterName": "T",
+              "constraintTokenRange": {
+                "startIndex": 0,
+                "endIndex": 0
+              },
+              "defaultTypeTokenRange": {
+                "startIndex": 0,
+                "endIndex": 0
+              }
+            }
+          ],
+          "name": "DiffResult",
+          "preserveMemberOrder": false,
+          "members": [
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "sculp-js!DiffResult#added:member",
+              "docComment": "/**\n * Items that exist in target but not in source\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "added: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "T[]"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "added",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "sculp-js!DiffResult#removed:member",
+              "docComment": "/**\n * Items that exist in source but not in target\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "removed: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "T[]"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "removed",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            }
+          ],
+          "extendsTokenRanges": []
+        },
+        {
           "kind": "Variable",
           "canonicalReference": "sculp-js!divide:var",
           "docComment": "/**\n * 数值安全除法\n *\n * @param arg1 - 数值1\n *\n * @param arg2 - 数值2\n */\n",
@@ -2772,151 +2957,6 @@
           "name": "downloadURL"
         },
         {
-          "kind": "TypeAlias",
-          "canonicalReference": "sculp-js!EasingDefine:type",
-          "docComment": "",
-          "excerptTokens": [
-            {
-              "kind": "Content",
-              "text": "export type EasingDefine = "
-            },
-            {
-              "kind": "Content",
-              "text": "[number, number, number, number]"
-            },
-            {
-              "kind": "Content",
-              "text": ";"
-            }
-          ],
-          "fileUrlPath": "dist/types/easing.d.ts",
-          "releaseTag": "Public",
-          "name": "EasingDefine",
-          "typeTokenRange": {
-            "startIndex": 1,
-            "endIndex": 2
-          }
-        },
-        {
-          "kind": "Function",
-          "canonicalReference": "sculp-js!easingFunctional:function(1)",
-          "docComment": "/**\n * 缓冲函数化，用于 js 计算缓冲进度\n *\n * @param name - \n *\n * @returns {EasingFunction}\n */\n",
-          "excerptTokens": [
-            {
-              "kind": "Content",
-              "text": "export declare function easingFunctional(name: "
-            },
-            {
-              "kind": "Reference",
-              "text": "EasingNameOrDefine",
-              "canonicalReference": "sculp-js!~EasingNameOrDefine:type"
-            },
-            {
-              "kind": "Content",
-              "text": "): "
-            },
-            {
-              "kind": "Reference",
-              "text": "EasingFunction",
-              "canonicalReference": "bezier-easing!bezier.EasingFunction:interface"
-            },
-            {
-              "kind": "Content",
-              "text": ";"
-            }
-          ],
-          "fileUrlPath": "dist/types/easing.d.ts",
-          "returnTypeTokenRange": {
-            "startIndex": 3,
-            "endIndex": 4
-          },
-          "releaseTag": "Public",
-          "overloadIndex": 1,
-          "parameters": [
-            {
-              "parameterName": "name",
-              "parameterTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              },
-              "isOptional": false
-            }
-          ],
-          "name": "easingFunctional"
-        },
-        {
-          "kind": "TypeAlias",
-          "canonicalReference": "sculp-js!EasingName:type",
-          "docComment": "",
-          "excerptTokens": [
-            {
-              "kind": "Content",
-              "text": "export type EasingName = "
-            },
-            {
-              "kind": "Content",
-              "text": "'ease' | 'linear' | 'ease-in' | 'ease-out' | 'ease-in-out' | string"
-            },
-            {
-              "kind": "Content",
-              "text": ";"
-            }
-          ],
-          "fileUrlPath": "dist/types/easing.d.ts",
-          "releaseTag": "Public",
-          "name": "EasingName",
-          "typeTokenRange": {
-            "startIndex": 1,
-            "endIndex": 2
-          }
-        },
-        {
-          "kind": "Function",
-          "canonicalReference": "sculp-js!easingStringify:function(1)",
-          "docComment": "/**\n * 缓冲字符化，用于 css 设置缓冲属性\n *\n * @param name - \n *\n * @returns {string}\n */\n",
-          "excerptTokens": [
-            {
-              "kind": "Content",
-              "text": "export declare function easingStringify(name: "
-            },
-            {
-              "kind": "Reference",
-              "text": "EasingNameOrDefine",
-              "canonicalReference": "sculp-js!~EasingNameOrDefine:type"
-            },
-            {
-              "kind": "Content",
-              "text": "): "
-            },
-            {
-              "kind": "Content",
-              "text": "string"
-            },
-            {
-              "kind": "Content",
-              "text": ";"
-            }
-          ],
-          "fileUrlPath": "dist/types/easing.d.ts",
-          "returnTypeTokenRange": {
-            "startIndex": 3,
-            "endIndex": 4
-          },
-          "releaseTag": "Public",
-          "overloadIndex": 1,
-          "parameters": [
-            {
-              "parameterName": "name",
-              "parameterTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              },
-              "isOptional": false
-            }
-          ],
-          "name": "easingStringify"
-        },
-        {
           "kind": "Variable",
           "canonicalReference": "sculp-js!EMAIL_REGEX:var",
           "docComment": "",
@@ -3138,6 +3178,232 @@
             "startIndex": 1,
             "endIndex": 2
           }
+        },
+        {
+          "kind": "Function",
+          "canonicalReference": "sculp-js!filterDeep:function(1)",
+          "docComment": "/**\n * 树过滤函数, 可用于过滤Array和NodeList类型的数据\n *\n * @param tree - 树形数据\n *\n * @param predicate - 断言函数\n *\n * @param options - 支持定制子元素名称、反向遍历、广度优先遍历，默认{ childField: 'children', reverse: false, breadthFirst: false, isDomNode: false, }\n *\n * @returns {V[]}\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export declare function filterDeep<V>(tree: "
+            },
+            {
+              "kind": "Reference",
+              "text": "ArrayLike",
+              "canonicalReference": "!ArrayLike:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "<V>"
+            },
+            {
+              "kind": "Content",
+              "text": ", predicate: "
+            },
+            {
+              "kind": "Content",
+              "text": "(val: V, index: number, currentArr: "
+            },
+            {
+              "kind": "Reference",
+              "text": "ArrayLike",
+              "canonicalReference": "!ArrayLike:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "<V>, tree: "
+            },
+            {
+              "kind": "Reference",
+              "text": "ArrayLike",
+              "canonicalReference": "!ArrayLike:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "<V>, parent: V | null, level: number) => boolean | void"
+            },
+            {
+              "kind": "Content",
+              "text": ", options?: "
+            },
+            {
+              "kind": "Content",
+              "text": "{\n    childField?: string;\n    reverse?: boolean;\n    breadthFirst?: boolean;\n    isDomNode?: boolean;\n}"
+            },
+            {
+              "kind": "Content",
+              "text": "): "
+            },
+            {
+              "kind": "Content",
+              "text": "V[]"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "fileUrlPath": "dist/types/tree.d.ts",
+          "returnTypeTokenRange": {
+            "startIndex": 12,
+            "endIndex": 13
+          },
+          "releaseTag": "Public",
+          "overloadIndex": 1,
+          "parameters": [
+            {
+              "parameterName": "tree",
+              "parameterTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 3
+              },
+              "isOptional": false
+            },
+            {
+              "parameterName": "predicate",
+              "parameterTypeTokenRange": {
+                "startIndex": 4,
+                "endIndex": 9
+              },
+              "isOptional": false
+            },
+            {
+              "parameterName": "options",
+              "parameterTypeTokenRange": {
+                "startIndex": 10,
+                "endIndex": 11
+              },
+              "isOptional": true
+            }
+          ],
+          "typeParameters": [
+            {
+              "typeParameterName": "V",
+              "constraintTokenRange": {
+                "startIndex": 0,
+                "endIndex": 0
+              },
+              "defaultTypeTokenRange": {
+                "startIndex": 0,
+                "endIndex": 0
+              }
+            }
+          ],
+          "name": "filterDeep"
+        },
+        {
+          "kind": "Function",
+          "canonicalReference": "sculp-js!findDeep:function(1)",
+          "docComment": "/**\n * 树查找函数, 可用于查找Array和NodeList类型的数据\n *\n * @param tree - 树形数据\n *\n * @param predicate - 断言函数\n *\n * @param options - 支持定制子元素名称、反向遍历、广度优先遍历，默认{ childField: 'children', reverse: false, breadthFirst: false, isDomNode: false, }\n *\n * @returns {V|null}\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export declare function findDeep<V>(tree: "
+            },
+            {
+              "kind": "Reference",
+              "text": "ArrayLike",
+              "canonicalReference": "!ArrayLike:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "<V>"
+            },
+            {
+              "kind": "Content",
+              "text": ", predicate: "
+            },
+            {
+              "kind": "Content",
+              "text": "(val: V, index: number, currentArr: "
+            },
+            {
+              "kind": "Reference",
+              "text": "ArrayLike",
+              "canonicalReference": "!ArrayLike:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "<V>, tree: "
+            },
+            {
+              "kind": "Reference",
+              "text": "ArrayLike",
+              "canonicalReference": "!ArrayLike:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "<V>, parent: V | null, level: number) => boolean | void"
+            },
+            {
+              "kind": "Content",
+              "text": ", options?: "
+            },
+            {
+              "kind": "Content",
+              "text": "{\n    childField?: string;\n    reverse?: boolean;\n    breadthFirst?: boolean;\n    isDomNode?: boolean;\n}"
+            },
+            {
+              "kind": "Content",
+              "text": "): "
+            },
+            {
+              "kind": "Content",
+              "text": "V | null"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "fileUrlPath": "dist/types/tree.d.ts",
+          "returnTypeTokenRange": {
+            "startIndex": 12,
+            "endIndex": 13
+          },
+          "releaseTag": "Public",
+          "overloadIndex": 1,
+          "parameters": [
+            {
+              "parameterName": "tree",
+              "parameterTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 3
+              },
+              "isOptional": false
+            },
+            {
+              "parameterName": "predicate",
+              "parameterTypeTokenRange": {
+                "startIndex": 4,
+                "endIndex": 9
+              },
+              "isOptional": false
+            },
+            {
+              "parameterName": "options",
+              "parameterTypeTokenRange": {
+                "startIndex": 10,
+                "endIndex": 11
+              },
+              "isOptional": true
+            }
+          ],
+          "typeParameters": [
+            {
+              "typeParameterName": "V",
+              "constraintTokenRange": {
+                "startIndex": 0,
+                "endIndex": 0
+              },
+              "defaultTypeTokenRange": {
+                "startIndex": 0,
+                "endIndex": 0
+              }
+            }
+          ],
+          "name": "findDeep"
         },
         {
           "kind": "Function",
@@ -3838,85 +4104,6 @@
         },
         {
           "kind": "Function",
-          "canonicalReference": "sculp-js!getEasing:function(1)",
-          "docComment": "/**\n * 获取缓存定义\n *\n * @param name - \n *\n * @returns {EasingDefine | void}\n */\n",
-          "excerptTokens": [
-            {
-              "kind": "Content",
-              "text": "export declare function getEasing(name: "
-            },
-            {
-              "kind": "Content",
-              "text": "string"
-            },
-            {
-              "kind": "Content",
-              "text": "): "
-            },
-            {
-              "kind": "Reference",
-              "text": "EasingDefine",
-              "canonicalReference": "sculp-js!EasingDefine:type"
-            },
-            {
-              "kind": "Content",
-              "text": " | void"
-            },
-            {
-              "kind": "Content",
-              "text": ";"
-            }
-          ],
-          "fileUrlPath": "dist/types/easing.d.ts",
-          "returnTypeTokenRange": {
-            "startIndex": 3,
-            "endIndex": 5
-          },
-          "releaseTag": "Public",
-          "overloadIndex": 1,
-          "parameters": [
-            {
-              "parameterName": "name",
-              "parameterTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              },
-              "isOptional": false
-            }
-          ],
-          "name": "getEasing"
-        },
-        {
-          "kind": "Function",
-          "canonicalReference": "sculp-js!getEasing:function(2)",
-          "docComment": "",
-          "excerptTokens": [
-            {
-              "kind": "Content",
-              "text": "export declare function getEasing(): "
-            },
-            {
-              "kind": "Reference",
-              "text": "EasingDefines",
-              "canonicalReference": "sculp-js!~EasingDefines:type"
-            },
-            {
-              "kind": "Content",
-              "text": ";"
-            }
-          ],
-          "fileUrlPath": "dist/types/easing.d.ts",
-          "returnTypeTokenRange": {
-            "startIndex": 1,
-            "endIndex": 2
-          },
-          "releaseTag": "Public",
-          "overloadIndex": 2,
-          "parameters": [],
-          "name": "getEasing"
-        },
-        {
-          "kind": "Function",
           "canonicalReference": "sculp-js!getGlobal:function(1)",
           "docComment": "/**\n * 获取全局变量\n *\n * @param key - \n *\n * @param val - \n */\n",
           "excerptTokens": [
@@ -3972,6 +4159,45 @@
             }
           ],
           "name": "getGlobal"
+        },
+        {
+          "kind": "TypeAlias",
+          "canonicalReference": "sculp-js!GetKey:type",
+          "docComment": "/**\n * Get unique key function\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export type GetKey<T> = "
+            },
+            {
+              "kind": "Content",
+              "text": "(item: T) => string | number | symbol"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "fileUrlPath": "dist/types/array.d.ts",
+          "releaseTag": "Public",
+          "name": "GetKey",
+          "typeParameters": [
+            {
+              "typeParameterName": "T",
+              "constraintTokenRange": {
+                "startIndex": 0,
+                "endIndex": 0
+              },
+              "defaultTypeTokenRange": {
+                "startIndex": 0,
+                "endIndex": 0
+              }
+            }
+          ],
+          "typeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 2
+          }
         },
         {
           "kind": "Function",
@@ -5522,6 +5748,67 @@
             }
           ],
           "name": "isEmpty"
+        },
+        {
+          "kind": "Function",
+          "canonicalReference": "sculp-js!isEqual:function(1)",
+          "docComment": "/**\n * @description 深度比较两个值是否相等（支持循环引用、各种内置对象类型）  @performance 1. 快速路径：引用相等和 NaN 检查 2. 快速失败：优先比较 constructor、length 和 size 3. 惰性 getTag：仅在构造函数一致且非基础类型时获取详细类型 *\n *\n * @param value - 要比较的值\n *\n * @param other - 另一个要比较的值\n *\n * @returns {boolean} 是否深度相等\n *\n * @example\n *\n * isEqual({ a: [1, 2] }, { a: [1, 2] }) // true isEqual(new Date(0), new Date(0)) // true isEqual(() => {}, () => {}) // false (不同引用) *\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export declare function isEqual(value: "
+            },
+            {
+              "kind": "Content",
+              "text": "any"
+            },
+            {
+              "kind": "Content",
+              "text": ", other: "
+            },
+            {
+              "kind": "Content",
+              "text": "any"
+            },
+            {
+              "kind": "Content",
+              "text": "): "
+            },
+            {
+              "kind": "Content",
+              "text": "boolean"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "fileUrlPath": "dist/types/isEqual.d.ts",
+          "returnTypeTokenRange": {
+            "startIndex": 5,
+            "endIndex": 6
+          },
+          "releaseTag": "Public",
+          "overloadIndex": 1,
+          "parameters": [
+            {
+              "parameterName": "value",
+              "parameterTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "isOptional": false
+            },
+            {
+              "parameterName": "other",
+              "parameterTypeTokenRange": {
+                "startIndex": 3,
+                "endIndex": 4
+              },
+              "isOptional": false
+            }
+          ],
+          "name": "isEqual"
         },
         {
           "kind": "Variable",
@@ -9079,68 +9366,6 @@
         },
         {
           "kind": "Function",
-          "canonicalReference": "sculp-js!setEasing:function(1)",
-          "docComment": "/**\n * 设置缓存定义\n *\n * @param name - \n *\n * @param define - \n */\n",
-          "excerptTokens": [
-            {
-              "kind": "Content",
-              "text": "export declare function setEasing(name: "
-            },
-            {
-              "kind": "Content",
-              "text": "string"
-            },
-            {
-              "kind": "Content",
-              "text": ", define: "
-            },
-            {
-              "kind": "Reference",
-              "text": "EasingDefine",
-              "canonicalReference": "sculp-js!EasingDefine:type"
-            },
-            {
-              "kind": "Content",
-              "text": "): "
-            },
-            {
-              "kind": "Content",
-              "text": "void"
-            },
-            {
-              "kind": "Content",
-              "text": ";"
-            }
-          ],
-          "fileUrlPath": "dist/types/easing.d.ts",
-          "returnTypeTokenRange": {
-            "startIndex": 5,
-            "endIndex": 6
-          },
-          "releaseTag": "Public",
-          "overloadIndex": 1,
-          "parameters": [
-            {
-              "parameterName": "name",
-              "parameterTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              },
-              "isOptional": false
-            },
-            {
-              "parameterName": "define",
-              "parameterTypeTokenRange": {
-                "startIndex": 3,
-                "endIndex": 4
-              },
-              "isOptional": false
-            }
-          ],
-          "name": "setEasing"
-        },
-        {
-          "kind": "Function",
           "canonicalReference": "sculp-js!setGlobal:function(1)",
           "docComment": "/**\n * 设置全局变量\n *\n * @param key - \n *\n * @param val - \n */\n",
           "excerptTokens": [
@@ -9378,198 +9603,6 @@
             "startIndex": 1,
             "endIndex": 2
           }
-        },
-        {
-          "kind": "Function",
-          "canonicalReference": "sculp-js!smoothScroll:function(1)",
-          "docComment": "",
-          "excerptTokens": [
-            {
-              "kind": "Content",
-              "text": "export declare function smoothScroll(options?: "
-            },
-            {
-              "kind": "Reference",
-              "text": "Partial",
-              "canonicalReference": "!Partial:type"
-            },
-            {
-              "kind": "Content",
-              "text": "<"
-            },
-            {
-              "kind": "Reference",
-              "text": "SmoothScrollOptions",
-              "canonicalReference": "sculp-js!SmoothScrollOptions:interface"
-            },
-            {
-              "kind": "Content",
-              "text": ">"
-            },
-            {
-              "kind": "Content",
-              "text": "): "
-            },
-            {
-              "kind": "Reference",
-              "text": "Promise",
-              "canonicalReference": "!Promise:interface"
-            },
-            {
-              "kind": "Content",
-              "text": "<void>"
-            },
-            {
-              "kind": "Content",
-              "text": ";"
-            }
-          ],
-          "fileUrlPath": "dist/types/dom.d.ts",
-          "returnTypeTokenRange": {
-            "startIndex": 6,
-            "endIndex": 8
-          },
-          "releaseTag": "Public",
-          "overloadIndex": 1,
-          "parameters": [
-            {
-              "parameterName": "options",
-              "parameterTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 5
-              },
-              "isOptional": true
-            }
-          ],
-          "name": "smoothScroll"
-        },
-        {
-          "kind": "Interface",
-          "canonicalReference": "sculp-js!SmoothScrollOptions:interface",
-          "docComment": "",
-          "excerptTokens": [
-            {
-              "kind": "Content",
-              "text": "export interface SmoothScrollOptions "
-            }
-          ],
-          "fileUrlPath": "dist/types/dom.d.ts",
-          "releaseTag": "Public",
-          "name": "SmoothScrollOptions",
-          "preserveMemberOrder": false,
-          "members": [
-            {
-              "kind": "PropertySignature",
-              "canonicalReference": "sculp-js!SmoothScrollOptions#duration:member",
-              "docComment": "",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "duration: "
-                },
-                {
-                  "kind": "Content",
-                  "text": "number"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isReadonly": false,
-              "isOptional": false,
-              "releaseTag": "Public",
-              "name": "duration",
-              "propertyTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              }
-            },
-            {
-              "kind": "PropertySignature",
-              "canonicalReference": "sculp-js!SmoothScrollOptions#easing:member",
-              "docComment": "",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "easing: "
-                },
-                {
-                  "kind": "Reference",
-                  "text": "EasingName",
-                  "canonicalReference": "sculp-js!EasingName:type"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isReadonly": false,
-              "isOptional": false,
-              "releaseTag": "Public",
-              "name": "easing",
-              "propertyTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              }
-            },
-            {
-              "kind": "PropertySignature",
-              "canonicalReference": "sculp-js!SmoothScrollOptions#el:member",
-              "docComment": "",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "el: "
-                },
-                {
-                  "kind": "Reference",
-                  "text": "ScrollElement",
-                  "canonicalReference": "sculp-js!~ScrollElement:type"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isReadonly": false,
-              "isOptional": false,
-              "releaseTag": "Public",
-              "name": "el",
-              "propertyTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              }
-            },
-            {
-              "kind": "PropertySignature",
-              "canonicalReference": "sculp-js!SmoothScrollOptions#to:member",
-              "docComment": "",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "to: "
-                },
-                {
-                  "kind": "Content",
-                  "text": "number"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isReadonly": false,
-              "isOptional": false,
-              "releaseTag": "Public",
-              "name": "to",
-              "propertyTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              }
-            }
-          ],
-          "extendsTokenRanges": []
         },
         {
           "kind": "Variable",

@@ -148,3 +148,14 @@ forEachDeep(tree, ({ id, name }) => {
 });
 // arr will be: ['row1', 'row2', 'row2-1', 'row3'];
 ```
+
+## Docs (VitePress)
+
+已在仓库内添加 `docs-site/` 站点（基于 VitePress，复用 `docs/markdown` 自动生成的 API 文档）。
+
+- 同步 API Markdown：`npm run docs:sync`
+- 本地预览：`npm run docs:dev`
+- 构建静态站点：`npm run docs:build`（输出到 `docs-site/.vitepress/dist`）
+- 预览构建产物：`npm run docs:preview`
+
+如果用 GitHub Pages 部署到仓库 `chandq/sculp-js`，当前配置的 `base` 已设为 `/sculp-js/`。
