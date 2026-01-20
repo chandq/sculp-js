@@ -18,18 +18,18 @@ export declare function arrayEachAsync<V>(
 
 ## Parameters
 
-| Parameter | Type                                                  | Description               |
-| --------- | ----------------------------------------------------- | ------------------------- |
-| array     | ArrayLike&lt;V&gt;                                    | 数组                      |
-| iterator  | (val: V, idx: number) =&gt; Promise&lt;any&gt; \| any | 支持Promise类型的回调函数 |
-| reverse   | boolean                                               | _(Optional)_ 是否反向遍历 |
+| Parameter | Type                                              | Description               |
+| --------- | ------------------------------------------------- | ------------------------- |
+| array     | `ArrayLike<V>`                                    | 数组                      |
+| iterator  | (val: V, idx: number) =&gt; `Promise<any>` \| any | 支持Promise类型的回调函数 |
+| reverse   | boolean                                           | _(Optional)_ 是否反向遍历 |
 
 **Returns:**
 
-Promise&lt;void&gt;
+`Promise<void>`
 
 ## Example
 
-使用范例如下: const start = async () =&gt; { await arrayEachAsync(result, async (item) =&gt; { await request(item); count++; }) console.log('发送次数', count); }
+使用范例如下: const start = async () =&gt; \{ await arrayEachAsync(result, async (item) =&gt; \{ await request(item); count++; \}) console.log('发送次数', count); \}
 
-for await...of 使用范例如下 const loadImages = async (images) =&gt; { for await (const item of images) { await request(item); count++; } }
+for await...of 使用范例如下 const loadImages = async (images) =&gt; \{ for await (const item of images) \{ await request(item); count++; \} \}

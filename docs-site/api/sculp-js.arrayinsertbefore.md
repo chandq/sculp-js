@@ -24,4 +24,4 @@ export declare function arrayInsertBefore(array: AnyArray, start: number, to: nu
 
 void
 
-{\*}
+\{\*\}

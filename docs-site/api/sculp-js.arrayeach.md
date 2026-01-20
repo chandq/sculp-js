@@ -18,14 +18,14 @@ export declare function arrayEach<V>(
 
 ## Parameters
 
-| Parameter | Type                                                                 | Description                                            |
-| --------- | -------------------------------------------------------------------- | ------------------------------------------------------ |
-| array     | ArrayLike&lt;V&gt;                                                   |                                                        |
-| iterator  | (val: V, idx: number, arr: ArrayLike&lt;V&gt;) =&gt; boolean \| void | 迭代函数, 返回值为true时continue, 返回值为false时break |
-| reverse   | boolean                                                              | _(Optional)_ 是否倒序                                  |
+| Parameter | Type                                                             | Description                                            |
+| --------- | ---------------------------------------------------------------- | ------------------------------------------------------ |
+| array     | `ArrayLike<V>`                                                   |                                                        |
+| iterator  | (val: V, idx: number, arr: `ArrayLike<V>`) =&gt; boolean \| void | 迭代函数, 返回值为true时continue, 返回值为false时break |
+| reverse   | boolean                                                          | _(Optional)_ 是否倒序                                  |
 
 **Returns:**
 
 void
 
-{\*}
+\{\*\}

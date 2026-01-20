@@ -22,4 +22,4 @@ export declare function arrayLike(any: unknown): boolean;
 
 boolean
 
-{boolean}
+\{boolean\}
