@@ -2,7 +2,7 @@
 
 [Home](./index.md) &gt; [sculp-js](./sculp-js.md) &gt; [isIdNo](./sculp-js.isidno.md)
 
-## isIdNo variable
+## isIdNo() function
 
 判断字符串是否为身份证号码格式
 
@@ -11,3 +11,37 @@
 ```typescript
 isIdNo: (value: string) => boolean;
 ```
+
+## Parameters
+
+<table><thead><tr><th>
+
+Parameter
+
+</th><th>
+
+Type
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+value
+
+</td><td>
+
+string
+
+</td><td>
+
+</td></tr>
+</tbody></table>
+
+**Returns:**
+
+boolean
+
+{<!-- -->boolean<!-- -->}

@@ -12,12 +12,124 @@ export interface ICompressImgResult
 
 ## Properties
 
-| Property                                                     | Modifiers | Type       | Description  |
-| ------------------------------------------------------------ | --------- | ---------- | ------------ |
-| [afterKB?](./sculp-js.icompressimgresult.afterkb.md)         |           | number     | _(Optional)_ |
-| [afterSrc?](./sculp-js.icompressimgresult.aftersrc.md)       |           | string     | _(Optional)_ |
-| [beforeKB?](./sculp-js.icompressimgresult.beforekb.md)       |           | number     | _(Optional)_ |
-| [beforeSrc?](./sculp-js.icompressimgresult.beforesrc.md)     |           | string     | _(Optional)_ |
-| [bufferArray?](./sculp-js.icompressimgresult.bufferarray.md) |           | Uint8Array | _(Optional)_ |
-| [file](./sculp-js.icompressimgresult.file.md)                |           | File       |              |
-| [origin?](./sculp-js.icompressimgresult.origin.md)           |           | File       | _(Optional)_ |
+<table><thead><tr><th>
+
+Property
+
+</th><th>
+
+Modifiers
+
+</th><th>
+
+Type
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+[afterKB?](./sculp-js.icompressimgresult.afterkb.md)
+
+</td><td>
+
+</td><td>
+
+number
+
+</td><td>
+
+_(Optional)_
+
+</td></tr>
+<tr><td>
+
+[afterSrc?](./sculp-js.icompressimgresult.aftersrc.md)
+
+</td><td>
+
+</td><td>
+
+string
+
+</td><td>
+
+_(Optional)_
+
+</td></tr>
+<tr><td>
+
+[beforeKB?](./sculp-js.icompressimgresult.beforekb.md)
+
+</td><td>
+
+</td><td>
+
+number
+
+</td><td>
+
+_(Optional)_
+
+</td></tr>
+<tr><td>
+
+[beforeSrc?](./sculp-js.icompressimgresult.beforesrc.md)
+
+</td><td>
+
+</td><td>
+
+string
+
+</td><td>
+
+_(Optional)_
+
+</td></tr>
+<tr><td>
+
+[bufferArray?](./sculp-js.icompressimgresult.bufferarray.md)
+
+</td><td>
+
+</td><td>
+
+Uint8Array
+
+</td><td>
+
+_(Optional)_
+
+</td></tr>
+<tr><td>
+
+[file](./sculp-js.icompressimgresult.file.md)
+
+</td><td>
+
+</td><td>
+
+File
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+[origin?](./sculp-js.icompressimgresult.origin.md)
+
+</td><td>
+
+</td><td>
+
+File
+
+</td><td>
+
+_(Optional)_
+
+</td></tr>
+</tbody></table>

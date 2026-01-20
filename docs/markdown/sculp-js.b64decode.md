@@ -14,9 +14,33 @@ export declare function b64decode(base64: string): string;
 
 ## Parameters
 
-| Parameter | Type   | Description        |
-| --------- | ------ | ------------------ |
-| base64    | string | base64编码的字符串 |
+<table><thead><tr><th>
+
+Parameter
+
+</th><th>
+
+Type
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+base64
+
+</td><td>
+
+string
+
+</td><td>
+
+base64编码的字符串
+
+</td></tr>
+</tbody></table>
 
 **Returns:**
 

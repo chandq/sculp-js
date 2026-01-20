@@ -14,10 +14,42 @@ export declare function objectHas<T extends AnyObject>(obj: T, key: keyof T): bo
 
 ## Parameters
 
-| Parameter | Type    | Description |
-| --------- | ------- | ----------- |
-| obj       | T       |             |
-| key       | keyof T |             |
+<table><thead><tr><th>
+
+Parameter
+
+</th><th>
+
+Type
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+obj
+
+</td><td>
+
+T
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+key
+
+</td><td>
+
+keyof T
+
+</td><td>
+
+</td></tr>
+</tbody></table>
 
 **Returns:**
 

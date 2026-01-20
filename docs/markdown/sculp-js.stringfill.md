@@ -2,7 +2,7 @@
 
 [Home](./index.md) &gt; [sculp-js](./sculp-js.md) &gt; [stringFill](./sculp-js.stringfill.md)
 
-## stringFill variable
+## stringFill() function
 
 字符串填充
 
@@ -11,3 +11,50 @@
 ```typescript
 stringFill: (length: number, value?: string) => string;
 ```
+
+## Parameters
+
+<table><thead><tr><th>
+
+Parameter
+
+</th><th>
+
+Type
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+length
+
+</td><td>
+
+number
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+value
+
+</td><td>
+
+string
+
+</td><td>
+
+_(Optional)_
+
+</td></tr>
+</tbody></table>
+
+**Returns:**
+
+string
+
+{<!-- -->string<!-- -->}

@@ -18,11 +18,57 @@ export declare function arrayEach<V>(
 
 ## Parameters
 
-| Parameter | Type                                                             | Description                                            |
-| --------- | ---------------------------------------------------------------- | ------------------------------------------------------ |
-| array     | `ArrayLike<V>`                                                   |                                                        |
-| iterator  | (val: V, idx: number, arr: `ArrayLike<V>`) =&gt; boolean \| void | 迭代函数, 返回值为true时continue, 返回值为false时break |
-| reverse   | boolean                                                          | _(Optional)_ 是否倒序                                  |
+<table><thead><tr><th>
+
+Parameter
+
+</th><th>
+
+Type
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+array
+
+</td><td>
+
+`ArrayLike<V>`
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+iterator
+
+</td><td>
+
+(val: V, idx: number, arr: `ArrayLike<V>`) =&gt; boolean \| void
+
+</td><td>
+
+迭代函数, 返回值为true时continue, 返回值为false时break
+
+</td></tr>
+<tr><td>
+
+reverse
+
+</td><td>
+
+boolean
+
+</td><td>
+
+_(Optional)_ 是否倒序
+
+</td></tr>
+</tbody></table>
 
 **Returns:**
 

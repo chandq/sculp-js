@@ -2,10 +2,42 @@
 
 [Home](./index.md) &gt; [sculp-js](./sculp-js.md) &gt; [isPrimitive](./sculp-js.isprimitive.md)
 
-## isPrimitive variable
+## isPrimitive() function
 
 **Signature:**
 
 ```typescript
 isPrimitive: (any: unknown) => boolean;
 ```
+
+## Parameters
+
+<table><thead><tr><th>
+
+Parameter
+
+</th><th>
+
+Type
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+any
+
+</td><td>
+
+unknown
+
+</td><td>
+
+</td></tr>
+</tbody></table>
+
+**Returns:**
+
+boolean

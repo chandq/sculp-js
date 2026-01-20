@@ -14,10 +14,46 @@ export declare function isEqual(value: any, other: any): boolean;
 
 ## Parameters
 
-| Parameter | Type | Description      |
-| --------- | ---- | ---------------- |
-| value     | any  | 要比较的值       |
-| other     | any  | 另一个要比较的值 |
+<table><thead><tr><th>
+
+Parameter
+
+</th><th>
+
+Type
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+value
+
+</td><td>
+
+any
+
+</td><td>
+
+要比较的值
+
+</td></tr>
+<tr><td>
+
+other
+
+</td><td>
+
+any
+
+</td><td>
+
+另一个要比较的值
+
+</td></tr>
+</tbody></table>
 
 **Returns:**
 

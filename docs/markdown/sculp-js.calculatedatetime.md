@@ -19,12 +19,72 @@ export declare function calculateDateTime(
 
 ## Parameters
 
-| Parameter      | Type                                 | Description                    |
-| -------------- | ------------------------------------ | ------------------------------ |
-| originDateTime | [DateValue](./sculp-js.datevalue.md) | 参考日期时间                   |
-| n              | number                               | 正数：向后推算；负数：向前推算 |
-| dateSep        | string                               | _(Optional)_ 日期分隔符        |
-| timeSep        | string                               | _(Optional)_ 时间分隔符        |
+<table><thead><tr><th>
+
+Parameter
+
+</th><th>
+
+Type
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+originDateTime
+
+</td><td>
+
+[DateValue](./sculp-js.datevalue.md)
+
+</td><td>
+
+参考日期时间
+
+</td></tr>
+<tr><td>
+
+n
+
+</td><td>
+
+number
+
+</td><td>
+
+正数：向后推算；负数：向前推算
+
+</td></tr>
+<tr><td>
+
+dateSep
+
+</td><td>
+
+string
+
+</td><td>
+
+_(Optional)_ 日期分隔符
+
+</td></tr>
+<tr><td>
+
+timeSep
+
+</td><td>
+
+string
+
+</td><td>
+
+_(Optional)_ 时间分隔符
+
+</td></tr>
+</tbody></table>
 
 **Returns:**
 

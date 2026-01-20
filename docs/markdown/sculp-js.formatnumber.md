@@ -14,10 +14,46 @@ export declare function formatNumber(num: number | string, decimals?: number): s
 
 ## Parameters
 
-| Parameter | Type             | Description                               |
-| --------- | ---------------- | ----------------------------------------- |
-| num       | number \| string | 数字                                      |
-| decimals  | number           | _(Optional)_ 格式化成指定小数位精度的参数 |
+<table><thead><tr><th>
+
+Parameter
+
+</th><th>
+
+Type
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+num
+
+</td><td>
+
+number \| string
+
+</td><td>
+
+数字
+
+</td></tr>
+<tr><td>
+
+decimals
+
+</td><td>
+
+number
+
+</td><td>
+
+_(Optional)_ 格式化成指定小数位精度的参数
+
+</td></tr>
+</tbody></table>
 
 **Returns:**
 

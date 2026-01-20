@@ -14,7 +14,51 @@ export interface DiffResult<T>
 
 ## Properties
 
-| Property                                    | Modifiers | Type  | Description                                  |
-| ------------------------------------------- | --------- | ----- | -------------------------------------------- |
-| [added](./sculp-js.diffresult.added.md)     |           | T\[\] | Items that exist in target but not in source |
-| [removed](./sculp-js.diffresult.removed.md) |           | T\[\] | Items that exist in source but not in target |
+<table><thead><tr><th>
+
+Property
+
+</th><th>
+
+Modifiers
+
+</th><th>
+
+Type
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+[added](./sculp-js.diffresult.added.md)
+
+</td><td>
+
+</td><td>
+
+T\[\]
+
+</td><td>
+
+Items that exist in target but not in source
+
+</td></tr>
+<tr><td>
+
+[removed](./sculp-js.diffresult.removed.md)
+
+</td><td>
+
+</td><td>
+
+T\[\]
+
+</td><td>
+
+Items that exist in source but not in target
+
+</td></tr>
+</tbody></table>

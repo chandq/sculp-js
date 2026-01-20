@@ -14,9 +14,33 @@ export declare function select(element: HTMLElement): any;
 
 ## Parameters
 
-| Parameter | Type        | Description                               |
-| --------- | ----------- | ----------------------------------------- |
-| element   | HTMLElement | The element whose text you wish to select |
+<table><thead><tr><th>
+
+Parameter
+
+</th><th>
+
+Type
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+element
+
+</td><td>
+
+HTMLElement
+
+</td><td>
+
+The element whose text you wish to select
+
+</td></tr>
+</tbody></table>
 
 **Returns:**
 

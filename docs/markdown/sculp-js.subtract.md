@@ -2,7 +2,7 @@
 
 [Home](./index.md) &gt; [sculp-js](./sculp-js.md) &gt; [subtract](./sculp-js.subtract.md)
 
-## subtract variable
+## subtract() function
 
 数值安全减法
 
@@ -11,3 +11,50 @@
 ```typescript
 subtract: (arg1: number, arg2: number) => number;
 ```
+
+## Parameters
+
+<table><thead><tr><th>
+
+Parameter
+
+</th><th>
+
+Type
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+arg1
+
+</td><td>
+
+number
+
+</td><td>
+
+数值1
+
+</td></tr>
+<tr><td>
+
+arg2
+
+</td><td>
+
+number
+
+</td><td>
+
+数值2
+
+</td></tr>
+</tbody></table>
+
+**Returns:**
+
+number

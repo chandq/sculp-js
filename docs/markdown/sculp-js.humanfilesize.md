@@ -14,10 +14,46 @@ export declare function humanFileSize(num: number | string, options?: IHumanFile
 
 ## Parameters
 
-| Parameter | Type                  | Description                                                                                                                                                                                                                                                                                                                     |
-| --------- | --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| num       | number \| string      | bytes Number in Bytes                                                                                                                                                                                                                                                                                                           |
-| options   | IHumanFileSizeOptions | _(Optional)_ default: { decimals = 0, si = false, separator = ' ' } si: True to use metric (SI) units, aka powers of 1000, the units is \['B', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'\]. False to use binary (IEC), aka powers of 1024, the units is \['Byte', 'KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB'\] |
+<table><thead><tr><th>
+
+Parameter
+
+</th><th>
+
+Type
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+num
+
+</td><td>
+
+number \| string
+
+</td><td>
+
+bytes Number in Bytes
+
+</td></tr>
+<tr><td>
+
+options
+
+</td><td>
+
+IHumanFileSizeOptions
+
+</td><td>
+
+_(Optional)_ default: { decimals = 0, si = false, separator = ' ' } si: True to use metric (SI) units, aka powers of 1000, the units is \['B', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'\]. False to use binary (IEC), aka powers of 1024, the units is \['Byte', 'KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB'\]
+
+</td></tr>
+</tbody></table>
 
 **Returns:**
 

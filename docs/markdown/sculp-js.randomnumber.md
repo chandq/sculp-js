@@ -2,7 +2,7 @@
 
 [Home](./index.md) &gt; [sculp-js](./sculp-js.md) &gt; [randomNumber](./sculp-js.randomnumber.md)
 
-## randomNumber variable
+## randomNumber() function
 
 随机整数
 
@@ -11,3 +11,48 @@
 ```typescript
 randomNumber: (min: number, max: number) => number;
 ```
+
+## Parameters
+
+<table><thead><tr><th>
+
+Parameter
+
+</th><th>
+
+Type
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+min
+
+</td><td>
+
+number
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+max
+
+</td><td>
+
+number
+
+</td><td>
+
+</td></tr>
+</tbody></table>
+
+**Returns:**
+
+number
+
+{<!-- -->number<!-- -->}

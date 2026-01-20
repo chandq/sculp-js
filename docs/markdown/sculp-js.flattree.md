@@ -14,10 +14,44 @@ export declare function flatTree(treeList: any[], options?: IFieldOptions): any[
 
 ## Parameters
 
-| Parameter | Type                                         | Description                                                                                                              |
-| --------- | -------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
-| treeList  | any\[\]                                      |                                                                                                                          |
-| options   | [IFieldOptions](./sculp-js.ifieldoptions.md) | _(Optional)_ 定制id字段名，子元素字段名，父元素字段名，默认 { keyField: 'key', childField: 'children', pidField: 'pid' } |
+<table><thead><tr><th>
+
+Parameter
+
+</th><th>
+
+Type
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+treeList
+
+</td><td>
+
+any\[\]
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+options
+
+</td><td>
+
+[IFieldOptions](./sculp-js.ifieldoptions.md)
+
+</td><td>
+
+_(Optional)_ 定制id字段名，子元素字段名，父元素字段名，默认 { keyField: 'key', childField: 'children', pidField: 'pid' }
+
+</td></tr>
+</tbody></table>
 
 **Returns:**
 

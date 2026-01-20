@@ -12,6 +12,34 @@ export interface ThrottleFunc<F extends AnyFunc>
 
 ## Properties
 
-| Property                                    | Modifiers | Type          | Description |
-| ------------------------------------------- | --------- | ------------- | ----------- |
-| [cancel](./sculp-js.throttlefunc.cancel.md) |           | () =&gt; void |             |
+<table><thead><tr><th>
+
+Property
+
+</th><th>
+
+Modifiers
+
+</th><th>
+
+Type
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+[cancel](./sculp-js.throttlefunc.cancel.md)
+
+</td><td>
+
+</td><td>
+
+() =&gt; void
+
+</td><td>
+
+</td></tr>
+</tbody></table>

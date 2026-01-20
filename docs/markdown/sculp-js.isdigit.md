@@ -2,7 +2,7 @@
 
 [Home](./index.md) &gt; [sculp-js](./sculp-js.md) &gt; [isDigit](./sculp-js.isdigit.md)
 
-## isDigit variable
+## isDigit() function
 
 判断字符串是否为数字，例如六位数字短信验证码（093031）
 
@@ -11,3 +11,37 @@
 ```typescript
 isDigit: (value: string) => boolean;
 ```
+
+## Parameters
+
+<table><thead><tr><th>
+
+Parameter
+
+</th><th>
+
+Type
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+value
+
+</td><td>
+
+string
+
+</td><td>
+
+</td></tr>
+</tbody></table>
+
+**Returns:**
+
+boolean
+
+{<!-- -->boolean<!-- -->}

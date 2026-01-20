@@ -12,9 +12,81 @@ export interface ICompressOptions
 
 ## Properties
 
-| Property                                                       | Modifiers | Type      | Description                       |
-| -------------------------------------------------------------- | --------- | --------- | --------------------------------- |
-| [maxSize?](./sculp-js.icompressoptions.maxsize.md)             |           | number    | _(Optional)_                      |
-| [mime?](./sculp-js.icompressoptions.mime.md)                   |           | ImageType | _(Optional)_ 图片类型             |
-| [minFileSizeKB?](./sculp-js.icompressoptions.minfilesizekb.md) |           | number    | _(Optional)_                      |
-| [quality?](./sculp-js.icompressoptions.quality.md)             |           | number    | _(Optional)_ 压缩质量 0 \~ 1 之间 |
+<table><thead><tr><th>
+
+Property
+
+</th><th>
+
+Modifiers
+
+</th><th>
+
+Type
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+[maxSize?](./sculp-js.icompressoptions.maxsize.md)
+
+</td><td>
+
+</td><td>
+
+number
+
+</td><td>
+
+_(Optional)_
+
+</td></tr>
+<tr><td>
+
+[mime?](./sculp-js.icompressoptions.mime.md)
+
+</td><td>
+
+</td><td>
+
+ImageType
+
+</td><td>
+
+_(Optional)_ 图片类型
+
+</td></tr>
+<tr><td>
+
+[minFileSizeKB?](./sculp-js.icompressoptions.minfilesizekb.md)
+
+</td><td>
+
+</td><td>
+
+number
+
+</td><td>
+
+_(Optional)_
+
+</td></tr>
+<tr><td>
+
+[quality?](./sculp-js.icompressoptions.quality.md)
+
+</td><td>
+
+</td><td>
+
+number
+
+</td><td>
+
+_(Optional)_ 压缩质量 0 \~ 1 之间
+
+</td></tr>
+</tbody></table>

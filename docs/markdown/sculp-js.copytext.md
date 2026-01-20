@@ -14,10 +14,44 @@ export declare function copyText(text: string, options?: CopyTextOptions): void;
 
 ## Parameters
 
-| Parameter | Type            | Description                                                                                                                                                                                                                             |
-| --------- | --------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| text      | string          |                                                                                                                                                                                                                                         |
-| options   | CopyTextOptions | _(Optional)_ 可选参数：成功回调successCallback、失败回调failCallback、容器元素container （默认document.body, 当不支持clipboard时必须传复制按钮元素，包裹模拟选择操作的临时元素， 解决脱离文档流的元素无法复制的问题，如Modal内复制操作) |
+<table><thead><tr><th>
+
+Parameter
+
+</th><th>
+
+Type
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+text
+
+</td><td>
+
+string
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+options
+
+</td><td>
+
+CopyTextOptions
+
+</td><td>
+
+_(Optional)_ 可选参数：成功回调successCallback、失败回调failCallback、容器元素container （默认document.body, 当不支持clipboard时必须传复制按钮元素，包裹模拟选择操作的临时元素， 解决脱离文档流的元素无法复制的问题，如Modal内复制操作)
+
+</td></tr>
+</tbody></table>
 
 **Returns:**
 

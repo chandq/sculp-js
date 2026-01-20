@@ -2,10 +2,42 @@
 
 [Home](./index.md) &gt; [sculp-js](./sculp-js.md) &gt; [isValidDate](./sculp-js.isvaliddate.md)
 
-## isValidDate variable
+## isValidDate() function
 
 **Signature:**
 
 ```typescript
 isValidDate: (any: unknown) => any is Date
 ```
+
+## Parameters
+
+<table><thead><tr><th>
+
+Parameter
+
+</th><th>
+
+Type
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+any
+
+</td><td>
+
+unknown
+
+</td><td>
+
+</td></tr>
+</tbody></table>
+
+**Returns:**
+
+any is Date

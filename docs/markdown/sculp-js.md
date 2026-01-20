@@ -6,201 +6,1601 @@
 
 ## Functions
 
-| Function                                                                                                            | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
-| ------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [addClass(el, classNames)](./sculp-js.addclass.md)                                                                  | 给元素增加样式名                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
-| [arrayEach(array, iterator, reverse)](./sculp-js.arrayeach.md)                                                      | 遍历数组，返回 false 中断遍历(支持continue和break操作)                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| [arrayEachAsync(array, iterator, reverse)](./sculp-js.arrayeachasync.md)                                            | 异步遍历数组，返回 false 中断遍历                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-| [arrayInsertBefore(array, start, to)](./sculp-js.arrayinsertbefore.md)                                              | 插入到目标位置之前                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
-| [arrayLike(any)](./sculp-js.arraylike.md)                                                                           | 判断一个对象是否为类数组                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-| [arrayRemove(array, expect)](./sculp-js.arrayremove.md)                                                             | 数组删除指定项目                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
-| [asyncMap(list, mapper, concurrency)](./sculp-js.asyncmap.md)                                                       | 异步遍历 https://github.com/Kevnz/async-tools/blob/master/src/mapper.js https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global\_Objects/Array/<!-- -->@<!-- -->@<!-- -->iterator                                                                                                                                                                                                                                                                            |
-| [b64decode(base64)](./sculp-js.b64decode.md)                                                                        | 将base64编码的字符串转换为原始字符串，包括对中文内容的处理(高性能，且支持Web、Node、小程序等任意平台)                                                                                                                                                                                                                                                                                                                                                                         |
-| [b64encode(rawStr)](./sculp-js.b64encode.md)                                                                        | 将原始字符串，包括中文内容，转换为base64编码的字符串(高性能，且支持Web、Node、小程序等任意平台)                                                                                                                                                                                                                                                                                                                                                                               |
-| [calculateDate(originDate, n, sep)](./sculp-js.calculatedate.md)                                                    | 计算向前或向后N天的具体日期                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
-| [calculateDateTime(originDateTime, n, dateSep, timeSep)](./sculp-js.calculatedatetime.md)                           | 计算向前或向后N天的具体日期时间                                                                                                                                                                                                                                                                                                                                                                                                                                               |
-| [chooseLocalFile(accept, changeCb)](./sculp-js.chooselocalfile.md)                                                  | 选择本地文件                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
-| [cloneDeep(source, map)](./sculp-js.clonedeep.md)                                                                   | <p>深拷贝堪称完全体 即：任何类型的数据都会被深拷贝</p><p>包含对null、原始值、对象循环引用的处理</p><p>对Map、Set、ArrayBuffer、Date、RegExp、Array、Object及原型链属性方法执行深拷贝</p>                                                                                                                                                                                                                                                                                      |
-| [compressImg(file, options)](./sculp-js.compressimg.md)                                                             | <p>Web端：等比例压缩图片批量处理 (小于minFileSizeKB：50，不压缩), 支持压缩全景图或长截图</p><p>1. 默认根据图片原始size及宽高适当地调整quality、width、height 2. 可指定压缩的图片质量 quality（若不指定则根据原始图片大小来计算）, 来适当调整width、height 3. 可指定压缩的图片最大宽高 maxSize（若不指定则根据原始图片宽高来计算）, 满足大屏幕图片展示的场景</p>                                                                                                               |
-| [cookieGet(name)](./sculp-js.cookieget.md)                                                                          | 获取cookie                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
-| [cookieSet(name, value, maxAge)](./sculp-js.cookieset.md)                                                           | 设置 cookie                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
-| [copyText(text, options)](./sculp-js.copytext.md)                                                                   | 复制文本，优先使用navigator.clipboard，仅在安全上下文(HTTPS/localhost)下生效，若不支持则回退使用execCommand方式                                                                                                                                                                                                                                                                                                                                                               |
-| [crossOriginDownload(url, filename, options)](./sculp-js.crossorigindownload.md)                                    | <p>根据URL下载文件（解决跨域a.download不生效问题)</p><p>可定制下载成功的状态码status(浏览器原生状态码)</p><p>支持下载操作成功、失败后的回调</p>                                                                                                                                                                                                                                                                                                                               |
-| [dateParse(value)](./sculp-js.dateparse.md)                                                                         | 解析为Date对象                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
-| [dateToEnd(value)](./sculp-js.datetoend.md)                                                                         | 将日期转换为一天的结束时间，即23点59分59秒999毫秒                                                                                                                                                                                                                                                                                                                                                                                                                             |
-| [dateToStart(value)](./sculp-js.datetostart.md)                                                                     | 将日期转换为一天的开始时间，即0点0分0秒0毫秒                                                                                                                                                                                                                                                                                                                                                                                                                                  |
-| [diffArray(source, target, getKey)](./sculp-js.diffarray.md)                                                        | <p>Compare source array and target array, return diff result (added / removed).</p><p>- If <code>getKey</code> is not provided: - Primitive values (string \| number \| symbol) will be used as keys directly. - If <code>getKey</code> is provided: - It will be used to extract unique keys from items.</p><p> T</p>                                                                                                                                                        |
-| [downloadBlob(blob, filename, callback)](./sculp-js.downloadblob.md)                                                | 将大文件对象通过 A 链接的方式下载                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-| [downloadData(data, fileType, filename, headers)](./sculp-js.downloaddata.md)                                       | 将指定数据格式通过 A 链接的方式下载                                                                                                                                                                                                                                                                                                                                                                                                                                           |
-| [downloadHref(href, filename, callback)](./sculp-js.downloadhref.md)                                                | 通过 A 链接的方式下载                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
-| [downloadURL(url, params)](./sculp-js.downloadurl.md)                                                               | 通过打开新窗口的方式下载                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-| [escapeRegExp(str)](./sculp-js.escaperegexp.md)                                                                     | 转义所有特殊字符                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
-| [executeInScope(code, scope)](./sculp-js.executeinscope.md)                                                         | 在指定作用域中执行代码                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| [fallbackCopyText(text, options)](./sculp-js.fallbackcopytext.md)                                                   | 使用execCommand方式复制文本                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
-| [filterDeep(tree, predicate, options)](./sculp-js.filterdeep.md)                                                    | 树过滤函数, 可用于过滤Array和NodeList类型的数据                                                                                                                                                                                                                                                                                                                                                                                                                               |
-| [findDeep(tree, predicate, options)](./sculp-js.finddeep.md)                                                        | 树查找函数, 可用于查找Array和NodeList类型的数据                                                                                                                                                                                                                                                                                                                                                                                                                               |
-| [flatTree(treeList, options)](./sculp-js.flattree.md)                                                               | 树形结构转扁平化                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
-| [forEachDeep(tree, iterator, options)](./sculp-js.foreachdeep.md)                                                   | 树遍历函数(支持continue和break操作), 可用于遍历Array和NodeList类型的数据                                                                                                                                                                                                                                                                                                                                                                                                      |
-| [formatDate(value, format)](./sculp-js.formatdate.md)                                                               | 格式化为日期对象(带自定义格式化模板)                                                                                                                                                                                                                                                                                                                                                                                                                                          |
-| [formatNumber(num, decimals)](./sculp-js.formatnumber.md)                                                           | 将数字格式化成千位分隔符显示的字符串                                                                                                                                                                                                                                                                                                                                                                                                                                          |
-| [formatTree(list, options)](./sculp-js.formattree.md)                                                               | 扁平化数组转换成树                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
-| [fuzzySearchTree(nodes, filterCondition, options)](./sculp-js.fuzzysearchtree.md)                                   | <p>模糊搜索函数，返回包含搜索字符的节点及其祖先节点, 适用于树型组件的字符过滤功能 以下搜索条件二选一，按先后优先级处理： 1. 过滤函数filter, 返回true/false 2. 匹配关键词，支持是否启用忽略大小写来判断</p><p>有以下特性： 1. 可配置removeEmptyChild字段，来决定是否移除搜索结果中的空children字段 2. 若无任何过滤条件或keyword模式匹配且keyword为空串，返回原对象；其他情况返回新数组</p>                                                                                     |
-| [genCanvasWM(content, canvasWM)](./sculp-js.gencanvaswm.md)                                                         | canvas 实现 水印, 具备防删除功能                                                                                                                                                                                                                                                                                                                                                                                                                                              |
-| [getComputedCssVal(el, property, reNumber)](./sculp-js.getcomputedcssval.md)                                        | 获取元素样式属性的计算值                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-| [getGlobal(key)](./sculp-js.getglobal.md)                                                                           | 获取全局变量                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
-| [getStrWidthPx(str, fontSize, isRemove)](./sculp-js.getstrwidthpx.md)                                               | 字符串的像素宽度                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
-| [getStyle(el, key)](./sculp-js.getstyle.md)                                                                         | 获取元素样式                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
-| [hasClass(el, className)](./sculp-js.hasclass.md)                                                                   | 判断元素是否包含某个样式名                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
-| [humanFileSize(num, options)](./sculp-js.humanfilesize.md)                                                          | Converting file size in bytes to human-readable string reference: https://zh.wikipedia.org/wiki/%E5%8D%83%E5%AD%97%E8%8A%82                                                                                                                                                                                                                                                                                                                                                   |
-| [isEmpty(value)](./sculp-js.isempty.md)                                                                             | <p>Checks if <code>value</code> is an empty object, collection, map, or set.</p><p>Objects are considered empty if they have no own enumerable string keyed properties.</p><p>Array-like values such as <code>arguments</code> objects, arrays, buffers, strings, or jQuery-like collections are considered empty if they have a <code>length</code> of <code>0</code>. Similarly, maps and sets are considered empty if they have a <code>size</code> of <code>0</code>.</p> |
-| [isEqual(value, other)](./sculp-js.isequal.md)                                                                      | 深度比较两个值是否相等（支持循环引用、各种内置对象类型） 1. 快速路径：引用相等和 NaN 检查 2. 快速失败：优先比较 constructor、length 和 size 3. 惰性 getTag：仅在构造函数一致且非基础类型时获取详细类型 \*                                                                                                                                                                                                                                                                     |
-| [isJsonString(str)](./sculp-js.isjsonstring.md)                                                                     | 判断一个字符串是否为有效的 JSON, 若有效则返回有效的JSON对象，否则false                                                                                                                                                                                                                                                                                                                                                                                                        |
-| [isNodeList(value)](./sculp-js.isnodelist.md)                                                                       | Checks if <code>value</code> is an NodeList object                                                                                                                                                                                                                                                                                                                                                                                                                            |
-| [isNullOrUnDef(val)](./sculp-js.isnullorundef.md)                                                                   |                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
-| [mapDeep(tree, iterator, options)](./sculp-js.mapdeep.md)                                                           | <p>创建一个新数组, 深度优先遍历的Map函数(支持continue和break操作), 可用于insert tree item 和 remove tree item</p><p>可遍历任何带有 length 属性和数字键的类数组对象</p>                                                                                                                                                                                                                                                                                                        |
-| [numberToHex(decimal, hexPool)](./sculp-js.numbertohex.md)                                                          | 将十进制转换成任意进制                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| [objectAssign(source, targets)](./sculp-js.objectassign.md)                                                         | 对象合并，返回原始对象                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| [objectEach(obj, iterator)](./sculp-js.objecteach.md)                                                               | 遍历对象，返回 false 中断遍历                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
-| [objectEachAsync(obj, iterator)](./sculp-js.objecteachasync.md)                                                     | 异步遍历对象，返回 false 中断遍历                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-| [objectFill(source, target, fillable)](./sculp-js.objectfill.md)                                                    | 对象填充                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-| [objectGet(obj, path, strict)](./sculp-js.objectget.md)                                                             | 获取对象/数组指定层级下的属性值（现在可用ES6+的可选链?.来替代）                                                                                                                                                                                                                                                                                                                                                                                                               |
-| [objectHas(obj, key)](./sculp-js.objecthas.md)                                                                      | 判断对象内是否有该静态属性                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
-| [objectMap(obj, iterator)](./sculp-js.objectmap.md)                                                                 | 对象映射                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-| [objectOmit(obj, keys)](./sculp-js.objectomit.md)                                                                   | 对象去除                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-| [objectPick(obj, keys)](./sculp-js.objectpick.md)                                                                   | 对象提取                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-| [parseQueryParams(searchStr)](./sculp-js.parsequeryparams.md)                                                       | 解析URL查询参数                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
-| [parseVarFromString(str, leftMatchSymbol, rightMatchSymbol)](./sculp-js.parsevarfromstring.md)                      | 解析字符串的插值变量                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
-| [qsParse(queryString)](./sculp-js.qsparse.md)                                                                       | 解析查询参数，内部使用的是浏览器内置的 URLSearchParams 进行处理                                                                                                                                                                                                                                                                                                                                                                                                               |
-| [qsStringify(query, replacer)](./sculp-js.qsstringify.md)                                                           | 字符化查询对象，内部使用的是浏览器内置的 URLSearchParams 进行处理                                                                                                                                                                                                                                                                                                                                                                                                             |
-| [randomUuid()](./sculp-js.randomuuid.md)                                                                            | 优先浏览器原生能力获取 UUID v4                                                                                                                                                                                                                                                                                                                                                                                                                                                |
-| [removeClass(el, classNames)](./sculp-js.removeclass.md)                                                            | 给元素移除样式名                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
-| [replaceVarFromString(sourceStr, targetObj, leftMatchSymbol, rightMatchSymbol)](./sculp-js.replacevarfromstring.md) | 替换字符串中的插值变量                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| [safeAwait(promise, errorExt)](./sculp-js.safeawait.md)                                                             | Execute a promise safely                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-| [searchTreeById(tree, nodeId, options)](./sculp-js.searchtreebyid.md)                                               | 在树中找到 id 为某个值的节点，并返回上游的所有父级节点                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| [select(element)](./sculp-js.select.md)                                                                             | Programmatically select the text of a HTML element                                                                                                                                                                                                                                                                                                                                                                                                                            |
-| [setGlobal(key, val)](./sculp-js.setglobal.md)                                                                      | 设置全局变量                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
-| [stringCamelCase(string, bigger)](./sculp-js.stringcamelcase.md)                                                    | 将字符串转换为驼峰格式                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| [stringFormat(string, args)](./sculp-js.stringformat.md)                                                            | 字符串格式化                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
-| [stringKebabCase(string, separator)](./sculp-js.stringkebabcase.md)                                                 | 将字符串转换为连字格式                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| [strip(num, precision)](./sculp-js.strip.md)                                                                        | Correct the given number to specifying significant digits.                                                                                                                                                                                                                                                                                                                                                                                                                    |
-| [supportCanvas()](./sculp-js.supportcanvas.md)                                                                      | 判断是否支持canvas                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
-| [typeIs(any)](./sculp-js.typeis.md)                                                                                 | <p>判断任意值的数据类型，检查非对象时不如typeof、instanceof的性能高</p><p>当检查类对象时是不可靠的，对象可以通过定义 Symbol.toStringTag 属性来更改检查结果</p><p>详见：https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global\_Objects/Object/toString</p>                                                                                                                                                                                                  |
-| [uniqueSymbol(str)](./sculp-js.uniquesymbol.md)                                                                     | 去除字符串中重复字符                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
-| [wait(timeout)](./sculp-js.wait.md)                                                                                 | 等待一段时间                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
-| [weAtob(string)](./sculp-js.weatob.md)                                                                              | Base64解码为原始字符串，平替浏览器的atob, 不包含中文的处理（适用于任何环境，包括小程序）                                                                                                                                                                                                                                                                                                                                                                                      |
-| [weBtoa(string)](./sculp-js.webtoa.md)                                                                              | 字符串编码成Base64, 平替浏览器的btoa, 不包含中文的处理 （适用于任何环境，包括小程序）                                                                                                                                                                                                                                                                                                                                                                                         |
+<table><thead><tr><th>
+
+Function
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+[add(arg1, arg2)](./sculp-js.add.md)
+
+</td><td>
+
+数值安全加法
+
+</td></tr>
+<tr><td>
+
+[addClass(el, classNames)](./sculp-js.addclass.md)
+
+</td><td>
+
+给元素增加样式名
+
+</td></tr>
+<tr><td>
+
+[arrayEach(array, iterator, reverse)](./sculp-js.arrayeach.md)
+
+</td><td>
+
+遍历数组，返回 false 中断遍历(支持continue和break操作)
+
+</td></tr>
+<tr><td>
+
+[arrayEachAsync(array, iterator, reverse)](./sculp-js.arrayeachasync.md)
+
+</td><td>
+
+异步遍历数组，返回 false 中断遍历
+
+</td></tr>
+<tr><td>
+
+[arrayInsertBefore(array, start, to)](./sculp-js.arrayinsertbefore.md)
+
+</td><td>
+
+插入到目标位置之前
+
+</td></tr>
+<tr><td>
+
+[arrayLike(any)](./sculp-js.arraylike.md)
+
+</td><td>
+
+判断一个对象是否为类数组
+
+</td></tr>
+<tr><td>
+
+[arrayRemove(array, expect)](./sculp-js.arrayremove.md)
+
+</td><td>
+
+数组删除指定项目
+
+</td></tr>
+<tr><td>
+
+[asyncMap(list, mapper, concurrency)](./sculp-js.asyncmap.md)
+
+</td><td>
+
+异步遍历 https://github.com/Kevnz/async-tools/blob/master/src/mapper.js https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global\_Objects/Array/<!-- -->@<!-- -->@<!-- -->iterator
+
+</td></tr>
+<tr><td>
+
+[b64decode(base64)](./sculp-js.b64decode.md)
+
+</td><td>
+
+将base64编码的字符串转换为原始字符串，包括对中文内容的处理(高性能，且支持Web、Node、小程序等任意平台)
+
+</td></tr>
+<tr><td>
+
+[b64encode(rawStr)](./sculp-js.b64encode.md)
+
+</td><td>
+
+将原始字符串，包括中文内容，转换为base64编码的字符串(高性能，且支持Web、Node、小程序等任意平台)
+
+</td></tr>
+<tr><td>
+
+[calculateDate(originDate, n, sep)](./sculp-js.calculatedate.md)
+
+</td><td>
+
+计算向前或向后N天的具体日期
+
+</td></tr>
+<tr><td>
+
+[calculateDateTime(originDateTime, n, dateSep, timeSep)](./sculp-js.calculatedatetime.md)
+
+</td><td>
+
+计算向前或向后N天的具体日期时间
+
+</td></tr>
+<tr><td>
+
+[chooseLocalFile(accept, changeCb)](./sculp-js.chooselocalfile.md)
+
+</td><td>
+
+选择本地文件
+
+</td></tr>
+<tr><td>
+
+[cloneDeep(source, map)](./sculp-js.clonedeep.md)
+
+</td><td>
+
+深拷贝堪称完全体 即：任何类型的数据都会被深拷贝
+
+包含对null、原始值、对象循环引用的处理
+
+对Map、Set、ArrayBuffer、Date、RegExp、Array、Object及原型链属性方法执行深拷贝
+
+</td></tr>
+<tr><td>
+
+[compressImg(file, options)](./sculp-js.compressimg.md)
+
+</td><td>
+
+Web端：等比例压缩图片批量处理 (小于minFileSizeKB：50，不压缩), 支持压缩全景图或长截图
+
+1. 默认根据图片原始size及宽高适当地调整quality、width、height 2. 可指定压缩的图片质量 quality（若不指定则根据原始图片大小来计算）, 来适当调整width、height 3. 可指定压缩的图片最大宽高 maxSize（若不指定则根据原始图片宽高来计算）, 满足大屏幕图片展示的场景
+
+</td></tr>
+<tr><td>
+
+[cookieDel(name)](./sculp-js.cookiedel.md)
+
+</td><td>
+
+删除单个 cookie
+
+</td></tr>
+<tr><td>
+
+[cookieGet(name)](./sculp-js.cookieget.md)
+
+</td><td>
+
+获取cookie
+
+</td></tr>
+<tr><td>
+
+[cookieSet(name, value, maxAge)](./sculp-js.cookieset.md)
+
+</td><td>
+
+设置 cookie
+
+</td></tr>
+<tr><td>
+
+[copyText(text, options)](./sculp-js.copytext.md)
+
+</td><td>
+
+复制文本，优先使用navigator.clipboard，仅在安全上下文(HTTPS/localhost)下生效，若不支持则回退使用execCommand方式
+
+</td></tr>
+<tr><td>
+
+[crossOriginDownload(url, filename, options)](./sculp-js.crossorigindownload.md)
+
+</td><td>
+
+根据URL下载文件（解决跨域a.download不生效问题)
+
+可定制下载成功的状态码status(浏览器原生状态码)
+
+支持下载操作成功、失败后的回调
+
+</td></tr>
+<tr><td>
+
+[dateParse(value)](./sculp-js.dateparse.md)
+
+</td><td>
+
+解析为Date对象
+
+</td></tr>
+<tr><td>
+
+[dateToEnd(value)](./sculp-js.datetoend.md)
+
+</td><td>
+
+将日期转换为一天的结束时间，即23点59分59秒999毫秒
+
+</td></tr>
+<tr><td>
+
+[dateToStart(value)](./sculp-js.datetostart.md)
+
+</td><td>
+
+将日期转换为一天的开始时间，即0点0分0秒0毫秒
+
+</td></tr>
+<tr><td>
+
+[debounce(func, wait)](./sculp-js.debounce.md)
+
+</td><td>
+
+防抖函数 当函数被连续调用时，该函数并不执行，只有当其全部停止调用超过一定时间后才执行1次。 例如：上电梯的时候，大家陆陆续续进来，电梯的门不会关上，只有当一段时间都没有人上来，电梯才会关门。
+
+</td></tr>
+<tr><td>
+
+[diffArray(source, target, getKey)](./sculp-js.diffarray.md)
+
+</td><td>
+
+Compare source array and target array, return diff result (added / removed).
+
+- If `getKey` is not provided: - Primitive values (string \| number \| symbol) will be used as keys directly. - If `getKey` is provided: - It will be used to extract unique keys from items.
+
+T
+
+</td></tr>
+<tr><td>
+
+[divide(arg1, arg2)](./sculp-js.divide.md)
+
+</td><td>
+
+数值安全除法
+
+</td></tr>
+<tr><td>
+
+[downloadBlob(blob, filename, callback)](./sculp-js.downloadblob.md)
+
+</td><td>
+
+将大文件对象通过 A 链接的方式下载
+
+</td></tr>
+<tr><td>
+
+[downloadData(data, fileType, filename, headers)](./sculp-js.downloaddata.md)
+
+</td><td>
+
+将指定数据格式通过 A 链接的方式下载
+
+</td></tr>
+<tr><td>
+
+[downloadHref(href, filename, callback)](./sculp-js.downloadhref.md)
+
+</td><td>
+
+通过 A 链接的方式下载
+
+</td></tr>
+<tr><td>
+
+[downloadURL(url, params)](./sculp-js.downloadurl.md)
+
+</td><td>
+
+通过打开新窗口的方式下载
+
+</td></tr>
+<tr><td>
+
+[escapeRegExp(str)](./sculp-js.escaperegexp.md)
+
+</td><td>
+
+转义所有特殊字符
+
+</td></tr>
+<tr><td>
+
+[executeInScope(code, scope)](./sculp-js.executeinscope.md)
+
+</td><td>
+
+在指定作用域中执行代码
+
+</td></tr>
+<tr><td>
+
+[fallbackCopyText(text, options)](./sculp-js.fallbackcopytext.md)
+
+</td><td>
+
+使用execCommand方式复制文本
+
+</td></tr>
+<tr><td>
+
+[filterDeep(tree, predicate, options)](./sculp-js.filterdeep.md)
+
+</td><td>
+
+树过滤函数, 可用于过滤Array和NodeList类型的数据
+
+</td></tr>
+<tr><td>
+
+[findDeep(tree, predicate, options)](./sculp-js.finddeep.md)
+
+</td><td>
+
+树查找函数, 可用于查找Array和NodeList类型的数据
+
+</td></tr>
+<tr><td>
+
+[flatTree(treeList, options)](./sculp-js.flattree.md)
+
+</td><td>
+
+树形结构转扁平化
+
+</td></tr>
+<tr><td>
+
+[forEachDeep(tree, iterator, options)](./sculp-js.foreachdeep.md)
+
+</td><td>
+
+树遍历函数(支持continue和break操作), 可用于遍历Array和NodeList类型的数据
+
+</td></tr>
+<tr><td>
+
+[formatDate(value, format)](./sculp-js.formatdate.md)
+
+</td><td>
+
+格式化为日期对象(带自定义格式化模板)
+
+</td></tr>
+<tr><td>
+
+[formatNumber(num, decimals)](./sculp-js.formatnumber.md)
+
+</td><td>
+
+将数字格式化成千位分隔符显示的字符串
+
+</td></tr>
+<tr><td>
+
+[formatTree(list, options)](./sculp-js.formattree.md)
+
+</td><td>
+
+扁平化数组转换成树
+
+</td></tr>
+<tr><td>
+
+[fuzzySearchTree(nodes, filterCondition, options)](./sculp-js.fuzzysearchtree.md)
+
+</td><td>
+
+模糊搜索函数，返回包含搜索字符的节点及其祖先节点, 适用于树型组件的字符过滤功能 以下搜索条件二选一，按先后优先级处理： 1. 过滤函数filter, 返回true/false 2. 匹配关键词，支持是否启用忽略大小写来判断
+
+有以下特性： 1. 可配置removeEmptyChild字段，来决定是否移除搜索结果中的空children字段 2. 若无任何过滤条件或keyword模式匹配且keyword为空串，返回原对象；其他情况返回新数组
+
+</td></tr>
+<tr><td>
+
+[genCanvasWM(content, canvasWM)](./sculp-js.gencanvaswm.md)
+
+</td><td>
+
+canvas 实现 水印, 具备防删除功能
+
+</td></tr>
+<tr><td>
+
+[getComputedCssVal(el, property, reNumber)](./sculp-js.getcomputedcssval.md)
+
+</td><td>
+
+获取元素样式属性的计算值
+
+</td></tr>
+<tr><td>
+
+[getGlobal(key)](./sculp-js.getglobal.md)
+
+</td><td>
+
+获取全局变量
+
+</td></tr>
+<tr><td>
+
+[getStrWidthPx(str, fontSize, isRemove)](./sculp-js.getstrwidthpx.md)
+
+</td><td>
+
+字符串的像素宽度
+
+</td></tr>
+<tr><td>
+
+[getStyle(el, key)](./sculp-js.getstyle.md)
+
+</td><td>
+
+获取元素样式
+
+</td></tr>
+<tr><td>
+
+[hasClass(el, className)](./sculp-js.hasclass.md)
+
+</td><td>
+
+判断元素是否包含某个样式名
+
+</td></tr>
+<tr><td>
+
+[humanFileSize(num, options)](./sculp-js.humanfilesize.md)
+
+</td><td>
+
+Converting file size in bytes to human-readable string reference: https://zh.wikipedia.org/wiki/%E5%8D%83%E5%AD%97%E8%8A%82
+
+</td></tr>
+<tr><td>
+
+[isArray(any)](./sculp-js.isarray.md)
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+[isBigInt(any)](./sculp-js.isbigint.md)
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+[isBoolean(any)](./sculp-js.isboolean.md)
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+[isDate(any)](./sculp-js.isdate.md)
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+[isDigit(value)](./sculp-js.isdigit.md)
+
+</td><td>
+
+判断字符串是否为数字，例如六位数字短信验证码（093031）
+
+</td></tr>
+<tr><td>
+
+[isEmail(value)](./sculp-js.isemail.md)
+
+</td><td>
+
+判断字符串是否为邮箱格式，不对邮箱真实性做验证，如域名是否正确等
+
+</td></tr>
+<tr><td>
+
+[isEmpty(value)](./sculp-js.isempty.md)
+
+</td><td>
+
+Checks if `value` is an empty object, collection, map, or set.
+
+Objects are considered empty if they have no own enumerable string keyed properties.
+
+Array-like values such as `arguments` objects, arrays, buffers, strings, or jQuery-like collections are considered empty if they have a `length` of `0`<!-- -->. Similarly, maps and sets are considered empty if they have a `size` of `0`<!-- -->.
+
+</td></tr>
+<tr><td>
+
+[isEqual(value, other)](./sculp-js.isequal.md)
+
+</td><td>
+
+深度比较两个值是否相等（支持循环引用、各种内置对象类型） 1. 快速路径：引用相等和 NaN 检查 2. 快速失败：优先比较 constructor、length 和 size 3. 惰性 getTag：仅在构造函数一致且非基础类型时获取详细类型 \*
+
+</td></tr>
+<tr><td>
+
+[isError(any)](./sculp-js.iserror.md)
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+[isFloat(value)](./sculp-js.isfloat.md)
+
+</td><td>
+
+判断字符串是否为浮点数，即必须有小数点的有理数
+
+</td></tr>
+<tr><td>
+
+[isFunction(any)](./sculp-js.isfunction.md)
+
+</td><td>
+
+判断是否为函数
+
+</td></tr>
+<tr><td>
+
+[isIdNo(value)](./sculp-js.isidno.md)
+
+</td><td>
+
+判断字符串是否为身份证号码格式
+
+</td></tr>
+<tr><td>
+
+[isInteger(value)](./sculp-js.isinteger.md)
+
+</td><td>
+
+判断字符串是否为整数（自然数），即 ...,-3,-2,-1,0,1,2,3,...
+
+</td></tr>
+<tr><td>
+
+[isIpV4(value)](./sculp-js.isipv4.md)
+
+</td><td>
+
+判断字符串是否为 IPV4 格式，不对 ip 真实性做验证
+
+</td></tr>
+<tr><td>
+
+[isIpV6(value)](./sculp-js.isipv6.md)
+
+</td><td>
+
+判断字符串是否为 IPV6 格式，不对 ip 真实性做验证
+
+</td></tr>
+<tr><td>
+
+[isJsonString(str)](./sculp-js.isjsonstring.md)
+
+</td><td>
+
+判断一个字符串是否为有效的 JSON, 若有效则返回有效的JSON对象，否则false
+
+</td></tr>
+<tr><td>
+
+[isNaN_2(any)](./sculp-js.isnan_2.md)
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+[isNodeList(value)](./sculp-js.isnodelist.md)
+
+</td><td>
+
+Checks if `value` is an NodeList object
+
+</td></tr>
+<tr><td>
+
+[isNull(any)](./sculp-js.isnull.md)
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+[isNullOrUnDef(val)](./sculp-js.isnullorundef.md)
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+[isNumber(any)](./sculp-js.isnumber.md)
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+[isNumerical(value)](./sculp-js.isnumerical.md)
+
+</td><td>
+
+判断字符串是否为正确数值，包括整数和浮点数
+
+</td></tr>
+<tr><td>
+
+[isObject(any)](./sculp-js.isobject.md)
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+[isPhone(value)](./sculp-js.isphone.md)
+
+</td><td>
+
+判断字符串是否为宽松手机格式，即首位为 1 的 11 位数字都属于手机号
+
+</td></tr>
+<tr><td>
+
+[isPlainObject(obj)](./sculp-js.isplainobject.md)
+
+</td><td>
+
+判断对象是否为纯对象
+
+</td></tr>
+<tr><td>
+
+[isPrimitive(any)](./sculp-js.isprimitive.md)
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+[isRegExp(any)](./sculp-js.isregexp.md)
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+[isString(any)](./sculp-js.isstring.md)
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+[isSymbol(any)](./sculp-js.issymbol.md)
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+[isUndefined(any)](./sculp-js.isundefined.md)
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+[isUrl(url, includeFtp)](./sculp-js.isurl.md)
+
+</td><td>
+
+判断字符串是否为 url 格式，支持 http、https、ftp 协议，支持域名或者 ipV4
+
+</td></tr>
+<tr><td>
+
+[isValidDate(any)](./sculp-js.isvaliddate.md)
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+[mapDeep(tree, iterator, options)](./sculp-js.mapdeep.md)
+
+</td><td>
+
+创建一个新数组, 深度优先遍历的Map函数(支持continue和break操作), 可用于insert tree item 和 remove tree item
+
+可遍历任何带有 length 属性和数字键的类数组对象
+
+</td></tr>
+<tr><td>
+
+[multiply(arg1, arg2)](./sculp-js.multiply.md)
+
+</td><td>
+
+数值安全乘法
+
+</td></tr>
+<tr><td>
+
+[numberAbbr(num, units, options)](./sculp-js.numberabbr.md)
+
+</td><td>
+
+将数字转换为携带单位的字符串
+
+</td></tr>
+<tr><td>
+
+[numberToHex(decimal, hexPool)](./sculp-js.numbertohex.md)
+
+</td><td>
+
+将十进制转换成任意进制
+
+</td></tr>
+<tr><td>
+
+[objectAssign(source, targets)](./sculp-js.objectassign.md)
+
+</td><td>
+
+对象合并，返回原始对象
+
+</td></tr>
+<tr><td>
+
+[objectEach(obj, iterator)](./sculp-js.objecteach.md)
+
+</td><td>
+
+遍历对象，返回 false 中断遍历
+
+</td></tr>
+<tr><td>
+
+[objectEachAsync(obj, iterator)](./sculp-js.objecteachasync.md)
+
+</td><td>
+
+异步遍历对象，返回 false 中断遍历
+
+</td></tr>
+<tr><td>
+
+[objectFill(source, target, fillable)](./sculp-js.objectfill.md)
+
+</td><td>
+
+对象填充
+
+</td></tr>
+<tr><td>
+
+[objectGet(obj, path, strict)](./sculp-js.objectget.md)
+
+</td><td>
+
+获取对象/数组指定层级下的属性值（现在可用ES6+的可选链?.来替代）
+
+</td></tr>
+<tr><td>
+
+[objectHas(obj, key)](./sculp-js.objecthas.md)
+
+</td><td>
+
+判断对象内是否有该静态属性
+
+</td></tr>
+<tr><td>
+
+[objectMap(obj, iterator)](./sculp-js.objectmap.md)
+
+</td><td>
+
+对象映射
+
+</td></tr>
+<tr><td>
+
+[objectOmit(obj, keys)](./sculp-js.objectomit.md)
+
+</td><td>
+
+对象去除
+
+</td></tr>
+<tr><td>
+
+[objectPick(obj, keys)](./sculp-js.objectpick.md)
+
+</td><td>
+
+对象提取
+
+</td></tr>
+<tr><td>
+
+[once(func)](./sculp-js.once.md)
+
+</td><td>
+
+单次函数
+
+</td></tr>
+<tr><td>
+
+[parseQueryParams(searchStr)](./sculp-js.parsequeryparams.md)
+
+</td><td>
+
+解析URL查询参数
+
+</td></tr>
+<tr><td>
+
+[parseVarFromString(str, leftMatchSymbol, rightMatchSymbol)](./sculp-js.parsevarfromstring.md)
+
+</td><td>
+
+解析字符串的插值变量
+
+</td></tr>
+<tr><td>
+
+[pathJoin(from, to)](./sculp-js.pathjoin.md)
+
+</td><td>
+
+路径合并
+
+</td></tr>
+<tr><td>
+
+[pathNormalize(path)](./sculp-js.pathnormalize.md)
+
+</td><td>
+
+标准化路径
+
+</td></tr>
+<tr><td>
+
+[qsParse(queryString)](./sculp-js.qsparse.md)
+
+</td><td>
+
+解析查询参数，内部使用的是浏览器内置的 URLSearchParams 进行处理
+
+</td></tr>
+<tr><td>
+
+[qsStringify(query, replacer)](./sculp-js.qsstringify.md)
+
+</td><td>
+
+字符化查询对象，内部使用的是浏览器内置的 URLSearchParams 进行处理
+
+</td></tr>
+<tr><td>
+
+[randomNumber(min, max)](./sculp-js.randomnumber.md)
+
+</td><td>
+
+随机整数
+
+</td></tr>
+<tr><td>
+
+[randomUuid()](./sculp-js.randomuuid.md)
+
+</td><td>
+
+优先浏览器原生能力获取 UUID v4
+
+</td></tr>
+<tr><td>
+
+[removeClass(el, classNames)](./sculp-js.removeclass.md)
+
+</td><td>
+
+给元素移除样式名
+
+</td></tr>
+<tr><td>
+
+[replaceVarFromString(sourceStr, targetObj, leftMatchSymbol, rightMatchSymbol)](./sculp-js.replacevarfromstring.md)
+
+</td><td>
+
+替换字符串中的插值变量
+
+</td></tr>
+<tr><td>
+
+[safeAwait(promise, errorExt)](./sculp-js.safeawait.md)
+
+</td><td>
+
+Execute a promise safely
+
+</td></tr>
+<tr><td>
+
+[searchTreeById(tree, nodeId, options)](./sculp-js.searchtreebyid.md)
+
+</td><td>
+
+在树中找到 id 为某个值的节点，并返回上游的所有父级节点
+
+</td></tr>
+<tr><td>
+
+[select(element)](./sculp-js.select.md)
+
+</td><td>
+
+Programmatically select the text of a HTML element
+
+</td></tr>
+<tr><td>
+
+[setGlobal(key, val)](./sculp-js.setglobal.md)
+
+</td><td>
+
+设置全局变量
+
+</td></tr>
+<tr><td>
+
+[stringAssign(template, data)](./sculp-js.stringassign.md)
+
+</td><td>
+
+字符串赋值
+
+</td></tr>
+<tr><td>
+
+[stringCamelCase(string, bigger)](./sculp-js.stringcamelcase.md)
+
+</td><td>
+
+将字符串转换为驼峰格式
+
+</td></tr>
+<tr><td>
+
+[stringEscapeHtml(html)](./sculp-js.stringescapehtml.md)
+
+</td><td>
+
+字符串编码 HTML
+
+</td></tr>
+<tr><td>
+
+[stringFill(length, value)](./sculp-js.stringfill.md)
+
+</td><td>
+
+字符串填充
+
+</td></tr>
+<tr><td>
+
+[stringFormat(string, args)](./sculp-js.stringformat.md)
+
+</td><td>
+
+字符串格式化
+
+</td></tr>
+<tr><td>
+
+[stringKebabCase(string, separator)](./sculp-js.stringkebabcase.md)
+
+</td><td>
+
+将字符串转换为连字格式
+
+</td></tr>
+<tr><td>
+
+[strip(num, precision)](./sculp-js.strip.md)
+
+</td><td>
+
+Correct the given number to specifying significant digits.
+
+</td></tr>
+<tr><td>
+
+[subtract(arg1, arg2)](./sculp-js.subtract.md)
+
+</td><td>
+
+数值安全减法
+
+</td></tr>
+<tr><td>
+
+[supportCanvas()](./sculp-js.supportcanvas.md)
+
+</td><td>
+
+判断是否支持canvas
+
+</td></tr>
+<tr><td>
+
+[throttle(func, wait, immediate)](./sculp-js.throttle.md)
+
+</td><td>
+
+节流函数 节流就是节约流量，将连续触发的事件稀释成预设评率。 比如每间隔1秒执行一次函数，无论这期间触发多少次事件。 这有点像公交车，无论在站点等车的人多不多，公交车只会按时来一班，不会来一个人就来一辆公交车。
+
+</td></tr>
+<tr><td>
+
+[typeIs(any)](./sculp-js.typeis.md)
+
+</td><td>
+
+判断任意值的数据类型，检查非对象时不如typeof、instanceof的性能高
+
+当检查类对象时是不可靠的，对象可以通过定义 Symbol.toStringTag 属性来更改检查结果
+
+详见：https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global\_Objects/Object/toString
+
+</td></tr>
+<tr><td>
+
+[uniqueNumber(length)](./sculp-js.uniquenumber.md)
+
+</td><td>
+
+生成唯一不重复数值
+
+</td></tr>
+<tr><td>
+
+[uniqueSymbol(str)](./sculp-js.uniquesymbol.md)
+
+</td><td>
+
+去除字符串中重复字符
+
+</td></tr>
+<tr><td>
+
+[urlDelParams(url, removeKeys)](./sculp-js.urldelparams.md)
+
+</td><td>
+
+删除 url 查询参数
+
+</td></tr>
+<tr><td>
+
+[urlParse(url, isModernApi)](./sculp-js.urlparse.md)
+
+</td><td>
+
+url 解析
+
+</td></tr>
+<tr><td>
+
+[urlSetParams(url, setter)](./sculp-js.urlsetparams.md)
+
+</td><td>
+
+设置 url 查询参数
+
+</td></tr>
+<tr><td>
+
+[urlStringify(url)](./sculp-js.urlstringify.md)
+
+</td><td>
+
+url 字符化，url 对象里的 searchParams 会覆盖 url 原有的查询参数
+
+</td></tr>
+<tr><td>
+
+[wait(timeout)](./sculp-js.wait.md)
+
+</td><td>
+
+等待一段时间
+
+</td></tr>
+<tr><td>
+
+[weAtob(string)](./sculp-js.weatob.md)
+
+</td><td>
+
+Base64解码为原始字符串，平替浏览器的atob, 不包含中文的处理（适用于任何环境，包括小程序）
+
+</td></tr>
+<tr><td>
+
+[weBtoa(string)](./sculp-js.webtoa.md)
+
+</td><td>
+
+字符串编码成Base64, 平替浏览器的btoa, 不包含中文的处理 （适用于任何环境，包括小程序）
+
+</td></tr>
+</tbody></table>
 
 ## Interfaces
 
-| Interface                                              | Description      |
-| ------------------------------------------------------ | ---------------- |
-| [DateObj](./sculp-js.dateobj.md)                       |                  |
-| [DebounceFunc](./sculp-js.debouncefunc.md)             |                  |
-| [DiffResult](./sculp-js.diffresult.md)                 | Diff result type |
-| [Fn](./sculp-js.fn.md)                                 |                  |
-| [ICanvasWM](./sculp-js.icanvaswm.md)                   |                  |
-| [ICompressImgResult](./sculp-js.icompressimgresult.md) |                  |
-| [ICompressOptions](./sculp-js.icompressoptions.md)     |                  |
-| [IFieldOptions](./sculp-js.ifieldoptions.md)           |                  |
-| [IFilterCondition](./sculp-js.ifiltercondition.md)     |                  |
-| [ISearchTreeOpts](./sculp-js.isearchtreeopts.md)       |                  |
-| [LooseParams](./sculp-js.looseparams.md)               |                  |
-| [OnceFunc](./sculp-js.oncefunc.md)                     |                  |
-| [Params](./sculp-js.params.md)                         |                  |
-| [PromiseFn](./sculp-js.promisefn.md)                   |                  |
-| [RandomString](./sculp-js.randomstring.md)             |                  |
-| [SetStyle](./sculp-js.setstyle.md)                     |                  |
-| [Style](./sculp-js.style.md)                           |                  |
-| [ThrottleFunc](./sculp-js.throttlefunc.md)             |                  |
-| [UniqueString](./sculp-js.uniquestring.md)             |                  |
-| [Url](./sculp-js.url.md)                               |                  |
+<table><thead><tr><th>
+
+Interface
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+[DateObj](./sculp-js.dateobj.md)
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+[DebounceFunc](./sculp-js.debouncefunc.md)
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+[DiffResult](./sculp-js.diffresult.md)
+
+</td><td>
+
+Diff result type
+
+</td></tr>
+<tr><td>
+
+[Fn](./sculp-js.fn.md)
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+[ICanvasWM](./sculp-js.icanvaswm.md)
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+[ICompressImgResult](./sculp-js.icompressimgresult.md)
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+[ICompressOptions](./sculp-js.icompressoptions.md)
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+[IFieldOptions](./sculp-js.ifieldoptions.md)
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+[IFilterCondition](./sculp-js.ifiltercondition.md)
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+[ISearchTreeOpts](./sculp-js.isearchtreeopts.md)
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+[LooseParams](./sculp-js.looseparams.md)
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+[OnceFunc](./sculp-js.oncefunc.md)
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+[Params](./sculp-js.params.md)
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+[PromiseFn](./sculp-js.promisefn.md)
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+[RandomString](./sculp-js.randomstring.md)
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+[SetStyle](./sculp-js.setstyle.md)
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+[Style](./sculp-js.style.md)
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+[ThrottleFunc](./sculp-js.throttlefunc.md)
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+[UniqueString](./sculp-js.uniquestring.md)
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+[Url](./sculp-js.url.md)
+
+</td><td>
+
+</td></tr>
+</tbody></table>
 
 ## Variables
 
-| Variable                                                             | Description                                                                                                                                                                                                    |
-| -------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [add](./sculp-js.add.md)                                             | 数值安全加法                                                                                                                                                                                                   |
-| [cookieDel](./sculp-js.cookiedel.md)                                 | 删除单个 cookie                                                                                                                                                                                                |
-| [debounce](./sculp-js.debounce.md)                                   | 防抖函数 当函数被连续调用时，该函数并不执行，只有当其全部停止调用超过一定时间后才执行1次。 例如：上电梯的时候，大家陆陆续续进来，电梯的门不会关上，只有当一段时间都没有人上来，电梯才会关门。                  |
-| [divide](./sculp-js.divide.md)                                       | 数值安全除法                                                                                                                                                                                                   |
-| [EMAIL_REGEX](./sculp-js.email_regex.md)                             |                                                                                                                                                                                                                |
-| [HEX_POOL](./sculp-js.hex_pool.md)                                   |                                                                                                                                                                                                                |
-| [HTTP_URL_REGEX](./sculp-js.http_url_regex.md)                       |                                                                                                                                                                                                                |
-| [IPV4_REGEX](./sculp-js.ipv4_regex.md)                               |                                                                                                                                                                                                                |
-| [IPV6_REGEX](./sculp-js.ipv6_regex.md)                               |                                                                                                                                                                                                                |
-| [isArray](./sculp-js.isarray.md)                                     |                                                                                                                                                                                                                |
-| [isBigInt](./sculp-js.isbigint.md)                                   |                                                                                                                                                                                                                |
-| [isBoolean](./sculp-js.isboolean.md)                                 |                                                                                                                                                                                                                |
-| [isDate](./sculp-js.isdate.md)                                       |                                                                                                                                                                                                                |
-| [isDigit](./sculp-js.isdigit.md)                                     | 判断字符串是否为数字，例如六位数字短信验证码（093031）                                                                                                                                                         |
-| [isEmail](./sculp-js.isemail.md)                                     | 判断字符串是否为邮箱格式，不对邮箱真实性做验证，如域名是否正确等                                                                                                                                               |
-| [isError](./sculp-js.iserror.md)                                     |                                                                                                                                                                                                                |
-| [isFloat](./sculp-js.isfloat.md)                                     | 判断字符串是否为浮点数，即必须有小数点的有理数                                                                                                                                                                 |
-| [isFunction](./sculp-js.isfunction.md)                               | 判断是否为函数                                                                                                                                                                                                 |
-| [isIdNo](./sculp-js.isidno.md)                                       | 判断字符串是否为身份证号码格式                                                                                                                                                                                 |
-| [isInteger](./sculp-js.isinteger.md)                                 | 判断字符串是否为整数（自然数），即 ...,-3,-2,-1,0,1,2,3,...                                                                                                                                                    |
-| [isIpV4](./sculp-js.isipv4.md)                                       | 判断字符串是否为 IPV4 格式，不对 ip 真实性做验证                                                                                                                                                               |
-| [isIpV6](./sculp-js.isipv6.md)                                       | 判断字符串是否为 IPV6 格式，不对 ip 真实性做验证                                                                                                                                                               |
-| [isNaN_2](./sculp-js.isnan_2.md)                                     |                                                                                                                                                                                                                |
-| [isNull](./sculp-js.isnull.md)                                       |                                                                                                                                                                                                                |
-| [isNumber](./sculp-js.isnumber.md)                                   |                                                                                                                                                                                                                |
-| [isNumerical](./sculp-js.isnumerical.md)                             | 判断字符串是否为正确数值，包括整数和浮点数                                                                                                                                                                     |
-| [isObject](./sculp-js.isobject.md)                                   |                                                                                                                                                                                                                |
-| [isPhone](./sculp-js.isphone.md)                                     | 判断字符串是否为宽松手机格式，即首位为 1 的 11 位数字都属于手机号                                                                                                                                              |
-| [isPlainObject](./sculp-js.isplainobject.md)                         | 判断对象是否为纯对象                                                                                                                                                                                           |
-| [isPrimitive](./sculp-js.isprimitive.md)                             |                                                                                                                                                                                                                |
-| [isRegExp](./sculp-js.isregexp.md)                                   |                                                                                                                                                                                                                |
-| [isString](./sculp-js.isstring.md)                                   |                                                                                                                                                                                                                |
-| [isSymbol](./sculp-js.issymbol.md)                                   |                                                                                                                                                                                                                |
-| [isUndefined](./sculp-js.isundefined.md)                             |                                                                                                                                                                                                                |
-| [isUrl](./sculp-js.isurl.md)                                         | 判断字符串是否为 url 格式，支持 http、https、ftp 协议，支持域名或者 ipV4                                                                                                                                       |
-| [isValidDate](./sculp-js.isvaliddate.md)                             |                                                                                                                                                                                                                |
-| [multiply](./sculp-js.multiply.md)                                   | 数值安全乘法                                                                                                                                                                                                   |
-| [numberAbbr](./sculp-js.numberabbr.md)                               | 将数字转换为携带单位的字符串                                                                                                                                                                                   |
-| [once](./sculp-js.once.md)                                           | 单次函数                                                                                                                                                                                                       |
-| [pathJoin](./sculp-js.pathjoin.md)                                   | 路径合并                                                                                                                                                                                                       |
-| [pathNormalize](./sculp-js.pathnormalize.md)                         | 标准化路径                                                                                                                                                                                                     |
-| [PHONE_REGEX](./sculp-js.phone_regex.md)                             |                                                                                                                                                                                                                |
-| [randomNumber](./sculp-js.randomnumber.md)                           | 随机整数                                                                                                                                                                                                       |
-| [randomString](./sculp-js.randomstring.md)                           | 随机字符串                                                                                                                                                                                                     |
-| [setStyle](./sculp-js.setstyle.md)                                   | 设置元素样式                                                                                                                                                                                                   |
-| [STRING_ARABIC_NUMERALS](./sculp-js.string_arabic_numerals.md)       |                                                                                                                                                                                                                |
-| [STRING_LOWERCASE_ALPHA](./sculp-js.string_lowercase_alpha.md)       |                                                                                                                                                                                                                |
-| [STRING_POOL](./sculp-js.string_pool.md)                             |                                                                                                                                                                                                                |
-| [STRING_UPPERCASE_ALPHA](./sculp-js.string_uppercase_alpha.md)       |                                                                                                                                                                                                                |
-| [stringAssign](./sculp-js.stringassign.md)                           | 字符串赋值                                                                                                                                                                                                     |
-| [stringEscapeHtml](./sculp-js.stringescapehtml.md)                   | 字符串编码 HTML                                                                                                                                                                                                |
-| [stringFill](./sculp-js.stringfill.md)                               | 字符串填充                                                                                                                                                                                                     |
-| [subtract](./sculp-js.subtract.md)                                   | 数值安全减法                                                                                                                                                                                                   |
-| [throttle](./sculp-js.throttle.md)                                   | 节流函数 节流就是节约流量，将连续触发的事件稀释成预设评率。 比如每间隔1秒执行一次函数，无论这期间触发多少次事件。 这有点像公交车，无论在站点等车的人多不多，公交车只会按时来一班，不会来一个人就来一辆公交车。 |
-| [tooltipEvent](./sculp-js.tooltipevent.md)                           |                                                                                                                                                                                                                |
-| [UNIQUE_NUMBER_SAFE_LENGTH](./sculp-js.unique_number_safe_length.md) |                                                                                                                                                                                                                |
-| [uniqueNumber](./sculp-js.uniquenumber.md)                           | 生成唯一不重复数值                                                                                                                                                                                             |
-| [uniqueString](./sculp-js.uniquestring.md)                           | 生成唯一不重复字符串                                                                                                                                                                                           |
-| [URL_REGEX](./sculp-js.url_regex.md)                                 |                                                                                                                                                                                                                |
-| [urlDelParams](./sculp-js.urldelparams.md)                           | 删除 url 查询参数                                                                                                                                                                                              |
-| [urlParse](./sculp-js.urlparse.md)                                   | url 解析                                                                                                                                                                                                       |
-| [urlSetParams](./sculp-js.urlsetparams.md)                           | 设置 url 查询参数                                                                                                                                                                                              |
-| [urlStringify](./sculp-js.urlstringify.md)                           | url 字符化，url 对象里的 searchParams 会覆盖 url 原有的查询参数                                                                                                                                                |
+<table><thead><tr><th>
+
+Variable
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+[EMAIL_REGEX](./sculp-js.email_regex.md)
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+[HEX_POOL](./sculp-js.hex_pool.md)
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+[HTTP_URL_REGEX](./sculp-js.http_url_regex.md)
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+[IPV4_REGEX](./sculp-js.ipv4_regex.md)
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+[IPV6_REGEX](./sculp-js.ipv6_regex.md)
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+[PHONE_REGEX](./sculp-js.phone_regex.md)
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+[randomString](./sculp-js.randomstring.md)
+
+</td><td>
+
+随机字符串
+
+</td></tr>
+<tr><td>
+
+[setStyle](./sculp-js.setstyle.md)
+
+</td><td>
+
+设置元素样式
+
+</td></tr>
+<tr><td>
+
+[STRING_ARABIC_NUMERALS](./sculp-js.string_arabic_numerals.md)
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+[STRING_LOWERCASE_ALPHA](./sculp-js.string_lowercase_alpha.md)
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+[STRING_POOL](./sculp-js.string_pool.md)
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+[STRING_UPPERCASE_ALPHA](./sculp-js.string_uppercase_alpha.md)
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+[tooltipEvent](./sculp-js.tooltipevent.md)
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+[UNIQUE_NUMBER_SAFE_LENGTH](./sculp-js.unique_number_safe_length.md)
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+[uniqueString](./sculp-js.uniquestring.md)
+
+</td><td>
+
+生成唯一不重复字符串
+
+</td></tr>
+<tr><td>
+
+[URL_REGEX](./sculp-js.url_regex.md)
+
+</td><td>
+
+</td></tr>
+</tbody></table>
 
 ## Type Aliases
 
-| Type Alias                                                 | Description                                                                                                     |
-| ---------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
-| [AnyArray](./sculp-js.anyarray.md)                         | 任意数组                                                                                                        |
-| [AnyFunc](./sculp-js.anyfunc.md)                           | 任意函数                                                                                                        |
-| [AnyObject](./sculp-js.anyobject.md)                       | 任意对象                                                                                                        |
-| [ArrayElements](./sculp-js.arrayelements.md)               | 取出数组元素                                                                                                    |
-| [AsyncCallback](./sculp-js.asynccallback.md)               | 异步回调函数                                                                                                    |
-| [ChangeOptional](./sculp-js.changeoptional.md)             | <p>将指定属性变为可选</p><p>Change the specified properties to optional</p>                                     |
-| [ChangeRequired](./sculp-js.changerequired.md)             | <p>将指定属性变为必填</p><p>Change the specified properties to required</p>                                     |
-| [ChangeRequiredExcept](./sculp-js.changerequiredexcept.md) | <p>将除指定属性外的所有属性变为必填</p><p>Change all properties except the specified properties to required</p> |
-| [DateValue](./sculp-js.datevalue.md)                       |                                                                                                                 |
-| [FileType](./sculp-js.filetype.md)                         |                                                                                                                 |
-| [GetKey](./sculp-js.getkey.md)                             | Get unique key function                                                                                         |
-| [IdLike](./sculp-js.idlike.md)                             |                                                                                                                 |
-| [ITreeConf](./sculp-js.itreeconf.md)                       |                                                                                                                 |
-| [LooseParamValue](./sculp-js.looseparamvalue.md)           |                                                                                                                 |
-| [ObjectAssignItem](./sculp-js.objectassignitem.md)         |                                                                                                                 |
-| [PartialDeep](./sculp-js.partialdeep.md)                   |                                                                                                                 |
-| [Replacer](./sculp-js.replacer.md)                         |                                                                                                                 |
+<table><thead><tr><th>
+
+Type Alias
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+[AnyArray](./sculp-js.anyarray.md)
+
+</td><td>
+
+任意数组
+
+</td></tr>
+<tr><td>
+
+[AnyFunc](./sculp-js.anyfunc.md)
+
+</td><td>
+
+任意函数
+
+</td></tr>
+<tr><td>
+
+[AnyObject](./sculp-js.anyobject.md)
+
+</td><td>
+
+任意对象
+
+</td></tr>
+<tr><td>
+
+[ArrayElements](./sculp-js.arrayelements.md)
+
+</td><td>
+
+取出数组元素
+
+</td></tr>
+<tr><td>
+
+[AsyncCallback](./sculp-js.asynccallback.md)
+
+</td><td>
+
+异步回调函数
+
+</td></tr>
+<tr><td>
+
+[ChangeOptional](./sculp-js.changeoptional.md)
+
+</td><td>
+
+将指定属性变为可选
+
+Change the specified properties to optional
+
+</td></tr>
+<tr><td>
+
+[ChangeRequired](./sculp-js.changerequired.md)
+
+</td><td>
+
+将指定属性变为必填
+
+Change the specified properties to required
+
+</td></tr>
+<tr><td>
+
+[ChangeRequiredExcept](./sculp-js.changerequiredexcept.md)
+
+</td><td>
+
+将除指定属性外的所有属性变为必填
+
+Change all properties except the specified properties to required
+
+</td></tr>
+<tr><td>
+
+[DateValue](./sculp-js.datevalue.md)
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+[FileType](./sculp-js.filetype.md)
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+[GetKey](./sculp-js.getkey.md)
+
+</td><td>
+
+Get unique key function
+
+</td></tr>
+<tr><td>
+
+[IdLike](./sculp-js.idlike.md)
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+[ITreeConf](./sculp-js.itreeconf.md)
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+[LooseParamValue](./sculp-js.looseparamvalue.md)
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+[ObjectAssignItem](./sculp-js.objectassignitem.md)
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+[PartialDeep](./sculp-js.partialdeep.md)
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+[Replacer](./sculp-js.replacer.md)
+
+</td><td>
+
+</td></tr>
+</tbody></table>

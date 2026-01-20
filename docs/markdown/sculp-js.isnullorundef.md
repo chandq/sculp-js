@@ -12,9 +12,31 @@ export declare function isNullOrUnDef(val: unknown): val is null | undefined;
 
 ## Parameters
 
-| Parameter | Type    | Description |
-| --------- | ------- | ----------- |
-| val       | unknown |             |
+<table><thead><tr><th>
+
+Parameter
+
+</th><th>
+
+Type
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+val
+
+</td><td>
+
+unknown
+
+</td><td>
+
+</td></tr>
+</tbody></table>
 
 **Returns:**
 

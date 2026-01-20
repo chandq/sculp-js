@@ -14,10 +14,46 @@ export declare function executeInScope(code: string, scope?: Record<string, any>
 
 ## Parameters
 
-| Parameter | Type                      | Description                                     |
-| --------- | ------------------------- | ----------------------------------------------- |
-| code      | string                    | 要执行的代码（需包含 return 语句或表达式）      |
-| scope     | Record&lt;string, any&gt; | _(Optional)_ 作用域对象（键值对形式的变量环境） |
+<table><thead><tr><th>
+
+Parameter
+
+</th><th>
+
+Type
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+code
+
+</td><td>
+
+string
+
+</td><td>
+
+要执行的代码（需包含 return 语句或表达式）
+
+</td></tr>
+<tr><td>
+
+scope
+
+</td><td>
+
+Record&lt;string, any&gt;
+
+</td><td>
+
+_(Optional)_ 作用域对象（键值对形式的变量环境）
+
+</td></tr>
+</tbody></table>
 
 **Returns:**
 

@@ -22,11 +22,55 @@ export declare function objectGet(
 
 ## Parameters
 
-| Parameter | Type                                                                                    | Description  |
-| --------- | --------------------------------------------------------------------------------------- | ------------ |
-| obj       | [AnyObject](./sculp-js.anyobject.md) \| [AnyArray](./sculp-js.anyarray.md) \| undefined |              |
-| path      | string                                                                                  |              |
-| strict    | boolean                                                                                 | _(Optional)_ |
+<table><thead><tr><th>
+
+Parameter
+
+</th><th>
+
+Type
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+obj
+
+</td><td>
+
+[AnyObject](./sculp-js.anyobject.md) \| [AnyArray](./sculp-js.anyarray.md) \| undefined
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+path
+
+</td><td>
+
+string
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+strict
+
+</td><td>
+
+boolean
+
+</td><td>
+
+_(Optional)_
+
+</td></tr>
+</tbody></table>
 
 **Returns:**
 

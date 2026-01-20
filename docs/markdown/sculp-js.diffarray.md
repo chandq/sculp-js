@@ -18,11 +18,59 @@ export declare function diffArray<T>(source: readonly T[], target: readonly T[],
 
 ## Parameters
 
-| Parameter | Type                                            | Description                                      |
-| --------- | ----------------------------------------------- | ------------------------------------------------ |
-| source    | readonly T\[\]                                  | Source array (original data)                     |
-| target    | readonly T\[\]                                  | Target array (new data)                          |
-| getKey    | [GetKey](./sculp-js.getkey.md)<!-- -->&lt;T&gt; | _(Optional)_ Optional function to get unique key |
+<table><thead><tr><th>
+
+Parameter
+
+</th><th>
+
+Type
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+source
+
+</td><td>
+
+readonly T\[\]
+
+</td><td>
+
+Source array (original data)
+
+</td></tr>
+<tr><td>
+
+target
+
+</td><td>
+
+readonly T\[\]
+
+</td><td>
+
+Target array (new data)
+
+</td></tr>
+<tr><td>
+
+getKey
+
+</td><td>
+
+[GetKey](./sculp-js.getkey.md)<!-- -->&lt;T&gt;
+
+</td><td>
+
+_(Optional)_ Optional function to get unique key
+
+</td></tr>
+</tbody></table>
 
 **Returns:**
 

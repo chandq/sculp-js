@@ -2,7 +2,7 @@
 
 [Home](./index.md) &gt; [sculp-js](./sculp-js.md) &gt; [isIpV6](./sculp-js.isipv6.md)
 
-## isIpV6 variable
+## isIpV6() function
 
 判断字符串是否为 IPV6 格式，不对 ip 真实性做验证
 
@@ -11,3 +11,37 @@
 ```typescript
 isIpV6: (value: string) => boolean;
 ```
+
+## Parameters
+
+<table><thead><tr><th>
+
+Parameter
+
+</th><th>
+
+Type
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+value
+
+</td><td>
+
+string
+
+</td><td>
+
+</td></tr>
+</tbody></table>
+
+**Returns:**
+
+boolean
+
+{<!-- -->boolean<!-- -->}

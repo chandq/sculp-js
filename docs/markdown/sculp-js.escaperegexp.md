@@ -14,9 +14,33 @@ export declare function escapeRegExp(str: string): string;
 
 ## Parameters
 
-| Parameter | Type   | Description                                                                                            |
-| --------- | ------ | ------------------------------------------------------------------------------------------------------ |
-| str       | string | 原字符串 reference: https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Regular\_expressions |
+<table><thead><tr><th>
+
+Parameter
+
+</th><th>
+
+Type
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+str
+
+</td><td>
+
+string
+
+</td><td>
+
+原字符串 reference: https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Regular\_expressions
+
+</td></tr>
+</tbody></table>
 
 **Returns:**
 

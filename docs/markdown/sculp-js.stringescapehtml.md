@@ -2,7 +2,7 @@
 
 [Home](./index.md) &gt; [sculp-js](./sculp-js.md) &gt; [stringEscapeHtml](./sculp-js.stringescapehtml.md)
 
-## stringEscapeHtml variable
+## stringEscapeHtml() function
 
 字符串编码 HTML
 
@@ -11,6 +11,40 @@
 ```typescript
 stringEscapeHtml: (html: string) => string;
 ```
+
+## Parameters
+
+<table><thead><tr><th>
+
+Parameter
+
+</th><th>
+
+Type
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+html
+
+</td><td>
+
+string
+
+</td><td>
+
+</td></tr>
+</tbody></table>
+
+**Returns:**
+
+string
+
+{<!-- -->string<!-- -->}
 
 ## Example
 

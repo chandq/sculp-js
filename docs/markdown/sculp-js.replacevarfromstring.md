@@ -19,12 +19,68 @@ export declare function replaceVarFromString(
 
 ## Parameters
 
-| Parameter        | Type                      | Description                                    |
-| ---------------- | ------------------------- | ---------------------------------------------- |
-| sourceStr        | string                    |                                                |
-| targetObj        | Record&lt;string, any&gt; |                                                |
-| leftMatchSymbol  | string                    | _(Optional)_ 变量左侧匹配符号，默认：<!-- -->{ |
-| rightMatchSymbol | string                    | _(Optional)_ 变量右侧匹配符号，默认：<!-- -->} |
+<table><thead><tr><th>
+
+Parameter
+
+</th><th>
+
+Type
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+sourceStr
+
+</td><td>
+
+string
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+targetObj
+
+</td><td>
+
+Record&lt;string, any&gt;
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+leftMatchSymbol
+
+</td><td>
+
+string
+
+</td><td>
+
+_(Optional)_ 变量左侧匹配符号，默认：<!-- -->{
+
+</td></tr>
+<tr><td>
+
+rightMatchSymbol
+
+</td><td>
+
+string
+
+</td><td>
+
+_(Optional)_ 变量右侧匹配符号，默认：<!-- -->}
+
+</td></tr>
+</tbody></table>
 
 **Returns:**
 

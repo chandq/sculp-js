@@ -2,7 +2,7 @@
 
 [Home](./index.md) &gt; [sculp-js](./sculp-js.md) &gt; [isFloat](./sculp-js.isfloat.md)
 
-## isFloat variable
+## isFloat() function
 
 判断字符串是否为浮点数，即必须有小数点的有理数
 
@@ -11,3 +11,37 @@
 ```typescript
 isFloat: (value: string) => boolean;
 ```
+
+## Parameters
+
+<table><thead><tr><th>
+
+Parameter
+
+</th><th>
+
+Type
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+value
+
+</td><td>
+
+string
+
+</td><td>
+
+</td></tr>
+</tbody></table>
+
+**Returns:**
+
+boolean
+
+{<!-- -->boolean<!-- -->}

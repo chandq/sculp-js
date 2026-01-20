@@ -2,7 +2,7 @@
 
 [Home](./index.md) &gt; [sculp-js](./sculp-js.md) &gt; [isPlainObject](./sculp-js.isplainobject.md)
 
-## isPlainObject variable
+## isPlainObject() function
 
 判断对象是否为纯对象
 
@@ -11,3 +11,37 @@
 ```typescript
 isPlainObject: (obj: unknown) => boolean;
 ```
+
+## Parameters
+
+<table><thead><tr><th>
+
+Parameter
+
+</th><th>
+
+Type
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+obj
+
+</td><td>
+
+unknown
+
+</td><td>
+
+</td></tr>
+</tbody></table>
+
+**Returns:**
+
+boolean
+
+{<!-- -->boolean<!-- -->}

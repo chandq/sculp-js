@@ -14,10 +14,44 @@ export declare function downloadURL(url: string, params?: LooseParams): void;
 
 ## Parameters
 
-| Parameter | Type                                     | Description  |
-| --------- | ---------------------------------------- | ------------ |
-| url       | string                                   |              |
-| params    | [LooseParams](./sculp-js.looseparams.md) | _(Optional)_ |
+<table><thead><tr><th>
+
+Parameter
+
+</th><th>
+
+Type
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+url
+
+</td><td>
+
+string
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+params
+
+</td><td>
+
+[LooseParams](./sculp-js.looseparams.md)
+
+</td><td>
+
+_(Optional)_
+
+</td></tr>
+</tbody></table>
 
 **Returns:**
 

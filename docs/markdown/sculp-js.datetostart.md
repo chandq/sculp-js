@@ -14,9 +14,31 @@ export declare function dateToStart(value: DateValue): Date;
 
 ## Parameters
 
-| Parameter | Type                                 | Description |
-| --------- | ------------------------------------ | ----------- |
-| value     | [DateValue](./sculp-js.datevalue.md) |             |
+<table><thead><tr><th>
+
+Parameter
+
+</th><th>
+
+Type
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+value
+
+</td><td>
+
+[DateValue](./sculp-js.datevalue.md)
+
+</td><td>
+
+</td></tr>
+</tbody></table>
 
 **Returns:**
 

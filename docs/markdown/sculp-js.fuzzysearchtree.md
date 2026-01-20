@@ -20,11 +20,55 @@ export declare function fuzzySearchTree<V>(
 
 ## Parameters
 
-| Parameter       | Type                                                                | Description                                                                                                      |
-| --------------- | ------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| nodes           | V\[\]                                                               |                                                                                                                  |
-| filterCondition | [IFilterCondition](./sculp-js.ifiltercondition.md)<!-- -->&lt;V&gt; |                                                                                                                  |
-| options         | [ISearchTreeOpts](./sculp-js.isearchtreeopts.md)                    | _(Optional)_ 默认配置项 { childField: 'children', nameField: 'name', removeEmptyChild: false, ignoreCase: true } |
+<table><thead><tr><th>
+
+Parameter
+
+</th><th>
+
+Type
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+nodes
+
+</td><td>
+
+V\[\]
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+filterCondition
+
+</td><td>
+
+[IFilterCondition](./sculp-js.ifiltercondition.md)<!-- -->&lt;V&gt;
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+options
+
+</td><td>
+
+[ISearchTreeOpts](./sculp-js.isearchtreeopts.md)
+
+</td><td>
+
+_(Optional)_ 默认配置项 { childField: 'children', nameField: 'name', removeEmptyChild: false, ignoreCase: true }
+
+</td></tr>
+</tbody></table>
 
 **Returns:**
 

@@ -2,7 +2,7 @@
 
 [Home](./index.md) &gt; [sculp-js](./sculp-js.md) &gt; [isInteger](./sculp-js.isinteger.md)
 
-## isInteger variable
+## isInteger() function
 
 判断字符串是否为整数（自然数），即 ...,-3,-2,-1,0,1,2,3,...
 
@@ -11,3 +11,37 @@
 ```typescript
 isInteger: (value: string) => boolean;
 ```
+
+## Parameters
+
+<table><thead><tr><th>
+
+Parameter
+
+</th><th>
+
+Type
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+value
+
+</td><td>
+
+string
+
+</td><td>
+
+</td></tr>
+</tbody></table>
+
+**Returns:**
+
+boolean
+
+{<!-- -->boolean<!-- -->}

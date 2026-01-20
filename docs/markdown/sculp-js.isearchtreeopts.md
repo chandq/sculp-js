@@ -12,9 +12,73 @@ export interface ISearchTreeOpts
 
 ## Properties
 
-| Property                                                           | Modifiers | Type    | Description |
-| ------------------------------------------------------------------ | --------- | ------- | ----------- |
-| [childField](./sculp-js.isearchtreeopts.childfield.md)             |           | string  |             |
-| [ignoreCase](./sculp-js.isearchtreeopts.ignorecase.md)             |           | boolean |             |
-| [nameField](./sculp-js.isearchtreeopts.namefield.md)               |           | string  |             |
-| [removeEmptyChild](./sculp-js.isearchtreeopts.removeemptychild.md) |           | boolean |             |
+<table><thead><tr><th>
+
+Property
+
+</th><th>
+
+Modifiers
+
+</th><th>
+
+Type
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+[childField](./sculp-js.isearchtreeopts.childfield.md)
+
+</td><td>
+
+</td><td>
+
+string
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+[ignoreCase](./sculp-js.isearchtreeopts.ignorecase.md)
+
+</td><td>
+
+</td><td>
+
+boolean
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+[nameField](./sculp-js.isearchtreeopts.namefield.md)
+
+</td><td>
+
+</td><td>
+
+string
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+[removeEmptyChild](./sculp-js.isearchtreeopts.removeemptychild.md)
+
+</td><td>
+
+</td><td>
+
+boolean
+
+</td><td>
+
+</td></tr>
+</tbody></table>

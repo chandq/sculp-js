@@ -14,10 +14,44 @@ export declare function stringFormat(string: string, ...args: Array<unknown>): s
 
 ## Parameters
 
-| Parameter | Type                 | Description                                                                               |
-| --------- | -------------------- | ----------------------------------------------------------------------------------------- |
-| string    | string               | 字符串模板，使用 %s 表示字符串，%d 表示数值，%o 表示对象，%% 表示百分号，参考 console.log |
-| args      | Array&lt;unknown&gt; |                                                                                           |
+<table><thead><tr><th>
+
+Parameter
+
+</th><th>
+
+Type
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+string
+
+</td><td>
+
+string
+
+</td><td>
+
+字符串模板，使用 %s 表示字符串，%d 表示数值，%o 表示对象，%% 表示百分号，参考 console.log
+
+</td></tr>
+<tr><td>
+
+args
+
+</td><td>
+
+Array&lt;unknown&gt;
+
+</td><td>
+
+</td></tr>
+</tbody></table>
 
 **Returns:**
 

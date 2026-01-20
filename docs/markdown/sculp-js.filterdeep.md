@@ -30,11 +30,59 @@ export declare function filterDeep<V>(
 
 ## Parameters
 
-| Parameter | Type                                                                                                                                      | Description                                                                                                                                             |
-| --------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| tree      | ArrayLike&lt;V&gt;                                                                                                                        | 树形数据                                                                                                                                                |
-| predicate | (val: V, index: number, currentArr: ArrayLike&lt;V&gt;, tree: ArrayLike&lt;V&gt;, parent: V \| null, level: number) =&gt; boolean \| void | 断言函数                                                                                                                                                |
-| options   | { childField?: string; reverse?: boolean; breadthFirst?: boolean; isDomNode?: boolean; }                                                  | _(Optional)_ 支持定制子元素名称、反向遍历、广度优先遍历，默认<!-- -->{ childField: 'children', reverse: false, breadthFirst: false, isDomNode: false, } |
+<table><thead><tr><th>
+
+Parameter
+
+</th><th>
+
+Type
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+tree
+
+</td><td>
+
+ArrayLike&lt;V&gt;
+
+</td><td>
+
+树形数据
+
+</td></tr>
+<tr><td>
+
+predicate
+
+</td><td>
+
+(val: V, index: number, currentArr: ArrayLike&lt;V&gt;, tree: ArrayLike&lt;V&gt;, parent: V \| null, level: number) =&gt; boolean \| void
+
+</td><td>
+
+断言函数
+
+</td></tr>
+<tr><td>
+
+options
+
+</td><td>
+
+{ childField?: string; reverse?: boolean; breadthFirst?: boolean; isDomNode?: boolean; }
+
+</td><td>
+
+_(Optional)_ 支持定制子元素名称、反向遍历、广度优先遍历，默认<!-- -->{ childField: 'children', reverse: false, breadthFirst: false, isDomNode: false, }
+
+</td></tr>
+</tbody></table>
 
 **Returns:**
 

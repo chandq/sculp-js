@@ -14,10 +14,46 @@ export declare function numberToHex(decimal: number | string, hexPool?: string):
 
 ## Parameters
 
-| Parameter | Type             | Description                                            |
-| --------- | ---------------- | ------------------------------------------------------ |
-| decimal   | number \| string | 十进制数值或字符串，可以是任意长度，会使用大数进行计算 |
-| hexPool   | string           | _(Optional)_ 进制池，默认 62 进制                      |
+<table><thead><tr><th>
+
+Parameter
+
+</th><th>
+
+Type
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+decimal
+
+</td><td>
+
+number \| string
+
+</td><td>
+
+十进制数值或字符串，可以是任意长度，会使用大数进行计算
+
+</td></tr>
+<tr><td>
+
+hexPool
+
+</td><td>
+
+string
+
+</td><td>
+
+_(Optional)_ 进制池，默认 62 进制
+
+</td></tr>
+</tbody></table>
 
 **Returns:**
 

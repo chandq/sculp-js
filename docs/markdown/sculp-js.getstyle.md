@@ -14,10 +14,44 @@ export declare function getStyle(el: HTMLElement, key: string): string;
 
 ## Parameters
 
-| Parameter | Type        | Description |
-| --------- | ----------- | ----------- |
-| el        | HTMLElement | 元素        |
-| key       | string      |             |
+<table><thead><tr><th>
+
+Parameter
+
+</th><th>
+
+Type
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+el
+
+</td><td>
+
+HTMLElement
+
+</td><td>
+
+元素
+
+</td></tr>
+<tr><td>
+
+key
+
+</td><td>
+
+string
+
+</td><td>
+
+</td></tr>
+</tbody></table>
 
 **Returns:**
 

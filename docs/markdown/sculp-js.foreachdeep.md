@@ -30,11 +30,59 @@ export declare function forEachDeep<V>(
 
 ## Parameters
 
-| Parameter | Type                                                                                                                                      | Description                                                                                                                                             |
-| --------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| tree      | ArrayLike&lt;V&gt;                                                                                                                        | 树形数据                                                                                                                                                |
-| iterator  | (val: V, index: number, currentArr: ArrayLike&lt;V&gt;, tree: ArrayLike&lt;V&gt;, parent: V \| null, level: number) =&gt; boolean \| void | 迭代函数, 返回值为true时continue, 返回值为false时break                                                                                                  |
-| options   | { childField?: string; reverse?: boolean; breadthFirst?: boolean; isDomNode?: boolean; }                                                  | _(Optional)_ 支持定制子元素名称、反向遍历、广度优先遍历，默认<!-- -->{ childField: 'children', reverse: false, breadthFirst: false, isDomNode: false, } |
+<table><thead><tr><th>
+
+Parameter
+
+</th><th>
+
+Type
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+tree
+
+</td><td>
+
+ArrayLike&lt;V&gt;
+
+</td><td>
+
+树形数据
+
+</td></tr>
+<tr><td>
+
+iterator
+
+</td><td>
+
+(val: V, index: number, currentArr: ArrayLike&lt;V&gt;, tree: ArrayLike&lt;V&gt;, parent: V \| null, level: number) =&gt; boolean \| void
+
+</td><td>
+
+迭代函数, 返回值为true时continue, 返回值为false时break
+
+</td></tr>
+<tr><td>
+
+options
+
+</td><td>
+
+{ childField?: string; reverse?: boolean; breadthFirst?: boolean; isDomNode?: boolean; }
+
+</td><td>
+
+_(Optional)_ 支持定制子元素名称、反向遍历、广度优先遍历，默认<!-- -->{ childField: 'children', reverse: false, breadthFirst: false, isDomNode: false, }
+
+</td></tr>
+</tbody></table>
 
 **Returns:**
 

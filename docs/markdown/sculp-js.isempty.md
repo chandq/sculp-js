@@ -18,9 +18,33 @@ export declare function isEmpty(value: any): boolean;
 
 ## Parameters
 
-| Parameter | Type | Description         |
-| --------- | ---- | ------------------- |
-| value     | any  | The value to check. |
+<table><thead><tr><th>
+
+Parameter
+
+</th><th>
+
+Type
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+value
+
+</td><td>
+
+any
+
+</td><td>
+
+The value to check.
+
+</td></tr>
+</tbody></table>
 
 **Returns:**
 

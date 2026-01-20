@@ -2,7 +2,7 @@
 
 [Home](./index.md) &gt; [sculp-js](./sculp-js.md) &gt; [stringAssign](./sculp-js.stringassign.md)
 
-## stringAssign variable
+## stringAssign() function
 
 字符串赋值
 
@@ -11,6 +11,51 @@
 ```typescript
 stringAssign: (template: string, data: AnyObject) => string;
 ```
+
+## Parameters
+
+<table><thead><tr><th>
+
+Parameter
+
+</th><th>
+
+Type
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+template
+
+</td><td>
+
+string
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+data
+
+</td><td>
+
+[AnyObject](./sculp-js.anyobject.md)
+
+</td><td>
+
+</td></tr>
+</tbody></table>
+
+**Returns:**
+
+string
+
+{<!-- -->string<!-- -->}
 
 ## Example
 

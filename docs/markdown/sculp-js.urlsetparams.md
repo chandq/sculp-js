@@ -2,7 +2,7 @@
 
 [Home](./index.md) &gt; [sculp-js](./sculp-js.md) &gt; [urlSetParams](./sculp-js.urlsetparams.md)
 
-## urlSetParams variable
+## urlSetParams() function
 
 设置 url 查询参数
 
@@ -11,3 +11,48 @@
 ```typescript
 urlSetParams: (url: string, setter: AnyObject) => string;
 ```
+
+## Parameters
+
+<table><thead><tr><th>
+
+Parameter
+
+</th><th>
+
+Type
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+url
+
+</td><td>
+
+string
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+setter
+
+</td><td>
+
+[AnyObject](./sculp-js.anyobject.md)
+
+</td><td>
+
+</td></tr>
+</tbody></table>
+
+**Returns:**
+
+string
+
+{<!-- -->string<!-- -->}

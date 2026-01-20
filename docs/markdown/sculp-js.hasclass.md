@@ -14,10 +14,42 @@ export declare function hasClass(el: HTMLElement, className: string): boolean;
 
 ## Parameters
 
-| Parameter | Type        | Description |
-| --------- | ----------- | ----------- |
-| el        | HTMLElement |             |
-| className | string      |             |
+<table><thead><tr><th>
+
+Parameter
+
+</th><th>
+
+Type
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+el
+
+</td><td>
+
+HTMLElement
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+className
+
+</td><td>
+
+string
+
+</td><td>
+
+</td></tr>
+</tbody></table>
 
 **Returns:**
 

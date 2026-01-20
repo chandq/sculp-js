@@ -17,10 +17,44 @@ export declare function safeAwait<T, U = Error>(
 
 ## Parameters
 
-| Parameter | Type             | Description                                                                           |
-| --------- | ---------------- | ------------------------------------------------------------------------------------- |
-| promise   | Promise&lt;T&gt; |                                                                                       |
-| errorExt  | object           | _(Optional)_ Additional Information you can pass safeAwait the err object { Promise } |
+<table><thead><tr><th>
+
+Parameter
+
+</th><th>
+
+Type
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+promise
+
+</td><td>
+
+Promise&lt;T&gt;
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+errorExt
+
+</td><td>
+
+object
+
+</td><td>
+
+_(Optional)_ Additional Information you can pass safeAwait the err object { Promise }
+
+</td></tr>
+</tbody></table>
 
 **Returns:**
 

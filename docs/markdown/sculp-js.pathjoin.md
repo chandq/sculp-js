@@ -2,7 +2,7 @@
 
 [Home](./index.md) &gt; [sculp-js](./sculp-js.md) &gt; [pathJoin](./sculp-js.pathjoin.md)
 
-## pathJoin variable
+## pathJoin() function
 
 路径合并
 
@@ -11,3 +11,48 @@
 ```typescript
 pathJoin: (from: string, ...to: string[]) => string;
 ```
+
+## Parameters
+
+<table><thead><tr><th>
+
+Parameter
+
+</th><th>
+
+Type
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+from
+
+</td><td>
+
+string
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+to
+
+</td><td>
+
+string\[\]
+
+</td><td>
+
+</td></tr>
+</tbody></table>
+
+**Returns:**
+
+string
+
+{<!-- -->string<!-- -->}

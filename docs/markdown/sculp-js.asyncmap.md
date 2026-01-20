@@ -18,11 +18,55 @@ export declare function asyncMap<T, R>(
 
 ## Parameters
 
-| Parameter   | Type                                                               | Description                     |
-| ----------- | ------------------------------------------------------------------ | ------------------------------- |
-| list        | Array&lt;T&gt;                                                     |                                 |
-| mapper      | (val: T, idx: number, list: Array&lt;T&gt;) =&gt; Promise&lt;R&gt; |                                 |
-| concurrency | number                                                             | _(Optional)_ 并发数量，默认无限 |
+<table><thead><tr><th>
+
+Parameter
+
+</th><th>
+
+Type
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+list
+
+</td><td>
+
+Array&lt;T&gt;
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+mapper
+
+</td><td>
+
+(val: T, idx: number, list: Array&lt;T&gt;) =&gt; Promise&lt;R&gt;
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+concurrency
+
+</td><td>
+
+number
+
+</td><td>
+
+_(Optional)_ 并发数量，默认无限
+
+</td></tr>
+</tbody></table>
 
 **Returns:**
 

@@ -14,10 +14,46 @@ export declare function chooseLocalFile(accept: string, changeCb: (FileList: any
 
 ## Parameters
 
-| Parameter | Type                      | Description              |
-| --------- | ------------------------- | ------------------------ |
-| accept    | string                    | 上传的文件类型，用于过滤 |
-| changeCb  | (FileList: any) =&gt; any | 选择文件回调             |
+<table><thead><tr><th>
+
+Parameter
+
+</th><th>
+
+Type
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+accept
+
+</td><td>
+
+string
+
+</td><td>
+
+上传的文件类型，用于过滤
+
+</td></tr>
+<tr><td>
+
+changeCb
+
+</td><td>
+
+(FileList: any) =&gt; any
+
+</td><td>
+
+选择文件回调
+
+</td></tr>
+</tbody></table>
 
 **Returns:**
 

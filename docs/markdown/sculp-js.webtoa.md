@@ -14,9 +14,31 @@ export declare function weBtoa(string: string): string;
 
 ## Parameters
 
-| Parameter | Type   | Description |
-| --------- | ------ | ----------- |
-| string    | string |             |
+<table><thead><tr><th>
+
+Parameter
+
+</th><th>
+
+Type
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+string
+
+</td><td>
+
+string
+
+</td><td>
+
+</td></tr>
+</tbody></table>
 
 **Returns:**
 

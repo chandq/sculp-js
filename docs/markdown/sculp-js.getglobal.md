@@ -14,9 +14,31 @@ export declare function getGlobal<T>(key: string | number | symbol): T | void;
 
 ## Parameters
 
-| Parameter | Type                       | Description |
-| --------- | -------------------------- | ----------- |
-| key       | string \| number \| symbol |             |
+<table><thead><tr><th>
+
+Parameter
+
+</th><th>
+
+Type
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+key
+
+</td><td>
+
+string \| number \| symbol
+
+</td><td>
+
+</td></tr>
+</tbody></table>
 
 **Returns:**
 

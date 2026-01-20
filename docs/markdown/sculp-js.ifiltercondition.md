@@ -12,7 +12,51 @@ export interface IFilterCondition<V>
 
 ## Properties
 
-| Property                                           | Modifiers | Type                    | Description  |
-| -------------------------------------------------- | --------- | ----------------------- | ------------ |
-| [filter?](./sculp-js.ifiltercondition.filter.md)   |           | (args: V) =&gt; boolean | _(Optional)_ |
-| [keyword?](./sculp-js.ifiltercondition.keyword.md) |           | string                  | _(Optional)_ |
+<table><thead><tr><th>
+
+Property
+
+</th><th>
+
+Modifiers
+
+</th><th>
+
+Type
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+[filter?](./sculp-js.ifiltercondition.filter.md)
+
+</td><td>
+
+</td><td>
+
+(args: V) =&gt; boolean
+
+</td><td>
+
+_(Optional)_
+
+</td></tr>
+<tr><td>
+
+[keyword?](./sculp-js.ifiltercondition.keyword.md)
+
+</td><td>
+
+</td><td>
+
+string
+
+</td><td>
+
+_(Optional)_
+
+</td></tr>
+</tbody></table>

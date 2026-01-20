@@ -2,7 +2,7 @@
 
 [Home](./index.md) &gt; [sculp-js](./sculp-js.md) &gt; [numberAbbr](./sculp-js.numberabbr.md)
 
-## numberAbbr variable
+## numberAbbr() function
 
 将数字转换为携带单位的字符串
 
@@ -11,3 +11,61 @@
 ```typescript
 numberAbbr: (num: number | string, units: Array<string>, options?: INumberAbbr) => string;
 ```
+
+## Parameters
+
+<table><thead><tr><th>
+
+Parameter
+
+</th><th>
+
+Type
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+num
+
+</td><td>
+
+number \| string
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+units
+
+</td><td>
+
+Array&lt;string&gt;
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+options
+
+</td><td>
+
+INumberAbbr
+
+</td><td>
+
+_(Optional)_ default: { ratio: 1000, decimals: 0, separator: ' ' }
+
+</td></tr>
+</tbody></table>
+
+**Returns:**
+
+string
+
+{<!-- -->string<!-- -->}

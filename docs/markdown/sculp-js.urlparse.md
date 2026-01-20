@@ -2,7 +2,7 @@
 
 [Home](./index.md) &gt; [sculp-js](./sculp-js.md) &gt; [urlParse](./sculp-js.urlparse.md)
 
-## urlParse variable
+## urlParse() function
 
 url 解析
 
@@ -11,3 +11,50 @@ url 解析
 ```typescript
 urlParse: (url: string, isModernApi?: boolean) => Url;
 ```
+
+## Parameters
+
+<table><thead><tr><th>
+
+Parameter
+
+</th><th>
+
+Type
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+url
+
+</td><td>
+
+string
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+isModernApi
+
+</td><td>
+
+boolean
+
+</td><td>
+
+_(Optional)_ 使用现代API:URL, 默认true (对无效url解析会抛错), 否则使用a标签来解析（兼容性更强）
+
+</td></tr>
+</tbody></table>
+
+**Returns:**
+
+[Url](./sculp-js.url.md)
+
+{<!-- -->Url<!-- -->}

@@ -18,10 +18,44 @@ export declare function cloneDeep<T>(source: T, map?: WeakMap<any, any>): T;
 
 ## Parameters
 
-| Parameter | Type                    | Description  |
-| --------- | ----------------------- | ------------ |
-| source    | T                       |              |
-| map       | WeakMap&lt;any, any&gt; | _(Optional)_ |
+<table><thead><tr><th>
+
+Parameter
+
+</th><th>
+
+Type
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+source
+
+</td><td>
+
+T
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+map
+
+</td><td>
+
+WeakMap&lt;any, any&gt;
+
+</td><td>
+
+_(Optional)_
+
+</td></tr>
+</tbody></table>
 
 **Returns:**
 

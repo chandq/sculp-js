@@ -14,10 +14,46 @@ export declare function strip(num: NumberType, precision?: number): number;
 
 ## Parameters
 
-| Parameter | Type       | Description                                                         |
-| --------- | ---------- | ------------------------------------------------------------------- |
-| num       | NumberType | The input number                                                    |
-| precision | number     | _(Optional)_ An integer specifying the number of significant digits |
+<table><thead><tr><th>
+
+Parameter
+
+</th><th>
+
+Type
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+num
+
+</td><td>
+
+NumberType
+
+</td><td>
+
+The input number
+
+</td></tr>
+<tr><td>
+
+precision
+
+</td><td>
+
+number
+
+</td><td>
+
+_(Optional)_ An integer specifying the number of significant digits
+
+</td></tr>
+</tbody></table>
 
 **Returns:**
 

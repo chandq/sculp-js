@@ -14,9 +14,33 @@ export declare function dateParse(value: DateValue): Date;
 
 ## Parameters
 
-| Parameter | Type                                 | Description                    |
-| --------- | ------------------------------------ | ------------------------------ |
-| value     | [DateValue](./sculp-js.datevalue.md) | 可以是数值、字符串或 Date 对象 |
+<table><thead><tr><th>
+
+Parameter
+
+</th><th>
+
+Type
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+value
+
+</td><td>
+
+[DateValue](./sculp-js.datevalue.md)
+
+</td><td>
+
+可以是数值、字符串或 Date 对象
+
+</td></tr>
+</tbody></table>
 
 **Returns:**
 

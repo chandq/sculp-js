@@ -14,10 +14,44 @@ export declare function stringKebabCase(string: string, separator?: string): str
 
 ## Parameters
 
-| Parameter | Type   | Description                              |
-| --------- | ------ | ---------------------------------------- |
-| string    | string |                                          |
-| separator | string | _(Optional)_ 分隔符，默认是"-"（短横线） |
+<table><thead><tr><th>
+
+Parameter
+
+</th><th>
+
+Type
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+string
+
+</td><td>
+
+string
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+separator
+
+</td><td>
+
+string
+
+</td><td>
+
+_(Optional)_ 分隔符，默认是"-"（短横线）
+
+</td></tr>
+</tbody></table>
 
 **Returns:**
 

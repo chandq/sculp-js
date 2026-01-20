@@ -14,9 +14,33 @@ export declare function b64encode(rawStr: string): string;
 
 ## Parameters
 
-| Parameter | Type   | Description              |
-| --------- | ------ | ------------------------ |
-| rawStr    | string | 原始字符串，包括中文内容 |
+<table><thead><tr><th>
+
+Parameter
+
+</th><th>
+
+Type
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+rawStr
+
+</td><td>
+
+string
+
+</td><td>
+
+原始字符串，包括中文内容
+
+</td></tr>
+</tbody></table>
 
 **Returns:**
 

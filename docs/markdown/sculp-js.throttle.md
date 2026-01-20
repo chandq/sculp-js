@@ -2,7 +2,7 @@
 
 [Home](./index.md) &gt; [sculp-js](./sculp-js.md) &gt; [throttle](./sculp-js.throttle.md)
 
-## throttle variable
+## throttle() function
 
 节流函数 节流就是节约流量，将连续触发的事件稀释成预设评率。 比如每间隔1秒执行一次函数，无论这期间触发多少次事件。 这有点像公交车，无论在站点等车的人多不多，公交车只会按时来一班，不会来一个人就来一辆公交车。
 
@@ -11,3 +11,61 @@
 ```typescript
 throttle: <F extends AnyFunc>(func: F, wait: number, immediate?: boolean) => ThrottleFunc<F>;
 ```
+
+## Parameters
+
+<table><thead><tr><th>
+
+Parameter
+
+</th><th>
+
+Type
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+func
+
+</td><td>
+
+F
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+wait
+
+</td><td>
+
+number
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+immediate
+
+</td><td>
+
+boolean
+
+</td><td>
+
+_(Optional)_
+
+</td></tr>
+</tbody></table>
+
+**Returns:**
+
+[ThrottleFunc](./sculp-js.throttlefunc.md)<!-- -->&lt;F&gt;
+
+{<!-- -->ThrottleFunc<F>}

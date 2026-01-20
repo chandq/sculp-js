@@ -14,10 +14,44 @@ export declare function setGlobal(key: string | number | symbol, val?: any): voi
 
 ## Parameters
 
-| Parameter | Type                       | Description  |
-| --------- | -------------------------- | ------------ |
-| key       | string \| number \| symbol |              |
-| val       | any                        | _(Optional)_ |
+<table><thead><tr><th>
+
+Parameter
+
+</th><th>
+
+Type
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+key
+
+</td><td>
+
+string \| number \| symbol
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+val
+
+</td><td>
+
+any
+
+</td><td>
+
+_(Optional)_
+
+</td></tr>
+</tbody></table>
 
 **Returns:**
 

@@ -14,10 +14,44 @@ export declare function qsStringify(query: LooseParams, replacer?: Replacer): st
 
 ## Parameters
 
-| Parameter | Type                                     | Description  |
-| --------- | ---------------------------------------- | ------------ |
-| query     | [LooseParams](./sculp-js.looseparams.md) |              |
-| replacer  | [Replacer](./sculp-js.replacer.md)       | _(Optional)_ |
+<table><thead><tr><th>
+
+Parameter
+
+</th><th>
+
+Type
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+query
+
+</td><td>
+
+[LooseParams](./sculp-js.looseparams.md)
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+replacer
+
+</td><td>
+
+[Replacer](./sculp-js.replacer.md)
+
+</td><td>
+
+_(Optional)_
+
+</td></tr>
+</tbody></table>
 
 **Returns:**
 

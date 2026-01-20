@@ -2,7 +2,7 @@
 
 [Home](./index.md) &gt; [sculp-js](./sculp-js.md) &gt; [isFunction](./sculp-js.isfunction.md)
 
-## isFunction variable
+## isFunction() function
 
 判断是否为函数
 
@@ -11,3 +11,37 @@
 ```typescript
 isFunction: (any: unknown) => any is Function
 ```
+
+## Parameters
+
+<table><thead><tr><th>
+
+Parameter
+
+</th><th>
+
+Type
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+any
+
+</td><td>
+
+unknown
+
+</td><td>
+
+</td></tr>
+</tbody></table>
+
+**Returns:**
+
+any is Function
+
+{<!-- -->boolean<!-- -->}

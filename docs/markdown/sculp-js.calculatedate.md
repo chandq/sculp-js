@@ -14,11 +14,59 @@ export declare function calculateDate(originDate: DateValue, n: number, sep?: st
 
 ## Parameters
 
-| Parameter  | Type                                 | Description                    |
-| ---------- | ------------------------------------ | ------------------------------ |
-| originDate | [DateValue](./sculp-js.datevalue.md) | 参考日期                       |
-| n          | number                               | 正数：向后推算；负数：向前推算 |
-| sep        | string                               | _(Optional)_ 日期格式的分隔符  |
+<table><thead><tr><th>
+
+Parameter
+
+</th><th>
+
+Type
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+originDate
+
+</td><td>
+
+[DateValue](./sculp-js.datevalue.md)
+
+</td><td>
+
+参考日期
+
+</td></tr>
+<tr><td>
+
+n
+
+</td><td>
+
+number
+
+</td><td>
+
+正数：向后推算；负数：向前推算
+
+</td></tr>
+<tr><td>
+
+sep
+
+</td><td>
+
+string
+
+</td><td>
+
+_(Optional)_ 日期格式的分隔符
+
+</td></tr>
+</tbody></table>
 
 **Returns:**
 

@@ -35,11 +35,59 @@ export declare function mapDeep<T>(
 
 ## Parameters
 
-| Parameter | Type                                                                                                                                         | Description                                                                                        |
-| --------- | -------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
-| tree      | T\[\]                                                                                                                                        | 树形数据                                                                                           |
-| iterator  | (val: T, index: number, currentArr: T\[\], tree: T\[\], parent: T \| null, level: number) =&gt; { \[k: string \| number\]: any; } \| boolean | 迭代函数, 返回值为true时continue, 返回值为false时break                                             |
-| options   | { childField?: string; reverse?: boolean; breadthFirst?: boolean; }                                                                          | _(Optional)_ 支持定制子元素名称、反向遍历，默认<!-- -->{ childField: 'children', reverse: false, } |
+<table><thead><tr><th>
+
+Parameter
+
+</th><th>
+
+Type
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+tree
+
+</td><td>
+
+T\[\]
+
+</td><td>
+
+树形数据
+
+</td></tr>
+<tr><td>
+
+iterator
+
+</td><td>
+
+(val: T, index: number, currentArr: T\[\], tree: T\[\], parent: T \| null, level: number) =&gt; { \[k: string \| number\]: any; } \| boolean
+
+</td><td>
+
+迭代函数, 返回值为true时continue, 返回值为false时break
+
+</td></tr>
+<tr><td>
+
+options
+
+</td><td>
+
+{ childField?: string; reverse?: boolean; breadthFirst?: boolean; }
+
+</td><td>
+
+_(Optional)_ 支持定制子元素名称、反向遍历，默认<!-- -->{ childField: 'children', reverse: false, }
+
+</td></tr>
+</tbody></table>
 
 **Returns:**
 

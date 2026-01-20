@@ -18,11 +18,59 @@ export declare function arrayEachAsync<V>(
 
 ## Parameters
 
-| Parameter | Type                                                  | Description               |
-| --------- | ----------------------------------------------------- | ------------------------- |
-| array     | ArrayLike&lt;V&gt;                                    | 数组                      |
-| iterator  | (val: V, idx: number) =&gt; Promise&lt;any&gt; \| any | 支持Promise类型的回调函数 |
-| reverse   | boolean                                               | _(Optional)_ 是否反向遍历 |
+<table><thead><tr><th>
+
+Parameter
+
+</th><th>
+
+Type
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+array
+
+</td><td>
+
+ArrayLike&lt;V&gt;
+
+</td><td>
+
+数组
+
+</td></tr>
+<tr><td>
+
+iterator
+
+</td><td>
+
+(val: V, idx: number) =&gt; Promise&lt;any&gt; \| any
+
+</td><td>
+
+支持Promise类型的回调函数
+
+</td></tr>
+<tr><td>
+
+reverse
+
+</td><td>
+
+boolean
+
+</td><td>
+
+_(Optional)_ 是否反向遍历
+
+</td></tr>
+</tbody></table>
 
 **Returns:**
 

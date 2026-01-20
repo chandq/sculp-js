@@ -2,10 +2,42 @@
 
 [Home](./index.md) &gt; [sculp-js](./sculp-js.md) &gt; [isError](./sculp-js.iserror.md)
 
-## isError variable
+## isError() function
 
 **Signature:**
 
 ```typescript
 isError: (any: unknown) => any is Error
 ```
+
+## Parameters
+
+<table><thead><tr><th>
+
+Parameter
+
+</th><th>
+
+Type
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+any
+
+</td><td>
+
+unknown
+
+</td><td>
+
+</td></tr>
+</tbody></table>
+
+**Returns:**
+
+any is Error

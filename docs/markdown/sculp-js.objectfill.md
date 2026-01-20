@@ -18,11 +18,55 @@ export declare function objectFill<R extends AnyObject = AnyObject>(
 
 ## Parameters
 
-| Parameter | Type                                                             | Description  |
-| --------- | ---------------------------------------------------------------- | ------------ |
-| source    | Partial&lt;R&gt;                                                 |              |
-| target    | Partial&lt;R&gt;                                                 |              |
-| fillable  | (s: typeof source, t: typeof target, key: keyof R) =&gt; boolean | _(Optional)_ |
+<table><thead><tr><th>
+
+Parameter
+
+</th><th>
+
+Type
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+source
+
+</td><td>
+
+Partial&lt;R&gt;
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+target
+
+</td><td>
+
+Partial&lt;R&gt;
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+fillable
+
+</td><td>
+
+(s: typeof source, t: typeof target, key: keyof R) =&gt; boolean
+
+</td><td>
+
+_(Optional)_
+
+</td></tr>
+</tbody></table>
 
 **Returns:**
 

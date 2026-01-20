@@ -14,11 +14,55 @@ export declare function downloadBlob(blob: Blob, filename: string, callback?: Fu
 
 ## Parameters
 
-| Parameter | Type     | Description  |
-| --------- | -------- | ------------ |
-| blob      | Blob     |              |
-| filename  | string   |              |
-| callback  | Function | _(Optional)_ |
+<table><thead><tr><th>
+
+Parameter
+
+</th><th>
+
+Type
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+blob
+
+</td><td>
+
+Blob
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+filename
+
+</td><td>
+
+string
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+callback
+
+</td><td>
+
+Function
+
+</td><td>
+
+_(Optional)_
+
+</td></tr>
+</tbody></table>
 
 **Returns:**
 

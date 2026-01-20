@@ -19,12 +19,68 @@ export declare function downloadData(
 
 ## Parameters
 
-| Parameter | Type                                                                                     | Description                     |
-| --------- | ---------------------------------------------------------------------------------------- | ------------------------------- |
-| data      | [AnyObject](./sculp-js.anyobject.md) \| [AnyObject](./sculp-js.anyobject.md)<!-- -->\[\] |                                 |
-| fileType  | [FileType](./sculp-js.filetype.md)                                                       | 支持 json/csv/xls/xlsx 四种格式 |
-| filename  | string                                                                                   |                                 |
-| headers   | string\[\]                                                                               | _(Optional)_                    |
+<table><thead><tr><th>
+
+Parameter
+
+</th><th>
+
+Type
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+data
+
+</td><td>
+
+[AnyObject](./sculp-js.anyobject.md) \| [AnyObject](./sculp-js.anyobject.md)<!-- -->\[\]
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+fileType
+
+</td><td>
+
+[FileType](./sculp-js.filetype.md)
+
+</td><td>
+
+支持 json/csv/xls/xlsx 四种格式
+
+</td></tr>
+<tr><td>
+
+filename
+
+</td><td>
+
+string
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+headers
+
+</td><td>
+
+string\[\]
+
+</td><td>
+
+_(Optional)_
+
+</td></tr>
+</tbody></table>
 
 **Returns:**
 

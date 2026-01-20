@@ -14,11 +14,55 @@ export declare function downloadHref(href: string, filename: string, callback?: 
 
 ## Parameters
 
-| Parameter | Type     | Description  |
-| --------- | -------- | ------------ |
-| href      | string   |              |
-| filename  | string   |              |
-| callback  | Function | _(Optional)_ |
+<table><thead><tr><th>
+
+Parameter
+
+</th><th>
+
+Type
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+href
+
+</td><td>
+
+string
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+filename
+
+</td><td>
+
+string
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+callback
+
+</td><td>
+
+Function
+
+</td><td>
+
+_(Optional)_
+
+</td></tr>
+</tbody></table>
 
 **Returns:**
 

@@ -14,10 +14,46 @@ export declare function genCanvasWM(content?: string, canvasWM?: ICanvasWM): voi
 
 ## Parameters
 
-| Parameter | Type                                 | Description  |
-| --------- | ------------------------------------ | ------------ |
-| content   | string                               | _(Optional)_ |
-| canvasWM  | [ICanvasWM](./sculp-js.icanvaswm.md) | _(Optional)_ |
+<table><thead><tr><th>
+
+Parameter
+
+</th><th>
+
+Type
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+content
+
+</td><td>
+
+string
+
+</td><td>
+
+_(Optional)_
+
+</td></tr>
+<tr><td>
+
+canvasWM
+
+</td><td>
+
+[ICanvasWM](./sculp-js.icanvaswm.md)
+
+</td><td>
+
+_(Optional)_
+
+</td></tr>
+</tbody></table>
 
 **Returns:**
 

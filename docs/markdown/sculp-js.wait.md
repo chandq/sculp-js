@@ -14,9 +14,33 @@ export declare function wait(timeout?: number): Promise<void>;
 
 ## Parameters
 
-| Parameter | Type   | Description                     |
-| --------- | ------ | ------------------------------- |
-| timeout   | number | _(Optional)_ 等待时间，单位毫秒 |
+<table><thead><tr><th>
+
+Parameter
+
+</th><th>
+
+Type
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+timeout
+
+</td><td>
+
+number
+
+</td><td>
+
+_(Optional)_ 等待时间，单位毫秒
+
+</td></tr>
+</tbody></table>
 
 **Returns:**
 

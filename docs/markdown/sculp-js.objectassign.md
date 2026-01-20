@@ -17,10 +17,42 @@ export declare function objectAssign<R = AnyObject | AnyArray>(
 
 ## Parameters
 
-| Parameter | Type                                                                  | Description |
-| --------- | --------------------------------------------------------------------- | ----------- |
-| source    | [ObjectAssignItem](./sculp-js.objectassignitem.md)                    |             |
-| targets   | ([ObjectAssignItem](./sculp-js.objectassignitem.md) \| undefined)\[\] |             |
+<table><thead><tr><th>
+
+Parameter
+
+</th><th>
+
+Type
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+source
+
+</td><td>
+
+[ObjectAssignItem](./sculp-js.objectassignitem.md)
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+targets
+
+</td><td>
+
+([ObjectAssignItem](./sculp-js.objectassignitem.md) \| undefined)\[\]
+
+</td><td>
+
+</td></tr>
+</tbody></table>
 
 **Returns:**
 

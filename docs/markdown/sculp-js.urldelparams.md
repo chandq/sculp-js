@@ -2,7 +2,7 @@
 
 [Home](./index.md) &gt; [sculp-js](./sculp-js.md) &gt; [urlDelParams](./sculp-js.urldelparams.md)
 
-## urlDelParams variable
+## urlDelParams() function
 
 删除 url 查询参数
 
@@ -11,3 +11,48 @@
 ```typescript
 urlDelParams: (url: string, removeKeys: string[]) => string;
 ```
+
+## Parameters
+
+<table><thead><tr><th>
+
+Parameter
+
+</th><th>
+
+Type
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+url
+
+</td><td>
+
+string
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+removeKeys
+
+</td><td>
+
+string\[\]
+
+</td><td>
+
+</td></tr>
+</tbody></table>
+
+**Returns:**
+
+string
+
+{<!-- -->string<!-- -->}

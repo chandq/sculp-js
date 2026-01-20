@@ -14,11 +14,59 @@ export declare function getStrWidthPx(str: string, fontSize?: number, isRemove?:
 
 ## Parameters
 
-| Parameter | Type    | Description                              |
-| --------- | ------- | ---------------------------------------- |
-| str       | string  | 目标字符串                               |
-| fontSize  | number  | _(Optional)_ 字符串字体大小              |
-| isRemove  | boolean | _(Optional)_ 计算后是否移除创建的dom元素 |
+<table><thead><tr><th>
+
+Parameter
+
+</th><th>
+
+Type
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+str
+
+</td><td>
+
+string
+
+</td><td>
+
+目标字符串
+
+</td></tr>
+<tr><td>
+
+fontSize
+
+</td><td>
+
+number
+
+</td><td>
+
+_(Optional)_ 字符串字体大小
+
+</td></tr>
+<tr><td>
+
+isRemove
+
+</td><td>
+
+boolean
+
+</td><td>
+
+_(Optional)_ 计算后是否移除创建的dom元素
+
+</td></tr>
+</tbody></table>
 
 **Returns:**
 

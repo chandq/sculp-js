@@ -18,11 +18,59 @@ export declare function searchTreeById<V>(
 
 ## Parameters
 
-| Parameter | Type                                 | Description                                                                 |
-| --------- | ------------------------------------ | --------------------------------------------------------------------------- |
-| tree      | ArrayLike&lt;V&gt;                   | 树形数据                                                                    |
-| nodeId    | [IdLike](./sculp-js.idlike.md)       | 目标元素ID                                                                  |
-| options   | [ITreeConf](./sculp-js.itreeconf.md) | _(Optional)_ 迭代配置项, 默认：<!-- -->{ children = 'children', id = 'id' } |
+<table><thead><tr><th>
+
+Parameter
+
+</th><th>
+
+Type
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+tree
+
+</td><td>
+
+ArrayLike&lt;V&gt;
+
+</td><td>
+
+树形数据
+
+</td></tr>
+<tr><td>
+
+nodeId
+
+</td><td>
+
+[IdLike](./sculp-js.idlike.md)
+
+</td><td>
+
+目标元素ID
+
+</td></tr>
+<tr><td>
+
+options
+
+</td><td>
+
+[ITreeConf](./sculp-js.itreeconf.md)
+
+</td><td>
+
+_(Optional)_ 迭代配置项, 默认：<!-- -->{ children = 'children', id = 'id' }
+
+</td></tr>
+</tbody></table>
 
 **Returns:**
 

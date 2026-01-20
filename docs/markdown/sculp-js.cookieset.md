@@ -14,11 +14,55 @@ export declare function cookieSet(name: string, value: string, maxAge?: number |
 
 ## Parameters
 
-| Parameter | Type           | Description  |
-| --------- | -------------- | ------------ |
-| name      | string         |              |
-| value     | string         |              |
-| maxAge    | number \| Date | _(Optional)_ |
+<table><thead><tr><th>
+
+Parameter
+
+</th><th>
+
+Type
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+name
+
+</td><td>
+
+string
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+value
+
+</td><td>
+
+string
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+maxAge
+
+</td><td>
+
+number \| Date
+
+</td><td>
+
+_(Optional)_
+
+</td></tr>
+</tbody></table>
 
 **Returns:**
 

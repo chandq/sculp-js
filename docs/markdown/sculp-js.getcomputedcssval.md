@@ -14,11 +14,55 @@ export declare function getComputedCssVal(el: HTMLElement, property: string, reN
 
 ## Parameters
 
-| Parameter | Type        | Description  |
-| --------- | ----------- | ------------ |
-| el        | HTMLElement |              |
-| property  | string      |              |
-| reNumber  | boolean     | _(Optional)_ |
+<table><thead><tr><th>
+
+Parameter
+
+</th><th>
+
+Type
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+el
+
+</td><td>
+
+HTMLElement
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+property
+
+</td><td>
+
+string
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+reNumber
+
+</td><td>
+
+boolean
+
+</td><td>
+
+_(Optional)_
+
+</td></tr>
+</tbody></table>
 
 **Returns:**
 

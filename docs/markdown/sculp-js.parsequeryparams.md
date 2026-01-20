@@ -14,9 +14,33 @@ export declare function parseQueryParams(searchStr?: string): Record<string, str
 
 ## Parameters
 
-| Parameter | Type   | Description  |
-| --------- | ------ | ------------ |
-| searchStr | string | _(Optional)_ |
+<table><thead><tr><th>
+
+Parameter
+
+</th><th>
+
+Type
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+searchStr
+
+</td><td>
+
+string
+
+</td><td>
+
+_(Optional)_
+
+</td></tr>
+</tbody></table>
 
 **Returns:**
 

@@ -2,10 +2,42 @@
 
 [Home](./index.md) &gt; [sculp-js](./sculp-js.md) &gt; [isArray](./sculp-js.isarray.md)
 
-## isArray variable
+## isArray() function
 
 **Signature:**
 
 ```typescript
 isArray: (any: unknown) => any is unknown[]
 ```
+
+## Parameters
+
+<table><thead><tr><th>
+
+Parameter
+
+</th><th>
+
+Type
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+any
+
+</td><td>
+
+unknown
+
+</td><td>
+
+</td></tr>
+</tbody></table>
+
+**Returns:**
+
+any is unknown\[\]

@@ -2,7 +2,7 @@
 
 [Home](./index.md) &gt; [sculp-js](./sculp-js.md) &gt; [urlStringify](./sculp-js.urlstringify.md)
 
-## urlStringify variable
+## urlStringify() function
 
 url 字符化，url 对象里的 searchParams 会覆盖 url 原有的查询参数
 
@@ -11,3 +11,37 @@ url 字符化，url 对象里的 searchParams 会覆盖 url 原有的查询参�
 ```typescript
 urlStringify: (url: Url) => string;
 ```
+
+## Parameters
+
+<table><thead><tr><th>
+
+Parameter
+
+</th><th>
+
+Type
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+url
+
+</td><td>
+
+[Url](./sculp-js.url.md)
+
+</td><td>
+
+</td></tr>
+</tbody></table>
+
+**Returns:**
+
+string
+
+{<!-- -->string<!-- -->}

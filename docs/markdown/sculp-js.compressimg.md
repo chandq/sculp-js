@@ -19,10 +19,46 @@ export declare function compressImg(
 
 ## Parameters
 
-| Parameter | Type                                               | Description                                                                                  |
-| --------- | -------------------------------------------------- | -------------------------------------------------------------------------------------------- |
-| file      | File \| FileList                                   | 图片或图片数组                                                                               |
-| options   | [ICompressOptions](./sculp-js.icompressoptions.md) | _(Optional)_ 压缩图片配置项，default: {<!-- -->mime:'image/jpeg', minFileSizeKB: 50<!-- -->} |
+<table><thead><tr><th>
+
+Parameter
+
+</th><th>
+
+Type
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+file
+
+</td><td>
+
+File \| FileList
+
+</td><td>
+
+图片或图片数组
+
+</td></tr>
+<tr><td>
+
+options
+
+</td><td>
+
+[ICompressOptions](./sculp-js.icompressoptions.md)
+
+</td><td>
+
+_(Optional)_ 压缩图片配置项，default: {<!-- -->mime:'image/jpeg', minFileSizeKB: 50<!-- -->}
+
+</td></tr>
+</tbody></table>
 
 **Returns:**
 

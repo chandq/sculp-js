@@ -287,6 +287,8 @@
     "@babel/preset-typescript": "^7.23.2",
     "@commitlint/cli": "^17.8.0",
     "@commitlint/config-conventional": "^17.8.0",
+    "@microsoft/api-documenter": "^7.28.2",
+    "@microsoft/api-extractor": "^7.55.2",
     "@rollup/plugin-commonjs": "^25.0.5",
     "@rollup/plugin-json": "^6.0.1",
     "@rollup/plugin-node-resolve": "^15.2.3",

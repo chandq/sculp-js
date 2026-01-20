@@ -17,10 +17,42 @@ export declare function objectEachAsync<O extends AnyObject>(
 
 ## Parameters
 
-| Parameter | Type                                                                                     | Description |
-| --------- | ---------------------------------------------------------------------------------------- | ----------- |
-| obj       | O                                                                                        |             |
-| iterator  | (val: O\[keyof O\], key: Extract&lt;keyof O, string&gt;) =&gt; Promise&lt;any&gt; \| any |             |
+<table><thead><tr><th>
+
+Parameter
+
+</th><th>
+
+Type
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+obj
+
+</td><td>
+
+O
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+iterator
+
+</td><td>
+
+(val: O\[keyof O\], key: Extract&lt;keyof O, string&gt;) =&gt; Promise&lt;any&gt; \| any
+
+</td><td>
+
+</td></tr>
+</tbody></table>
 
 **Returns:**
 

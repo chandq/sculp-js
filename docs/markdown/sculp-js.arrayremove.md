@@ -14,10 +14,42 @@ export declare function arrayRemove<V>(array: V[], expect: (val: V, idx: number)
 
 ## Parameters
 
-| Parameter | Type                                | Description |
-| --------- | ----------------------------------- | ----------- |
-| array     | V\[\]                               |             |
-| expect    | (val: V, idx: number) =&gt; boolean |             |
+<table><thead><tr><th>
+
+Parameter
+
+</th><th>
+
+Type
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+array
+
+</td><td>
+
+V\[\]
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+expect
+
+</td><td>
+
+(val: V, idx: number) =&gt; boolean
+
+</td><td>
+
+</td></tr>
+</tbody></table>
 
 **Returns:**
 

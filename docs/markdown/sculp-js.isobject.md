@@ -2,10 +2,42 @@
 
 [Home](./index.md) &gt; [sculp-js](./sculp-js.md) &gt; [isObject](./sculp-js.isobject.md)
 
-## isObject variable
+## isObject() function
 
 **Signature:**
 
 ```typescript
 isObject: (any: unknown) => any is Record<string, unknown>
 ```
+
+## Parameters
+
+<table><thead><tr><th>
+
+Parameter
+
+</th><th>
+
+Type
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+any
+
+</td><td>
+
+unknown
+
+</td><td>
+
+</td></tr>
+</tbody></table>
+
+**Returns:**
+
+any is Record&lt;string, unknown&gt;

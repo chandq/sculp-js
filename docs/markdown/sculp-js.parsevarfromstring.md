@@ -14,11 +14,59 @@ export declare function parseVarFromString(str: string, leftMatchSymbol?: string
 
 ## Parameters
 
-| Parameter        | Type   | Description                                    |
-| ---------------- | ------ | ---------------------------------------------- |
-| str              | string | 字符串                                         |
-| leftMatchSymbol  | string | _(Optional)_ 变量左侧匹配符号，默认：<!-- -->{ |
-| rightMatchSymbol | string | _(Optional)_ 变量右侧匹配符号，默认：<!-- -->} |
+<table><thead><tr><th>
+
+Parameter
+
+</th><th>
+
+Type
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+str
+
+</td><td>
+
+string
+
+</td><td>
+
+字符串
+
+</td></tr>
+<tr><td>
+
+leftMatchSymbol
+
+</td><td>
+
+string
+
+</td><td>
+
+_(Optional)_ 变量左侧匹配符号，默认：<!-- -->{
+
+</td></tr>
+<tr><td>
+
+rightMatchSymbol
+
+</td><td>
+
+string
+
+</td><td>
+
+_(Optional)_ 变量右侧匹配符号，默认：<!-- -->}
+
+</td></tr>
+</tbody></table>
 
 **Returns:**
 

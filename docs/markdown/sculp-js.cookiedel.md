@@ -2,7 +2,7 @@
 
 [Home](./index.md) &gt; [sculp-js](./sculp-js.md) &gt; [cookieDel](./sculp-js.cookiedel.md)
 
-## cookieDel variable
+## cookieDel() function
 
 删除单个 cookie
 
@@ -11,3 +11,37 @@
 ```typescript
 cookieDel: (name: string) => void
 ```
+
+## Parameters
+
+<table><thead><tr><th>
+
+Parameter
+
+</th><th>
+
+Type
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+name
+
+</td><td>
+
+string
+
+</td><td>
+
+cookie 名称
+
+</td></tr>
+</tbody></table>
+
+**Returns:**
+
+void

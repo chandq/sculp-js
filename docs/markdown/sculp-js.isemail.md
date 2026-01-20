@@ -2,7 +2,7 @@
 
 [Home](./index.md) &gt; [sculp-js](./sculp-js.md) &gt; [isEmail](./sculp-js.isemail.md)
 
-## isEmail variable
+## isEmail() function
 
 判断字符串是否为邮箱格式，不对邮箱真实性做验证，如域名是否正确等
 
@@ -11,3 +11,37 @@
 ```typescript
 isEmail: (value: string) => boolean;
 ```
+
+## Parameters
+
+<table><thead><tr><th>
+
+Parameter
+
+</th><th>
+
+Type
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+value
+
+</td><td>
+
+string
+
+</td><td>
+
+</td></tr>
+</tbody></table>
+
+**Returns:**
+
+boolean
+
+{<!-- -->boolean<!-- -->}

@@ -14,10 +14,44 @@ export declare function fallbackCopyText(text: string, options?: CopyTextOptions
 
 ## Parameters
 
-| Parameter | Type            | Description  |
-| --------- | --------------- | ------------ |
-| text      | string          |              |
-| options   | CopyTextOptions | _(Optional)_ |
+<table><thead><tr><th>
+
+Parameter
+
+</th><th>
+
+Type
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+text
+
+</td><td>
+
+string
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+options
+
+</td><td>
+
+CopyTextOptions
+
+</td><td>
+
+_(Optional)_
+
+</td></tr>
+</tbody></table>
 
 **Returns:**
 

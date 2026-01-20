@@ -14,10 +14,44 @@ export declare function stringCamelCase(string: string, bigger?: boolean): strin
 
 ## Parameters
 
-| Parameter | Type    | Description                     |
-| --------- | ------- | ------------------------------- |
-| string    | string  |                                 |
-| bigger    | boolean | _(Optional)_ 是否大写第一个字母 |
+<table><thead><tr><th>
+
+Parameter
+
+</th><th>
+
+Type
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+string
+
+</td><td>
+
+string
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+bigger
+
+</td><td>
+
+boolean
+
+</td><td>
+
+_(Optional)_ 是否大写第一个字母
+
+</td></tr>
+</tbody></table>
 
 **Returns:**
 

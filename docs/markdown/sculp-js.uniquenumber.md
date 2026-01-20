@@ -2,7 +2,7 @@
 
 [Home](./index.md) &gt; [sculp-js](./sculp-js.md) &gt; [uniqueNumber](./sculp-js.uniquenumber.md)
 
-## uniqueNumber variable
+## uniqueNumber() function
 
 生成唯一不重复数值
 
@@ -11,3 +11,39 @@
 ```typescript
 uniqueNumber: (length?: number) => string;
 ```
+
+## Parameters
+
+<table><thead><tr><th>
+
+Parameter
+
+</th><th>
+
+Type
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+length
+
+</td><td>
+
+number
+
+</td><td>
+
+_(Optional)_
+
+</td></tr>
+</tbody></table>
+
+**Returns:**
+
+string
+
+{<!-- -->string<!-- -->}

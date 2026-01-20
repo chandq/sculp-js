@@ -14,10 +14,42 @@ export declare function removeClass(el: HTMLElement, classNames: string): void;
 
 ## Parameters
 
-| Parameter  | Type        | Description |
-| ---------- | ----------- | ----------- |
-| el         | HTMLElement |             |
-| classNames | string      |             |
+<table><thead><tr><th>
+
+Parameter
+
+</th><th>
+
+Type
+
+</th><th>
+
+Description
+
+</th></tr></thead>
+<tbody><tr><td>
+
+el
+
+</td><td>
+
+HTMLElement
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+classNames
+
+</td><td>
+
+string
+
+</td><td>
+
+</td></tr>
+</tbody></table>
 
 **Returns:**
 
