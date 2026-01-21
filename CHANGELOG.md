@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.17.3](https://github.com/chandq/sculp-js/compare/v1.17.2...v1.17.3) (2026-01-21)
+
+### Bug Fixes
+
+- search issue ([80d4dbd](https://github.com/chandq/sculp-js/commit/80d4dbd0730614d6ce2bd7d993b50f7a4f75e272))
+
 ### [1.17.2](https://github.com/chandq/sculp-js/compare/v1.17.1...v1.17.2) (2026-01-08)
 
 ### Bug Fixes
