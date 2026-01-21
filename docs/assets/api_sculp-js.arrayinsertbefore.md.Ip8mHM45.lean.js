@@ -1,0 +1,11 @@
+import { _ as a, c as t, o as i, ak as r } from './chunks/framework.BlH_CxMt.js';
+
+const y = JSON.parse(
+    '{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"api/sculp-js.arrayinsertbefore.md","filePath":"api/sculp-js.arrayinsertbefore.md","lastUpdated":1768980066000}'
+  ),
+  e = { name: 'api/sculp-js.arrayinsertbefore.md' };
+function p(n, s, h, l, d, k) {
+  return i(), t('div', null, [...(s[0] || (s[0] = [r('', 10)]))]);
+}
+const c = a(e, [['render', p]]);
+export { y as __pageData, c as default };

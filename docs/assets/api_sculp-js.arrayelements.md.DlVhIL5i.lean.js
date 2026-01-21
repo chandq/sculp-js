@@ -1,0 +1,11 @@
+import { _ as a, c as i, o as e, ak as t } from './chunks/framework.BlH_CxMt.js';
+
+const c = JSON.parse(
+    '{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"api/sculp-js.arrayelements.md","filePath":"api/sculp-js.arrayelements.md","lastUpdated":1768980066000}'
+  ),
+  n = { name: 'api/sculp-js.arrayelements.md' };
+function p(r, s, l, h, k, d) {
+  return e(), i('div', null, [...(s[0] || (s[0] = [t('', 5)]))]);
+}
+const o = a(n, [['render', p]]);
+export { c as __pageData, o as default };

@@ -1,0 +1,11 @@
+import { _ as s, c as e, o as t, ak as r } from './chunks/framework.BlH_CxMt.js';
+
+const o = JSON.parse(
+    '{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"api/sculp-js.anyarray.md","filePath":"api/sculp-js.anyarray.md","lastUpdated":1768980066000}'
+  ),
+  i = { name: 'api/sculp-js.anyarray.md' };
+function n(p, a, l, y, d, h) {
+  return t(), e('div', null, [...(a[0] || (a[0] = [r('', 5)]))]);
+}
+const k = s(i, [['render', n]]);
+export { o as __pageData, k as default };
