@@ -1,4 +1,5 @@
 import { defineConfig } from 'vitepress';
+import { SearchPlugin } from 'vitepress-plugin-search'
 
 // 动态生成 API 侧边栏
 const generateApiSidebar = () => {
@@ -335,12 +336,25 @@ export default defineConfig({
 
   // GitHub Pages 路径，如需自定义域名/路径，可修改 base
   base: '/sculp-js/',
-
+  vite: {
+    plugins: [
+      SearchPlugin({
+        // 启用预览片段（显示匹配内容的部分文本）
+        previewLength: 62,
+        // 按钮标签
+        buttonLabel: '搜索',
+        // 占位符
+        placeholder: '搜索文档',
+        // 允许模糊搜索
+        tokenize: 'full'
+      })
+    ]
+  },
   themeConfig: {
     nav: [
       { text: '指南', link: '/guide/getting-started' },
-      { 
-        text: 'API', 
+      {
+        text: 'API',
         link: '/api/index',
         activeMatch: '/api/'
       },
@@ -369,11 +383,11 @@ export default defineConfig({
     outline: [2, 3],
     sidebar: {
       '/guide/': [
-        { 
-          text: '指南', 
+        {
+          text: '指南',
           items: [
             { text: '开始使用', link: '/guide/getting-started' }
-          ] 
+          ]
         }
       ],
       '/api/': generateApiSidebar()
@@ -384,6 +398,39 @@ export default defineConfig({
     search: {
       provider: 'local',
       options: {
+        detailedView: true,
+        // 优化配置以确保API目录内容被索引
+        // fuse: {
+        //   // 更精确的匹配参数
+        //   threshold: 0.1,  // 更严格的匹配
+        //   includeScore: true,
+        //   includeMatches: true,
+        //   // 确保搜索涵盖所有内容
+        //   keys: [
+        //     'title',       // 页面标题
+        //     'titles',      // H1-H6 标题
+        //     'text',        // 页面文本内容
+        //     'lang',        // 语言
+        //     'categories',  // 分类
+        //     'tags'         // 标签
+        //   ],
+        // },
+        // 确保搜索包括API目录内容
+        // maxSuggestions: 100,
+        // searchIndexOptions: {
+        //   // 确保搜索索引包含API目录中的所有文件
+        //   tokenize: true,
+        //   processTerm: (term) => {
+        //     // 保留原始术语，同时添加标准化处理
+        //     return term.trim().toLowerCase();
+        //   },
+        //   // 搜索索引应包含所有路由
+        //   searchOptions: {
+        //     fields: ['title', 'titles', 'text'],
+        //     // 确保API函数名被正确索引
+        //     boost: { title: 2, text: 1 },
+        //   },
+        // },
         locales: {
           zh: {
             translations: {
