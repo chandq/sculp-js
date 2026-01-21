@@ -7,6 +7,8 @@ node_modules
 # Vue dist
 /dist
 /lib
+docs-site/.vitepress/cache
+api-docs/markdown
 
 # local env files
 .env.local

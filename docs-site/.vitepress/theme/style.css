@@ -1,0 +1,30 @@
+:root {
+  /* 更像 lodash 的清爽浅色风格 */
+  --vp-c-brand-1: #2563eb;
+  --vp-c-brand-2: #1d4ed8;
+  --vp-c-brand-3: #1e40af;
+
+  --vp-home-hero-name-color: var(--vp-c-brand-1);
+  --vp-home-hero-image-background-image: linear-gradient(135deg, rgba(37, 99, 235, 0.12), rgba(16, 185, 129, 0.1));
+  --vp-home-hero-image-filter: blur(60px);
+}
+
+/* 让 API Markdown（自动生成）更易读 */
+.vp-doc table {
+  display: table;
+  width: 100%;
+}
+
+.vp-doc th,
+.vp-doc td {
+  vertical-align: top;
+}
+
+.vp-doc code {
+  font-size: 0.9em;
+}
+
+/* 顶部导航更“轻”一点 */
+.VPNavBar {
+  backdrop-filter: saturate(180%) blur(10px);
+}

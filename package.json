@@ -13,7 +13,12 @@
     "coveralls": "jest --coverage --coverageReporters=text-lcov | coveralls",
     "lint": "eslint ./src --ext .vue,.js,jsx,.ts,tsx",
     "lint:fix": "eslint --fix ./src --ext .vue,.js,jsx,.ts,tsx",
-    "prettier": "prettier -c --write \"**/*.{vue,ts,js,jsx,css,less,scss,json}\""
+    "prettier": "prettier -c --write \"**/*.{vue,ts,js,jsx,css,less,scss,json}\"",
+    "docs:gen-api": "node scripts/gen-docs-site-api.js",
+    "docs:sync": "node scripts/sync-docs-site-api.mjs",
+    "docs:dev": "node scripts/docs-dev.mjs",
+    "docs:build": "node scripts/docs-build.mjs",
+    "docs:preview": "node scripts/docs-preview.js"
   },
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
@@ -282,6 +287,8 @@
     "@babel/preset-typescript": "^7.23.2",
     "@commitlint/cli": "^17.8.0",
     "@commitlint/config-conventional": "^17.8.0",
+    "@microsoft/api-documenter": "^7.28.2",
+    "@microsoft/api-extractor": "^7.55.2",
     "@rollup/plugin-commonjs": "^25.0.5",
     "@rollup/plugin-json": "^6.0.1",
     "@rollup/plugin-node-resolve": "^15.2.3",
@@ -308,14 +315,18 @@
     "jest-canvas-mock": "^2.5.2",
     "jest-environment-jsdom": "^29.7.0",
     "lint-staged": "^13.2.2",
+    "mock-service-cli": "^3.3.6",
     "prettier": "^3.0.3",
     "rollup": "^4.52.5",
     "rollup-plugin-clear": "^2.0.7",
     "rollup-plugin-dts": "^6.1.0",
     "rollup-plugin-prettier": "^4.1.2",
     "rollup-plugin-subpath-externals": "^3.4.0",
+    "shelljs": "^0.10.0",
     "standard-version": "^9.5.0",
-    "typescript": "5.0.4"
+    "typescript": "5.0.4",
+    "vitepress": "^1.6.4",
+    "vitepress-plugin-search": "^1.0.4-alpha.22"
   },
   "config": {
     "commitizen": {
