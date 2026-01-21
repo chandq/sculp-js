@@ -14,11 +14,11 @@
     "lint": "eslint ./src --ext .vue,.js,jsx,.ts,tsx",
     "lint:fix": "eslint --fix ./src --ext .vue,.js,jsx,.ts,tsx",
     "prettier": "prettier -c --write \"**/*.{vue,ts,js,jsx,css,less,scss,json}\"",
-    "docs:gen-api": "node scripts/gen-api.js",
+    "docs:gen-api": "node scripts/gen-docs-site-api.js",
     "docs:sync": "node scripts/sync-docs-site-api.mjs",
     "docs:dev": "node scripts/docs-dev.mjs",
     "docs:build": "node scripts/docs-build.mjs",
-    "docs:preview": "node scripts/docs-preview.mjs"
+    "docs:preview": "node scripts/docs-preview.js"
   },
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
@@ -315,6 +315,7 @@
     "jest-canvas-mock": "^2.5.2",
     "jest-environment-jsdom": "^29.7.0",
     "lint-staged": "^13.2.2",
+    "mock-service-cli": "^3.3.6",
     "prettier": "^3.0.3",
     "rollup": "^4.52.5",
     "rollup-plugin-clear": "^2.0.7",

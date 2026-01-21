@@ -18,46 +18,58 @@ export declare function arrayInsertBefore(array: AnyArray, start: number, to: nu
 
 Parameter
 
+
 </th><th>
 
 Type
 
+
 </th><th>
 
 Description
+
 
 </th></tr></thead>
 <tbody><tr><td>
 
 array
 
+
 </td><td>
 
 [AnyArray](./sculp-js.anyarray.md)
 
+
 </td><td>
+
 
 </td></tr>
 <tr><td>
 
 start
 
+
 </td><td>
 
 number
 
+
 </td><td>
+
 
 </td></tr>
 <tr><td>
 
 to
 
+
 </td><td>
 
 number
 
+
 </td><td>
+
 
 </td></tr>
 </tbody></table>
@@ -67,3 +79,4 @@ number
 void
 
 \{\*\}
+

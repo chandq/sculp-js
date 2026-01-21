@@ -18,24 +18,30 @@ export declare function arrayLike(any: unknown): boolean;
 
 Parameter
 
+
 </th><th>
 
 Type
 
+
 </th><th>
 
 Description
+
 
 </th></tr></thead>
 <tbody><tr><td>
 
 any
 
+
 </td><td>
 
 unknown
 
+
 </td><td>
+
 
 </td></tr>
 </tbody></table>
@@ -45,3 +51,4 @@ unknown
 boolean
 
 \{boolean\}
+

@@ -8,6 +8,7 @@ node_modules
 /dist
 /lib
 docs-site/.vitepress/cache
+api-docs/markdown
 
 # local env files
 .env.local

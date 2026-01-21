@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Sculp-js API Docs</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="description" content="Description" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css" />
+    <!-- vue主题样式 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css" />
+  </head>
+  <body>
+    <div id="app">loading...</div>
+    <script>
+      window.$docsify = {
+        // 入口文件改为 /home.md
+        homepage: './index.md',
+        name: '《JS 工具库》',
+        repo: 'https://github.com/chandq/sculp-js',
+
+        basePath: './markdown', // 资源相对路径
+        nameLink: '../index.html', // 点击文档标题后的跳转地址
+        externalLinkTarget: '_blank', // 外部链接的打开方式，默认_blank
+        cornerExternalLinkTarget: '_blank', // 右上角链接的打开方式。默认为 _blank
+        routerMode: 'hash', // 路由方式 默认hash
+        notFoundPage: true, // 在找不到指定页面时加载_404.md
+        auto2top: true, // 切换页面后是否自动跳转到页面顶部
+
+        loadSidebar: './sculp-js.md', // 加载侧边栏
+        coverpage: false, // 展示封面
+
+        subMaxLevel: 2,
+        // search: 'auto'
+        search: {
+          // 搜索插件配置
+          paths: 'auto',
+          placeholder: '🔍 搜索',
+          noData: '😞 没有结果!'
+        },
+        count: {
+          // 字数统计插件配置
+          countable: true,
+          fontsize: '0.9em',
+          color: 'rgb(90,90,90)',
+          language: 'chinese'
+        },
+        pagination: {
+          // 分页插件配置
+          previousText: '上一章节',
+          nextText: '下一章节',
+          crossChapter: true
+        }
+      };
+    </script>
+    <!-- Docsify v4 -->
+    <script src="https://cdn.jsdelivr.net/npm/docsify@4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/docsify/lib/plugins/zoom-image.min.js"></script>
+  </body>
+
+  <!-- <script src="https://cdn.jsdelivr.net/npm/docsify@4"></script> -->
+  <!-- <script src="https://cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script> -->
+  <!--全局搜索插件-->
+  <script src="https://unpkg.com/docsify-count/dist/countable.js"></script>
+  <!--字数统计插件-->
+  <script src="https://cdn.jsdelivr.net/npm/docsify-copy-code"></script>
+  <!--代码段复制插件-->
+  <script src="https://cdn.jsdelivr.net/npm/docsify/lib/plugins/zoom-image.min.js"></script>
+  <!--图片缩放插件-->
+  <script src="https://unpkg.com/docsify-pagination/dist/docsify-pagination.min.js"></script>
+  <!-- 阅读进度条插件 -->
+  <!-- <script src="https://cdn.jsdelivr.net/npm/docsify-darklight-theme@latest/dist/index.min.js"></script> -->
+  <!-- 暗黑主题切换插件 -->
+</html>

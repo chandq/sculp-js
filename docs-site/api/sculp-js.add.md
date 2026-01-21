@@ -9,7 +9,7 @@
 **Signature:**
 
 ```typescript
-add: (arg1: number, arg2: number) => number;
+add: (arg1: number, arg2: number) => number
 ```
 
 ## Parameters
@@ -18,39 +18,48 @@ add: (arg1: number, arg2: number) => number;
 
 Parameter
 
+
 </th><th>
 
 Type
 
+
 </th><th>
 
 Description
+
 
 </th></tr></thead>
 <tbody><tr><td>
 
 arg1
 
+
 </td><td>
 
 number
 
+
 </td><td>
 
 数值1
+
 
 </td></tr>
 <tr><td>
 
 arg2
 
+
 </td><td>
 
 number
 
+
 </td><td>
 
 数值2
+
 
 </td></tr>
 </tbody></table>
@@ -58,3 +67,4 @@ number
 **Returns:**
 
 number
+

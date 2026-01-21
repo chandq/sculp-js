@@ -18,35 +18,44 @@ export declare function addClass(el: HTMLElement, classNames: string): void;
 
 Parameter
 
+
 </th><th>
 
 Type
 
+
 </th><th>
 
 Description
+
 
 </th></tr></thead>
 <tbody><tr><td>
 
 el
 
+
 </td><td>
 
 HTMLElement
 
+
 </td><td>
+
 
 </td></tr>
 <tr><td>
 
 classNames
 
+
 </td><td>
 
 string
 
+
 </td><td>
+
 
 </td></tr>
 </tbody></table>
@@ -54,3 +63,4 @@ string
 **Returns:**
 
 void
+

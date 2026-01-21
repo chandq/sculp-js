@@ -9,11 +9,7 @@
 **Signature:**
 
 ```typescript
-export declare function arrayEachAsync<V>(
-  array: ArrayLike<V>,
-  iterator: (val: V, idx: number) => Promise<any> | any,
-  reverse?: boolean
-): Promise<void>;
+export declare function arrayEachAsync<V>(array: ArrayLike<V>, iterator: (val: V, idx: number) => Promise<any> | any, reverse?: boolean): Promise<void>;
 ```
 
 ## Parameters
@@ -22,62 +18,75 @@ export declare function arrayEachAsync<V>(
 
 Parameter
 
+
 </th><th>
 
 Type
 
+
 </th><th>
 
 Description
+
 
 </th></tr></thead>
 <tbody><tr><td>
 
 array
 
+
 </td><td>
 
-`ArrayLike<V>`
+``ArrayLike<V>``
+
 
 </td><td>
 
 数组
+
 
 </td></tr>
 <tr><td>
 
 iterator
 
+
 </td><td>
 
-(val: V, idx: number) =&gt; `Promise<any>` \| any
+(val: V, idx: number) =&gt; ``Promise<any>`` \| any
+
 
 </td><td>
 
 支持Promise类型的回调函数
+
 
 </td></tr>
 <tr><td>
 
 reverse
 
+
 </td><td>
 
 boolean
 
+
 </td><td>
 
 _(Optional)_ 是否反向遍历
+
 
 </td></tr>
 </tbody></table>
 
 **Returns:**
 
-`Promise<void>`
+``Promise<void>``
 
 ## Example
 
 使用范例如下: const start = async () =&gt; \{ await arrayEachAsync(result, async (item) =&gt; \{ await request(item); count++; \}) console.log('发送次数', count); \}
 
 for await...of 使用范例如下 const loadImages = async (images) =&gt; \{ for await (const item of images) \{ await request(item); count++; \} \}
+

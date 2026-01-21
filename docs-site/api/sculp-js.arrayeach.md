@@ -9,11 +9,7 @@
 **Signature:**
 
 ```typescript
-export declare function arrayEach<V>(
-  array: ArrayLike<V>,
-  iterator: (val: V, idx: number, arr: ArrayLike<V>) => boolean | void,
-  reverse?: boolean
-): void;
+export declare function arrayEach<V>(array: ArrayLike<V>, iterator: (val: V, idx: number, arr: ArrayLike<V>) => boolean | void, reverse?: boolean): void;
 ```
 
 ## Parameters
@@ -22,50 +18,62 @@ export declare function arrayEach<V>(
 
 Parameter
 
+
 </th><th>
 
 Type
 
+
 </th><th>
 
 Description
+
 
 </th></tr></thead>
 <tbody><tr><td>
 
 array
 
-</td><td>
-
-`ArrayLike<V>`
 
 </td><td>
+
+``ArrayLike<V>``
+
+
+</td><td>
+
 
 </td></tr>
 <tr><td>
 
 iterator
 
+
 </td><td>
 
-(val: V, idx: number, arr: `ArrayLike<V>`) =&gt; boolean \| void
+(val: V, idx: number, arr: ``ArrayLike<V>``) =&gt; boolean \| void
+
 
 </td><td>
 
 迭代函数, 返回值为true时continue, 返回值为false时break
+
 
 </td></tr>
 <tr><td>
 
 reverse
 
+
 </td><td>
 
 boolean
 
+
 </td><td>
 
 _(Optional)_ 是否倒序
+
 
 </td></tr>
 </tbody></table>
@@ -75,3 +83,4 @@ _(Optional)_ 是否倒序
 void
 
 \{\*\}
+
