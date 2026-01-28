@@ -103,6 +103,9 @@
       "./url": [
         "./dist/types/url.d.ts"
       ],
+      "./unicodeToolkit": [
+        "./dist/types/unicodeToolkit.d.ts"
+      ],
       "./validator": [
         "./dist/types/validator.d.ts"
       ],
@@ -244,6 +247,11 @@
       "import": "./dist/esm/url.js",
       "require": "./dist/cjs/url.js",
       "types": "./dist/types/url.d.ts"
+    },
+    "./unicodeToolkit": {
+      "import": "./dist/esm/unicodeToolkit.js",
+      "require": "./dist/cjs/unicodeToolkit.js",
+      "types": "./dist/types/unicodeToolkit.d.ts"
     },
     "./validator": {
       "import": "./dist/esm/validator.js",

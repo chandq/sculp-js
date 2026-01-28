@@ -25,3 +25,4 @@ export * from './validator';
 export * from './variable';
 export * from './cloneDeep';
 export * from './isEqual';
+export * from './unicodeToolkit';
