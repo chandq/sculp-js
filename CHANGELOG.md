@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.18.0](https://github.com/chandq/sculp-js/compare/v1.17.3...v1.18.0) (2026-02-05)
+
+### Features
+
+- add unicodeToolkit.ts ([9ff74eb](https://github.com/chandq/sculp-js/commit/9ff74eb3d541d9d9cae1a12e28791afd2b8209af))
+
 ### [1.17.3](https://github.com/chandq/sculp-js/compare/v1.17.2...v1.17.3) (2026-01-21)
 
 ### Bug Fixes
