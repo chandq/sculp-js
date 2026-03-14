@@ -322,7 +322,9 @@ const generateApiSidebar = () => {
         { text: 'setGlobal', link: '/api/sculp-js.setglobal' },
         { text: 'select', link: '/api/sculp-js.select' },
         { text: 'style', link: '/api/sculp-js.style' },
-        { text: 'tooltipEvent', link: '/api/sculp-js.tooltipevent' }
+        { text: 'tooltipEvent', link: '/api/sculp-js.tooltipevent' },
+        { text: 'encode', link: '/api/sculp-js.unicodetoolkit.encode' },
+        { text: 'decode', link: '/api/sculp-js.unicodetoolkit.decode' },
       ]
     }
   ];
