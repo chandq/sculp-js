@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.18.1](https://github.com/chandq/sculp-js/compare/v1.18.0...v1.18.1) (2026-03-14)
+
+### Bug Fixes
+
+- improve build cjs ([6838252](https://github.com/chandq/sculp-js/commit/68382527e90ed632d495656b02fd01e37708d8ab))
+- improve unicodeToolkit class，support encode/decode for all unicode/html/Emoji ([25ad0ee](https://github.com/chandq/sculp-js/commit/25ad0ee4f60521b582421ca36be7ec55cb5353cf))
+
 ## [1.18.0](https://github.com/chandq/sculp-js/compare/v1.17.3...v1.18.0) (2026-02-05)
 
 ### Features
