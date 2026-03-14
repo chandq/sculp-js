@@ -74,7 +74,10 @@ export default [
       preserveModules: true,
       preserveModulesRoot: 'src',
       exports: 'named',
-      banner
+      banner,
+      generatedCode: {
+        symbols: true // 关键配置：启用 Symbol.toStringTag 支持
+      }
     },
     plugins: [
       // Run plugin with prettier options.
