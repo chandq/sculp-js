@@ -24,18 +24,19 @@ export class UnicodeToolkit {
 
   /**
    * 编码函数
-   * @param str 原始字符串
-   * @param mode 'unicode' (\uXXXX) | 'html' (&#123;) | 'entities' (命名实体)
-   * @param encodeAll 是否编码 ASCII 可见字符 (默认 false，仅编码非 ASCII 和特殊字符)
-   * * @example
+   * @param {string} str 原始字符串
+   * @param {'unicode'|'html'} mode 'unicode' (\uXXXX) | 'html' (&#123;) | 'entities' (命名实体)
+   * @param {boolean} encodeAll 是否编码 ASCII 可见字符 (默认 false，仅编码非 ASCII 和特殊字符)
+   * @returns {string} 编码后的字符串
+   * @example
    * // Unicode 编码 (默认仅编码非 ASCII)
    * UnicodeToolkit.encode('Hi 你好 😀')
-   * // => 'Hi \\u4F60\\u597D \\u{1F600}'
-   * * @example
+   * // => 'Hi \u4F60\u597D \u{1F600}'
+   * @example
    * // 全部Unicode 编码
    * UnicodeToolkit.encode('Hi 你好 😀','unicode', true)
-   * // => '\\u0048\\u0069\\u0020\\u4F60\\u597D\\u0020\\u{1F600}'
-   * * @example
+   * // => '\u0048\u0069\u0020\u4F60\u597D\u0020\u{1F600}'
+   * @example
    * // HTML 实体编码
    * UnicodeToolkit.encode('<script>', 'html',true)
    * // => '&lt;&#115;&#99;&#114;&#105;&#112;&#116;&gt;&amp;'
@@ -74,16 +75,18 @@ export class UnicodeToolkit {
 
   /**
    * 综合解码 (支持 \uXXXX, \u{XXXX}, HTML 实体, 十六进制实体)
-   * @param normalizeSpace 是否将 \u00A0 (&nbsp;) 转换为普通空格 \u0020
-   * * @example
+   * @param {boolean} normalizeSpace 是否将 \u00A0 (&nbsp;) 转换为普通空格 \u0020
+   * @returns {string} 解码后的字符串
+   *
+   * @example
    * // 解码 Unicode 和 Emoji
-   * UnicodeToolkit.decode('\\u4F60\\u597D\\u{1F680}')
+   * UnicodeToolkit.decode('\u4F60\u597D\u{1F680}')
    * // => '你好🚀'
-   * * @example
+   * @example
    * // 解码 HTML 实体 (支持十进制、十六进制和命名实体)
    * UnicodeToolkit.decode('Price: &#163;10 &amp; &copy;')
    * // => 'Price: £10 & ©'
-   * * @example
+   * @example
    * // 空格归一化 (将 &nbsp; 转为标准空格)
    * UnicodeToolkit.decode('A&nbsp;B', true)
    * // => 'A B' (charCodeAt 为 32 而不是 160)
