@@ -5,6 +5,7 @@
     "module": "esnext",
     "lib": ["dom", "esnext"],
     "removeComments": false,
+    "preserveConstEnums": true,
     // "declaration": true,
     // "sourceMap": true,
     // "declarationMap": true,
@@ -20,7 +21,8 @@
     // "outDir": "lib",
     "esModuleInterop": true,
     "moduleResolution": "node",
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true
   },
 
   "typeRoots": ["./node_modules/@types/", "./types", "./node_modules"],
