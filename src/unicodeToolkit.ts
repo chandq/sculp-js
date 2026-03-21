@@ -117,3 +117,7 @@ export class UnicodeToolkit {
     return decoded;
   }
 }
+
+export default {
+  UnicodeToolkit
+};

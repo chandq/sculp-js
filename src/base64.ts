@@ -115,3 +115,10 @@ export function b64encode(rawStr: string): string {
   // 将二进制字符串转换为base64编码的字符串
   return !isNullOrUnDef(getGlobal('btoa')) ? (getGlobal('btoa') as any)(binaryString) : weBtoa(binaryString);
 }
+
+export default {
+  weBtoa,
+  weAtob,
+  b64decode,
+  b64encode
+};

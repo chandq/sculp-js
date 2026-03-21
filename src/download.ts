@@ -140,3 +140,11 @@ export function downloadData(
     downloadHref(href, filename);
   }
 }
+
+export default {
+  downloadURL,
+  downloadHref,
+  downloadBlob,
+  crossOriginDownload,
+  downloadData
+};

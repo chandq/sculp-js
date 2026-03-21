@@ -91,3 +91,9 @@ export function safeAwait<T, U = Error>(promise: Promise<T>, errorExt?: object):
       return [err, undefined];
     });
 }
+
+export default {
+  wait,
+  asyncMap,
+  safeAwait
+};

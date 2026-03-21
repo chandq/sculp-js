@@ -120,3 +120,7 @@ export function cloneDeep<T>(source: T, map = new WeakMap<any, any>()): T {
 
   return copy;
 }
+
+export default {
+  cloneDeep
+};

@@ -39,7 +39,7 @@ export default [
       entryFileNames: '[name].mjs',
       preserveModules: true,
       preserveModulesRoot: 'src',
-      exports: 'named',
+      exports: 'auto',
       banner
     },
     plugins: [
@@ -73,7 +73,7 @@ export default [
       entryFileNames: '[name].cjs',
       preserveModules: true,
       preserveModulesRoot: 'src',
-      exports: 'named',
+      exports: 'auto',
       banner,
       generatedCode: {
         symbols: true // 关键配置：启用 Symbol.toStringTag 支持

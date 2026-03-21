@@ -57,3 +57,9 @@ export function cookieSet(name: string, value: string, maxAge?: number | Date): 
  * @param name cookie 名称
  */
 export const cookieDel = (name: string): void => cookieSet(name, '', -1);
+
+export default {
+  cookieSet,
+  cookieGet,
+  cookieDel
+};

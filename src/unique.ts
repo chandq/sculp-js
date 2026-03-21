@@ -89,3 +89,9 @@ export const uniqueString: UniqueString = (length?: number | string, pool?: stri
 
   return uniqueString;
 };
+
+export default {
+  UNIQUE_NUMBER_SAFE_LENGTH,
+  uniqueNumber,
+  uniqueString
+};

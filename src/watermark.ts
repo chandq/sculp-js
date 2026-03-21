@@ -112,3 +112,7 @@ export function genCanvasWM(content = '请勿外传', canvasWM?: ICanvasWM): voi
     mo.observe(container, { attributes: true, subtree: true, childList: true });
   }
 }
+
+export default {
+  genCanvasWM
+};

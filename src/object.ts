@@ -1,4 +1,4 @@
-import typeIs, {
+import {
   AnyArray,
   AnyObject,
   ArrayElements,
@@ -6,8 +6,11 @@ import typeIs, {
   isNumber,
   isObject,
   isUndefined,
-  objectHas
+  objectHas,
+  typeIs as typeIsFn
 } from './type';
+
+const typeIs = typeIsFn;
 
 /**
  * 判断对象是否为纯对象
@@ -255,3 +258,16 @@ export function objectGet(
     v: tempObj ? tempObj[keyArr[i]] : undefined
   };
 }
+
+export default {
+  isPlainObject,
+  objectEach,
+  objectEachAsync,
+  objectMap,
+  objectPick,
+  objectOmit,
+  objectAssign,
+  objectMerge: objectAssign,
+  objectFill,
+  objectGet
+};

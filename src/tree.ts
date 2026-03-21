@@ -499,3 +499,14 @@ export function fuzzySearchTree<V>(
 
   return result;
 }
+
+export default {
+  forEachDeep,
+  findDeep,
+  filterDeep,
+  mapDeep,
+  searchTreeById,
+  formatTree,
+  flatTree,
+  fuzzySearchTree
+};

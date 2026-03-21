@@ -167,3 +167,14 @@ export function select(element: HTMLElement) {
 
   return selectedText;
 }
+
+export default {
+  hasClass,
+  addClass,
+  removeClass,
+  setStyle,
+  getStyle,
+  getComputedCssVal,
+  getStrWidthPx,
+  select
+};

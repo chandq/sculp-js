@@ -28,20 +28,20 @@ export interface PromiseFn<T = any, R = T> {
 /**
  * 将除指定属性外的所有属性变为必填
  *
- * Change all properties except the specified properties to required
+ * Change all properties except specified properties to required
  */
 export type ChangeRequiredExcept<T, K extends keyof T> = Required<Omit<T, K>> & Partial<Pick<T, K>>;
 /**
  * 将指定属性变为可选
  *
- * Change the specified properties to optional
+ * Change specified properties to optional
  */
 export type ChangeOptional<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>;
 
 /**
  * 将指定属性变为必填
  *
- * Change the specified properties to required
+ * Change specified properties to required
  */
 export type ChangeRequired<T, K extends keyof T> = Omit<T, K> & Required<Pick<T, K>>;
 
@@ -203,4 +203,28 @@ export function isNodeList(value: any) {
   return isUndefined(NodeList) ? false : NodeList.prototype.isPrototypeOf(value);
 }
 
-export default typeIs;
+export default {
+  typeIs,
+  objectHas,
+  arrayLike,
+  isString,
+  isBoolean,
+  isSymbol,
+  isBigInt,
+  isNumber,
+  isUndefined,
+  isNull,
+  isPrimitive,
+  isNullOrUnDef,
+  isNullish: isNullOrUnDef,
+  isObject,
+  isArray,
+  isFunction,
+  isNaN,
+  isDate,
+  isError,
+  isRegExp,
+  isJsonString,
+  isEmpty,
+  isNodeList
+};

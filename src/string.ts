@@ -150,3 +150,16 @@ export function parseQueryParams(searchStr: string = location.search): Record<st
   });
   return queryObj;
 }
+
+export default {
+  stringCamelCase,
+  stringKebabCase,
+  STRING_ARABIC_NUMERALS,
+  STRING_LOWERCASE_ALPHA,
+  STRING_UPPERCASE_ALPHA,
+  stringFormat,
+  stringAssign,
+  stringEscapeHtml,
+  stringFill,
+  parseQueryParams
+};

@@ -135,3 +135,11 @@ export function getGlobal<T>(key: string | number | symbol): T | void {
   else if (typeof global !== 'undefined') return global[key] as T;
   else if (typeof self !== 'undefined') return self[key] as T;
 }
+
+export default {
+  debounce,
+  throttle,
+  once,
+  getGlobal,
+  setGlobal
+};

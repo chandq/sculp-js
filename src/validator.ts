@@ -134,3 +134,22 @@ const DIGIT_RE = /^\d+$/;
  * @returns {boolean}
  */
 export const isDigit = (value: string): boolean => DIGIT_RE.test(value);
+
+export default {
+  EMAIL_REGEX,
+  HTTP_URL_REGEX,
+  IPV4_REGEX,
+  IPV6_REGEX,
+  PHONE_REGEX,
+  URL_REGEX,
+  isDigit,
+  isEmail,
+  isFloat,
+  isIdNo,
+  isInteger,
+  isIpV4,
+  isIpV6,
+  isNumerical,
+  isPhone,
+  isUrl
+};

@@ -97,9 +97,9 @@ interface IHumanFileSizeOptions {
  *  reference: https://zh.wikipedia.org/wiki/%E5%8D%83%E5%AD%97%E8%8A%82
  * @param {number | string} num bytes Number in Bytes
  * @param {IHumanFileSizeOptions} options default: { decimals = 0, si = false, separator = ' ' }
- *        si: True to use metric (SI) units, aka powers of 1000, the units is
+ *        si: True to use metric (SI) units, aka powers of 1000, units is
  *            ['B', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'].
- *            False to use binary (IEC), aka powers of 1024, the units is
+ *            False to use binary (IEC), aka powers of 1024, units is
  *            ['Byte', 'KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB']
  * @returns
  */
@@ -143,3 +143,12 @@ export function formatNumber(num: number | string, decimals?: number): string {
   return Number(Number(num).toFixed(prec)).toLocaleString('en-US');
 }
 export { formatNumber as formatMoney };
+
+export default {
+  HEX_POOL,
+  numberToHex,
+  numberAbbr,
+  humanFileSize,
+  formatNumber,
+  formatMoney: formatNumber
+};
