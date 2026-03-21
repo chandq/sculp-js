@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.19.0](https://github.com/chandq/sculp-js/compare/v1.18.3...v1.19.0) (2026-03-21)
+
+### Features
+
+- all modules support both named import and default import simultaneously, also tree-shaking ([dd6e510](https://github.com/chandq/sculp-js/commit/dd6e5107bc7578be9707fac0dc956ead7f945b2c))
+
 ### [1.18.3](https://github.com/chandq/sculp-js/compare/v1.18.2...v1.18.3) (2026-03-16)
 
 ### [1.18.2](https://github.com/chandq/sculp-js/compare/v1.18.1...v1.18.2) (2026-03-14)
