@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.19.1](https://github.com/chandq/sculp-js/compare/v1.19.0...v1.19.1) (2026-03-23)
+
+### Bug Fixes
+
+- solved missing entry type file ([ada555e](https://github.com/chandq/sculp-js/commit/ada555e9f098bef00da86d5290093d08652af0c2))
+
 ## [1.19.0](https://github.com/chandq/sculp-js/compare/v1.18.3...v1.19.0) (2026-03-21)
 
 ### Features
