@@ -27,6 +27,7 @@ export * from './cloneDeep';
 export * from './isEqual';
 export * from './unicodeToolkit';
 
+// 导入所有模块的具名导出
 import * as array from './array';
 import * as clipboard from './clipboard';
 import * as cookie from './cookie';
@@ -56,6 +57,7 @@ import * as cloneDeep from './cloneDeep';
 import * as isEqual from './isEqual';
 import * as unicodeToolkit from './unicodeToolkit';
 
+// 导出默认对象（使用类型断言避免私有类型问题）
 export default {
   ...array,
   ...clipboard,
@@ -85,4 +87,31 @@ export default {
   ...cloneDeep,
   ...isEqual,
   ...unicodeToolkit
-};
+} as typeof array &
+  typeof clipboard &
+  typeof cookie &
+  typeof date &
+  typeof dom &
+  typeof download &
+  typeof object &
+  typeof path &
+  typeof qs &
+  typeof string &
+  typeof type &
+  typeof url &
+  typeof async &
+  typeof file &
+  typeof watermark &
+  typeof func &
+  typeof random &
+  typeof number &
+  typeof unique &
+  typeof tooltip &
+  typeof tree &
+  typeof math &
+  typeof base64 &
+  typeof validator &
+  typeof variable &
+  typeof cloneDeep &
+  typeof isEqual &
+  typeof unicodeToolkit;
