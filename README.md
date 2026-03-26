@@ -120,16 +120,93 @@ const cloned = cloneDeep(original);
 
 ## 📦 Module Formats
 
+### Named Imports (Recommended)
+
 ```js
-// ES Modules (recommended)
-import { cloneDeep } from 'sculp-js';
+// ES Modules - Named imports (tree-shaking friendly)
+import { cloneDeep, forEachDeep } from 'sculp-js';
 
-// Individual module imports
-import cloneDeep from 'sculp-js/cloneDeep';
-
-// CommonJS
-const { cloneDeep } = require('sculp-js');
+// CommonJS - Named imports
+const { cloneDeep, forEachDeep } = require('sculp-js');
 ```
+
+### Default Import (Full Library)
+
+```js
+// ES Modules - Default import
+import sculp from 'sculp-js';
+const { cloneDeep, forEachDeep } = sculp;
+
+// CommonJS - Default import
+const sculp = require('sculp-js');
+const { cloneDeep, forEachDeep } = sculp;
+```
+
+### Module-Specific Imports
+
+Import specific modules for better tree-shaking and smaller bundle sizes:
+
+```js
+// ES Modules - Import specific modules
+import array from 'sculp-js/array';
+import string from 'sculp-js/string';
+import type from 'sculp-js/type';
+import date from 'sculp-js/date';
+import object from 'sculp-js/object';
+import math from 'sculp-js/math';
+import validator from 'sculp-js/validator';
+// ... and more
+
+// CommonJS - Import specific modules
+const array = require('sculp-js/array');
+const string = require('sculp-js/string');
+const type = require('sculp-js/type');
+
+// Usage examples
+import array from 'sculp-js/array';
+array.arrayEach([1, 2, 3], val => console.log(val));
+
+import string from 'sculp-js/string';
+const camelCase = string.stringCamelCase('hello-world'); // 'helloWorld'
+
+import validator from 'sculp-js/validator';
+if (validator.isEmail('test@example.com')) {
+  console.log('Valid email');
+}
+```
+
+### Available Modules
+
+All modules support both named and default exports:
+
+- `sculp-js/array` - Array utilities
+- `sculp-js/string` - String manipulation
+- `sculp-js/type` - Type checking
+- `sculp-js/date` - Date formatting
+- `sculp-js/object` - Object utilities
+- `sculp-js/math` - Math operations
+- `sculp-js/number` - Number formatting
+- `sculp-js/url` - URL parsing
+- `sculp-js/qs` - Query string parsing
+- `sculp-js/path` - Path utilities
+- `sculp-js/async` - Async utilities
+- `sculp-js/func` - Function utilities
+- `sculp-js/random` - Random generators
+- `sculp-js/validator` - Validation functions
+- `sculp-js/tree` - Tree operations
+- `sculp-js/base64` - Base64 encoding
+- `sculp-js/unique` - Unique ID generators
+- `sculp-js/variable` - Variable utilities
+- `sculp-js/clipboard` - Clipboard operations
+- `sculp-js/cookie` - Cookie management
+- `sculp-js/dom` - DOM utilities
+- `sculp-js/download` - Download helpers
+- `sculp-js/file` - File utilities
+- `sculp-js/watermark` - Watermark generation
+- `sculp-js/tooltip` - Tooltip utilities
+- `sculp-js/cloneDeep` - Deep cloning
+- `sculp-js/isEqual` - Deep equality
+- `sculp-js/unicodeToolkit` - Unicode utilities
 
 ## 📄 License
 

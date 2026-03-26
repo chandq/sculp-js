@@ -2,6 +2,35 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.19.1](https://github.com/chandq/sculp-js/compare/v1.19.0...v1.19.1) (2026-03-23)
+
+### Bug Fixes
+
+- solved missing entry type file ([ada555e](https://github.com/chandq/sculp-js/commit/ada555e9f098bef00da86d5290093d08652af0c2))
+
+## [1.19.0](https://github.com/chandq/sculp-js/compare/v1.18.3...v1.19.0) (2026-03-21)
+
+### Features
+
+- all modules support both named import and default import simultaneously, also tree-shaking ([dd6e510](https://github.com/chandq/sculp-js/commit/dd6e5107bc7578be9707fac0dc956ead7f945b2c))
+
+### [1.18.3](https://github.com/chandq/sculp-js/compare/v1.18.2...v1.18.3) (2026-03-16)
+
+### [1.18.2](https://github.com/chandq/sculp-js/compare/v1.18.1...v1.18.2) (2026-03-14)
+
+### [1.18.1](https://github.com/chandq/sculp-js/compare/v1.18.0...v1.18.1) (2026-03-14)
+
+### Bug Fixes
+
+- improve build cjs ([6838252](https://github.com/chandq/sculp-js/commit/68382527e90ed632d495656b02fd01e37708d8ab))
+- improve unicodeToolkit class，support encode/decode for all unicode/html/Emoji ([25ad0ee](https://github.com/chandq/sculp-js/commit/25ad0ee4f60521b582421ca36be7ec55cb5353cf))
+
+## [1.18.0](https://github.com/chandq/sculp-js/compare/v1.17.3...v1.18.0) (2026-02-05)
+
+### Features
+
+- add unicodeToolkit.ts ([9ff74eb](https://github.com/chandq/sculp-js/commit/9ff74eb3d541d9d9cae1a12e28791afd2b8209af))
+
 ### [1.17.3](https://github.com/chandq/sculp-js/compare/v1.17.2...v1.17.3) (2026-01-21)
 
 ### Bug Fixes

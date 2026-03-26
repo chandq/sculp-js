@@ -88,3 +88,8 @@ function createFakeElement(value) {
 
   return fakeElement;
 }
+
+export default {
+  copyText,
+  fallbackCopyText
+};

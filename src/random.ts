@@ -71,3 +71,10 @@ export function randomUuid(): string {
 
   return /[^/]+$/.exec(URL.createObjectURL(new Blob()).slice())![0];
 }
+
+export default {
+  STRING_POOL,
+  randomNumber,
+  randomString,
+  randomUuid
+};

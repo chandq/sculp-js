@@ -229,3 +229,7 @@ function deepCompareObject(a: any, b: any, stack: Stack): boolean {
   }
   return true;
 }
+
+export default {
+  isEqual
+};

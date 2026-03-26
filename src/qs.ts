@@ -72,3 +72,8 @@ export function qsStringify(query: LooseParams, replacer: Replacer = defaultRepl
 
   return params.toString();
 }
+
+export default {
+  qsParse,
+  qsStringify
+};

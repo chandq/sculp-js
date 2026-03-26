@@ -58,3 +58,8 @@ export const pathNormalize = (path: string): string => {
  * @returns {string}
  */
 export const pathJoin = (from: string, ...to: string[]): string => pathNormalize([from, ...to].join('/'));
+
+export default {
+  pathJoin,
+  pathNormalize
+};

@@ -1,10 +1,11 @@
 {
   "compilerOptions": {
     /* 基础配置 */
-    "target": "esnext",
-    "module": "esnext",
-    "lib": ["dom", "esnext"],
+    "target": "ES2020",
+    "module": "ESNext",
+    "lib": ["DOM", "ES2020"],
     "removeComments": false,
+    "preserveConstEnums": true,
     // "declaration": true,
     // "sourceMap": true,
     // "declarationMap": true,
@@ -13,17 +14,20 @@
     "strict": true,
     "noImplicitAny": false,
     "noImplicitThis": false,
+    // 跳过第三方库的类型检查，提高编译速度
     "skipLibCheck": true,
 
     /* 模块分析配置 */
     "baseUrl": ".",
     // "outDir": "lib",
     "esModuleInterop": true,
-    "moduleResolution": "node",
-    "resolveJsonModule": true
+    "moduleResolution": "bundler",
+    // 与 CommonJS 模块互操作，确保默认导入兼容性
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true
   },
 
   "typeRoots": ["./node_modules/@types/", "./types", "./node_modules"],
   "include": ["src/**/*.ts", "test/**/*.ts", "types/**/*.d.ts"],
-  "exclude": ["node_modules/**/*"]
+  "exclude": ["node_modules/**/*", "dist"]
 }

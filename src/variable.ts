@@ -121,3 +121,11 @@ export function executeInScope(code: string, scope: Record<string, any> = {}) {
     throw new Error(`代码执行失败: ${error.message}`);
   }
 }
+
+export default {
+  escapeRegExp,
+  executeInScope,
+  parseVarFromString,
+  replaceVarFromString,
+  uniqueSymbol
+};

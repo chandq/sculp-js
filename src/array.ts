@@ -199,3 +199,11 @@ export function diffArray<T>(source: readonly T[], target: readonly T[], getKey?
 
   return { added, removed: del };
 }
+
+export default {
+  arrayEach,
+  arrayEachAsync,
+  arrayInsertBefore,
+  arrayRemove,
+  diffArray
+};

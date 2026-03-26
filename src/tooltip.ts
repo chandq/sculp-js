@@ -130,3 +130,7 @@ function handleMouseLeave(rootContainer: HTMLElement | string = '#root'): void {
 }
 const tooltipEvent = { handleMouseEnter, handleMouseLeave };
 export { tooltipEvent };
+
+export default {
+  tooltipEvent
+};

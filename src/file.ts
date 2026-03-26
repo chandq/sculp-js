@@ -254,3 +254,9 @@ export function compressImg(
   }
   return Promise.resolve(null);
 }
+
+export default {
+  supportCanvas,
+  chooseLocalFile,
+  compressImg
+};

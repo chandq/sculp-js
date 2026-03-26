@@ -101,3 +101,10 @@ export const urlDelParams = (url: string, removeKeys: string[]): string => {
   removeKeys.forEach(key => delete p.searchParams[key]);
   return urlStringify(p);
 };
+
+export default {
+  urlParse,
+  urlStringify,
+  urlSetParams,
+  urlDelParams
+};

@@ -36,10 +36,10 @@ export default [
     output: {
       dir: 'dist/esm',
       format: 'es',
-      entryFileNames: '[name].js',
+      entryFileNames: '[name].mjs',
       preserveModules: true,
       preserveModulesRoot: 'src',
-      exports: 'named',
+      exports: 'auto',
       banner
     },
     plugins: [
@@ -70,11 +70,14 @@ export default [
     output: {
       dir: 'dist/cjs',
       format: 'cjs',
-      entryFileNames: '[name].js',
+      entryFileNames: '[name].cjs',
       preserveModules: true,
       preserveModulesRoot: 'src',
-      exports: 'named',
-      banner
+      exports: 'auto',
+      banner,
+      generatedCode: {
+        symbols: true // 关键配置：启用 Symbol.toStringTag 支持
+      }
     },
     plugins: [
       // Run plugin with prettier options.

@@ -81,3 +81,11 @@ type NumberType = number | string;
 export function strip(num: NumberType, precision = 15): number {
   return +parseFloat(Number(num).toPrecision(precision));
 }
+
+export default {
+  add,
+  subtract,
+  multiply,
+  divide,
+  strip
+};
