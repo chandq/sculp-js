@@ -140,14 +140,13 @@ describe('按模块默认导入测试', () => {
       expect(date.dateToEnd).toBeDefined();
       expect(date.formatDate).toBeDefined();
       expect(date.calculateDate).toBeDefined();
-      expect(date.calculateDateTime).toBeDefined();
     });
 
     test('函数应该可以正常工作', () => {
       const d = new Date('2023-01-01');
       expect(date.isValidDate(d)).toBe(true);
       expect(date.formatDate(d)).toContain('2023-01-01');
-      expect(date.calculateDate('2023-01-01', 1)).toBe('2023-01-02');
+      expect(date.calculateDate('2023-01-01', { days: 1 })).toBe('2023-01-02');
     });
   });
 

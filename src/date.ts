@@ -176,68 +176,198 @@ export function formatDate(value: DateValue, format = 'YYYY-MM-DD HH:mm:ss'): st
   return fmt;
 }
 
-/**
- * 计算向前或向后N天的具体日期
- * @param {DateValue} originDate - 参考日期
- * @param {number} n - 正数：向后推算；负数：向前推算
- * @param {string} sep - 日期格式的分隔符
- * @returns {string} 计算后的目标日期
- */
-export function calculateDate(originDate: DateValue, n: number, sep: string = '-'): string {
-  //originDate 为字符串日期 如:'2019-01-01' n为你要传入的参数，当前为0，前一天为-1，后一天为1
-  const date = new Date(originDate); //这边给定一个特定时间
-  const newDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
-  const millisecondGap = newDate.getTime() + 1000 * 60 * 60 * 24 * parseInt(String(n)); //计算前几天用减，计算后几天用加，最后一个就是多少天的数量
-  const targetDate = new Date(millisecondGap);
-  const finalNewDate =
-    targetDate.getFullYear() +
-    sep +
-    String(targetDate.getMonth() + 1).padStart(2, '0') +
-    '-' +
-    String(targetDate.getDate()).padStart(2, '0');
-  return finalNewDate;
+export interface CalculateDateOptions {
+  /**
+   * 输出格式模板
+   * 支持以下占位符：
+   * - YYYY/yyyy: 4 位年份
+   * - YY/yy: 2 位年份
+   * - MM: 2 位月份
+   * - M: 不补零月份
+   * - DD/dd: 2 位日期
+   * - D: 不补零日期
+   * - HH: 2 位小时 (24 小时制)
+   * - H: 不补零小时
+   * - hh: 2 位小时 (12 小时制)
+   * - h: 不补零小时 (12 小时制)
+   * - mm: 2 位分钟
+   * - m: 不补零分钟
+   * - ss: 2 位秒
+   * - s: 不补零秒
+   * - A: AM/PM 标记
+   * - a: am/pm 标记
+   * @default 'YYYY-MM-DD'
+   */
+  format?: string;
+  /**
+   * 年数（正数表示向后，负数表示向前）
+   * @default 0
+   */
+  years?: number;
+  /**
+   * 月数（正数表示向后，负数表示向前）
+   * @default 0
+   */
+  months?: number;
+  /**
+   * 周数（正数表示向后，负数表示向前）
+   * @default 0
+   */
+  weeks?: number;
+  /**
+   * 天数（正数表示向后，负数表示向前）
+   * @default 0
+   */
+  days?: number;
+  /**
+   * 小时数（正数表示向后，负数表示向前）
+   * @default 0
+   */
+  hours?: number;
+  /**
+   * 分钟数（正数表示向后，负数表示向前）
+   * @default 0
+   */
+  minutes?: number;
+  /**
+   * 秒数（正数表示向后，负数表示向前）
+   * @default 0
+   */
+  seconds?: number;
+  /**
+   * 毫秒数（正数表示向后，负数表示向前）
+   * @default 0
+   */
+  milliseconds?: number;
+  /**
+   * 是否返回 Date 对象而非字符串
+   * @default false
+   */
+  returnDate?: boolean;
 }
 
 /**
- * 计算向前或向后N天的具体日期时间
- * @param {DateValue} originDateTime - 参考日期时间
- * @param {number} n - 正数：向后推算；负数：向前推算
- * @param {string} dateSep - 日期分隔符
- * @param {string} timeSep - 时间分隔符
- * @returns {string} 转换后的目标日期时间
+ * 调整日期（增加或减少特定时间单位）
+ * @param {DateValue} originDate - 参考日期，可以是 Date 对象、时间戳或日期字符串
+ * @param {CalculateDateOptions} options - 配置项，支持多种时间单位
+ * @returns {string | Date} 计算后的日期/日期时间字符串或 Date 对象
+ * @example
+ * // 基础用法（向后 2 天）
+ * adjustDate('2024-01-01', { days: 2 }) // '2024-01-03'
+ *
+ * // 向前 2 天
+ * adjustDate('2024-01-01', { days: -2 }) // '2023-12-30'
+ *
+ * // 向后 1 年 2 个月 3 天
+ * adjustDate('2024-01-01', { years: 1, months: 2, days: 3 }) // '2025-03-04'
+ *
+ * // 向后 2 周
+ * adjustDate('2024-01-01', { weeks: 2 }) // '2024-01-15'
+ *
+ * // 包含时间（向后 2 天 3 小时 30 分钟）
+ * adjustDate('2024-01-01 10:30:00', { days: 2, hours: 3, minutes: 30 }) // '2024-01-03 14:00'
+ *
+ * // 自定义格式
+ * adjustDate('2024-01-01', { days: 2, format: 'YYYY/MM/DD' }) // '2024/01/03'
+ * adjustDate('2024-01-01', { days: 2, format: 'YYYY 年 MM 月 DD 日' }) // '2024 年 01 月 03 日'
+ *
+ * // 时间戳输入
+ * adjustDate(1717330884896, { days: 2 }) // '2024-06-04'
+ *
+ * // 精确到毫秒
+ * adjustDate('2024-01-01 10:30:00', { hours: 1, minutes: 30, seconds: 45, milliseconds: 500 })
+ *
+ * // 返回 Date 对象
+ * adjustDate('2024-01-01', { days: 2, returnDate: true }) // Date 对象
  */
-export function calculateDateTime(
-  originDateTime: DateValue,
-  n: number,
-  dateSep: string = '-',
-  timeSep: string = ':'
-): string {
-  const date = new Date(originDateTime);
-  const separator1 = dateSep;
-  const separator2 = timeSep;
-  const dateTime = new Date(
-    date.getFullYear(),
-    date.getMonth(),
-    date.getDate(),
-    date.getHours(),
-    date.getMinutes(),
-    date.getSeconds()
-  );
-  const millisecondGap = dateTime.getTime() + 1000 * 60 * 60 * 24 * parseInt(String(n)); //计算前几天用减，计算后几天用加，最后一个就是多少天的数量
-  const targetDateTime = new Date(millisecondGap);
-  return (
-    targetDateTime.getFullYear() +
-    separator1 +
-    String(targetDateTime.getMonth() + 1).padStart(2, '0') +
-    separator1 +
-    String(targetDateTime.getDate()).padStart(2, '0') +
-    ' ' +
-    String(targetDateTime.getHours()).padStart(2, '0') +
-    separator2 +
-    String(targetDateTime.getMinutes()).padStart(2, '0') +
-    separator2 +
-    String(targetDateTime.getSeconds()).padStart(2, '0')
-  );
+export function adjustDate(originDate: DateValue, options: CalculateDateOptions = {}): string | Date {
+  const {
+    format,
+    returnDate = false,
+    years = 0,
+    months = 0,
+    weeks = 0,
+    days = 0,
+    hours = 0,
+    minutes = 0,
+    seconds = 0,
+    milliseconds = 0
+  } = options;
+
+  const date = dateParse(originDate);
+  const targetDate = new Date(date);
+
+  // 保存原始日期以便处理月末边界
+  const originalDay = date.getDate();
+  const originalMonthDays = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
+  const isEndOfMonth = originalDay === originalMonthDays;
+
+  targetDate.setFullYear(targetDate.getFullYear() + years);
+
+  // 处理月末边界：如果原始日期是月末，需要特殊处理
+  if (months !== 0) {
+    const targetMonthIndex = targetDate.getMonth() + months;
+    const targetMonthDays = new Date(targetDate.getFullYear(), targetMonthIndex + 1, 0).getDate();
+
+    // 先将日期设为 1 号，避免 setMonth 时因日期过大而自动进位
+    targetDate.setDate(1);
+    targetDate.setMonth(targetMonthIndex);
+
+    // 如果原始日期是月末，则调整为目标月份的月末
+    if (isEndOfMonth) {
+      targetDate.setDate(targetMonthDays);
+    } else if (originalDay > targetMonthDays) {
+      // 如果原始日期大于目标月份的最大天数，也调整为目标月份的月末
+      targetDate.setDate(targetMonthDays);
+    } else {
+      // 否则保持原始日期
+      targetDate.setDate(originalDay);
+    }
+  }
+
+  // 处理天数（不包括月份变化）
+  if (days !== 0 || weeks !== 0) {
+    targetDate.setDate(targetDate.getDate() + days + weeks * 7);
+  }
+
+  targetDate.setHours(targetDate.getHours() + hours);
+  targetDate.setMinutes(targetDate.getMinutes() + minutes);
+  targetDate.setSeconds(targetDate.getSeconds() + seconds);
+  targetDate.setMilliseconds(targetDate.getMilliseconds() + milliseconds);
+
+  if (returnDate) {
+    return targetDate;
+  }
+
+  if (format) {
+    return formatDate(targetDate, format);
+  }
+
+  const year = targetDate.getFullYear();
+  const month = String(targetDate.getMonth() + 1).padStart(2, '0');
+  const day = String(targetDate.getDate()).padStart(2, '0');
+  const hoursStr = String(targetDate.getHours()).padStart(2, '0');
+  const minutesStr = String(targetDate.getMinutes()).padStart(2, '0');
+  const secondsStr = String(targetDate.getSeconds()).padStart(2, '0');
+
+  const hasTimeParam =
+    options.hasOwnProperty('hours') ||
+    options.hasOwnProperty('minutes') ||
+    options.hasOwnProperty('seconds') ||
+    options.hasOwnProperty('milliseconds');
+
+  if (hasTimeParam) {
+    if (options.hasOwnProperty('milliseconds')) {
+      const msStr = String(targetDate.getMilliseconds()).padStart(3, '0');
+      return `${year}-${month}-${day} ${hoursStr}:${minutesStr}:${secondsStr}.${msStr}`;
+    }
+    if (options.hasOwnProperty('seconds')) {
+      return `${year}-${month}-${day} ${hoursStr}:${minutesStr}:${secondsStr}`;
+    }
+    return `${year}-${month}-${day} ${hoursStr}:${minutesStr}`;
+  }
+
+  return `${year}-${month}-${day}`;
 }
 
 export default {
@@ -246,6 +376,9 @@ export default {
   dateToStart,
   dateToEnd,
   formatDate,
-  calculateDate,
-  calculateDateTime
+  adjustDate,
+  /**
+   * @deprecated 已废弃，请使用 adjustDate
+   */
+  calculateDate: adjustDate
 };

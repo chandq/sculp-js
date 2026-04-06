@@ -38,7 +38,7 @@ describe('默认导入测试 - 完整库', () => {
   test('默认导出应该包含 date 模块的函数', () => {
     expect(sculp.formatDate).toBeDefined();
     expect(sculp.dateParse).toBeDefined();
-    expect(sculp.calculateDate).toBeDefined();
+    expect(sculp.adjustDate).toBeDefined();
     expect(sculp.dateToStart).toBeDefined();
     expect(sculp.dateToEnd).toBeDefined();
   });
