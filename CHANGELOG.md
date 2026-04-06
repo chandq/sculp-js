@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.19.2](https://github.com/chandq/sculp-js/compare/v1.19.1...v1.19.2) (2026-04-06)
+
+### Features
+
+- rewrite calculateDate for powerful date adjust func ([d61ab40](https://github.com/chandq/sculp-js/commit/d61ab40655325f4ec47ea10ca9749ae3749c6570))
+
 ### [1.19.1](https://github.com/chandq/sculp-js/compare/v1.19.0...v1.19.1) (2026-03-23)
 
 ### Bug Fixes
