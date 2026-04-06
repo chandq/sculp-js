@@ -189,6 +189,277 @@
       "preserveMemberOrder": false,
       "members": [
         {
+          "kind": "Variable",
+          "canonicalReference": "sculp-js!_default:var",
+          "docComment": "",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "_default: "
+            },
+            {
+              "kind": "Content",
+              "text": "typeof "
+            },
+            {
+              "kind": "Reference",
+              "text": "array",
+              "canonicalReference": "sculp-js!~array"
+            },
+            {
+              "kind": "Content",
+              "text": " & typeof "
+            },
+            {
+              "kind": "Reference",
+              "text": "clipboard",
+              "canonicalReference": "sculp-js!~clipboard"
+            },
+            {
+              "kind": "Content",
+              "text": " & typeof "
+            },
+            {
+              "kind": "Reference",
+              "text": "cookie",
+              "canonicalReference": "sculp-js!~cookie"
+            },
+            {
+              "kind": "Content",
+              "text": " & typeof "
+            },
+            {
+              "kind": "Reference",
+              "text": "date",
+              "canonicalReference": "sculp-js!~date"
+            },
+            {
+              "kind": "Content",
+              "text": " & typeof "
+            },
+            {
+              "kind": "Reference",
+              "text": "dom",
+              "canonicalReference": "sculp-js!~dom"
+            },
+            {
+              "kind": "Content",
+              "text": " & typeof "
+            },
+            {
+              "kind": "Reference",
+              "text": "download",
+              "canonicalReference": "sculp-js!~download"
+            },
+            {
+              "kind": "Content",
+              "text": " & typeof "
+            },
+            {
+              "kind": "Reference",
+              "text": "object",
+              "canonicalReference": "sculp-js!~object"
+            },
+            {
+              "kind": "Content",
+              "text": " & typeof "
+            },
+            {
+              "kind": "Reference",
+              "text": "path",
+              "canonicalReference": "sculp-js!~path"
+            },
+            {
+              "kind": "Content",
+              "text": " & typeof "
+            },
+            {
+              "kind": "Reference",
+              "text": "qs",
+              "canonicalReference": "sculp-js!~qs"
+            },
+            {
+              "kind": "Content",
+              "text": " & typeof "
+            },
+            {
+              "kind": "Reference",
+              "text": "string",
+              "canonicalReference": "sculp-js!~string"
+            },
+            {
+              "kind": "Content",
+              "text": " & typeof "
+            },
+            {
+              "kind": "Reference",
+              "text": "type",
+              "canonicalReference": "sculp-js!~type"
+            },
+            {
+              "kind": "Content",
+              "text": " & typeof "
+            },
+            {
+              "kind": "Reference",
+              "text": "url",
+              "canonicalReference": "sculp-js!~url"
+            },
+            {
+              "kind": "Content",
+              "text": " & typeof "
+            },
+            {
+              "kind": "Reference",
+              "text": "async",
+              "canonicalReference": "sculp-js!~async"
+            },
+            {
+              "kind": "Content",
+              "text": " & typeof "
+            },
+            {
+              "kind": "Reference",
+              "text": "file",
+              "canonicalReference": "sculp-js!~file"
+            },
+            {
+              "kind": "Content",
+              "text": " & typeof "
+            },
+            {
+              "kind": "Reference",
+              "text": "watermark",
+              "canonicalReference": "sculp-js!~watermark"
+            },
+            {
+              "kind": "Content",
+              "text": " & typeof "
+            },
+            {
+              "kind": "Reference",
+              "text": "func",
+              "canonicalReference": "sculp-js!~func"
+            },
+            {
+              "kind": "Content",
+              "text": " & typeof "
+            },
+            {
+              "kind": "Reference",
+              "text": "random",
+              "canonicalReference": "sculp-js!~random"
+            },
+            {
+              "kind": "Content",
+              "text": " & typeof "
+            },
+            {
+              "kind": "Reference",
+              "text": "number",
+              "canonicalReference": "sculp-js!~number"
+            },
+            {
+              "kind": "Content",
+              "text": " & typeof "
+            },
+            {
+              "kind": "Reference",
+              "text": "unique",
+              "canonicalReference": "sculp-js!~unique"
+            },
+            {
+              "kind": "Content",
+              "text": " & typeof "
+            },
+            {
+              "kind": "Reference",
+              "text": "tooltip",
+              "canonicalReference": "sculp-js!~tooltip"
+            },
+            {
+              "kind": "Content",
+              "text": " & typeof "
+            },
+            {
+              "kind": "Reference",
+              "text": "tree",
+              "canonicalReference": "sculp-js!~tree"
+            },
+            {
+              "kind": "Content",
+              "text": " & typeof "
+            },
+            {
+              "kind": "Reference",
+              "text": "math",
+              "canonicalReference": "sculp-js!~math"
+            },
+            {
+              "kind": "Content",
+              "text": " & typeof "
+            },
+            {
+              "kind": "Reference",
+              "text": "base64",
+              "canonicalReference": "sculp-js!~base64"
+            },
+            {
+              "kind": "Content",
+              "text": " & typeof "
+            },
+            {
+              "kind": "Reference",
+              "text": "validator",
+              "canonicalReference": "sculp-js!~validator"
+            },
+            {
+              "kind": "Content",
+              "text": " & typeof "
+            },
+            {
+              "kind": "Reference",
+              "text": "variable",
+              "canonicalReference": "sculp-js!~variable"
+            },
+            {
+              "kind": "Content",
+              "text": " & typeof "
+            },
+            {
+              "kind": "Reference",
+              "text": "cloneDeep",
+              "canonicalReference": "sculp-js!~cloneDeep_2"
+            },
+            {
+              "kind": "Content",
+              "text": " & typeof "
+            },
+            {
+              "kind": "Reference",
+              "text": "isEqual",
+              "canonicalReference": "sculp-js!~isEqual_2"
+            },
+            {
+              "kind": "Content",
+              "text": " & typeof "
+            },
+            {
+              "kind": "Reference",
+              "text": "unicodeToolkit",
+              "canonicalReference": "sculp-js!~unicodeToolkit"
+            }
+          ],
+          "fileUrlPath": "dist/types/index.d.ts",
+          "isReadonly": true,
+          "releaseTag": "Public",
+          "name": "_default",
+          "variableTypeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 57
+          }
+        },
+        {
           "kind": "Function",
           "canonicalReference": "sculp-js!add:function(1)",
           "docComment": "/**\n * 数值安全加法\n *\n * @param arg1 - 数值1\n *\n * @param arg2 - 数值2\n */\n",
@@ -306,6 +577,74 @@
             }
           ],
           "name": "addClass"
+        },
+        {
+          "kind": "Function",
+          "canonicalReference": "sculp-js!adjustDate:function(1)",
+          "docComment": "/**\n * 调整日期（增加或减少特定时间单位）\n *\n * @param originDate - 参考日期，可以是 Date 对象、时间戳或日期字符串\n *\n * @param options - 配置项，支持多种时间单位\n *\n * @returns {string | Date} 计算后的日期/日期时间字符串或 Date 对象\n *\n * @example\n *\n * // 基础用法（向后 2 天） adjustDate('2024-01-01', { days: 2 }) // '2024-01-03'\n *\n * // 向前 2 天 adjustDate('2024-01-01', { days: -2 }) // '2023-12-30'\n *\n * // 向后 1 年 2 个月 3 天 adjustDate('2024-01-01', { years: 1, months: 2, days: 3 }) // '2025-03-04'\n *\n * // 向后 2 周 adjustDate('2024-01-01', { weeks: 2 }) // '2024-01-15'\n *\n * // 包含时间（向后 2 天 3 小时 30 分钟） adjustDate('2024-01-01 10:30:00', { days: 2, hours: 3, minutes: 30 }) // '2024-01-03 14:00'\n *\n * // 自定义格式 adjustDate('2024-01-01', { days: 2, format: 'YYYY/MM/DD' }) // '2024/01/03' adjustDate('2024-01-01', { days: 2, format: 'YYYY 年 MM 月 DD 日' }) // '2024 年 01 月 03 日'\n *\n * // 时间戳输入 adjustDate(1717330884896, { days: 2 }) // '2024-06-04'\n *\n * // 精确到毫秒 adjustDate('2024-01-01 10:30:00', { hours: 1, minutes: 30, seconds: 45, milliseconds: 500 })\n *\n * // 返回 Date 对象 adjustDate('2024-01-01', { days: 2, returnDate: true }) // Date 对象\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export declare function adjustDate(originDate: "
+            },
+            {
+              "kind": "Reference",
+              "text": "DateValue",
+              "canonicalReference": "sculp-js!DateValue:type"
+            },
+            {
+              "kind": "Content",
+              "text": ", options?: "
+            },
+            {
+              "kind": "Reference",
+              "text": "CalculateDateOptions",
+              "canonicalReference": "sculp-js!CalculateDateOptions:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "): "
+            },
+            {
+              "kind": "Content",
+              "text": "string | "
+            },
+            {
+              "kind": "Reference",
+              "text": "Date",
+              "canonicalReference": "!Date:interface"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "fileUrlPath": "dist/types/date.d.ts",
+          "returnTypeTokenRange": {
+            "startIndex": 5,
+            "endIndex": 7
+          },
+          "releaseTag": "Public",
+          "overloadIndex": 1,
+          "parameters": [
+            {
+              "parameterName": "originDate",
+              "parameterTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "isOptional": false
+            },
+            {
+              "parameterName": "options",
+              "parameterTypeTokenRange": {
+                "startIndex": 3,
+                "endIndex": 4
+              },
+              "isOptional": true
+            }
+          ],
+          "name": "adjustDate"
         },
         {
           "kind": "TypeAlias",
@@ -1045,7 +1384,7 @@
         {
           "kind": "Function",
           "canonicalReference": "sculp-js!b64decode:function(1)",
-          "docComment": "/**\n * 将base64编码的字符串转换为原始字符串，包括对中文内容的处理(高性能，且支持Web、Node、小程序等任意平台)\n *\n * @param base64 - base64编码的字符串\n *\n * @returns 原始字符串，包括中文内容\n */\n",
+          "docComment": "/**\n * 将 base64 编码的字符串转换为原始字符串，包括对中文内容的处理 (高性能，且支持 Web、Node、小程序等任意平台)\n *\n * @param base64 - base64 编码的字符串\n *\n * @returns 原始字符串，包括中文内容\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -1090,7 +1429,7 @@
         {
           "kind": "Function",
           "canonicalReference": "sculp-js!b64encode:function(1)",
-          "docComment": "/**\n * 将原始字符串，包括中文内容，转换为base64编码的字符串(高性能，且支持Web、Node、小程序等任意平台)\n *\n * @param rawStr - 原始字符串，包括中文内容\n *\n * @returns base64编码的字符串\n */\n",
+          "docComment": "/**\n * 将原始字符串，包括中文内容，转换为 base64 编码的字符串 (高性能，且支持 Web、Node、小程序等任意平台)\n *\n * @param rawStr - 原始字符串，包括中文内容\n *\n * @returns base64 编码的字符串\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -1133,181 +1472,297 @@
           "name": "b64encode"
         },
         {
-          "kind": "Function",
-          "canonicalReference": "sculp-js!calculateDate:function(1)",
-          "docComment": "/**\n * 计算向前或向后N天的具体日期\n *\n * @param originDate - 参考日期\n *\n * @param n - 正数：向后推算；负数：向前推算\n *\n * @param sep - 日期格式的分隔符\n *\n * @returns {string} 计算后的目标日期\n */\n",
+          "kind": "Interface",
+          "canonicalReference": "sculp-js!CalculateDateOptions:interface",
+          "docComment": "",
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "export declare function calculateDate(originDate: "
-            },
-            {
-              "kind": "Reference",
-              "text": "DateValue",
-              "canonicalReference": "sculp-js!DateValue:type"
-            },
-            {
-              "kind": "Content",
-              "text": ", n: "
-            },
-            {
-              "kind": "Content",
-              "text": "number"
-            },
-            {
-              "kind": "Content",
-              "text": ", sep?: "
-            },
-            {
-              "kind": "Content",
-              "text": "string"
-            },
-            {
-              "kind": "Content",
-              "text": "): "
-            },
-            {
-              "kind": "Content",
-              "text": "string"
-            },
-            {
-              "kind": "Content",
-              "text": ";"
+              "text": "export interface CalculateDateOptions "
             }
           ],
           "fileUrlPath": "dist/types/date.d.ts",
-          "returnTypeTokenRange": {
-            "startIndex": 7,
-            "endIndex": 8
-          },
           "releaseTag": "Public",
-          "overloadIndex": 1,
-          "parameters": [
+          "name": "CalculateDateOptions",
+          "preserveMemberOrder": false,
+          "members": [
             {
-              "parameterName": "originDate",
-              "parameterTypeTokenRange": {
+              "kind": "PropertySignature",
+              "canonicalReference": "sculp-js!CalculateDateOptions#days:member",
+              "docComment": "/**\n * 天数（正数表示向后，负数表示向前）  @default 0\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "days?: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": true,
+              "releaseTag": "Public",
+              "name": "days",
+              "propertyTypeTokenRange": {
                 "startIndex": 1,
                 "endIndex": 2
-              },
-              "isOptional": false
+              }
             },
             {
-              "parameterName": "n",
-              "parameterTypeTokenRange": {
-                "startIndex": 3,
-                "endIndex": 4
-              },
-              "isOptional": false
-            },
-            {
-              "parameterName": "sep",
-              "parameterTypeTokenRange": {
-                "startIndex": 5,
-                "endIndex": 6
-              },
-              "isOptional": true
-            }
-          ],
-          "name": "calculateDate"
-        },
-        {
-          "kind": "Function",
-          "canonicalReference": "sculp-js!calculateDateTime:function(1)",
-          "docComment": "/**\n * 计算向前或向后N天的具体日期时间\n *\n * @param originDateTime - 参考日期时间\n *\n * @param n - 正数：向后推算；负数：向前推算\n *\n * @param dateSep - 日期分隔符\n *\n * @param timeSep - 时间分隔符\n *\n * @returns {string} 转换后的目标日期时间\n */\n",
-          "excerptTokens": [
-            {
-              "kind": "Content",
-              "text": "export declare function calculateDateTime(originDateTime: "
-            },
-            {
-              "kind": "Reference",
-              "text": "DateValue",
-              "canonicalReference": "sculp-js!DateValue:type"
-            },
-            {
-              "kind": "Content",
-              "text": ", n: "
-            },
-            {
-              "kind": "Content",
-              "text": "number"
-            },
-            {
-              "kind": "Content",
-              "text": ", dateSep?: "
-            },
-            {
-              "kind": "Content",
-              "text": "string"
-            },
-            {
-              "kind": "Content",
-              "text": ", timeSep?: "
-            },
-            {
-              "kind": "Content",
-              "text": "string"
-            },
-            {
-              "kind": "Content",
-              "text": "): "
-            },
-            {
-              "kind": "Content",
-              "text": "string"
-            },
-            {
-              "kind": "Content",
-              "text": ";"
-            }
-          ],
-          "fileUrlPath": "dist/types/date.d.ts",
-          "returnTypeTokenRange": {
-            "startIndex": 9,
-            "endIndex": 10
-          },
-          "releaseTag": "Public",
-          "overloadIndex": 1,
-          "parameters": [
-            {
-              "parameterName": "originDateTime",
-              "parameterTypeTokenRange": {
+              "kind": "PropertySignature",
+              "canonicalReference": "sculp-js!CalculateDateOptions#format:member",
+              "docComment": "/**\n * 输出格式模板（传递给 formatDate 函数处理） 支持以下占位符： - YYYY/yyyy: 4 位年份 - YY/yy: 2 位年份 - MM: 2 位月份 - M: 不补零月份 - DD/dd: 2 位日期 - D/d: 不补零日期 - HH: 2 位小时 (24 小时制) - H: 不补零小时 - mm: 2 位分钟 - m: 不补零分钟 - ss: 2 位秒 - s: 不补零秒 - SSS: 3 位毫秒 - SS: 2 位毫秒 - S: 1 位毫秒 - ww/w: 中文星期  @default 'YYYY-MM-DD'\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "format?: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "string"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": true,
+              "releaseTag": "Public",
+              "name": "format",
+              "propertyTypeTokenRange": {
                 "startIndex": 1,
                 "endIndex": 2
-              },
-              "isOptional": false
+              }
             },
             {
-              "parameterName": "n",
-              "parameterTypeTokenRange": {
-                "startIndex": 3,
-                "endIndex": 4
-              },
-              "isOptional": false
+              "kind": "PropertySignature",
+              "canonicalReference": "sculp-js!CalculateDateOptions#hours:member",
+              "docComment": "/**\n * 小时数（正数表示向后，负数表示向前）  @default 0\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "hours?: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": true,
+              "releaseTag": "Public",
+              "name": "hours",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
             },
             {
-              "parameterName": "dateSep",
-              "parameterTypeTokenRange": {
-                "startIndex": 5,
-                "endIndex": 6
-              },
-              "isOptional": true
+              "kind": "PropertySignature",
+              "canonicalReference": "sculp-js!CalculateDateOptions#milliseconds:member",
+              "docComment": "/**\n * 毫秒数（正数表示向后，负数表示向前）  @default 0\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "milliseconds?: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": true,
+              "releaseTag": "Public",
+              "name": "milliseconds",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
             },
             {
-              "parameterName": "timeSep",
-              "parameterTypeTokenRange": {
-                "startIndex": 7,
-                "endIndex": 8
-              },
-              "isOptional": true
+              "kind": "PropertySignature",
+              "canonicalReference": "sculp-js!CalculateDateOptions#minutes:member",
+              "docComment": "/**\n * 分钟数（正数表示向后，负数表示向前）  @default 0\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "minutes?: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": true,
+              "releaseTag": "Public",
+              "name": "minutes",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "sculp-js!CalculateDateOptions#months:member",
+              "docComment": "/**\n * 月数（正数表示向后，负数表示向前）  @default 0\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "months?: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": true,
+              "releaseTag": "Public",
+              "name": "months",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "sculp-js!CalculateDateOptions#returnDate:member",
+              "docComment": "/**\n * 是否返回 Date 对象而非字符串  @default false\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "returnDate?: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "boolean"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": true,
+              "releaseTag": "Public",
+              "name": "returnDate",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "sculp-js!CalculateDateOptions#seconds:member",
+              "docComment": "/**\n * 秒数（正数表示向后，负数表示向前）  @default 0\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "seconds?: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": true,
+              "releaseTag": "Public",
+              "name": "seconds",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "sculp-js!CalculateDateOptions#weeks:member",
+              "docComment": "/**\n * 周数（正数表示向后，负数表示向前）  @default 0\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "weeks?: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": true,
+              "releaseTag": "Public",
+              "name": "weeks",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "sculp-js!CalculateDateOptions#years:member",
+              "docComment": "/**\n * 年数（正数表示向后，负数表示向前）  @default 0\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "years?: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": true,
+              "releaseTag": "Public",
+              "name": "years",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
             }
           ],
-          "name": "calculateDateTime"
+          "extendsTokenRanges": []
         },
         {
           "kind": "TypeAlias",
           "canonicalReference": "sculp-js!ChangeOptional:type",
-          "docComment": "/**\n * 将指定属性变为可选\n *\n * Change the specified properties to optional\n */\n",
+          "docComment": "/**\n * 将指定属性变为可选\n *\n * Change specified properties to optional\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -1388,7 +1843,7 @@
         {
           "kind": "TypeAlias",
           "canonicalReference": "sculp-js!ChangeRequired:type",
-          "docComment": "/**\n * 将指定属性变为必填\n *\n * Change the specified properties to required\n */\n",
+          "docComment": "/**\n * 将指定属性变为必填\n *\n * Change specified properties to required\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -1469,7 +1924,7 @@
         {
           "kind": "TypeAlias",
           "canonicalReference": "sculp-js!ChangeRequiredExcept:type",
-          "docComment": "/**\n * 将除指定属性外的所有属性变为必填\n *\n * Change all properties except the specified properties to required\n */\n",
+          "docComment": "/**\n * 将除指定属性外的所有属性变为必填\n *\n * Change all properties except specified properties to required\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -3829,7 +4284,7 @@
         {
           "kind": "Function",
           "canonicalReference": "sculp-js!formatDate:function(1)",
-          "docComment": "/**\n * 格式化为日期对象(带自定义格式化模板)\n *\n * @param value - 可以是数值、字符串或 Date 对象\n *\n * @param format - 模板，默认是 YYYY-MM-DD HH:mm:ss，模板字符： - YYYY：年 - yyyy: 年 - MM：月 - DD：日 - dd: 日 - HH：时（24 小时制） - mm：分 - ss：秒 - SSS：毫秒 - ww: 周\n *\n * @returns {string} 格式化后的日期字符串\n */\n",
+          "docComment": "/**\n * 格式化为日期对象 (带自定义格式化模板)\n *\n * @param value - 可以是数值、字符串或 Date 对象\n *\n * @param format - 模板，默认是 YYYY-MM-DD HH:mm:ss，模板字符： - YYYY/yyyy：年 - MM：月（补零） - M：月（不补零） - DD/dd：日（补零） - D/d：日（不补零） - HH：时（24 小时制，补零） - H：时（24 小时制，不补零） - mm：分（补零） - m：分（不补零） - ss：秒（补零） - s：秒（不补零） - SSS：毫秒（3 位） - SS：毫秒（2 位） - S：毫秒（1 位） - ww：中文完整星期（如：周日） - w：中文星期（如：周日）\n *\n * @returns {string} 格式化后的日期字符串\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -4595,7 +5050,7 @@
         {
           "kind": "Function",
           "canonicalReference": "sculp-js!humanFileSize:function(1)",
-          "docComment": "/**\n * Converting file size in bytes to human-readable string reference: https://zh.wikipedia.org/wiki/%E5%8D%83%E5%AD%97%E8%8A%82\n *\n * @param num - bytes Number in Bytes\n *\n * @param options - default: { decimals = 0, si = false, separator = ' ' } si: True to use metric (SI) units, aka powers of 1000, the units is ['B', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']. False to use binary (IEC), aka powers of 1024, the units is ['Byte', 'KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB']\n *\n * @returns \n */\n",
+          "docComment": "/**\n * Converting file size in bytes to human-readable string reference: https://zh.wikipedia.org/wiki/%E5%8D%83%E5%AD%97%E8%8A%82\n *\n * @param num - bytes Number in Bytes\n *\n * @param options - default: { decimals = 0, si = false, separator = ' ' } si: True to use metric (SI) units, aka powers of 1000, units is ['B', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']. False to use binary (IEC), aka powers of 1024, units is ['Byte', 'KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB']\n *\n * @returns \n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -5546,6 +6001,154 @@
         },
         {
           "kind": "Function",
+          "canonicalReference": "sculp-js!is:function(1)",
+          "docComment": "/**\n * 判断值是否为指定类型（带类型守卫）\n *\n * @param value - 要检查的值\n *\n * @param type - 期望的类型\n *\n * @returns {boolean} 如果值是指定类型则返回 true\n *\n * @example\n *\n * is(value, 'String') is(value, 'Array') is(value, 'Date')\n *\n * @example\n *\n * // 使用类型守卫 if (is(value, 'String')) { // value 在这里被推断为 string 类型 console.log(value.toUpperCase()); }\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export declare function is<T extends "
+            },
+            {
+              "kind": "Reference",
+              "text": "TypeTag",
+              "canonicalReference": "sculp-js!TypeTag:type"
+            },
+            {
+              "kind": "Content",
+              "text": ">(value: "
+            },
+            {
+              "kind": "Content",
+              "text": "unknown"
+            },
+            {
+              "kind": "Content",
+              "text": ", type: "
+            },
+            {
+              "kind": "Content",
+              "text": "T"
+            },
+            {
+              "kind": "Content",
+              "text": "): "
+            },
+            {
+              "kind": "Reference",
+              "text": "value",
+              "canonicalReference": "sculp-js!~value"
+            },
+            {
+              "kind": "Content",
+              "text": " is "
+            },
+            {
+              "kind": "Reference",
+              "text": "TypeMapping",
+              "canonicalReference": "sculp-js!TypeMapping:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "[T]"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "fileUrlPath": "dist/types/type.d.ts",
+          "returnTypeTokenRange": {
+            "startIndex": 7,
+            "endIndex": 11
+          },
+          "releaseTag": "Public",
+          "overloadIndex": 1,
+          "parameters": [
+            {
+              "parameterName": "value",
+              "parameterTypeTokenRange": {
+                "startIndex": 3,
+                "endIndex": 4
+              },
+              "isOptional": false
+            },
+            {
+              "parameterName": "type",
+              "parameterTypeTokenRange": {
+                "startIndex": 5,
+                "endIndex": 6
+              },
+              "isOptional": false
+            }
+          ],
+          "typeParameters": [
+            {
+              "typeParameterName": "T",
+              "constraintTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "defaultTypeTokenRange": {
+                "startIndex": 0,
+                "endIndex": 0
+              }
+            }
+          ],
+          "name": "is"
+        },
+        {
+          "kind": "Function",
+          "canonicalReference": "sculp-js!isArguments:function(1)",
+          "docComment": "",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "isArguments: (any: "
+            },
+            {
+              "kind": "Content",
+              "text": "unknown"
+            },
+            {
+              "kind": "Content",
+              "text": ") => "
+            },
+            {
+              "kind": "Reference",
+              "text": "any",
+              "canonicalReference": "sculp-js!~any"
+            },
+            {
+              "kind": "Content",
+              "text": " is "
+            },
+            {
+              "kind": "Reference",
+              "text": "IArguments",
+              "canonicalReference": "!IArguments:interface"
+            }
+          ],
+          "fileUrlPath": "dist/types/type.d.ts",
+          "returnTypeTokenRange": {
+            "startIndex": 3,
+            "endIndex": 6
+          },
+          "releaseTag": "Public",
+          "overloadIndex": 1,
+          "parameters": [
+            {
+              "parameterName": "any",
+              "parameterTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "isOptional": false
+            }
+          ],
+          "name": "isArguments"
+        },
+        {
+          "kind": "Function",
           "canonicalReference": "sculp-js!isArray:function(1)",
           "docComment": "",
           "excerptTokens": [
@@ -5589,6 +6192,108 @@
             }
           ],
           "name": "isArray"
+        },
+        {
+          "kind": "Function",
+          "canonicalReference": "sculp-js!isArrayBuffer:function(1)",
+          "docComment": "",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "isArrayBuffer: (any: "
+            },
+            {
+              "kind": "Content",
+              "text": "unknown"
+            },
+            {
+              "kind": "Content",
+              "text": ") => "
+            },
+            {
+              "kind": "Reference",
+              "text": "any",
+              "canonicalReference": "sculp-js!~any"
+            },
+            {
+              "kind": "Content",
+              "text": " is "
+            },
+            {
+              "kind": "Reference",
+              "text": "ArrayBuffer",
+              "canonicalReference": "!ArrayBuffer:interface"
+            }
+          ],
+          "fileUrlPath": "dist/types/type.d.ts",
+          "returnTypeTokenRange": {
+            "startIndex": 3,
+            "endIndex": 6
+          },
+          "releaseTag": "Public",
+          "overloadIndex": 1,
+          "parameters": [
+            {
+              "parameterName": "any",
+              "parameterTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "isOptional": false
+            }
+          ],
+          "name": "isArrayBuffer"
+        },
+        {
+          "kind": "Function",
+          "canonicalReference": "sculp-js!isAsyncFunction:function(1)",
+          "docComment": "",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "isAsyncFunction: (any: "
+            },
+            {
+              "kind": "Content",
+              "text": "unknown"
+            },
+            {
+              "kind": "Content",
+              "text": ") => "
+            },
+            {
+              "kind": "Reference",
+              "text": "any",
+              "canonicalReference": "sculp-js!~any"
+            },
+            {
+              "kind": "Content",
+              "text": " is "
+            },
+            {
+              "kind": "Reference",
+              "text": "Function",
+              "canonicalReference": "!Function:interface"
+            }
+          ],
+          "fileUrlPath": "dist/types/type.d.ts",
+          "returnTypeTokenRange": {
+            "startIndex": 3,
+            "endIndex": 6
+          },
+          "releaseTag": "Public",
+          "overloadIndex": 1,
+          "parameters": [
+            {
+              "parameterName": "any",
+              "parameterTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "isOptional": false
+            }
+          ],
+          "name": "isAsyncFunction"
         },
         {
           "kind": "Function",
@@ -5681,6 +6386,57 @@
             }
           ],
           "name": "isBoolean"
+        },
+        {
+          "kind": "Function",
+          "canonicalReference": "sculp-js!isDataView:function(1)",
+          "docComment": "",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "isDataView: (any: "
+            },
+            {
+              "kind": "Content",
+              "text": "unknown"
+            },
+            {
+              "kind": "Content",
+              "text": ") => "
+            },
+            {
+              "kind": "Reference",
+              "text": "any",
+              "canonicalReference": "sculp-js!~any"
+            },
+            {
+              "kind": "Content",
+              "text": " is "
+            },
+            {
+              "kind": "Reference",
+              "text": "DataView",
+              "canonicalReference": "!DataView:interface"
+            }
+          ],
+          "fileUrlPath": "dist/types/type.d.ts",
+          "returnTypeTokenRange": {
+            "startIndex": 3,
+            "endIndex": 6
+          },
+          "releaseTag": "Public",
+          "overloadIndex": 1,
+          "parameters": [
+            {
+              "parameterName": "any",
+              "parameterTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "isOptional": false
+            }
+          ],
+          "name": "isDataView"
         },
         {
           "kind": "Function",
@@ -6406,6 +7162,61 @@
         },
         {
           "kind": "Function",
+          "canonicalReference": "sculp-js!isMap:function(1)",
+          "docComment": "",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "isMap: (any: "
+            },
+            {
+              "kind": "Content",
+              "text": "unknown"
+            },
+            {
+              "kind": "Content",
+              "text": ") => "
+            },
+            {
+              "kind": "Reference",
+              "text": "any",
+              "canonicalReference": "sculp-js!~any"
+            },
+            {
+              "kind": "Content",
+              "text": " is "
+            },
+            {
+              "kind": "Reference",
+              "text": "Map",
+              "canonicalReference": "!Map:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "<unknown, unknown>"
+            }
+          ],
+          "fileUrlPath": "dist/types/type.d.ts",
+          "returnTypeTokenRange": {
+            "startIndex": 3,
+            "endIndex": 7
+          },
+          "releaseTag": "Public",
+          "overloadIndex": 1,
+          "parameters": [
+            {
+              "parameterName": "any",
+              "parameterTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "isOptional": false
+            }
+          ],
+          "name": "isMap"
+        },
+        {
+          "kind": "Function",
           "canonicalReference": "sculp-js!isNaN_2:function(1)",
           "docComment": "",
           "excerptTokens": [
@@ -6858,6 +7669,61 @@
         },
         {
           "kind": "Function",
+          "canonicalReference": "sculp-js!isPromise:function(1)",
+          "docComment": "",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "isPromise: (any: "
+            },
+            {
+              "kind": "Content",
+              "text": "unknown"
+            },
+            {
+              "kind": "Content",
+              "text": ") => "
+            },
+            {
+              "kind": "Reference",
+              "text": "any",
+              "canonicalReference": "sculp-js!~any"
+            },
+            {
+              "kind": "Content",
+              "text": " is "
+            },
+            {
+              "kind": "Reference",
+              "text": "Promise",
+              "canonicalReference": "!Promise:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "<unknown>"
+            }
+          ],
+          "fileUrlPath": "dist/types/type.d.ts",
+          "returnTypeTokenRange": {
+            "startIndex": 3,
+            "endIndex": 7
+          },
+          "releaseTag": "Public",
+          "overloadIndex": 1,
+          "parameters": [
+            {
+              "parameterName": "any",
+              "parameterTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "isOptional": false
+            }
+          ],
+          "name": "isPromise"
+        },
+        {
+          "kind": "Function",
           "canonicalReference": "sculp-js!isRegExp:function(1)",
           "docComment": "",
           "excerptTokens": [
@@ -6906,6 +7772,61 @@
             }
           ],
           "name": "isRegExp"
+        },
+        {
+          "kind": "Function",
+          "canonicalReference": "sculp-js!isSet:function(1)",
+          "docComment": "",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "isSet: (any: "
+            },
+            {
+              "kind": "Content",
+              "text": "unknown"
+            },
+            {
+              "kind": "Content",
+              "text": ") => "
+            },
+            {
+              "kind": "Reference",
+              "text": "any",
+              "canonicalReference": "sculp-js!~any"
+            },
+            {
+              "kind": "Content",
+              "text": " is "
+            },
+            {
+              "kind": "Reference",
+              "text": "Set",
+              "canonicalReference": "!Set:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "<unknown>"
+            }
+          ],
+          "fileUrlPath": "dist/types/type.d.ts",
+          "returnTypeTokenRange": {
+            "startIndex": 3,
+            "endIndex": 7
+          },
+          "releaseTag": "Public",
+          "overloadIndex": 1,
+          "parameters": [
+            {
+              "parameterName": "any",
+              "parameterTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "isOptional": false
+            }
+          ],
+          "name": "isSet"
         },
         {
           "kind": "Function",
@@ -6998,6 +7919,47 @@
             }
           ],
           "name": "isSymbol"
+        },
+        {
+          "kind": "Function",
+          "canonicalReference": "sculp-js!isTypedArray:function(1)",
+          "docComment": "/**\n * 判断是否为 TypedArray\n *\n * @param any - \n *\n * @returns {boolean}\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "isTypedArray: (any: "
+            },
+            {
+              "kind": "Content",
+              "text": "unknown"
+            },
+            {
+              "kind": "Content",
+              "text": ") => "
+            },
+            {
+              "kind": "Content",
+              "text": "boolean"
+            }
+          ],
+          "fileUrlPath": "dist/types/type.d.ts",
+          "returnTypeTokenRange": {
+            "startIndex": 3,
+            "endIndex": 4
+          },
+          "releaseTag": "Public",
+          "overloadIndex": 1,
+          "parameters": [
+            {
+              "parameterName": "any",
+              "parameterTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "isOptional": false
+            }
+          ],
+          "name": "isTypedArray"
         },
         {
           "kind": "Function",
@@ -11292,7 +12254,7 @@
         {
           "kind": "Function",
           "canonicalReference": "sculp-js!typeIs:function(1)",
-          "docComment": "/**\n * 判断任意值的数据类型，检查非对象时不如typeof、instanceof的性能高\n *\n * 当检查类对象时是不可靠的，对象可以通过定义 Symbol.toStringTag 属性来更改检查结果\n *\n * 详见：https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/toString\n *\n * @param any - \n *\n * @returns \n */\n",
+          "docComment": "/**\n * 判断任意值的数据类型，检查非对象时不如 typeof、instanceof 的性能高\n *\n * 当检查类对象时是不可靠的，对象可以通过定义 Symbol.toStringTag 属性来更改检查结果\n *\n * 详见：https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/toString\n *\n * @param any - \n *\n * @returns {TypeTag} 类型标签字符串\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -11307,8 +12269,9 @@
               "text": "): "
             },
             {
-              "kind": "Content",
-              "text": "'Null' | 'Undefined' | 'Symbol' | 'Boolean' | 'Number' | 'String' | 'Function' | 'Date' | 'RegExp' | 'Map' | 'Set' | 'ArrayBuffer' | 'Object' | 'Array' | 'Error' | 'BigInt' | 'Promise' | 'AsyncFunction' | string"
+              "kind": "Reference",
+              "text": "TypeTag",
+              "canonicalReference": "sculp-js!TypeTag:type"
             },
             {
               "kind": "Content",
@@ -11335,6 +12298,935 @@
           "name": "typeIs"
         },
         {
+          "kind": "Interface",
+          "canonicalReference": "sculp-js!TypeMapping:interface",
+          "docComment": "/**\n * 类型标签到 TypeScript 类型的映射\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export interface TypeMapping "
+            }
+          ],
+          "fileUrlPath": "dist/types/type.d.ts",
+          "releaseTag": "Public",
+          "name": "TypeMapping",
+          "preserveMemberOrder": false,
+          "members": [
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "sculp-js!TypeMapping#Arguments:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "Arguments: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "IArguments",
+                  "canonicalReference": "!IArguments:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "Arguments",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "sculp-js!TypeMapping#Array:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "Array: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "unknown[]"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "Array",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "sculp-js!TypeMapping#ArrayBuffer:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "ArrayBuffer: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "ArrayBuffer",
+                  "canonicalReference": "!ArrayBuffer:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "ArrayBuffer",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "sculp-js!TypeMapping#AsyncFunction:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "AsyncFunction: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Function",
+                  "canonicalReference": "!Function:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "AsyncFunction",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "sculp-js!TypeMapping#BigInt:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "BigInt: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "bigint"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "BigInt",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "sculp-js!TypeMapping#BigInt64Array:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "BigInt64Array: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "BigInt64Array",
+                  "canonicalReference": "!BigInt64Array:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "BigInt64Array",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "sculp-js!TypeMapping#BigUint64Array:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "BigUint64Array: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "BigUint64Array",
+                  "canonicalReference": "!BigUint64Array:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "BigUint64Array",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "sculp-js!TypeMapping#Boolean:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "Boolean: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "boolean"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "Boolean",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "sculp-js!TypeMapping#DataView:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "DataView: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "DataView",
+                  "canonicalReference": "!DataView:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "DataView",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "sculp-js!TypeMapping#Date:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "Date: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Date",
+                  "canonicalReference": "!Date:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "Date",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "sculp-js!TypeMapping#Error:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "Error: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Error",
+                  "canonicalReference": "!Error:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "Error",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "sculp-js!TypeMapping#Float32Array:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "Float32Array: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Float32Array",
+                  "canonicalReference": "!Float32Array:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "Float32Array",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "sculp-js!TypeMapping#Float64Array:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "Float64Array: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Float64Array",
+                  "canonicalReference": "!Float64Array:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "Float64Array",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "sculp-js!TypeMapping#Function:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "Function: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Function",
+                  "canonicalReference": "!Function:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "Function",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "sculp-js!TypeMapping#Int16Array:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "Int16Array: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Int16Array",
+                  "canonicalReference": "!Int16Array:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "Int16Array",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "sculp-js!TypeMapping#Int32Array:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "Int32Array: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Int32Array",
+                  "canonicalReference": "!Int32Array:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "Int32Array",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "sculp-js!TypeMapping#Int8Array:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "Int8Array: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Int8Array",
+                  "canonicalReference": "!Int8Array:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "Int8Array",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "sculp-js!TypeMapping#Map:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "Map: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Map",
+                  "canonicalReference": "!Map:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<unknown, unknown>"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "Map",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 3
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "sculp-js!TypeMapping#Null:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "Null: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "null"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "Null",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "sculp-js!TypeMapping#Number:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "Number: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "Number",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "sculp-js!TypeMapping#Object:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "Object: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Record",
+                  "canonicalReference": "!Record:type"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<string, unknown>"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "Object",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 3
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "sculp-js!TypeMapping#Promise:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "Promise: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Promise",
+                  "canonicalReference": "!Promise:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<unknown>"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "Promise",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 3
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "sculp-js!TypeMapping#RegExp:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "RegExp: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "RegExp",
+                  "canonicalReference": "!RegExp:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "RegExp",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "sculp-js!TypeMapping#Set:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "Set: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Set",
+                  "canonicalReference": "!Set:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<unknown>"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "Set",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 3
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "sculp-js!TypeMapping#String:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "String: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "string"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "String",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "sculp-js!TypeMapping#Symbol:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "Symbol: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "symbol"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "Symbol",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "sculp-js!TypeMapping#Uint16Array:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "Uint16Array: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Uint16Array",
+                  "canonicalReference": "!Uint16Array:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "Uint16Array",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "sculp-js!TypeMapping#Uint32Array:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "Uint32Array: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Uint32Array",
+                  "canonicalReference": "!Uint32Array:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "Uint32Array",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "sculp-js!TypeMapping#Uint8Array:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "Uint8Array: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Uint8Array",
+                  "canonicalReference": "!Uint8Array:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "Uint8Array",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "sculp-js!TypeMapping#Uint8ClampedArray:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "Uint8ClampedArray: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Uint8ClampedArray",
+                  "canonicalReference": "!Uint8ClampedArray:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "Uint8ClampedArray",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "sculp-js!TypeMapping#Undefined:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "Undefined: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "undefined"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "Undefined",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            }
+          ],
+          "extendsTokenRanges": []
+        },
+        {
+          "kind": "TypeAlias",
+          "canonicalReference": "sculp-js!TypeTag:type",
+          "docComment": "/**\n * 类型标签类型\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export type TypeTag = "
+            },
+            {
+              "kind": "Content",
+              "text": "(typeof "
+            },
+            {
+              "kind": "Reference",
+              "text": "TYPE_TAGS",
+              "canonicalReference": "sculp-js!~TYPE_TAGS:var"
+            },
+            {
+              "kind": "Content",
+              "text": ")[number]"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "fileUrlPath": "dist/types/type.d.ts",
+          "releaseTag": "Public",
+          "name": "TypeTag",
+          "typeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 4
+          }
+        },
+        {
           "kind": "Class",
           "canonicalReference": "sculp-js!UnicodeToolkit:class",
           "docComment": "/**\n * 增强型 Unicode/HTML/UTF-8 编码解码工具\n */\n",
@@ -11353,7 +13245,7 @@
             {
               "kind": "Method",
               "canonicalReference": "sculp-js!UnicodeToolkit.decode:member(1)",
-              "docComment": "/**\n * 综合解码 (支持 \\uXXXX, \\u{XXXX}, HTML 实体, 十六进制实体)\n *\n * @param normalizeSpace - 是否将 \\u00A0 (&nbsp;) 转换为普通空格 \\u0020 *\n *\n * @example\n *\n * // 解码 Unicode 和 Emoji UnicodeToolkit.decode('\\\\u4F60\\\\u597D\\\\u{1F680}') // => '你好🚀' *\n *\n * @example\n *\n * // 解码 HTML 实体 (支持十进制、十六进制和命名实体) UnicodeToolkit.decode('Price: &#163;10 &amp; &copy;') // => 'Price: £10 & ©' *\n *\n * @example\n *\n * // 空格归一化 (将 &nbsp; 转为标准空格) UnicodeToolkit.decode('A&nbsp;B', true) // => 'A B' (charCodeAt 为 32 而不是 160)\n */\n",
+              "docComment": "/**\n * 综合解码 (支持 \\uXXXX, \\u{XXXX}, HTML 实体, 十六进制实体)\n *\n * @param normalizeSpace - 是否将 \\u00A0 (&nbsp;) 转换为普通空格 \\u0020\n *\n * @returns {string} 解码后的字符串\n *\n * @example\n *\n * // 解码 Unicode 和 Emoji UnicodeToolkit.decode('\\u4F60\\u597D\\u{1F680}') // => '你好🚀'\n *\n * @example\n *\n * // 解码 HTML 实体 (支持十进制、十六进制和命名实体) UnicodeToolkit.decode('Price: &#163;10 &amp; &copy;') // => 'Price: £10 & ©'\n *\n * @example\n *\n * // 空格归一化 (将 &nbsp; 转为标准空格) UnicodeToolkit.decode('A&nbsp;B', true) // => 'A B' (charCodeAt 为 32 而不是 160)\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -11417,7 +13309,7 @@
             {
               "kind": "Method",
               "canonicalReference": "sculp-js!UnicodeToolkit.encode:member(1)",
-              "docComment": "/**\n * 编码函数\n *\n * @param str - 原始字符串\n *\n * @param mode - 'unicode' (\\uXXXX) | 'html' (&#123;) | 'entities' (命名实体)\n *\n * @param encodeAll - 是否编码 ASCII 可见字符 (默认 false，仅编码非 ASCII 和特殊字符) *\n *\n * @example\n *\n * // Unicode 编码 (默认仅编码非 ASCII) UnicodeToolkit.encode('Hi 你好 😀') // => 'Hi \\\\u4F60\\\\u597D \\\\u{1F600}' *\n *\n * @example\n *\n * // 全部Unicode 编码 UnicodeToolkit.encode('Hi 你好 😀','unicode', true) // => '\\\\u0048\\\\u0069\\\\u0020\\\\u4F60\\\\u597D\\\\u0020\\\\u{1F600}' *\n *\n * @example\n *\n * // HTML 实体编码 UnicodeToolkit.encode('<script>', 'html',true) // => '&lt;&#115;&#99;&#114;&#105;&#112;&#116;&gt;&amp;'\n */\n",
+              "docComment": "/**\n * 编码函数\n *\n * @param str - 原始字符串\n *\n * @param mode - 'unicode' (\\uXXXX) | 'html' (&#123;) | 'entities' (命名实体)\n *\n * @param encodeAll - 是否编码 ASCII 可见字符 (默认 false，仅编码非 ASCII 和特殊字符)\n *\n * @returns {string} 编码后的字符串\n *\n * @example\n *\n * // Unicode 编码 (默认仅编码非 ASCII) UnicodeToolkit.encode('Hi 你好 😀') // => 'Hi \\u4F60\\u597D \\u{1F600}'\n *\n * @example\n *\n * // 全部 Unicode 编码 UnicodeToolkit.encode('Hi 你好 😀','unicode', true) // => '\\u0048\\u0069\\u0020\\u4F60\\u597D\\u0020\\u{1F600}'\n *\n * @example\n *\n * // HTML 实体编码 UnicodeToolkit.encode('<scr' + 'ipt>', 'html',true) // => '&lt;&#115;&#99;&#114;&#105;&#112;&#116;&gt;&amp;'\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -12512,7 +14404,7 @@
         {
           "kind": "Function",
           "canonicalReference": "sculp-js!weAtob:function(1)",
-          "docComment": "/**\n * Base64解码为原始字符串，平替浏览器的atob, 不包含中文的处理（适用于任何环境，包括小程序）\n *\n * @param string - \n *\n * @returns {string}\n */\n",
+          "docComment": "/**\n * Base64 解码为原始字符串（适用于任何环境，包括小程序）\n *\n * @param string - \n *\n * @returns {string}\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -12557,7 +14449,7 @@
         {
           "kind": "Function",
           "canonicalReference": "sculp-js!weBtoa:function(1)",
-          "docComment": "/**\n * 字符串编码成Base64, 平替浏览器的btoa, 不包含中文的处理 （适用于任何环境，包括小程序）\n *\n * @param string - \n *\n * @returns {string}\n */\n",
+          "docComment": "/**\n * 字符串编码成 Base64（适用于任何环境，包括小程序）\n *\n * @param string - \n *\n * @returns {string}\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",

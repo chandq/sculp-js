@@ -1,6 +1,7 @@
 {
   "name": "sculp-js",
-  "version": "1.19.1",
+  "version": "1.19.3",
+  "author": "chandq",
   "description": "Utils function library for modern javascript",
   "scripts": {
     "prepare": "husky install",
@@ -19,7 +20,7 @@
     "docs:dev": "node scripts/docs-dev.mjs",
     "docs:build": "node scripts/docs-build.mjs",
     "docs:preview": "node scripts/docs-preview.js",
-    "docs:deploy": "npm run docs:gen-api && npm run docs:sync && npm run docs:build"
+    "docs-site:build": "npm run docs:gen-api && npm run docs:sync && npm run docs:build"
   },
   "main": "./dist/cjs/index.cjs",
   "module": "./dist/esm/index.mjs",

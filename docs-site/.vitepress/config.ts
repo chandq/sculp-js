@@ -40,7 +40,8 @@ const generateApiSidebar = () => {
         { text: 'isEmpty', link: '/api/sculp-js.isempty' },
         { text: 'isNodeList', link: '/api/sculp-js.isnodelist' },
         { text: 'isValidDate', link: '/api/sculp-js.isvaliddate' },
-        { text: 'typeIs', link: '/api/sculp-js.typeis' }
+        { text: 'typeIs', link: '/api/sculp-js.typeis' },
+        { text: 'is', link: '/api/sculp-js.is' }
       ]
     },
     {
@@ -118,8 +119,7 @@ const generateApiSidebar = () => {
       collapsible: true,
       items: [
         { text: 'formatDate', link: '/api/sculp-js.formatdate' },
-        { text: 'calculateDate', link: '/api/sculp-js.calculatedate' },
-        { text: 'calculateDateTime', link: '/api/sculp-js.calculatedatetime' },
+        { text: 'adjustDate', link: '/api/sculp-js.adjustdate' },
         { text: 'dateParse', link: '/api/sculp-js.dateparse' },
         { text: 'dateToStart', link: '/api/sculp-js.datetostart' },
         { text: 'dateToEnd', link: '/api/sculp-js.datetoend' },
