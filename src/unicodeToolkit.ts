@@ -33,12 +33,12 @@ export class UnicodeToolkit {
    * UnicodeToolkit.encode('Hi 你好 😀')
    * // => 'Hi \u4F60\u597D \u{1F600}'
    * @example
-   * // 全部Unicode 编码
+   * // 全部 Unicode 编码
    * UnicodeToolkit.encode('Hi 你好 😀','unicode', true)
    * // => '\u0048\u0069\u0020\u4F60\u597D\u0020\u{1F600}'
    * @example
    * // HTML 实体编码
-   * UnicodeToolkit.encode('<script>', 'html',true)
+   * UnicodeToolkit.encode('<scr' + 'ipt>', 'html',true)
    * // => '&lt;&#115;&#99;&#114;&#105;&#112;&#116;&gt;&amp;'
    */
   static encode(str: string, mode: 'unicode' | 'html' = 'unicode', encodeAll = false): string {

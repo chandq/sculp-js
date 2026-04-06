@@ -10,6 +10,9 @@ export const add: (arg1: number, arg2: number) => number;
 export function addClass(el: HTMLElement, classNames: string): void;
 
 // @public
+export function adjustDate(originDate: DateValue, options?: CalculateDateOptions): string | Date;
+
+// @public
 export type AnyArray = any[];
 
 // @public
@@ -63,11 +66,19 @@ export function b64decode(base64: string): string;
 // @public
 export function b64encode(rawStr: string): string;
 
-// @public
-export function calculateDate(originDate: DateValue, n: number, sep?: string): string;
-
-// @public
-export function calculateDateTime(originDateTime: DateValue, n: number, dateSep?: string, timeSep?: string): string;
+// @public (undocumented)
+export interface CalculateDateOptions {
+  days?: number;
+  format?: string;
+  hours?: number;
+  milliseconds?: number;
+  minutes?: number;
+  months?: number;
+  returnDate?: boolean;
+  seconds?: number;
+  weeks?: number;
+  years?: number;
+}
 
 // @public
 export type ChangeOptional<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>;
@@ -137,6 +148,66 @@ export interface DebounceFunc<F extends AnyFunc> {
   // (undocumented)
   cancel: () => void;
 }
+
+// Warning: (ae-forgotten-export) The symbol "array" needs to be exported by the entry point index.d.ts
+// Warning: (ae-forgotten-export) The symbol "clipboard" needs to be exported by the entry point index.d.ts
+// Warning: (ae-forgotten-export) The symbol "cookie" needs to be exported by the entry point index.d.ts
+// Warning: (ae-forgotten-export) The symbol "date" needs to be exported by the entry point index.d.ts
+// Warning: (ae-forgotten-export) The symbol "dom" needs to be exported by the entry point index.d.ts
+// Warning: (ae-forgotten-export) The symbol "download" needs to be exported by the entry point index.d.ts
+// Warning: (ae-forgotten-export) The symbol "object" needs to be exported by the entry point index.d.ts
+// Warning: (ae-forgotten-export) The symbol "path" needs to be exported by the entry point index.d.ts
+// Warning: (ae-forgotten-export) The symbol "qs" needs to be exported by the entry point index.d.ts
+// Warning: (ae-forgotten-export) The symbol "string" needs to be exported by the entry point index.d.ts
+// Warning: (ae-forgotten-export) The symbol "type" needs to be exported by the entry point index.d.ts
+// Warning: (ae-forgotten-export) The symbol "url" needs to be exported by the entry point index.d.ts
+// Warning: (ae-forgotten-export) The symbol "async" needs to be exported by the entry point index.d.ts
+// Warning: (ae-forgotten-export) The symbol "file" needs to be exported by the entry point index.d.ts
+// Warning: (ae-forgotten-export) The symbol "watermark" needs to be exported by the entry point index.d.ts
+// Warning: (ae-forgotten-export) The symbol "func" needs to be exported by the entry point index.d.ts
+// Warning: (ae-forgotten-export) The symbol "random" needs to be exported by the entry point index.d.ts
+// Warning: (ae-forgotten-export) The symbol "number" needs to be exported by the entry point index.d.ts
+// Warning: (ae-forgotten-export) The symbol "unique" needs to be exported by the entry point index.d.ts
+// Warning: (ae-forgotten-export) The symbol "tooltip" needs to be exported by the entry point index.d.ts
+// Warning: (ae-forgotten-export) The symbol "tree" needs to be exported by the entry point index.d.ts
+// Warning: (ae-forgotten-export) The symbol "math" needs to be exported by the entry point index.d.ts
+// Warning: (ae-forgotten-export) The symbol "base64" needs to be exported by the entry point index.d.ts
+// Warning: (ae-forgotten-export) The symbol "validator" needs to be exported by the entry point index.d.ts
+// Warning: (ae-forgotten-export) The symbol "variable" needs to be exported by the entry point index.d.ts
+// Warning: (ae-forgotten-export) The symbol "cloneDeep_2" needs to be exported by the entry point index.d.ts
+// Warning: (ae-forgotten-export) The symbol "isEqual_2" needs to be exported by the entry point index.d.ts
+// Warning: (ae-forgotten-export) The symbol "unicodeToolkit" needs to be exported by the entry point index.d.ts
+//
+// @public (undocumented)
+const _default: typeof array &
+  typeof clipboard &
+  typeof cookie &
+  typeof date &
+  typeof dom &
+  typeof download &
+  typeof object &
+  typeof path &
+  typeof qs &
+  typeof string &
+  typeof type &
+  typeof url &
+  typeof async &
+  typeof file &
+  typeof watermark &
+  typeof func &
+  typeof random &
+  typeof number &
+  typeof unique &
+  typeof tooltip &
+  typeof tree &
+  typeof math &
+  typeof base64 &
+  typeof validator &
+  typeof variable &
+  typeof cloneDeep_2 &
+  typeof isEqual_2 &
+  typeof unicodeToolkit;
+export default _default;
 
 // @public
 export function diffArray<T>(source: readonly T[], target: readonly T[], getKey?: GetKey<T>): DiffResult<T>;
@@ -374,14 +445,29 @@ export const IPV4_REGEX: RegExp;
 // @public (undocumented)
 export const IPV6_REGEX: RegExp;
 
+// @public
+export function is<T extends TypeTag>(value: unknown, type: T): value is TypeMapping[T];
+
+// @public (undocumented)
+export const isArguments: (any: unknown) => any is IArguments;
+
 // @public (undocumented)
 export const isArray: (any: unknown) => any is unknown[];
+
+// @public (undocumented)
+export const isArrayBuffer: (any: unknown) => any is ArrayBuffer;
+
+// @public (undocumented)
+export const isAsyncFunction: (any: unknown) => any is Function;
 
 // @public (undocumented)
 export const isBigInt: (any: unknown) => any is bigint;
 
 // @public (undocumented)
 export const isBoolean: (any: unknown) => any is boolean;
+
+// @public (undocumented)
+export const isDataView: (any: unknown) => any is DataView;
 
 // @public (undocumented)
 export const isDate: (any: unknown) => any is Date;
@@ -435,6 +521,9 @@ export const isIpV6: (value: string) => boolean;
 export function isJsonString(str: string): Object | boolean;
 
 // @public (undocumented)
+export const isMap: (any: unknown) => any is Map<unknown, unknown>;
+
+// @public (undocumented)
 const isNaN_2: (any: unknown) => any is number;
 export { isNaN_2 as isNaN };
 
@@ -468,13 +557,22 @@ export const isPlainObject: (obj: unknown) => boolean;
 export const isPrimitive: (any: unknown) => boolean;
 
 // @public (undocumented)
+export const isPromise: (any: unknown) => any is Promise<unknown>;
+
+// @public (undocumented)
 export const isRegExp: (any: unknown) => any is RegExp;
+
+// @public (undocumented)
+export const isSet: (any: unknown) => any is Set<unknown>;
 
 // @public (undocumented)
 export const isString: (any: unknown) => any is string;
 
 // @public (undocumented)
 export const isSymbol: (any: unknown) => any is symbol;
+
+// @public
+export const isTypedArray: (any: unknown) => boolean;
 
 // @public (undocumented)
 export const isUndefined: (any: unknown) => any is undefined;
@@ -766,28 +864,78 @@ export const tooltipEvent: {
 };
 
 // @public
-export function typeIs(
-  any: unknown
-):
-  | 'Null'
-  | 'Undefined'
-  | 'Symbol'
-  | 'Boolean'
-  | 'Number'
-  | 'String'
-  | 'Function'
-  | 'Date'
-  | 'RegExp'
-  | 'Map'
-  | 'Set'
-  | 'ArrayBuffer'
-  | 'Object'
-  | 'Array'
-  | 'Error'
-  | 'BigInt'
-  | 'Promise'
-  | 'AsyncFunction'
-  | string;
+export function typeIs(any: unknown): TypeTag;
+
+// @public
+export interface TypeMapping {
+  // (undocumented)
+  Arguments: IArguments;
+  // (undocumented)
+  Array: unknown[];
+  // (undocumented)
+  ArrayBuffer: ArrayBuffer;
+  // (undocumented)
+  AsyncFunction: Function;
+  // (undocumented)
+  BigInt: bigint;
+  // (undocumented)
+  BigInt64Array: BigInt64Array;
+  // (undocumented)
+  BigUint64Array: BigUint64Array;
+  // (undocumented)
+  Boolean: boolean;
+  // (undocumented)
+  DataView: DataView;
+  // (undocumented)
+  Date: Date;
+  // (undocumented)
+  Error: Error;
+  // (undocumented)
+  Float32Array: Float32Array;
+  // (undocumented)
+  Float64Array: Float64Array;
+  // (undocumented)
+  Function: Function;
+  // (undocumented)
+  Int16Array: Int16Array;
+  // (undocumented)
+  Int32Array: Int32Array;
+  // (undocumented)
+  Int8Array: Int8Array;
+  // (undocumented)
+  Map: Map<unknown, unknown>;
+  // (undocumented)
+  Null: null;
+  // (undocumented)
+  Number: number;
+  // (undocumented)
+  Object: Record<string, unknown>;
+  // (undocumented)
+  Promise: Promise<unknown>;
+  // (undocumented)
+  RegExp: RegExp;
+  // (undocumented)
+  Set: Set<unknown>;
+  // (undocumented)
+  String: string;
+  // (undocumented)
+  Symbol: symbol;
+  // (undocumented)
+  Uint16Array: Uint16Array;
+  // (undocumented)
+  Uint32Array: Uint32Array;
+  // (undocumented)
+  Uint8Array: Uint8Array;
+  // (undocumented)
+  Uint8ClampedArray: Uint8ClampedArray;
+  // (undocumented)
+  Undefined: undefined;
+}
+
+// Warning: (ae-forgotten-export) The symbol "TYPE_TAGS" needs to be exported by the entry point index.d.ts
+//
+// @public
+export type TypeTag = (typeof TYPE_TAGS)[number];
 
 // @public
 export class UnicodeToolkit {
