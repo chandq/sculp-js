@@ -39,6 +39,18 @@ test('.formatDate', () => {
   }
 
   expect(formatDate(new Date('2020-01-01 00:00:00'), 'YYYY-M-D')).toBe('2020-1-1');
+
+  // 星期格式化测试
+  expect(formatDate(new Date('2024-01-07'), 'ww')).toBe('周日'); // 周日
+  expect(formatDate(new Date('2024-01-08'), 'ww')).toBe('周一'); // 周一
+  expect(formatDate(new Date('2024-01-09'), 'ww')).toBe('周二'); // 周二
+  expect(formatDate(new Date('2024-01-10'), 'ww')).toBe('周三'); // 周三
+  expect(formatDate(new Date('2024-01-11'), 'ww')).toBe('周四'); // 周四
+  expect(formatDate(new Date('2024-01-12'), 'ww')).toBe('周五'); // 周五
+  expect(formatDate(new Date('2024-01-13'), 'ww')).toBe('周六'); // 周六
+
+  // 组合使用
+  expect(formatDate(new Date('2024-01-07'), 'YYYY-MM-DD ww')).toBe('2024-01-07 周日');
 });
 
 test('.dateToStart', () => {

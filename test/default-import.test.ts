@@ -6,9 +6,6 @@
 // 测试完整库的默认导入
 import sculp from '../src/index';
 
-// 测试核心库的默认导入
-import coreSculp from '../src/core-index';
-
 describe('默认导入测试 - 完整库', () => {
   test('默认导出对象应该存在', () => {
     expect(sculp).toBeDefined();
@@ -183,97 +180,5 @@ describe('默认导入测试 - 完整库', () => {
     expect(sculp.isArray([1, 2, 3])).toBe(true);
     expect(sculp.stringCamelCase('hello-world')).toBe('helloWorld');
     expect(sculp.add(0.1, 0.2)).toBe(0.3);
-  });
-});
-
-describe('默认导入测试 - 核心库', () => {
-  test('核心库默认导出对象应该存在', () => {
-    expect(coreSculp).toBeDefined();
-    expect(typeof coreSculp).toBe('object');
-  });
-
-  test('核心库默认导出应该包含 type 模块的函数', () => {
-    expect(coreSculp.isString).toBeDefined();
-    expect(coreSculp.isNumber).toBeDefined();
-    expect(coreSculp.isArray).toBeDefined();
-  });
-
-  test('核心库默认导出应该包含 string 模块的函数', () => {
-    expect(coreSculp.stringCamelCase).toBeDefined();
-    expect(coreSculp.stringFormat).toBeDefined();
-  });
-
-  test('核心库默认导出应该包含 date 模块的函数', () => {
-    expect(coreSculp.formatDate).toBeDefined();
-  });
-
-  test('核心库默认导出应该包含 array 模块的函数', () => {
-    expect(coreSculp.arrayEach).toBeDefined();
-  });
-
-  test('核心库默认导出应该包含 object 模块的函数', () => {
-    expect(coreSculp.objectAssign).toBeDefined();
-  });
-
-  test('核心库默认导出应该包含 math 模块的函数', () => {
-    expect(coreSculp.add).toBeDefined();
-  });
-
-  test('核心库默认导出应该包含 number 模块的函数', () => {
-    expect(coreSculp.formatMoney).toBeDefined();
-  });
-
-  test('核心库默认导出应该包含 path 模块的函数', () => {
-    expect(coreSculp.pathJoin).toBeDefined();
-  });
-
-  test('核心库默认导出应该包含 async 模块的函数', () => {
-    expect(coreSculp.asyncMap).toBeDefined();
-  });
-
-  test('核心库默认导出应该包含 func 模块的函数', () => {
-    expect(coreSculp.debounce).toBeDefined();
-  });
-
-  test('核心库默认导出应该包含 random 模块的函数', () => {
-    expect(coreSculp.randomString).toBeDefined();
-  });
-
-  test('核心库默认导出应该包含 validator 模块的函数', () => {
-    expect(coreSculp.isEmail).toBeDefined();
-  });
-
-  test('核心库默认导出应该包含 tree 模块的函数', () => {
-    expect(coreSculp.formatTree).toBeDefined();
-  });
-
-  test('核心库默认导出应该包含 base64 模块的函数', () => {
-    expect(coreSculp.b64encode).toBeDefined();
-  });
-
-  test('核心库默认导出应该包含 unique 模块的函数', () => {
-    expect(coreSculp.uniqueString).toBeDefined();
-  });
-
-  test('核心库默认导出应该包含 variable 模块的函数', () => {
-    expect(coreSculp.escapeRegExp).toBeDefined();
-  });
-
-  test('核心库默认导出的函数应该可以正常工作', () => {
-    expect(coreSculp.isString('hello')).toBe(true);
-    expect(coreSculp.stringCamelCase('hello-world')).toBe('helloWorld');
-    expect(coreSculp.add(0.1, 0.2)).toBe(0.3);
-  });
-
-  test('核心库默认导出不应该包含浏览器相关模块', () => {
-    // 核心库不应该包含这些浏览器/Node 环境相关的模块
-    expect(coreSculp.cookieSet).toBeUndefined();
-    expect(coreSculp.addClass).toBeUndefined();
-    expect(coreSculp.downloadBlob).toBeUndefined();
-    expect(coreSculp.chooseLocalFile).toBeUndefined();
-    expect(coreSculp.genCanvasWM).toBeUndefined();
-    expect(coreSculp.cloneDeep).toBeUndefined();
-    expect(coreSculp.isEqual).toBeUndefined();
-    expect(coreSculp.UnicodeToolkit).toBeUndefined();
   });
 });

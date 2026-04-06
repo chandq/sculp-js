@@ -133,19 +133,25 @@ export function dateToEnd(value: DateValue): Date {
 }
 
 /**
- * 格式化为日期对象(带自定义格式化模板)
+ * 格式化为日期对象 (带自定义格式化模板)
  * @param {Date} value - 可以是数值、字符串或 Date 对象
  * @param {string} [format] - 模板，默认是 YYYY-MM-DD HH:mm:ss，模板字符：
- * - YYYY：年
- * - yyyy: 年
- * - MM：月
- * - DD：日
- * - dd: 日
- * - HH：时（24 小时制）
- * - mm：分
- * - ss：秒
- * - SSS：毫秒
- * - ww: 周
+ * - YYYY/yyyy：年
+ * - MM：月（补零）
+ * - M：月（不补零）
+ * - DD/dd：日（补零）
+ * - D/d：日（不补零）
+ * - HH：时（24 小时制，补零）
+ * - H：时（24 小时制，不补零）
+ * - mm：分（补零）
+ * - m：分（不补零）
+ * - ss：秒（补零）
+ * - s：秒（不补零）
+ * - SSS：毫秒（3 位）
+ * - SS：毫秒（2 位）
+ * - S：毫秒（1 位）
+ * - ww：中文完整星期（如：周日）
+ * - w：中文星期（如：周日）
  * @returns {string}  格式化后的日期字符串
  */
 export function formatDate(value: DateValue, format = 'YYYY-MM-DD HH:mm:ss'): string {
@@ -178,24 +184,24 @@ export function formatDate(value: DateValue, format = 'YYYY-MM-DD HH:mm:ss'): st
 
 export interface CalculateDateOptions {
   /**
-   * 输出格式模板
+   * 输出格式模板（传递给 formatDate 函数处理）
    * 支持以下占位符：
    * - YYYY/yyyy: 4 位年份
    * - YY/yy: 2 位年份
    * - MM: 2 位月份
    * - M: 不补零月份
    * - DD/dd: 2 位日期
-   * - D: 不补零日期
+   * - D/d: 不补零日期
    * - HH: 2 位小时 (24 小时制)
    * - H: 不补零小时
-   * - hh: 2 位小时 (12 小时制)
-   * - h: 不补零小时 (12 小时制)
    * - mm: 2 位分钟
    * - m: 不补零分钟
    * - ss: 2 位秒
    * - s: 不补零秒
-   * - A: AM/PM 标记
-   * - a: am/pm 标记
+   * - SSS: 3 位毫秒
+   * - SS: 2 位毫秒
+   * - S: 1 位毫秒
+   * - ww/w: 中文星期
    * @default 'YYYY-MM-DD'
    */
   format?: string;
