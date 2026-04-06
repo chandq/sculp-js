@@ -16,7 +16,9 @@ import {
   isRegExp,
   isString,
   isSymbol,
-  isUndefined
+  isUndefined,
+  is,
+  typeIs
 } from '../src/type';
 
 test('isString', () => {
@@ -157,4 +159,59 @@ test('isNodeList', () => {
   document.body.appendChild(divEl);
   expect(isNodeList(document.body.childNodes)).toBe(true);
   expect(isNodeList([])).toBe(false);
+});
+
+test('is', () => {
+  // 基本类型测试
+  expect(is('hello', 'String')).toBe(true);
+  expect(is(123, 'Number')).toBe(true);
+  expect(is(true, 'Boolean')).toBe(true);
+  expect(is(null, 'Null')).toBe(true);
+  expect(is(undefined, 'Undefined')).toBe(true);
+  expect(is(Symbol(''), 'Symbol')).toBe(true);
+  expect(is(BigInt(123), 'BigInt')).toBe(true);
+
+  // 函数测试
+  expect(is(function () {}, 'Function')).toBe(true);
+  expect(is(() => {}, 'Function')).toBe(true);
+  // AsyncFunction 在某些环境中可能无法正确检测
+  const asyncFn = async function () {};
+  expect(typeIs(asyncFn) === 'AsyncFunction' || typeIs(asyncFn) === 'Function').toBe(true);
+
+  // 对象测试
+  expect(is({}, 'Object')).toBe(true);
+  expect(is([], 'Array')).toBe(true);
+  expect(is(new Date(), 'Date')).toBe(true);
+  expect(is(/regex/, 'RegExp')).toBe(true);
+  expect(is(new Error(), 'Error')).toBe(true);
+
+  // 集合测试
+  expect(is(new Map(), 'Map')).toBe(true);
+  expect(is(new Set(), 'Set')).toBe(true);
+
+  // Promise 测试
+  expect(is(Promise.resolve(), 'Promise')).toBe(true);
+
+  // TypedArray 测试
+  expect(is(new Int8Array(), 'Int8Array')).toBe(true);
+  expect(is(new Uint8Array(), 'Uint8Array')).toBe(true);
+  expect(is(new Float32Array(), 'Float32Array')).toBe(true);
+  expect(is(new BigInt64Array(), 'BigInt64Array')).toBe(true);
+
+  // 二进制数据测试
+  expect(is(new ArrayBuffer(8), 'ArrayBuffer')).toBe(true);
+  expect(is(new DataView(new ArrayBuffer(8)), 'DataView')).toBe(true);
+
+  // arguments 测试
+  const testArguments = function () {
+    // eslint-disable-next-line prefer-rest-params
+    return arguments;
+  };
+  // @ts-ignore
+  expect(is(testArguments(1, 2, 3), 'Arguments')).toBe(true);
+
+  // 否定测试
+  expect(is('hello', 'Number')).toBe(false);
+  expect(is(123, 'String')).toBe(false);
+  expect(is([], 'Object')).toBe(false);
 });

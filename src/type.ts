@@ -75,38 +75,129 @@ export function arrayLike(any: unknown): boolean {
   return objectHas(any, 'length');
 }
 
+// 定义所有可能的类型标签
+const TYPE_TAGS = [
+  // 基本数据类型
+  'Null',
+  'Undefined',
+  'Symbol',
+  'Boolean',
+  'Number',
+  'String',
+  'BigInt',
+  // 函数相关
+  'Function',
+  'AsyncFunction',
+  // 对象相关
+  'Object',
+  'Array',
+  'Arguments',
+  // 内置对象
+  'Date',
+  'RegExp',
+  'Error',
+  'Promise',
+  // 集合类
+  'Map',
+  'Set',
+  // 二进制数据
+  'ArrayBuffer',
+  'DataView',
+  // Typed Arrays
+  'Int8Array',
+  'Uint8Array',
+  'Uint8ClampedArray',
+  'Int16Array',
+  'Uint16Array',
+  'Int32Array',
+  'Uint32Array',
+  'Float32Array',
+  'Float64Array',
+  'BigInt64Array',
+  'BigUint64Array'
+] as const;
+
 /**
- * 判断任意值的数据类型，检查非对象时不如typeof、instanceof的性能高
+ * 类型标签类型
+ */
+export type TypeTag = (typeof TYPE_TAGS)[number];
+
+/**
+ * 类型标签到 TypeScript 类型的映射
+ */
+export interface TypeMapping {
+  // 基本数据类型
+  Null: null;
+  Undefined: undefined;
+  Symbol: symbol;
+  Boolean: boolean;
+  Number: number;
+  String: string;
+  BigInt: bigint;
+  // 函数相关
+  Function: Function;
+  AsyncFunction: Function;
+  // 对象相关
+  Object: Record<string, unknown>;
+  Array: unknown[];
+  Arguments: IArguments;
+  // 内置对象
+  Date: Date;
+  RegExp: RegExp;
+  Error: Error;
+  Promise: Promise<unknown>;
+  // 集合类
+  Map: Map<unknown, unknown>;
+  Set: Set<unknown>;
+  // 二进制数据
+  ArrayBuffer: ArrayBuffer;
+  DataView: DataView;
+  // Typed Arrays
+  Int8Array: Int8Array;
+  Uint8Array: Uint8Array;
+  Uint8ClampedArray: Uint8ClampedArray;
+  Int16Array: Int16Array;
+  Uint16Array: Uint16Array;
+  Int32Array: Int32Array;
+  Uint32Array: Uint32Array;
+  Float32Array: Float32Array;
+  Float64Array: Float64Array;
+  BigInt64Array: BigInt64Array;
+  BigUint64Array: BigUint64Array;
+}
+
+/**
+ * 判断任意值的数据类型，检查非对象时不如 typeof、instanceof 的性能高
  *
  * 当检查类对象时是不可靠的，对象可以通过定义 Symbol.toStringTag 属性来更改检查结果
  *
  * 详见：https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/toString
  * @param {unknown} any
- * @returns
+ * @returns {TypeTag} 类型标签字符串
  */
-export function typeIs(
-  any: unknown
-):
-  | 'Null'
-  | 'Undefined'
-  | 'Symbol'
-  | 'Boolean'
-  | 'Number'
-  | 'String'
-  | 'Function'
-  | 'Date'
-  | 'RegExp'
-  | 'Map'
-  | 'Set'
-  | 'ArrayBuffer'
-  | 'Object'
-  | 'Array'
-  | 'Error'
-  | 'BigInt'
-  | 'Promise'
-  | 'AsyncFunction'
-  | string {
-  return toString.call(any).slice(8, -1);
+export function typeIs(any: unknown): TypeTag {
+  return toString.call(any).slice(8, -1) as TypeTag;
+}
+
+/**
+ * 判断值是否为指定类型（带类型守卫）
+ * @param {unknown} value - 要检查的值
+ * @param {TypeTag} type - 期望的类型
+ * @returns {boolean} 如果值是指定类型则返回 true
+ * @example
+ * is(value, 'String')
+ * is(value, 'Array')
+ * is(value, 'Date')
+ *
+ * @example
+ * // 使用类型守卫
+ * if (is(value, 'String')) {
+ *   // value 在这里被推断为 string 类型
+ *   console.log(value.toUpperCase());
+ * }
+ */
+export function is<T extends TypeTag>(value: unknown, type: T): value is TypeMapping[T] {
+  return typeIs(value) === type;
 }
 
 // 基本数据类型判断
@@ -139,6 +230,36 @@ export const isNaN = (any: unknown): any is number => Number.isNaN(any as number
 export const isDate = (any: unknown): any is Date => typeIs(any) === 'Date';
 export const isError = (any: unknown): any is Error => typeIs(any) === 'Error';
 export const isRegExp = (any: unknown): any is RegExp => typeIs(any) === 'RegExp';
+export const isPromise = (any: unknown): any is Promise<unknown> => typeIs(any) === 'Promise';
+export const isMap = (any: unknown): any is Map<unknown, unknown> => typeIs(any) === 'Map';
+export const isSet = (any: unknown): any is Set<unknown> => typeIs(any) === 'Set';
+
+/**
+ * 判断是否为 TypedArray
+ * @param {unknown} any
+ * @returns {boolean}
+ */
+export const isTypedArray = (any: unknown): boolean => {
+  const tag = typeIs(any);
+  return (
+    tag === 'Int8Array' ||
+    tag === 'Uint8Array' ||
+    tag === 'Uint8ClampedArray' ||
+    tag === 'Int16Array' ||
+    tag === 'Uint16Array' ||
+    tag === 'Int32Array' ||
+    tag === 'Uint32Array' ||
+    tag === 'Float32Array' ||
+    tag === 'Float64Array' ||
+    tag === 'BigInt64Array' ||
+    tag === 'BigUint64Array'
+  );
+};
+
+export const isDataView = (any: unknown): any is DataView => typeIs(any) === 'DataView';
+export const isArrayBuffer = (any: unknown): any is ArrayBuffer => typeIs(any) === 'ArrayBuffer';
+export const isArguments = (any: unknown): any is IArguments => typeIs(any) === 'Arguments';
+export const isAsyncFunction = (any: unknown): any is Function => typeIs(any) === 'AsyncFunction';
 /**
  * 判断一个字符串是否为有效的 JSON, 若有效则返回有效的JSON对象，否则false
  * @param {string} str
@@ -205,6 +326,9 @@ export function isNodeList(value: any) {
 
 export default {
   typeIs,
+  is,
+  TypeMapping: undefined as unknown as TypeMapping, // 导出类型映射接口
+  TypeTag: undefined as unknown as TypeTag, // 导出类型标签类型
   objectHas,
   arrayLike,
   isString,
@@ -224,6 +348,14 @@ export default {
   isDate,
   isError,
   isRegExp,
+  isPromise,
+  isMap,
+  isSet,
+  isTypedArray,
+  isDataView,
+  isArrayBuffer,
+  isArguments,
+  isAsyncFunction,
   isJsonString,
   isEmpty,
   isNodeList
