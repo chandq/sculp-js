@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.19.3](https://github.com/chandq/sculp-js/compare/v1.19.2...v1.19.3) (2026-04-06)
+
+### Bug Fixes
+
+- improve base64 util func, improve performance ([e2dc7ba](https://github.com/chandq/sculp-js/commit/e2dc7ba40a2e454af42507aba20e91ea487d93cc))
+- improve typeIs, support assert result ([9f27d22](https://github.com/chandq/sculp-js/commit/9f27d224b66e5575593c29224a4af5e92ed1922a))
+
 ### [1.19.2](https://github.com/chandq/sculp-js/compare/v1.19.1...v1.19.2) (2026-04-06)
 
 ### Features
