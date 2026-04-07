@@ -138,14 +138,18 @@ export const stringFill = (length: number, value = ' '): string => new Array(len
  * @returns {Record<string, string | string[]>}
  */
 export function parseQueryParams(searchStr: string = location.search): Record<string, string | string[]> {
-  const queryObj = {};
-  Array.from(searchStr.matchAll(/[&?]?([^=&]+)=?([^=&]*)/g)).forEach((item, i) => {
-    if (!queryObj[item[1]]) {
-      queryObj[item[1]] = item[2];
-    } else if (typeof queryObj[item[1]] === 'string') {
-      queryObj[item[1]] = [queryObj[item[1]], item[2]];
+  const queryObj: Record<string, string | string[]> = {};
+  Array.from(searchStr.matchAll(/[&?]?([^=&]+)=?([^=&]*)/g)).forEach(item => {
+    const key = item[1];
+    const value = item[2];
+    const existing = queryObj[key];
+
+    if (!existing) {
+      queryObj[key] = value;
+    } else if (Array.isArray(existing)) {
+      existing.push(value);
     } else {
-      queryObj[item[1]].push(item[2]);
+      queryObj[key] = [existing, value];
     }
   });
   return queryObj;

@@ -12,8 +12,8 @@
 
     /* 强类型检查配置 */
     "strict": true,
-    "noImplicitAny": false,
-    "noImplicitThis": false,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
     // 跳过第三方库的类型检查，提高编译速度
     "skipLibCheck": true,
 

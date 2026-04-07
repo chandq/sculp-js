@@ -10,9 +10,9 @@ const defaultFieldOptions: IFieldOptions = { keyField: 'key', childField: 'child
 
 export interface ISearchTreeOpts {
   childField: string;
-  nameField: string; // 匹配字段
-  removeEmptyChild: boolean; // 搜索结果中不包含空的children
-  ignoreCase: boolean; // 忽略大小写
+  nameField: string;
+  removeEmptyChild: boolean;
+  ignoreCase: boolean;
 }
 const defaultSearchTreeOptions: ISearchTreeOpts = {
   childField: 'children',
@@ -20,9 +20,20 @@ const defaultSearchTreeOptions: ISearchTreeOpts = {
   removeEmptyChild: false,
   ignoreCase: true
 };
+
 export interface IFilterCondition<V> {
   keyword?: string;
   filter?: (args: V) => boolean;
+}
+
+type TreeNode<V extends AnyObject = AnyObject, K extends string = string> = V & {
+  [key in K]?: TreeNode<V, K>[];
+};
+
+function getChildNodes<V>(item: V, childField: string, isDomNode: boolean): any[] | null {
+  const child = (item as any)[childField];
+  if (!child) return null;
+  return isDomNode && isNodeList(child) ? Array.from(child) : Array.isArray(child) ? child : null;
 }
 
 /**
@@ -86,13 +97,13 @@ export function forEachDeep<V>(
         } else if (re === true) {
           continue;
         }
-        if (item && (isDomNode ? isNodeList(item[childField]) : Array.isArray(item[childField]))) {
-          reverseWalk(item[childField], item, level + 1);
+        const childNodes = getChildNodes(item, childField, isDomNode);
+        if (childNodes) {
+          reverseWalk(childNodes, item, level + 1);
         }
       }
     }
     if (breadthFirst) {
-      // Process queue
       while (queue.length > 0 && !isBreak) {
         const current = queue.shift();
         const { item, index, array, tree, parent, level } = current!;
@@ -103,8 +114,9 @@ export function forEachDeep<V>(
         } else if (re === true) {
           continue;
         }
-        if (item && (isDomNode ? isNodeList(item[childField]) : Array.isArray(item[childField]))) {
-          reverseWalk(item[childField], item, level + 1);
+        const childNodes = getChildNodes(item, childField, isDomNode);
+        if (childNodes) {
+          reverseWalk(childNodes, item, level + 1);
         }
       }
     }
@@ -116,10 +128,8 @@ export function forEachDeep<V>(
       }
       const item = arr[index];
       if (breadthFirst) {
-        // 广度优先
         queue.push({ item, index: index, array: arr, tree, parent, level });
       } else {
-        // 深度优先
         const re = iterator(item, index, arr, tree, parent, level);
         if (re === false) {
           isBreak = true;
@@ -127,8 +137,9 @@ export function forEachDeep<V>(
         } else if (re === true) {
           continue;
         }
-        if (item && (isDomNode ? isNodeList(item[childField]) : Array.isArray(item[childField]))) {
-          walk(item[childField], item, level + 1);
+        const childNodes = getChildNodes(item, childField, isDomNode);
+        if (childNodes) {
+          walk(childNodes, item, level + 1);
         }
       }
     }
@@ -144,8 +155,9 @@ export function forEachDeep<V>(
         } else if (re === true) {
           continue;
         }
-        if (item && (isDomNode ? isNodeList(item[childField]) : Array.isArray(item[childField]))) {
-          walk(item[childField], item, level + 1);
+        const childNodes = getChildNodes(item, childField, isDomNode);
+        if (childNodes) {
+          walk(childNodes, item, level + 1);
         }
       }
     }
@@ -269,7 +281,7 @@ export function mapDeep<T>(
 ): any[] {
   const { childField = 'children', reverse = false } = isObject(options) ? options : {};
   let isBreak = false;
-  const newTree = [];
+  const newTree: any[] = [];
   const walk = (arr: T[], parent: T | null, newTree: any[], level = 0) => {
     if (reverse) {
       for (let i = arr.length - 1; i >= 0; i--) {
@@ -286,12 +298,12 @@ export function mapDeep<T>(
           continue;
         }
         newTree.push(objectOmit(re, [childField as any]));
-        if (item && Array.isArray(item[childField])) {
-          newTree[newTree.length - 1][childField] = [];
-          walk(item[childField], item, newTree[newTree.length - 1][childField], level + 1);
+        if (item && Array.isArray((item as any)[childField])) {
+          (newTree[newTree.length - 1] as any)[childField] = [];
+          walk((item as any)[childField], item, (newTree[newTree.length - 1] as any)[childField], level + 1);
         } else {
           // children非有效数组时，移除该属性字段
-          delete re[childField];
+          delete (re as any)[childField];
         }
       }
     } else {
@@ -308,12 +320,12 @@ export function mapDeep<T>(
           continue;
         }
         newTree.push(objectOmit(re, [childField as any]));
-        if (item && Array.isArray(item[childField])) {
-          newTree[newTree.length - 1][childField] = [];
-          walk(item[childField], item, newTree[newTree.length - 1][childField], level + 1);
+        if (item && Array.isArray((item as any)[childField])) {
+          (newTree[newTree.length - 1] as any)[childField] = [];
+          walk((item as any)[childField], item, (newTree[newTree.length - 1] as any)[childField], level + 1);
         } else {
           // children非有效数组时，移除该属性字段
-          delete re[childField];
+          delete (re as any)[childField];
         }
       }
     }
@@ -341,29 +353,29 @@ export function searchTreeById<V>(
 ): [(number | string)[], ArrayLike<V>[]] {
   const { childField = 'children', keyField = 'id' } = isObject(options) ? options : {};
 
-  const toFlatArray = (tree, parentId?: IdLike, parent?: any) => {
-    return tree.reduce((t, _) => {
-      const child = _[childField];
+  const toFlatArray = (tree: any[], parentId?: IdLike, parent?: any): any[] => {
+    return tree.reduce((t: any[], _: any) => {
+      const child = (_ as any)[childField];
       return [
         ...t,
         parentId ? { ..._, parentId, parent } : _,
-        ...(child && child.length ? toFlatArray(child, _[keyField], _) : [])
+        ...(child && child.length ? toFlatArray(child, (_ as any)[keyField], _) : [])
       ];
     }, []);
   };
-  const getIds = (flatArray): [IdLike[], ArrayLike<V>[]] => {
-    let child = flatArray.find(_ => _[keyField] === nodeId);
-    const { parent, parentId, ...other } = child;
+  const getIds = (flatArray: any[]): [IdLike[], any[]] => {
+    let child = flatArray.find(_ => (_ as any)[keyField] === nodeId);
+    const { parent, parentId, ...other } = child as any;
     let ids = [nodeId],
       nodes = [other];
-    while (child && child.parentId) {
-      ids = [child.parentId, ...ids];
-      nodes = [child.parent, ...nodes];
-      child = flatArray.find(_ => _[keyField] === child.parentId); // eslint-disable-line
+    while (child && (child as any).parentId) {
+      ids = [(child as any).parentId, ...ids];
+      nodes = [(child as any).parent, ...nodes];
+      child = flatArray.find(_ => (_ as any)[keyField] === (child as any).parentId); // eslint-disable-line
     }
     return [ids, nodes];
   };
-  return getIds(toFlatArray(tree));
+  return getIds(toFlatArray(tree as any[]));
 }
 
 /**
@@ -376,7 +388,7 @@ export function searchTreeById<V>(
 export function formatTree(list: any[], options: IFieldOptions = defaultFieldOptions): any[] {
   const { keyField = 'key', childField = 'children', pidField = 'pid' } = isObject(options) ? options : {};
   const treeArr: any[] = [];
-  const sourceMap = {};
+  const sourceMap: { [key: string]: any } = {};
 
   for (let i = 0, len = list.length; i < len; i++) {
     const item = list[i];
@@ -387,7 +399,7 @@ export function formatTree(list: any[], options: IFieldOptions = defaultFieldOpt
     const item = list[i];
     const parent = sourceMap[item[pidField]];
     if (parent) {
-      (parent[childField] || (parent[childField] = [])).push(item);
+      ((parent as any)[childField] || ((parent as any)[childField] = [])).push(item);
     } else {
       treeArr.push(item);
     }
@@ -414,12 +426,12 @@ export function flatTree(treeList: any[], options: IFieldOptions = defaultFieldO
       ...node,
       [childField]: [] // 清空子级
     };
-    objectHas(item, childField) && delete item[childField];
+    objectHas(item, childField) && delete (item as any)[childField];
     res.push(item);
-    if (node[childField]) {
-      const children = node[childField].map(item => ({
+    if ((node as any)[childField]) {
+      const children = (node as any)[childField].map((item: any) => ({
         ...item,
-        [pidField]: node[keyField] || item.pid // 给子级设置pid
+        [pidField]: (node as any)[keyField] || item.pid // 给子级设置 pid
       }));
       res = res.concat(flatTree(children, options));
     }
@@ -461,8 +473,8 @@ export function fuzzySearchTree<V>(
     const node = nodes[i];
     // 递归检查子节点是否匹配
     const matchedChildren =
-      node[options.childField] && node[options.childField].length > 0
-        ? fuzzySearchTree(node[options.childField] || [], filterCondition, options)
+      (node as any)[options.childField] && (node as any)[options.childField].length > 0
+        ? fuzzySearchTree((node as any)[options.childField] || [], filterCondition, options)
         : [];
 
     // 检查当前节点是否匹配或者有匹配的子节点
@@ -470,12 +482,12 @@ export function fuzzySearchTree<V>(
       (objectHas(filterCondition as AnyObject, 'filter')
         ? filterCondition.filter!(node)
         : !options.ignoreCase
-        ? node[options.nameField].includes(filterCondition.keyword!)
-        : node[options.nameField].toLowerCase().includes(filterCondition.keyword!.toLowerCase())) ||
+        ? (node as any)[options.nameField].includes(filterCondition.keyword!)
+        : (node as any)[options.nameField].toLowerCase().includes(filterCondition.keyword!.toLowerCase())) ||
       matchedChildren.length > 0
     ) {
       // 将当前节点加入结果中
-      if (node[options.childField]) {
+      if ((node as any)[options.childField]) {
         if (matchedChildren.length > 0) {
           result.push({
             ...node,

@@ -208,7 +208,7 @@ export function objectFill<R extends AnyObject = AnyObject>(
   const _fillable = fillable || ((source, target, key) => source[key] === undefined);
   objectEach(target, (val, key) => {
     if (_fillable(source, target, key)) {
-      source[key] = val;
+      source[key as keyof R] = val as R[keyof R];
     }
   });
 
@@ -240,9 +240,9 @@ export function objectGet(
     const key = keyArr[i];
 
     if (isNumber(Number(key)) && Array.isArray(tempObj)) {
-      tempObj = tempObj[key];
+      tempObj = (tempObj as any)[key];
     } else if (isObject(tempObj) && objectHas(tempObj, key)) {
-      tempObj = tempObj[key];
+      tempObj = (tempObj as any)[key];
     } else {
       tempObj = undefined;
 
