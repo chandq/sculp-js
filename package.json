@@ -1,6 +1,6 @@
 {
   "name": "sculp-js",
-  "version": "1.19.3",
+  "version": "1.19.4",
   "author": "chandq",
   "description": "Utils function library for modern javascript",
   "scripts": {

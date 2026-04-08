@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.19.4](https://github.com/chandq/sculp-js/compare/v1.19.3...v1.19.4) (2026-04-08)
+
+### Bug Fixes
+
+- improve util func of tree.ts ([7aa23c0](https://github.com/chandq/sculp-js/commit/7aa23c076717905ad0287cc94d7503607685dfbf))
+- optimize export of module ([dd9480b](https://github.com/chandq/sculp-js/commit/dd9480b3f6097d2b50d57a616180d8cdba2914b5))
+
 ### [1.19.3](https://github.com/chandq/sculp-js/compare/v1.19.2...v1.19.3) (2026-04-06)
 
 ### Bug Fixes
