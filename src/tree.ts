@@ -26,10 +26,6 @@ export interface IFilterCondition<V> {
   filter?: (args: V) => boolean;
 }
 
-type TreeNode<V extends AnyObject = AnyObject, K extends string = string> = V & {
-  [key in K]?: TreeNode<V, K>[];
-};
-
 function getChildNodes<V>(item: V, childField: string, isDomNode: boolean): any[] | null {
   const child = (item as any)[childField];
   if (!child) return null;
@@ -37,9 +33,9 @@ function getChildNodes<V>(item: V, childField: string, isDomNode: boolean): any[
 }
 
 /**
- * 树遍历函数(支持continue和break操作), 可用于遍历Array和NodeList类型的数据
+ * 深度遍历函数 (支持 continue 和 break 操作), 可用于遍历 Array 和 NodeList 类型的数据
  * @param {ArrayLike<V>} tree  树形数据
- * @param {Function} iterator  迭代函数, 返回值为true时continue, 返回值为false时break
+ * @param {Function} iterator  迭代函数，返回值为 true 时 continue, 返回值为 false 时 break
  * @param {options} options 支持定制子元素名称、反向遍历、广度优先遍历，默认{
     childField: 'children',
     reverse: false,
@@ -71,104 +67,74 @@ export function forEachDeep<V>(
     breadthFirst = false,
     isDomNode = false
   } = isObject(options) ? options : {};
+
   let isBreak = false;
-  const queue: {
+  const queue: Array<{
     item: V;
     index: number;
     array: ArrayLike<V>;
     tree: ArrayLike<V>;
     parent: V | null;
     level: number;
-  }[] = [];
-  const reverseWalk = (arr: ArrayLike<V>, parent: V | null, level = 0) => {
-    for (let index = arr.length - 1; index >= 0; index--) {
-      if (isBreak) {
-        break;
-      }
-      const item = arr[index];
-      // 广度优先
-      if (breadthFirst) {
-        queue.push({ item, index, array: arr, tree, parent, level });
-      } else {
-        const re = iterator(item, index, arr, tree, parent, level);
-        if (re === false) {
-          isBreak = true;
-          break;
-        } else if (re === true) {
-          continue;
-        }
-        const childNodes = getChildNodes(item, childField, isDomNode);
-        if (childNodes) {
-          reverseWalk(childNodes, item, level + 1);
-        }
-      }
+  }> = [];
+
+  const processNode = (item: V, index: number, arr: ArrayLike<V>, parent: V | null, level: number): void => {
+    const re = iterator(item, index, arr, tree, parent, level);
+    if (re === false) {
+      isBreak = true;
+      return;
     }
-    if (breadthFirst) {
-      while (queue.length > 0 && !isBreak) {
-        const current = queue.shift();
-        const { item, index, array, tree, parent, level } = current!;
-        const re = iterator(item, index, array, tree, parent, level);
-        if (re === false) {
-          isBreak = true;
-          break;
-        } else if (re === true) {
-          continue;
+    if (re === true) return;
+
+    const childNodes = getChildNodes(item, childField, isDomNode);
+    if (childNodes) {
+      if (breadthFirst) {
+        // BFS: 将子节点加入队列
+        const childLen = childNodes.length;
+        for (let i = 0; i < childLen; i++) {
+          queue.push({ item: childNodes[i], index: i, array: childNodes, tree, parent: item, level: level + 1 });
         }
-        const childNodes = getChildNodes(item, childField, isDomNode);
-        if (childNodes) {
-          reverseWalk(childNodes, item, level + 1);
-        }
+      } else {
+        // DFS: 立即递归处理子节点
+        walk(childNodes, item, level + 1);
       }
     }
   };
-  const walk = (arr: ArrayLike<V>, parent: V | null, level = 0) => {
-    for (let index = 0, len = arr.length; index < len; index++) {
-      if (isBreak) {
-        break;
+
+  const walk = (arr: ArrayLike<V>, parent: V | null, level: number) => {
+    const len = arr.length;
+
+    if (reverse) {
+      for (let i = len - 1; i >= 0; i--) {
+        if (isBreak) break;
+        processNode(arr[i], i, arr, parent, level);
       }
-      const item = arr[index];
-      if (breadthFirst) {
-        queue.push({ item, index: index, array: arr, tree, parent, level });
-      } else {
-        const re = iterator(item, index, arr, tree, parent, level);
-        if (re === false) {
-          isBreak = true;
-          break;
-        } else if (re === true) {
-          continue;
-        }
-        const childNodes = getChildNodes(item, childField, isDomNode);
-        if (childNodes) {
-          walk(childNodes, item, level + 1);
-        }
-      }
-    }
-    if (breadthFirst) {
-      while (queue.length > 0 && !isBreak) {
-        const current = queue.shift();
-        if (!current) break;
-        const { item, index, array, tree, parent, level } = current;
-        const re = iterator(item, index, array, tree, parent, level);
-        if (re === false) {
-          isBreak = true;
-          break;
-        } else if (re === true) {
-          continue;
-        }
-        const childNodes = getChildNodes(item, childField, isDomNode);
-        if (childNodes) {
-          walk(childNodes, item, level + 1);
-        }
+    } else {
+      for (let i = 0; i < len; i++) {
+        if (isBreak) break;
+        processNode(arr[i], i, arr, parent, level);
       }
     }
   };
-  reverse ? reverseWalk(tree, null, 0) : walk(tree, null, 0);
+
+  // 先处理根节点
+  walk(tree, null, 0);
+
+  // BFS: 处理队列中的节点
+  if (breadthFirst) {
+    let queueIndex = 0;
+    while (queueIndex < queue.length && !isBreak) {
+      const { item, index, array, parent, level } = queue[queueIndex++];
+      processNode(item, index, array, parent, level);
+    }
+  }
+
   // @ts-ignore
   tree = null;
 }
 
 /**
- * 树查找函数, 可用于查找Array和NodeList类型的数据
+ * 树查找函数，可用于查找 Array 和 NodeList 类型的数据
  * @param {ArrayLike<V>} tree  树形数据
  * @param {Function} predicate  断言函数
  * @param {options} options 支持定制子元素名称、反向遍历、广度优先遍历，默认{
@@ -196,7 +162,7 @@ export function findDeep<V>(
     isDomNode: false
   }
 ): V | null {
-  let result: null | V = null;
+  let result: V | null = null;
   forEachDeep(
     tree,
     (...args) => {
@@ -211,7 +177,7 @@ export function findDeep<V>(
 }
 
 /**
- * 树过滤函数, 可用于过滤Array和NodeList类型的数据
+ * 树过滤函数，可用于过滤 Array 和 NodeList 类型的数据
  * @param {ArrayLike<V>} tree  树形数据
  * @param {Function} predicate  断言函数
  * @param {options} options 支持定制子元素名称、反向遍历、广度优先遍历，默认{
@@ -253,11 +219,11 @@ export function filterDeep<V>(
 }
 
 /**
- * 创建一个新数组, 深度优先遍历的Map函数(支持continue和break操作), 可用于insert tree item 和 remove tree item
+ * 创建一个新数组，深度优先遍历的 Map 函数 (支持 continue 和 break 操作), 可用于 insert tree item 和 remove tree item
  *
  * 可遍历任何带有 length 属性和数字键的类数组对象
  * @param {ArrayLike<V>} tree  树形数据
- * @param {Function} iterator  迭代函数, 返回值为true时continue, 返回值为false时break
+ * @param {Function} iterator  迭代函数，返回值为 true 时 continue, 返回值为 false 时 break
  * @param {options} options 支持定制子元素名称、反向遍历，默认{
     childField: 'children',
     reverse: false,
@@ -282,124 +248,145 @@ export function mapDeep<T>(
   const { childField = 'children', reverse = false } = isObject(options) ? options : {};
   let isBreak = false;
   const newTree: any[] = [];
-  const walk = (arr: T[], parent: T | null, newTree: any[], level = 0) => {
+
+  const walk = (arr: T[], parent: T | null, output: any[], level: number) => {
     if (reverse) {
       for (let i = arr.length - 1; i >= 0; i--) {
-        if (isBreak) {
-          break;
-        }
-
+        if (isBreak) break;
         const item = arr[i];
         const re = iterator(item, i, arr, tree, parent, level);
+
         if (re === false) {
           isBreak = true;
           break;
-        } else if (re === true) {
-          continue;
         }
-        newTree.push(objectOmit(re, [childField as any]));
-        if (item && Array.isArray((item as any)[childField])) {
-          (newTree[newTree.length - 1] as any)[childField] = [];
-          walk((item as any)[childField], item, (newTree[newTree.length - 1] as any)[childField], level + 1);
-        } else {
-          // children非有效数组时，移除该属性字段
-          delete (re as any)[childField];
+        if (re === true) continue;
+
+        const newItem = objectOmit(re, [childField]);
+        output.push(newItem);
+
+        const children = (item as any)[childField];
+        if (Array.isArray(children)) {
+          (newItem as any)[childField] = [];
+          walk(children, item, (newItem as any)[childField], level + 1);
         }
       }
     } else {
       for (let i = 0; i < arr.length; i++) {
-        if (isBreak) {
-          break;
-        }
+        if (isBreak) break;
         const item = arr[i];
         const re = iterator(item, i, arr, tree, parent, level);
+
         if (re === false) {
           isBreak = true;
           break;
-        } else if (re === true) {
-          continue;
         }
-        newTree.push(objectOmit(re, [childField as any]));
-        if (item && Array.isArray((item as any)[childField])) {
-          (newTree[newTree.length - 1] as any)[childField] = [];
-          walk((item as any)[childField], item, (newTree[newTree.length - 1] as any)[childField], level + 1);
-        } else {
-          // children非有效数组时，移除该属性字段
-          delete (re as any)[childField];
+        if (re === true) continue;
+
+        const newItem = objectOmit(re, [childField]);
+        output.push(newItem);
+
+        const children = (item as any)[childField];
+        if (Array.isArray(children)) {
+          (newItem as any)[childField] = [];
+          walk(children, item, (newItem as any)[childField], level + 1);
         }
       }
     }
   };
-  walk(tree, null, newTree);
 
+  walk(tree, null, newTree, 0);
   // @ts-ignore
   tree = null;
   return newTree;
 }
+
 export type IdLike = number | string;
 export type ITreeConf = Omit<IFieldOptions, 'pidField'>;
+
 /**
  * 在树中找到 id 为某个值的节点，并返回上游的所有父级节点
  *
  * @param {ArrayLike<T>} tree - 树形数据
- * @param {number | string} nodeId - 目标元素ID
- * @param {ITreeConf} options - 迭代配置项, 默认：{ children = 'children', id = 'id' }
- * @returns {[(number | string)[], V[]]} - 由parentId...childId, parentObject-childObject组成的二维数组
+ * @param {number | string} nodeId - 目标元素 ID
+ * @param {ITreeConf} options - 迭代配置项，默认：{ children = 'children', id = 'id' }
+ * @returns {[(number | string)[], V[]]} - 由 parentId...childId, parentObject-childObject 组成的二维数组
  */
 export function searchTreeById<V>(
   tree: ArrayLike<V>,
   nodeId: IdLike,
   options: ITreeConf = { childField: 'children', keyField: 'id' }
-): [(number | string)[], ArrayLike<V>[]] {
+): [(number | string)[], any[]] {
   const { childField = 'children', keyField = 'id' } = isObject(options) ? options : {};
 
-  const toFlatArray = (tree: any[], parentId?: IdLike, parent?: any): any[] => {
-    return tree.reduce((t: any[], _: any) => {
-      const child = (_ as any)[childField];
-      return [
-        ...t,
-        parentId ? { ..._, parentId, parent } : _,
-        ...(child && child.length ? toFlatArray(child, (_ as any)[keyField], _) : [])
-      ];
-    }, []);
-  };
-  const getIds = (flatArray: any[]): [IdLike[], any[]] => {
-    let child = flatArray.find(_ => (_ as any)[keyField] === nodeId);
-    const { parent, parentId, ...other } = child as any;
-    let ids = [nodeId],
-      nodes = [other];
-    while (child && (child as any).parentId) {
-      ids = [(child as any).parentId, ...ids];
-      nodes = [(child as any).parent, ...nodes];
-      child = flatArray.find(_ => (_ as any)[keyField] === (child as any).parentId); // eslint-disable-line
+  const flatMap: Record<string, { node: any; parentId?: IdLike; parent?: any }> = {};
+
+  // 扁平化 - 使用迭代而非递归，避免栈溢出
+  const stack: Array<{ node: any; parentId?: IdLike; parent?: any }> = [];
+  const len = tree.length;
+  for (let i = 0; i < len; i++) {
+    stack.push({ node: tree[i] });
+  }
+
+  while (stack.length > 0) {
+    const { node, parentId, parent } = stack.pop()!;
+    const id = (node as any)[keyField];
+    flatMap[id] = { node, parentId, parent };
+
+    const children = (node as any)[childField];
+    if (Array.isArray(children)) {
+      const childLen = children.length;
+      for (let i = 0; i < childLen; i++) {
+        stack.push({ node: children[i], parentId: id, parent: node });
+      }
     }
-    return [ids, nodes];
-  };
-  return getIds(toFlatArray(tree as any[]));
+  }
+
+  // 回溯路径
+  const ids: IdLike[] = [];
+  const nodes: any[] = [];
+  let current = flatMap[nodeId];
+
+  if (!current) return [[], []];
+
+  ids.push(nodeId);
+  nodes.push(current.node);
+
+  while (current && current.parentId !== undefined) {
+    ids.unshift(current.parentId);
+    const parent = flatMap[current.parentId];
+    if (!parent) break;
+    nodes.unshift(parent.node);
+    current = parent;
+  }
+
+  return [ids, nodes];
 }
 
 /**
  * 扁平化数组转换成树
  * @param {any[]} list
- * @param {IFieldOptions} options 定制id字段名，子元素字段名，父元素字段名，默认
+ * @param {IFieldOptions} options 定制 id 字段名，子元素字段名，父元素字段名，默认
  *        { keyField: 'key', childField: 'children', pidField: 'pid' }
  * @returns {any[]}
  */
 export function formatTree(list: any[], options: IFieldOptions = defaultFieldOptions): any[] {
   const { keyField = 'key', childField = 'children', pidField = 'pid' } = isObject(options) ? options : {};
   const treeArr: any[] = [];
-  const sourceMap: { [key: string]: any } = {};
+  const sourceMap: Record<string, any> = {};
 
-  for (let i = 0, len = list.length; i < len; i++) {
-    const item = list[i];
+  const len = list.length;
+  // 先克隆所有对象，避免修改源数据
+  for (let i = 0; i < len; i++) {
+    const item = { ...list[i] };
     sourceMap[item[keyField]] = item;
   }
 
-  for (let i = 0, len = list.length; i < len; i++) {
-    const item = list[i];
+  for (let i = 0; i < len; i++) {
+    const item = sourceMap[list[i][keyField]];
     const parent = sourceMap[item[pidField]];
     if (parent) {
-      ((parent as any)[childField] || ((parent as any)[childField] = [])).push(item);
+      (parent[childField] || (parent[childField] = [])).push(item);
     } else {
       treeArr.push(item);
     }
@@ -413,30 +400,35 @@ export function formatTree(list: any[], options: IFieldOptions = defaultFieldOpt
 /**
  * 树形结构转扁平化
  * @param {any[]} treeList
- * @param {IFieldOptions} options 定制id字段名，子元素字段名，父元素字段名，默认
+ * @param {IFieldOptions} options 定制 id 字段名，子元素字段名，父元素字段名，默认
  *        { keyField: 'key', childField: 'children', pidField: 'pid' }
  * @returns {any[]}
  */
 export function flatTree(treeList: any[], options: IFieldOptions = defaultFieldOptions): any[] {
   const { keyField = 'key', childField = 'children', pidField = 'pid' } = isObject(options) ? options : {};
-  let res: any[] = [];
-  for (let i = 0, len = treeList.length; i < len; i++) {
-    const node = treeList[i];
-    const item = {
-      ...node,
-      [childField]: [] // 清空子级
-    };
-    objectHas(item, childField) && delete (item as any)[childField];
-    res.push(item);
-    if ((node as any)[childField]) {
-      const children = (node as any)[childField].map((item: any) => ({
-        ...item,
-        [pidField]: (node as any)[keyField] || item.pid // 给子级设置 pid
-      }));
-      res = res.concat(flatTree(children, options));
-    }
-  }
+  const res: any[] = [];
 
+  const walk = (nodes: any[]) => {
+    const len = nodes.length;
+    for (let i = 0; i < len; i++) {
+      const node = nodes[i];
+      const item = { ...node };
+      delete item[childField];
+      res.push(item);
+
+      const children = node[childField];
+      if (Array.isArray(children)) {
+        // 创建新的子节点数组，不修改原数据
+        const newChildren = children.map((child: any) => ({
+          ...child,
+          [pidField]: node[keyField] !== undefined ? node[keyField] : child.pid
+        }));
+        walk(newChildren);
+      }
+    }
+  };
+
+  walk(treeList);
   return res;
 }
 
@@ -467,44 +459,50 @@ export function fuzzySearchTree<V>(
   if (!objectHas(filterCondition, 'filter') && !filterCondition.keyword) {
     return nodes;
   }
+
   const result: V[] = [];
+  const { childField, nameField, removeEmptyChild, ignoreCase } = options;
+  const hasFilter = objectHas(filterCondition as AnyObject, 'filter');
+  const filterFn = filterCondition.filter;
+  const keyword = filterCondition.keyword;
 
   for (let i = 0, len = nodes.length; i < len; i++) {
-    const node = nodes[i];
-    // 递归检查子节点是否匹配
-    const matchedChildren =
-      (node as any)[options.childField] && (node as any)[options.childField].length > 0
-        ? fuzzySearchTree((node as any)[options.childField] || [], filterCondition, options)
-        : [];
+    const node: any = nodes[i];
+    const children = node[childField];
 
-    // 检查当前节点是否匹配或者有匹配的子节点
-    if (
-      (objectHas(filterCondition as AnyObject, 'filter')
-        ? filterCondition.filter!(node)
-        : !options.ignoreCase
-        ? (node as any)[options.nameField].includes(filterCondition.keyword!)
-        : (node as any)[options.nameField].toLowerCase().includes(filterCondition.keyword!.toLowerCase())) ||
-      matchedChildren.length > 0
-    ) {
-      // 将当前节点加入结果中
-      if ((node as any)[options.childField]) {
+    // 递归处理子节点
+    const matchedChildren = children && children.length > 0 ? fuzzySearchTree(children, filterCondition, options) : [];
+
+    // 判断当前节点是否匹配
+    let isMatch = false;
+    if (hasFilter && filterFn) {
+      isMatch = filterFn(node);
+    } else if (keyword !== undefined && keyword !== null) {
+      const nodeValue = String(node[nameField] || '');
+      const searchValue = String(keyword);
+      isMatch = ignoreCase
+        ? nodeValue.toLowerCase().includes(searchValue.toLowerCase())
+        : nodeValue.includes(searchValue);
+    }
+
+    // 如果当前节点匹配或有匹配的子节点，则加入结果
+    if (isMatch || matchedChildren.length > 0) {
+      if (childField in node) {
+        // 节点有 children 字段
         if (matchedChildren.length > 0) {
-          result.push({
-            ...node,
-            [options.childField]: matchedChildren // 包含匹配的子节点
-          });
-        } else if (options.removeEmptyChild) {
-          const { [options.childField]: _, ...other } = node as any;
-          result.push(other);
+          // 有匹配的子节点
+          result.push({ ...node, [childField]: matchedChildren });
+        } else if (removeEmptyChild) {
+          // 无匹配子节点且需要移除空 children
+          const { [childField]: _, ...rest } = node;
+          result.push(rest);
         } else {
-          result.push({
-            ...node,
-            [options.childField]: []
-          });
+          // 无匹配子节点但保留 children 字段（设为空数组）
+          result.push({ ...node, [childField]: [] });
         }
       } else {
-        const { [options.childField]: _, ...other } = node as any;
-        result.push(other);
+        // 节点没有 children 字段，直接返回
+        result.push(node);
       }
     }
   }
