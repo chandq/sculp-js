@@ -283,6 +283,53 @@ test('forEachDeep', () => {
   });
   expect(res4).toEqual(['row1', 'row2']);
 
+  // 测试 reverse: true 时的 break 逻辑
+  const resReverseBreak: string[] = [];
+  forEachDeep(
+    tree,
+    ({ id, name }) => {
+      if (id === 2) {
+        return false; // 遇到 id=2 时停止
+      }
+      resReverseBreak.push(name);
+    },
+    { reverse: true }
+  );
+  // reverse 遍历时，从后往前，遇到 row2 就停止，所以只有 row3
+  expect(resReverseBreak).toEqual(['row3']);
+
+  // 测试 reverse: true 时的 break 逻辑（在子节点中触发）
+  const resReverseBreakChild: string[] = [];
+  forEachDeep(
+    tree,
+    ({ id, name }) => {
+      if (id === 21) {
+        return false; // 遇到 row2-1 时停止
+      }
+      resReverseBreakChild.push(name);
+    },
+    { reverse: true }
+  );
+  // reverse 遍历时，从后往前：row3 → row2-1（停止子节点遍历，但继续父节点）→ row2 → row1
+  // 但由于 row2-1 是 row2 的子节点，在 row2-1 处 return false 只会停止当前层级的遍历
+  // 所以结果是：row3, row2
+  expect(resReverseBreakChild).toEqual(['row3', 'row2']);
+
+  // 测试 reverse: true 时的 continue 逻辑
+  const resReverseContinue: string[] = [];
+  forEachDeep(
+    tree,
+    ({ id, name }) => {
+      if (id === 2) {
+        return true; // 跳过 id=2（包括其子节点）
+      }
+      resReverseContinue.push(name);
+    },
+    { reverse: true }
+  );
+  // reverse 遍历时顺序：row3 → row2-1 → row2 → row1，跳过 row2（及其子节点），所以只有 row3, row1
+  expect(resReverseContinue).toEqual(['row3', 'row1']);
+
   const divEl = document.createElement('div');
   divEl.textContent = 'div1';
   const divEl2 = document.createElement('div');
@@ -319,11 +366,11 @@ test('forEachDeep', () => {
   ]);
 });
 
-function generateTreeArray(length) {
+function generateTreeArray(length: number) {
   const treeArray: any = [];
 
   // 创建节点函数
-  function createNode(id) {
+  function createNode(id: number) {
     return {
       id: id,
       pid: Math.floor(id / 2),
@@ -684,6 +731,19 @@ test('mapDeep', () => {
       children: []
     }
   ]);
+
+  // reverse + break
+  const resReverseBreak2 = mapDeep(
+    tree,
+    ({ id, name, children }) => {
+      if (id === 2) {
+        return false;
+      }
+      return { key: id, label: name, children };
+    },
+    { reverse: true }
+  );
+  expect(resReverseBreak2).toEqual([{ key: 3, label: 'row3' }]);
   //  insert tree item
   res5 = mapDeep(cloneDeep(tree), ({ id, name, children }, i, currentArr: any) => {
     if (id === 21) {

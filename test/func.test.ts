@@ -150,3 +150,43 @@ test('setGlobal', () => {
   const val2 = getGlobal<number>(key);
   expect(val2).toBe(val);
 });
+
+test('setGlobal 在不同环境下的表现', () => {
+  const key = 'test_key_' + Math.random();
+  const val = 'test_value';
+
+  // 在当前环境（Node.js）下，会使用 globalThis
+  setGlobal(key, val);
+  expect(getGlobal(key)).toBe(val);
+
+  // 清理
+  setGlobal(key, undefined);
+});
+
+test('getGlobal 获取不存在的值', () => {
+  const nonExistentKey = 'non_existent_' + Math.random();
+  expect(getGlobal(nonExistentKey)).toBeUndefined();
+});
+
+test('setGlobal 设置不同类型的值', () => {
+  const key1 = 'test_string';
+  const key2 = 'test_number';
+  const key3 = 'test_object';
+  const key4 = 'test_array';
+
+  setGlobal(key1, 'string_value');
+  setGlobal(key2, 123);
+  setGlobal(key3, { foo: 'bar' });
+  setGlobal(key4, [1, 2, 3]);
+
+  expect(getGlobal(key1)).toBe('string_value');
+  expect(getGlobal(key2)).toBe(123);
+  expect(getGlobal(key3)).toEqual({ foo: 'bar' });
+  expect(getGlobal(key4)).toEqual([1, 2, 3]);
+
+  // 清理
+  setGlobal(key1, undefined);
+  setGlobal(key2, undefined);
+  setGlobal(key3, undefined);
+  setGlobal(key4, undefined);
+});

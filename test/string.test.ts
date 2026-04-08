@@ -75,3 +75,26 @@ test('stringFill', () => {
 test('parseQueryParams', () => {
   expect(parseQueryParams('?a=1&a=3&b=true&c&a=111')).toEqual({ a: ['1', '3', '111'], b: 'true', c: '' });
 });
+
+test('parseQueryParams 边界情况', () => {
+  // 空字符串
+  expect(parseQueryParams('')).toEqual({});
+
+  // 单个参数
+  expect(parseQueryParams('?a=1')).toEqual({ a: '1' });
+
+  // 无值参数
+  expect(parseQueryParams('?a')).toEqual({ a: '' });
+
+  // 空值参数
+  expect(parseQueryParams('?a=')).toEqual({ a: '' });
+
+  // 多个不同参数
+  expect(parseQueryParams('?a=1&b=2&c=3')).toEqual({ a: '1', b: '2', c: '3' });
+
+  // 使用 & 开头
+  expect(parseQueryParams('&a=1&b=2')).toEqual({ a: '1', b: '2' });
+
+  // 默认使用 location.search（在 Node 环境中为 undefined，会使用空字符串）
+  expect(parseQueryParams()).toEqual({});
+});
