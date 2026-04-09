@@ -157,6 +157,7 @@ test('forEachDeep', () => {
   );
   expect(breadthRes1).toEqual(['row1', 'row2', 'row3', 'row4', 'row5', 'row2-1']);
 
+  const reverseLevelRes2: number[] = [];
   forEachDeep(
     tree22,
     ({ id, name }, i, currentArr, tree, parent, level) => {
@@ -167,10 +168,13 @@ test('forEachDeep', () => {
         return false;
       }
       breadthRes12.push(name);
+      reverseLevelRes2.push(level);
       // console.log('level', level);
     },
     { reverse: true, breadthFirst: true, childField: 'child' }
   );
+  expect(reverseLevelRes2).toEqual([0, 0, 0, 0]);
+
   expect(breadthRes12).toEqual(['row4', 'row3', 'row2', 'row1']);
 
   breadthRes1 = [];
@@ -199,7 +203,7 @@ test('forEachDeep', () => {
     { breadthFirst: true }
   );
   expect(breadthRes2).toEqual(['row1', 'row3']);
-
+  const levelRes: number[] = [];
   forEachDeep(
     tree3,
     ({ id, name }, i, currentArr, tree, parent, level) => {
@@ -210,10 +214,12 @@ test('forEachDeep', () => {
       if (name === 'row41-1') {
         return false;
       }
+      levelRes.push(level);
       // console.log('level', level);
     },
     { breadthFirst: true }
   );
+  expect(levelRes).toEqual([0, 0, 0, 0, 1, 1, 1, 2, 2, 2, 2]);
   expect(breadthRes3).toEqual([
     'row1',
     'row2',
@@ -239,6 +245,7 @@ test('forEachDeep', () => {
       return false;
     }
     res1.push(name);
+    levelRes.push(level);
     // console.log('level', level);
   });
   expect(res1).toEqual(['row1', 'row3']);
@@ -497,6 +504,22 @@ test('compare formatTree buildTree', () => {
   console.time('formatTree time');
   const tree2 = formatTree(arr, { keyField: 'id', childField: 'children', pidField: 'pid' });
   console.timeEnd('formatTree time');
+
+  // console.time('flatTree');
+  // const treeList = flatTree(tree2, { keyField: 'id', childField: 'children', pidField: 'pid' });
+  // console.timeEnd('flatTree');
+
+  // const ids: number[] = [];
+  // console.time('forEachDeep');
+  // forEachDeep(
+  //   tree2,
+  //   v => {
+  //     ids.push(v.id);
+  //   },
+  //   { childField: 'children', breadthFirst: true }
+  // );
+  // console.timeEnd('forEachDeep');
+  // console.log('ids', ids.length);
 
   expect(tree1).toEqual(tree2);
 });

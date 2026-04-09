@@ -378,12 +378,12 @@ export function formatTree(list: any[], options: IFieldOptions = defaultFieldOpt
   const len = list.length;
   // 先克隆所有对象，避免修改源数据
   for (let i = 0; i < len; i++) {
-    const item = { ...list[i] };
+    const item = list[i];
     sourceMap[item[keyField]] = item;
   }
 
   for (let i = 0; i < len; i++) {
-    const item = sourceMap[list[i][keyField]];
+    const item = list[i];
     const parent = sourceMap[item[pidField]];
     if (parent) {
       (parent[childField] || (parent[childField] = [])).push(item);
