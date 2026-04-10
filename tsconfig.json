@@ -4,6 +4,7 @@
     "target": "ES2020",
     "module": "ESNext",
     "lib": ["DOM", "ES2020"],
+    "types": ["jest"],
     "removeComments": false,
     "preserveConstEnums": true,
     // "declaration": true,
