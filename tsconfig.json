@@ -19,7 +19,9 @@
     "skipLibCheck": true,
 
     /* 模块分析配置 */
-    "baseUrl": ".",
+    "paths": {
+      "*": ["./src/*"]
+    },
     // "outDir": "lib",
     "esModuleInterop": true,
     "moduleResolution": "bundler",
