@@ -33,10 +33,11 @@ function getChildNodes<V>(item: V, childField: string, isDomNode: boolean): any[
 }
 
 /**
- * 深度遍历函数 (支持 continue 和 break 操作), 可用于遍历 Array 和 NodeList 类型的数据
- * @param {ArrayLike<V>} tree  树形数据
- * @param {Function} iterator  迭代函数，返回值为 true 时 continue, 返回值为 false 时 break
- * @param {options} options 支持定制子元素名称、反向遍历、广度优先遍历，默认{
+ * Tree traversal function (default DFS, supports continue and break operations).
+ * Can be used to traverse Array and NodeList type data.
+ * @param {ArrayLike<V>} tree - Tree data
+ * @param {Function} iterator - Iterator function. Returns true to continue, false to break.
+ * @param {object} options - Options to customize child element name, reverse traversal, breadth-first traversal. Default: {
     childField: 'children',
     reverse: false,
     breadthFirst: false,
@@ -134,10 +135,10 @@ export function forEachDeep<V>(
 }
 
 /**
- * 树查找函数，可用于查找 Array 和 NodeList 类型的数据
- * @param {ArrayLike<V>} tree  树形数据
- * @param {Function} predicate  断言函数
- * @param {options} options 支持定制子元素名称、反向遍历、广度优先遍历，默认{
+ * Tree search function, can be used to search Array and NodeList type data.
+ * @param {ArrayLike<V>} tree - Tree data
+ * @param {Function} predicate - Predicate function
+ * @param {object} options - Options to customize child element name, reverse traversal, breadth-first traversal. Default: {
     childField: 'children',
     reverse: false,
     breadthFirst: false,
@@ -177,10 +178,10 @@ export function findDeep<V>(
 }
 
 /**
- * 树过滤函数，可用于过滤 Array 和 NodeList 类型的数据
- * @param {ArrayLike<V>} tree  树形数据
- * @param {Function} predicate  断言函数
- * @param {options} options 支持定制子元素名称、反向遍历、广度优先遍历，默认{
+ * Tree filter function, can be used to filter Array and NodeList type data.
+ * @param {ArrayLike<V>} tree - Tree data
+ * @param {Function} predicate - Predicate function
+ * @param {object} options - Options to customize child element name, reverse traversal, breadth-first traversal. Default: {
     childField: 'children',
     reverse: false,
     breadthFirst: false,
@@ -219,16 +220,17 @@ export function filterDeep<V>(
 }
 
 /**
- * 创建一个新数组，深度优先遍历的 Map 函数 (支持 continue 和 break 操作), 可用于 insert tree item 和 remove tree item
+ * Creates a new array using a depth-first traversal Map function (supports continue and break operations).
+ * Can be used for inserting or removing tree items.
  *
- * 可遍历任何带有 length 属性和数字键的类数组对象
- * @param {ArrayLike<V>} tree  树形数据
- * @param {Function} iterator  迭代函数，返回值为 true 时 continue, 返回值为 false 时 break
- * @param {options} options 支持定制子元素名称、反向遍历，默认{
+ * Can traverse any array-like object with a length property and numeric keys.
+ * @param {ArrayLike<V>} tree - Tree data
+ * @param {Function} iterator - Iterator function. Returns true to continue, false to break.
+ * @param {object} options - Options to customize child element name, reverse traversal. Default: {
     childField: 'children',
     reverse: false,
   }
- * @returns {any[]} 新的一棵树
+ * @returns {any[]} A new tree structure
  */
 export function mapDeep<T>(
   tree: T[],
@@ -305,14 +307,14 @@ export type IdLike = number | string;
 export type ITreeConf = Omit<IFieldOptions, 'pidField'>;
 
 /**
- * 在树中找到 id 为某个值的节点，并返回上游的所有父级节点
+ * Retrieves the path (ancestors + self) for a given node ID.
  *
- * @param {ArrayLike<T>} tree - 树形数据
- * @param {number | string} nodeId - 目标元素 ID
- * @param {ITreeConf} options - 迭代配置项，默认：{ children = 'children', id = 'id' }
- * @returns {[(number | string)[], V[]]} - 由 parentId...childId, parentObject-childObject 组成的二维数组
+ * @param {ArrayLike<T>} tree - Tree data
+ * @param {number | string} nodeId - Target node ID
+ * @param {ITreeConf} options - Configuration. Default: { childField = 'children', keyField = 'id' }
+ * @returns {[(number | string)[], V[]]} - Array of IDs and Array of Nodes from root to target
  */
-export function searchTreeById<V>(
+export function getPathById<V>(
   tree: ArrayLike<V>,
   nodeId: IdLike,
   options: ITreeConf = { childField: 'children', keyField: 'id' }
@@ -363,12 +365,14 @@ export function searchTreeById<V>(
   return [ids, nodes];
 }
 
+export { getPathById as searchTreeById };
+
 /**
- * 扁平化数组转换成树
- * @param {any[]} list
- * @param {IFieldOptions} options 定制 id 字段名，子元素字段名，父元素字段名，默认
+ * Converts a flat array into a tree structure.
+ * @param {any[]} list - Flat list of items
+ * @param {IFieldOptions} options - Customizes id field name, child element field name, parent element field name. Default:
  *        { keyField: 'key', childField: 'children', pidField: 'pid' }
- * @returns {any[]}
+ * @returns {any[]} Tree structure array
  */
 export function formatTree(list: any[], options: IFieldOptions = defaultFieldOptions): any[] {
   const { keyField = 'key', childField = 'children', pidField = 'pid' } = isObject(options) ? options : {};
@@ -398,11 +402,11 @@ export function formatTree(list: any[], options: IFieldOptions = defaultFieldOpt
 }
 
 /**
- * 树形结构转扁平化
- * @param {any[]} treeList
- * @param {IFieldOptions} options 定制 id 字段名，子元素字段名，父元素字段名，默认
+ * Converts a tree structure into a flat array.
+ * @param {any[]} treeList - Tree structure array
+ * @param {IFieldOptions} options - Customizes id field name, child element field name, parent element field name. Default:
  *        { keyField: 'key', childField: 'children', pidField: 'pid' }
- * @returns {any[]}
+ * @returns {any[]} Flat array
  */
 export function flatTree(treeList: any[], options: IFieldOptions = defaultFieldOptions): any[] {
   const { keyField = 'key', childField = 'children', pidField = 'pid' } = isObject(options) ? options : {};
@@ -433,23 +437,26 @@ export function flatTree(treeList: any[], options: IFieldOptions = defaultFieldO
 }
 
 /**
- * 模糊搜索函数，返回包含搜索字符的节点及其祖先节点, 适用于树型组件的字符过滤功能
- * 以下搜索条件二选一，按先后优先级处理：
- * 1. 过滤函数filter, 返回true/false
- * 2. 匹配关键词，支持是否启用忽略大小写来判断
+ * Fuzzy search function that returns nodes containing the search character and their ancestor nodes.
+ * Suitable for character filtering in tree components.
  *
- * 有以下特性：
- * 1. 可配置removeEmptyChild字段，来决定是否移除搜索结果中的空children字段
- * 2. 若无任何过滤条件或keyword模式匹配且keyword为空串，返回原对象；其他情况返回新数组
- * @param {V[]} nodes
- * @param {IFilterCondition} filterCondition
- * @param {ISearchTreeOpts} options 默认配置项 {
+ * Two search conditions are available, processed in priority order:
+ * 1. Filter function `filter`, returning true/false.
+ * 2. Keyword matching, supporting case-insensitive check.
+ *
+ * Features:
+ * 1. Configurable `removeEmptyChild` field to decide whether to remove empty children fields in search results.
+ * 2. If no filter condition is provided, or keyword mode is used with an empty keyword, the original object is returned; otherwise, a new array is returned.
+ *
+ * @param {V[]} nodes - Tree nodes
+ * @param {IFilterCondition} filterCondition - Filter conditions
+ * @param {ISearchTreeOpts} options - Default configuration: {
       childField: 'children',
       nameField: 'name',
       removeEmptyChild: false,
       ignoreCase: true
     }
- * @returns {V[]}
+ * @returns {V[]} Filtered tree nodes
  */
 export function fuzzySearchTree<V>(
   nodes: V[],
@@ -515,7 +522,8 @@ export default {
   findDeep,
   filterDeep,
   mapDeep,
-  searchTreeById,
+  getPathById,
+  searchTreeById: getPathById,
   formatTree,
   flatTree,
   fuzzySearchTree
