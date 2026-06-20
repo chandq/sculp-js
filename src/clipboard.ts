@@ -42,9 +42,7 @@ export function fallbackCopyText(text: string, options?: CopyTextOptions): void 
 
   let textEl = createFakeElement(text);
   container.appendChild(textEl);
-
   select(textEl);
-
   try {
     const res = document.execCommand('copy');
     if (res && isFunction(successCallback)) {
