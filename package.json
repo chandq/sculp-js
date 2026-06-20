@@ -2,7 +2,7 @@
   "name": "sculp-js",
   "version": "1.19.6",
   "author": "chandq",
-  "description": "Utils function library for modern javascript",
+  "description": "Typescript utils function library for modern javascript",
   "scripts": {
     "prepare": "husky install",
     "build": "rollup  --bundleConfigAsCjs --config rollup.config.js && npm run build:types",
@@ -327,10 +327,13 @@
     "dist"
   ],
   "keywords": [
+    "sculp",
     "sculp-js",
     "modules",
     "es6",
-    "util"
+    "util",
+    "typescript utils",
+    "javascript utils"
   ],
   "repository": {
     "type": "git",
@@ -340,7 +343,7 @@
   "bugs": {
     "url": "https://github.com/chandq/sculp-js/issues"
   },
-  "homepage": "https://github.com/chandq/sculp-js#readme",
+  "homepage": "https://chandq.github.io/sculp-js/",
   "devDependencies": {
     "@babel/core": "^7.23.2",
     "@babel/eslint-parser": "^7.22.15",

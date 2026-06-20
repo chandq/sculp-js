@@ -35,7 +35,7 @@ function getChildNodes<V>(item: V, childField: string, isDomNode: boolean): any[
 /**
  * Tree traversal function (default DFS, supports continue and break operations).
  * Can be used to traverse Array and NodeList type data.
- * @param {ArrayLike<V>} tree - Tree data
+ * @param {V[]} tree - Tree data
  * @param {Function} iterator - Iterator function. Returns true to continue, false to break.
  * @param {object} options - Options to customize child element name, reverse traversal, breadth-first traversal. Default: {
     childField: 'children',
@@ -46,15 +46,8 @@ function getChildNodes<V>(item: V, childField: string, isDomNode: boolean): any[
  * @returns {*}
  */
 export function forEachDeep<V>(
-  tree: ArrayLike<V>,
-  iterator: (
-    val: V,
-    index: number,
-    currentArr: ArrayLike<V>,
-    tree: ArrayLike<V>,
-    parent: V | null,
-    level: number
-  ) => boolean | void,
+  tree: V[],
+  iterator: (val: V, index: number, currentArr: V[], tree: V[], parent: V | null, level: number) => boolean | void,
   options: { childField?: string; reverse?: boolean; breadthFirst?: boolean; isDomNode?: boolean } = {
     childField: 'children',
     reverse: false,
@@ -73,13 +66,13 @@ export function forEachDeep<V>(
   const queue: Array<{
     item: V;
     index: number;
-    array: ArrayLike<V>;
-    tree: ArrayLike<V>;
+    array: V[];
+    tree: V[];
     parent: V | null;
     level: number;
   }> = [];
 
-  const processNode = (item: V, index: number, arr: ArrayLike<V>, parent: V | null, level: number): void => {
+  const processNode = (item: V, index: number, arr: V[], parent: V | null, level: number): void => {
     const re = iterator(item, index, arr, tree, parent, level);
     if (re === false) {
       isBreak = true;
@@ -102,7 +95,7 @@ export function forEachDeep<V>(
     }
   };
 
-  const walk = (arr: ArrayLike<V>, parent: V | null, level: number) => {
+  const walk = (arr: V[], parent: V | null, level: number) => {
     const len = arr.length;
 
     if (reverse) {
@@ -136,7 +129,7 @@ export function forEachDeep<V>(
 
 /**
  * Tree search function, can be used to search Array and NodeList type data.
- * @param {ArrayLike<V>} tree - Tree data
+ * @param {V[]} tree - Tree data
  * @param {Function} predicate - Predicate function
  * @param {object} options - Options to customize child element name, reverse traversal, breadth-first traversal. Default: {
     childField: 'children',
@@ -147,15 +140,8 @@ export function forEachDeep<V>(
  * @returns {V|null}
  */
 export function findDeep<V>(
-  tree: ArrayLike<V>,
-  predicate: (
-    val: V,
-    index: number,
-    currentArr: ArrayLike<V>,
-    tree: ArrayLike<V>,
-    parent: V | null,
-    level: number
-  ) => boolean | void,
+  tree: V[],
+  predicate: (val: V, index: number, currentArr: V[], tree: V[], parent: V | null, level: number) => boolean | void,
   options: { childField?: string; reverse?: boolean; breadthFirst?: boolean; isDomNode?: boolean } = {
     childField: 'children',
     reverse: false,
@@ -179,7 +165,7 @@ export function findDeep<V>(
 
 /**
  * Tree filter function, can be used to filter Array and NodeList type data.
- * @param {ArrayLike<V>} tree - Tree data
+ * @param {V[]} tree - Tree data
  * @param {Function} predicate - Predicate function
  * @param {object} options - Options to customize child element name, reverse traversal, breadth-first traversal. Default: {
     childField: 'children',
@@ -190,15 +176,8 @@ export function findDeep<V>(
  * @returns {V[]}
  */
 export function filterDeep<V>(
-  tree: ArrayLike<V>,
-  predicate: (
-    val: V,
-    index: number,
-    currentArr: ArrayLike<V>,
-    tree: ArrayLike<V>,
-    parent: V | null,
-    level: number
-  ) => boolean | void,
+  tree: V[],
+  predicate: (val: V, index: number, currentArr: V[], tree: V[], parent: V | null, level: number) => boolean | void,
   options: { childField?: string; reverse?: boolean; breadthFirst?: boolean; isDomNode?: boolean } = {
     childField: 'children',
     reverse: false,
@@ -224,7 +203,7 @@ export function filterDeep<V>(
  * Can be used for inserting or removing tree items.
  *
  * Can traverse any array-like object with a length property and numeric keys.
- * @param {ArrayLike<V>} tree - Tree data
+ * @param {V[]} tree - Tree data
  * @param {Function} iterator - Iterator function. Returns true to continue, false to break.
  * @param {object} options - Options to customize child element name, reverse traversal. Default: {
     childField: 'children',
@@ -315,7 +294,7 @@ export type ITreeConf = Omit<IFieldOptions, 'pidField'>;
  * @returns {[(number | string)[], V[]]} - Array of IDs and Array of Nodes from root to target
  */
 export function getPathById<V>(
-  tree: ArrayLike<V>,
+  tree: V[],
   nodeId: IdLike,
   options: ITreeConf = { childField: 'children', keyField: 'id' }
 ): [(number | string)[], any[]] {
