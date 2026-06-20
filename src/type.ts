@@ -1,5 +1,5 @@
 // 常用类型定义
-const { toString, hasOwnProperty, propertyIsEnumerable } = Object.prototype;
+const { toString, hasOwnProperty } = Object.prototype;
 /** 任意函数 */
 export type AnyFunc<R = any> = (...args: any[]) => R;
 
