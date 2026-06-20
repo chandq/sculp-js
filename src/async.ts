@@ -47,7 +47,6 @@ export function asyncMap<T, R>(
           next();
         });
     };
-
     // 开始
     for (let i = 0; i < limit; i++) {
       next();
