@@ -190,7 +190,6 @@ export function diffArray<T>(source: readonly T[], target: readonly T[], getKey?
       added.push(item);
     }
   }
-
   for (const [key, item] of sourceMap) {
     if (!targetMap.has(key)) {
       del.push(item);

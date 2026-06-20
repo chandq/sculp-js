@@ -80,7 +80,6 @@ jobs:
         uses: actions/setup-node@v6
         with:
           node-version: 24
-          registry-url: https://registry.npmjs.org
           package-manager-cache: false
 
       - run: npm install -g npm@latest # Trusted Publishing requires npm 11.5.1 or later
@@ -126,4 +125,4 @@ jobs:
       #       -H "Authorization: bearer ${ACTIONS_ID_TOKEN_REQUEST_TOKEN}" | jq -r '.value')
       #     echo "//registry.npmjs.org/:_authToken=${TOKEN}" > ~/.npmrc
       - name: Publish to npm
-        run: npm publish --provenance --access public
+        run: npm publish --provenance --access public --registry https://registry.npmjs.org
