@@ -148,3 +148,61 @@ test('.calculateDate (向后兼容)', () => {
   expect(calculateDate('2024-01-31', { months: 1 })).toBe('2024-02-29');
   expect(calculateDate('2024-01-01', { days: 2, returnDate: true }) instanceof Date).toBe(true);
 });
+
+test('dateParse 时区偏移处理', () => {
+  // 测试带时区偏移的日期字符串
+  expect(isValidDate(dateParse('2020-06-19T17:47:53.000+0800'))).toBe(true);
+  expect(isValidDate(dateParse('2020-06-19T17:47:53.000-0500'))).toBe(true);
+  expect(isValidDate(dateParse('2020-06-19T17:47:53.000+0000'))).toBe(true);
+
+  // 测试不同时区偏移
+  const d1 = dateParse('2020-06-19T17:47:53.000+0800');
+  const d2 = dateParse('2020-06-19T17:47:53.000-0500');
+  expect(d1).not.toBe(d2);
+});
+
+test('dateParse 非字符串输入', () => {
+  // 数值输入
+  expect(dateParse(1587953430135).getFullYear()).toBe(2020);
+
+  // Date 对象输入
+  const originalDate = new Date('2020-04-27 10:00:00');
+  const parsedDate = dateParse(originalDate);
+  expect(parsedDate.getFullYear()).toBe(2020);
+  expect(parsedDate.getMonth()).toBe(3);
+  expect(parsedDate.getDate()).toBe(27);
+  expect(originalDate).not.toBe(parsedDate); // 应该返回新对象
+});
+
+test('guessDateTimezone 边界情况', () => {
+  // 测试非字符串输入（会回退到其他解析方式）
+  expect(isValidDate(dateParse(1234567890))).toBe(true);
+
+  // 测试不匹配时区正则的字符串（没有时区偏移）
+  expect(isValidDate(dateParse('2020-06-19'))).toBe(true);
+  expect(isValidDate(dateParse('2020-06-19T17:47:53'))).toBe(true);
+
+  // 测试格式不对的时区（不是 4 位数字），会抛出异常
+  expect(() => dateParse('2020-06-19T17:47:53.000+800')).toThrow('不是一个合法的日期描述');
+
+  // 测试无效的日期字符串，会抛出异常
+  expect(() => dateParse('invalid-date')).toThrow('不是一个合法的日期描述');
+});
+
+test('dateParse 错误处理', () => {
+  // 无效字符串
+  expect(() => dateParse('x')).toThrow('不是一个合法的日期描述');
+  expect(() => dateParse('invalid')).toThrow('不是一个合法的日期描述');
+  expect(() => dateParse('')).toThrow('不是一个合法的日期描述');
+
+  // 无效数值
+  expect(() => dateParse(NaN)).toThrow('不是一个合法的日期描述');
+  expect(() => dateParse(Infinity)).toThrow('不是一个合法的日期描述');
+});
+
+test('formatDate 边界值', () => {
+  // 测试毫秒的不同位数
+  expect(formatDate('2020-01-01 00:00:00.001', 'YYYY-MM-DD HH:mm:ss SSS')).toBe('2020-01-01 00:00:00 001');
+  expect(formatDate('2020-01-01 00:00:00.010', 'YYYY-MM-DD HH:mm:ss SS')).toBe('2020-01-01 00:00:00 10');
+  expect(formatDate('2020-01-01 00:00:00.100', 'YYYY-MM-DD HH:mm:ss S')).toBe('2020-01-01 00:00:00 100');
+});

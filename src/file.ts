@@ -14,7 +14,7 @@ export function supportCanvas(): boolean {
  * @param {Function} changeCb 选择文件回调
  * @returns {HTMLInputElement}
  */
-export function chooseLocalFile(accept: string, changeCb: (FileList) => any): void {
+export function chooseLocalFile(accept: string, changeCb: (files: FileList) => any): void {
   let inputObj: HTMLInputElement = document.createElement('input');
   inputObj.setAttribute('id', String(Date.now()));
   inputObj.setAttribute('type', 'file');
@@ -24,7 +24,7 @@ export function chooseLocalFile(accept: string, changeCb: (FileList) => any): vo
   inputObj.click();
   // @ts-ignore
   inputObj.onchange = (e: PointerEvent): any => {
-    changeCb((<HTMLInputElement>e.target).files);
+    changeCb((<HTMLInputElement>e.target).files!);
 
     setTimeout(() => {
       document.body.removeChild(inputObj);
@@ -93,7 +93,17 @@ function calculateSize({
  * @param {number} originHeight Image original height, unit px
  * @returns {*} {width, height}
  */
-function scalingByAspectRatio({ sizeKB, maxSize, originWidth, originHeight }): { width: number; height: number } {
+function scalingByAspectRatio({
+  sizeKB,
+  maxSize,
+  originWidth,
+  originHeight
+}: {
+  sizeKB: number;
+  maxSize: number;
+  originWidth: number;
+  originHeight: number;
+}): { width: number; height: number } {
   let targetWidth = originWidth,
     targetHeight = originHeight;
   if (isNumber(maxSize)) {
@@ -172,7 +182,7 @@ export function compressImg(
   }: ICompressOptions = isObject(options) ? options : {};
 
   let targetQuality = quality,
-    maxSize;
+    maxSize: number;
   if (quality) {
     targetQuality = quality;
   } else if (file instanceof File) {
@@ -240,13 +250,13 @@ export function compressImg(
               file: miniFile,
               bufferArray,
               origin: file,
-              beforeSrc: src,
+              beforeSrc: src as string,
               afterSrc: canvasURL,
               beforeKB: sizeKB,
-              afterKB: Number((miniFile.size / 1024).toFixed(2))
+              afterKB: Number((Number(miniFile.size) / 1024).toFixed(2))
             });
           };
-          image.src = src;
+          image.src = src as string;
         };
         reader.readAsDataURL(file);
       }

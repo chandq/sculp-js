@@ -44,9 +44,9 @@ const guessDateTimezone = (value: DateValue): Date | undefined => {
 };
 
 /**
- * 解析为Date对象
- * @param {DateValue} value - 可以是数值、字符串或 Date 对象
- * @returns {Date} - 转换后的目标Date
+ * 解析为 Date 对象（支持 Safari 兼容性处理）
+ * @param {DateValue} value - 时间戳、字符串或 Date 对象
+ * @returns {Date}
  */
 export function dateParse(value: DateValue): Date {
   const d1 = new Date(value);
@@ -70,49 +70,7 @@ export function dateParse(value: DateValue): Date {
 }
 
 /**
- * 格式化为日期对象(带自定义格式化模板)
- * @param {DateValue} value 可以是数值、字符串或 Date 对象
- * @param {string} [format] 模板，默认是 YYYY-MM-DD HH:mm:ss，模板字符：
- * - YYYY：年
- * - yyyy: 年
- * - MM：月
- * - DD：日
- * - dd: 日
- * - HH：时（24 小时制）
- * - hh：时（12 小时制）
- * - mm：分
- * - ss：秒
- * - SSS：毫秒
- * @returns {string}
- */
-// export const dateStringify = (value: DateValue, format = 'YYYY-MM-DD HH:mm:ss'): string => {
-//   const date = dateParse(value);
-//   let fmt = format;
-//   let ret;
-//   const opt: DateObj = {
-//     'Y+': `${date.getFullYear()}`, // 年
-//     'y+': `${date.getFullYear()}`, // 年
-//     'M+': `${date.getMonth() + 1}`, // 月
-//     'D+': `${date.getDate()}`, // 日
-//     'd+': `${date.getDate()}`, // 日
-//     'H+': `${date.getHours()}`, // 时
-//     'm+': `${date.getMinutes()}`, // 分
-//     's+': `${date.getSeconds()}`, // 秒
-//     'S+': `${date.getMilliseconds()}` // 豪秒
-//   };
-
-//   for (const k in opt) {
-//     ret = new RegExp(`(${k})`).exec(fmt);
-//     if (ret) {
-//       fmt = fmt.replace(ret[1], ret[1].length === 1 ? opt[k] : opt[k].padStart(ret[1].length, '0'));
-//     }
-//   }
-
-//   return fmt;
-// };
-
-/**
- * 将日期转换为一天的开始时间，即0点0分0秒0毫秒
+ * 将日期转换为一天的开始时间（00:00:00.000）
  * @param {DateValue} value
  * @returns {Date}
  */
@@ -122,7 +80,7 @@ export function dateToStart(value: DateValue): Date {
 }
 
 /**
- * 将日期转换为一天的结束时间，即23点59分59秒999毫秒
+ * 将日期转换为一天的结束时间（23:59:59.999）
  * @param {DateValue} value
  * @returns {Date}
  */
@@ -133,26 +91,17 @@ export function dateToEnd(value: DateValue): Date {
 }
 
 /**
- * 格式化为日期对象 (带自定义格式化模板)
- * @param {Date} value - 可以是数值、字符串或 Date 对象
- * @param {string} [format] - 模板，默认是 YYYY-MM-DD HH:mm:ss，模板字符：
- * - YYYY/yyyy：年
- * - MM：月（补零）
- * - M：月（不补零）
- * - DD/dd：日（补零）
- * - D/d：日（不补零）
- * - HH：时（24 小时制，补零）
- * - H：时（24 小时制，不补零）
- * - mm：分（补零）
- * - m：分（不补零）
- * - ss：秒（补零）
- * - s：秒（不补零）
- * - SSS：毫秒（3 位）
- * - SS：毫秒（2 位）
- * - S：毫秒（1 位）
- * - ww：中文完整星期（如：周日）
- * - w：中文星期（如：周日）
- * @returns {string}  格式化后的日期字符串
+ * 格式化日期为字符串
+ * @param {Date} value - 时间戳、字符串或 Date 对象
+ * @param {string} [format] - 模板，默认 YYYY-MM-DD HH:mm:ss
+ * @returns {string} 格式化后的日期字符串
+ *
+ * 模板字符说明：
+ * - YYYY/yyyy：年 | MM：月（补零）| M：月（不补零）
+ * - DD/dd：日（补零）| D/d：日（不补零）
+ * - HH：时（24 小时制，补零）| H：时（不补零）
+ * - mm/m：分 | ss/s：秒 | SSS/SS/S：毫秒
+ * - ww/w：中文星期
  */
 export function formatDate(value: DateValue, format = 'YYYY-MM-DD HH:mm:ss'): string {
   const date = dateParse(value);
@@ -186,22 +135,11 @@ export interface CalculateDateOptions {
   /**
    * 输出格式模板（传递给 formatDate 函数处理）
    * 支持以下占位符：
-   * - YYYY/yyyy: 4 位年份
-   * - YY/yy: 2 位年份
-   * - MM: 2 位月份
-   * - M: 不补零月份
-   * - DD/dd: 2 位日期
-   * - D/d: 不补零日期
-   * - HH: 2 位小时 (24 小时制)
-   * - H: 不补零小时
-   * - mm: 2 位分钟
-   * - m: 不补零分钟
-   * - ss: 2 位秒
-   * - s: 不补零秒
-   * - SSS: 3 位毫秒
-   * - SS: 2 位毫秒
-   * - S: 1 位毫秒
-   * - ww/w: 中文星期
+   * - YYYY/yyyy：年 | MM：月（补零）| M：月（不补零）
+   * - DD/dd：日（补零）| D/d：日（不补零）
+   * - HH：时（24 小时制，补零）| H：时（不补零）
+   * - mm/m：分 | ss/s：秒 | SSS/SS/S：毫秒
+   * - ww/w：中文星期
    * @default 'YYYY-MM-DD'
    */
   format?: string;

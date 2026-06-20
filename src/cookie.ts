@@ -45,7 +45,7 @@ export function cookieSet(name: string, value: string, maxAge?: number | Date): 
   metas.push(['path', '/']);
 
   document.cookie = metas
-    .map(item => {
+    .map((item: [string, string]) => {
       const [key, val] = item;
       return `${key}=${val}`;
     })

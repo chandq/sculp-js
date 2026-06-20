@@ -4,6 +4,7 @@
     "target": "ES2020",
     "module": "ESNext",
     "lib": ["DOM", "ES2020"],
+    "types": ["jest"],
     "removeComments": false,
     "preserveConstEnums": true,
     // "declaration": true,
@@ -12,13 +13,15 @@
 
     /* 强类型检查配置 */
     "strict": true,
-    "noImplicitAny": false,
-    "noImplicitThis": false,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
     // 跳过第三方库的类型检查，提高编译速度
     "skipLibCheck": true,
 
     /* 模块分析配置 */
-    "baseUrl": ".",
+    "paths": {
+      "*": ["./src/*"]
+    },
     // "outDir": "lib",
     "esModuleInterop": true,
     "moduleResolution": "bundler",

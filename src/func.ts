@@ -16,7 +16,7 @@ export interface DebounceFunc<F extends AnyFunc> {
 export const debounce = <F extends AnyFunc>(func: F, wait?: number): DebounceFunc<F> => {
   let timeout: any;
   let canceled = false;
-  const f = function (...args: AnyArray): void {
+  const f = function (this: any, ...args: AnyArray): void {
     if (canceled) return;
 
     clearTimeout(timeout);
@@ -52,7 +52,7 @@ export const throttle = <F extends AnyFunc>(func: F, wait: number, immediate?: b
   let canceled = false;
   let lastCalledTime = 0;
 
-  const f = function (...args: AnyArray) {
+  const f = function (this: any, ...args: AnyArray) {
     if (canceled) return;
 
     const now = Date.now();
@@ -102,7 +102,7 @@ export const once = <F extends AnyFunc = AnyFunc>(func: F): OnceFunc<F> => {
   let called = false;
   let result: ReturnType<F>;
 
-  return function (...args) {
+  return function (this: any, ...args: any[]) {
     if (called) return result;
 
     called = true;
@@ -117,10 +117,10 @@ export const once = <F extends AnyFunc = AnyFunc>(func: F): OnceFunc<F> => {
  * @param val
  */
 export function setGlobal(key: string | number | symbol, val?: any) {
-  if (typeof globalThis !== 'undefined') globalThis[key] = val;
-  else if (typeof window !== 'undefined') window[key] = val;
-  else if (typeof global !== 'undefined') global[key] = val;
-  else if (typeof self !== 'undefined') self[key] = val;
+  if (typeof globalThis !== 'undefined') (globalThis as any)[key] = val;
+  else if (typeof window !== 'undefined') (window as any)[key] = val;
+  else if (typeof global !== 'undefined') (global as any)[key] = val;
+  else if (typeof self !== 'undefined') (self as any)[key] = val;
   else throw new SyntaxError('当前环境下无法设置全局属性');
 }
 
@@ -130,10 +130,10 @@ export function setGlobal(key: string | number | symbol, val?: any) {
  * @param val
  */
 export function getGlobal<T>(key: string | number | symbol): T | void {
-  if (typeof globalThis !== 'undefined') return globalThis[key] as T;
-  else if (typeof window !== 'undefined') return window[key] as T;
-  else if (typeof global !== 'undefined') return global[key] as T;
-  else if (typeof self !== 'undefined') return self[key] as T;
+  if (typeof globalThis !== 'undefined') return (globalThis as any)[key] as T;
+  else if (typeof window !== 'undefined') return (window as any)[key] as T;
+  else if (typeof global !== 'undefined') return (global as any)[key] as T;
+  else if (typeof self !== 'undefined') return (self as any)[key] as T;
 }
 
 export default {

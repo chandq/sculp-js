@@ -67,7 +67,7 @@ export function fallbackCopyText(text: string, options?: CopyTextOptions): void 
  * @param {String} value
  * @return {HTMLElement}
  */
-function createFakeElement(value) {
+function createFakeElement(value: string) {
   const isRTL = document.documentElement.getAttribute('dir') === 'rtl';
   const fakeElement = document.createElement('textarea');
   // Prevent zooming on iOS
