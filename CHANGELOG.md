@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.19.7](https://github.com/chandq/sculp-js/compare/v1.19.6...v1.19.7) (2026-06-20)
+
+### Bug Fixes
+
+- improve parameter type ([25fc315](https://github.com/chandq/sculp-js/commit/25fc31535e0424d4af15adbfe3d5334e941ab611))
+- remove unused parameter ([cfc42b9](https://github.com/chandq/sculp-js/commit/cfc42b9dd381d8a759078dd9b4f060422cdb72e3))
+
 ### [1.19.6](https://github.com/chandq/sculp-js/compare/v1.19.5...v1.19.6) (2026-04-09)
 
 ### [1.19.5](https://github.com/chandq/sculp-js/compare/v1.19.4...v1.19.5) (2026-04-09)
