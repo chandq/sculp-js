@@ -16,7 +16,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [16.x, 18.x, 20.x, 22.x]
+        node-version: [20.x, 22.x, 24.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
@@ -41,7 +41,7 @@ jobs:
     timeout-minutes: 10
     strategy:
       matrix:
-        node-version: [16.x, 18.x, 20.x, 22.x]
+        node-version: [20.x, 22.x, 24.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
@@ -97,7 +97,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          npx standard-version -m "chore: Release version %s [skip ci]"
+          npx standard-version -m "chore: release version %s"
           git push --follow-tags origin main
           echo "tag=$(git describe --tags --abbrev=0)" >> "$GITHUB_OUTPUT"
       - name: Create GitHub Release
