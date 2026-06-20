@@ -27,7 +27,7 @@ jobs:
         uses: actions/setup-node@v6
         with:
           node-version: ${{ matrix.node-version }}
-          cache: 'npm'
+          package-manager-cache: false
 
       - name: Install deps
         run: npm ci
@@ -52,7 +52,7 @@ jobs:
         uses: actions/setup-node@v6
         with:
           node-version: ${{ matrix.node-version }}
-          cache: 'npm'
+          package-manager-cache: false
 
       - name: Install deps
         run: npm ci
@@ -80,7 +80,8 @@ jobs:
         uses: actions/setup-node@v6
         with:
           node-version: 22
-          cache: 'npm'
+          registry-url: https://registry.npmjs.org
+          package-manager-cache: false
 
       - name: Install deps
         run: npm ci
@@ -114,5 +115,14 @@ jobs:
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
+      - name: Check OIDC
+        run: |
+          npm -v
+          echo "$ACTIONS_ID_TOKEN_REQUEST_URL"
+      # - name: Get npm OIDC token
+      #   run: |
+      #     TOKEN=$(curl -sLS "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=npm:npmjs.org" \
+      #       -H "Authorization: bearer ${ACTIONS_ID_TOKEN_REQUEST_TOKEN}" | jq -r '.value')
+      #     echo "//registry.npmjs.org/:_authToken=${TOKEN}" > ~/.npmrc
       - name: Publish to npm
-        run: npm publish --provenance --access public --registry https://registry.npmjs.org
+        run: npm publish --provenance --access public
