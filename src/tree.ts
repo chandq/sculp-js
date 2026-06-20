@@ -221,7 +221,7 @@ export function mapDeep<T>(
     parent: T | null,
     level: number
   ) => { [k: string | number]: any } | boolean,
-  options: { childField?: string; reverse?: boolean; breadthFirst?: boolean } = {
+  options: { childField?: string; reverse?: boolean } = {
     childField: 'children',
     reverse: false
   }
