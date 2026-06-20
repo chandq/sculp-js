@@ -1,5 +1,5 @@
 import { objectOmit } from './object';
-import { AnyObject, isEmpty, isNodeList, isObject, objectHas } from './type';
+import { AnyObject, isNodeList, isObject, objectHas } from './type';
 
 export interface IFieldOptions {
   keyField: string;
