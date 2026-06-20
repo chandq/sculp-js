@@ -8,11 +8,6 @@ on:
     paths:
       - 'src/**' # 仅当 src 目录下的文件变化时触发
       - 'test/**' # 仅当 test 目录下的文件变化时触发
-  pull_request:
-    branches: [main]
-    paths:
-      - 'src/**' # 仅当 src 目录下的文件变化时触发
-      - 'test/**' # 仅当 test 目录下的文件变化时触发
 
 jobs:
   build:
