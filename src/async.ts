@@ -27,20 +27,15 @@ export function asyncMap<T, R>(
     const resolves: R[] = [];
     let resolvedLength = 0;
     let rejected: unknown;
-
     let index = 0;
     const next = () => {
       if (rejected) return reject(rejected);
-
       const it = iterator.next();
-
       if (it.done) {
         if (resolvedLength === list.length) resolve(resolves);
         return;
       }
-
       const current = index++;
-
       mapper(it.value, current, list)
         .then(value => {
           resolvedLength++;
