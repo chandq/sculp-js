@@ -31,6 +31,8 @@ jobs:
 
       - name: Install deps
         run: npm ci
+      - name: Test
+        run: npm test
       - name: Build
         run: npm run build --if-present
 
@@ -55,6 +57,8 @@ jobs:
       - name: Install deps
         run: npm ci
 
+      - name: Test
+        run: npm test
       - name: Build
         run: npm run build --if-present
 
@@ -81,19 +85,35 @@ jobs:
 
       - name: Install deps
         run: npm ci
+      - name: Test
+        run: npm test
 
       - name: Git config
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
       - name: Bump version with NPM version
+        id: version
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           npx standard-version -m "chore: Release version %s [skip ci]"
           git push --follow-tags origin main
+          echo "tag=$(git describe --tags --abbrev=0)" >> "$GITHUB_OUTPUT"
+      - name: Create GitHub Release
+        uses: chandq/release-action@main
+        with:
+          tag: ${{ steps.version.outputs.tag }}
+          generateReleaseNotes: 'true'
+          body: |
+            Please refer to [CHANGELOG.md](https://github.com/chandq/sculp-js/blob/main/CHANGELOG.md) for details.
       - name: Build
         run: npm run build --if-present
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v3
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
       - name: Verify npm authentication
         run: npm whoami

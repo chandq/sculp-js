@@ -1,0 +1,66 @@
+# PR Check — runs on pull requests targeting main, before merge
+
+name: ✅ PR Check
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'src/**'
+      - 'test/**'
+
+jobs:
+  unit-test:
+    name: Test (Node ${{ matrix.node-version }}, ${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 10
+    strategy:
+      matrix:
+        node-version: [16.x, 18.x, 20.x, 22.x]
+        os: [ubuntu-latest, windows-latest]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v6
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+
+      - name: Install deps
+        run: npm ci
+
+      - name: Test
+        run: npm test
+
+      - name: Build
+        run: npm run build --if-present
+
+  # coverage:
+  #   name: Coverage
+  #   runs-on: ubuntu-latest
+  #   needs: unit-test
+
+  #   steps:
+  #     - uses: actions/checkout@v7
+  #       with:
+  #         fetch-depth: 0
+
+  #     - name: Use Node.js 16
+  #       uses: actions/setup-node@v6
+  #       with:
+  #         node-version: 16
+  #         cache: 'npm'
+
+  #     - name: Install deps
+  #       run: npm ci
+
+  #     - name: Test
+  #       run: npm test
+
+  #     - name: Upload coverage reports to Codecov
+  #       uses: codecov/codecov-action@v3
+  #       env:
+  #         CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
