@@ -1,6 +1,6 @@
 {
   "name": "sculp-js",
-  "version": "1.19.11",
+  "version": "1.19.12",
   "author": "chandq",
   "description": "Typescript utils function library for modern javascript",
   "scripts": {
