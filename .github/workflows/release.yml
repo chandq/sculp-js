@@ -81,7 +81,6 @@ jobs:
         with:
           node-version: 22
           cache: 'npm'
-          registry-url: https://registry.npmjs.org
 
       - name: Install deps
         run: npm ci
@@ -115,11 +114,5 @@ jobs:
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
-      - name: Verify npm authentication
-        run: npm whoami
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Publish to npm
-        run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }} # 注入Token
+        run: npm publish --provenance --access public
