@@ -349,7 +349,7 @@ test('forEachDeep', () => {
   document.body.appendChild(divEl2);
 
   forEachDeep(
-    Array.from(document.body.children),
+    document.body.children,
     val => {
       val.nodeType === Node.TEXT_NODE && nodeContent.push(val.nodeValue!);
     },

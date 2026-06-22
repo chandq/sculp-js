@@ -320,7 +320,7 @@ export function isEmpty(value: any): boolean {
 /**
  * Checks if `value` is an NodeList object
  */
-export function isNodeList(value: any) {
+export function isNodeList(value: any): boolean {
   return isUndefined(NodeList) ? false : NodeList.prototype.isPrototypeOf(value);
 }
 

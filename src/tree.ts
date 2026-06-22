@@ -23,20 +23,20 @@ const defaultSearchTreeOptions: ISearchTreeOpts = {
 
 export interface IFilterCondition<V> {
   keyword?: string;
-  filter?: (args: V) => boolean;
+  filter?: (val: V) => boolean;
 }
 
 function getChildNodes<V>(item: V, childField: string, isDomNode: boolean): any[] | null {
   const child = (item as any)[childField];
   if (!child) return null;
-  return isDomNode && isNodeList(child) ? Array.from(child) : Array.isArray(child) ? child : null;
+  return isDomNode && isNodeList(child) ? child : Array.isArray(child) ? child : null;
 }
 
 /**
  * Tree traversal function (default DFS, supports continue and break operations).
  * Can be used to traverse Array and NodeList type data.
- * @param {V[]} tree - Tree data
- * @param {Function} iterator - Iterator function. Returns true to continue, false to break.
+ * @param {ArrayLike<V>} tree - Tree data
+ * @param {Function} iteratee - Iteratee function. Returns true to continue, false to break.
  * @param {object} options - Options to customize child element name, reverse traversal, breadth-first traversal. Default: {
     childField: 'children',
     reverse: false,
@@ -46,8 +46,15 @@ function getChildNodes<V>(item: V, childField: string, isDomNode: boolean): any[
  * @returns {*}
  */
 export function forEachDeep<V>(
-  tree: V[],
-  iterator: (val: V, index: number, currentArr: V[], tree: V[], parent: V | null, level: number) => boolean | void,
+  tree: ArrayLike<V>,
+  iteratee: (
+    val: V,
+    index: number,
+    currentArr: ArrayLike<V>,
+    tree: ArrayLike<V>,
+    parent: V | null,
+    level: number
+  ) => boolean | void,
   options: { childField?: string; reverse?: boolean; breadthFirst?: boolean; isDomNode?: boolean } = {
     childField: 'children',
     reverse: false,
@@ -66,19 +73,19 @@ export function forEachDeep<V>(
   const queue: Array<{
     item: V;
     index: number;
-    array: V[];
-    tree: V[];
+    array: ArrayLike<V>;
+    tree: ArrayLike<V>;
     parent: V | null;
     level: number;
   }> = [];
 
-  const processNode = (item: V, index: number, arr: V[], parent: V | null, level: number): void => {
-    const re = iterator(item, index, arr, tree, parent, level);
-    if (re === false) {
+  const processNode = (item: V, index: number, arr: ArrayLike<V>, parent: V | null, level: number): void => {
+    const result = iteratee(item, index, arr, tree, parent, level);
+    if (result === false) {
       isBreak = true;
       return;
     }
-    if (re === true) return;
+    if (result === true) return;
 
     const childNodes = getChildNodes(item, childField, isDomNode);
     if (childNodes) {
@@ -95,7 +102,7 @@ export function forEachDeep<V>(
     }
   };
 
-  const walk = (arr: V[], parent: V | null, level: number) => {
+  const walk = (arr: ArrayLike<V>, parent: V | null, level: number) => {
     const len = arr.length;
 
     if (reverse) {
@@ -129,7 +136,7 @@ export function forEachDeep<V>(
 
 /**
  * Tree search function, can be used to search Array and NodeList type data.
- * @param {V[]} tree - Tree data
+ * @param {ArrayLike<V>} tree - Tree data
  * @param {Function} predicate - Predicate function
  * @param {object} options - Options to customize child element name, reverse traversal, breadth-first traversal. Default: {
     childField: 'children',
@@ -140,8 +147,15 @@ export function forEachDeep<V>(
  * @returns {V|null}
  */
 export function findDeep<V>(
-  tree: V[],
-  predicate: (val: V, index: number, currentArr: V[], tree: V[], parent: V | null, level: number) => boolean | void,
+  tree: ArrayLike<V>,
+  predicate: (
+    val: V,
+    index: number,
+    currentArr: ArrayLike<V>,
+    tree: ArrayLike<V>,
+    parent: V | null,
+    level: number
+  ) => boolean | void,
   options: { childField?: string; reverse?: boolean; breadthFirst?: boolean; isDomNode?: boolean } = {
     childField: 'children',
     reverse: false,
@@ -165,7 +179,7 @@ export function findDeep<V>(
 
 /**
  * Tree filter function, can be used to filter Array and NodeList type data.
- * @param {V[]} tree - Tree data
+ * @param {ArrayLike<V>} tree - Tree data
  * @param {Function} predicate - Predicate function
  * @param {object} options - Options to customize child element name, reverse traversal, breadth-first traversal. Default: {
     childField: 'children',
@@ -176,8 +190,15 @@ export function findDeep<V>(
  * @returns {V[]}
  */
 export function filterDeep<V>(
-  tree: V[],
-  predicate: (val: V, index: number, currentArr: V[], tree: V[], parent: V | null, level: number) => boolean | void,
+  tree: ArrayLike<V>,
+  predicate: (
+    val: V,
+    index: number,
+    currentArr: ArrayLike<V>,
+    tree: ArrayLike<V>,
+    parent: V | null,
+    level: number
+  ) => boolean | void,
   options: { childField?: string; reverse?: boolean; breadthFirst?: boolean; isDomNode?: boolean } = {
     childField: 'children',
     reverse: false,
@@ -203,22 +224,22 @@ export function filterDeep<V>(
  * Can be used for inserting or removing tree items.
  *
  * Can traverse any array-like object with a length property and numeric keys.
- * @param {V[]} tree - Tree data
- * @param {Function} iterator - Iterator function. Returns true to continue, false to break.
+ * @param {ArrayLike<V>} tree - Tree data
+ * @param {Function} iteratee - Iteratee function. Returns true to continue, false to break.
  * @param {object} options - Options to customize child element name, reverse traversal. Default: {
     childField: 'children',
     reverse: false,
   }
  * @returns {any[]} A new tree structure
  */
-export function mapDeep<T>(
-  tree: T[],
-  iterator: (
-    val: T,
+export function mapDeep<V>(
+  tree: ArrayLike<V>,
+  iteratee: (
+    val: V,
     index: number,
-    currentArr: T[],
-    tree: T[],
-    parent: T | null,
+    currentArr: ArrayLike<V>,
+    tree: ArrayLike<V>,
+    parent: V | null,
     level: number
   ) => { [k: string | number]: any } | boolean,
   options: { childField?: string; reverse?: boolean } = {
@@ -230,20 +251,20 @@ export function mapDeep<T>(
   let isBreak = false;
   const newTree: any[] = [];
 
-  const walk = (arr: T[], parent: T | null, output: any[], level: number) => {
+  const walk = (arr: ArrayLike<V>, parent: V | null, output: any[], level: number) => {
     if (reverse) {
       for (let i = arr.length - 1; i >= 0; i--) {
         if (isBreak) break;
         const item = arr[i];
-        const re = iterator(item, i, arr, tree, parent, level);
+        const result = iteratee(item, i, arr, tree, parent, level);
 
-        if (re === false) {
+        if (result === false) {
           isBreak = true;
           break;
         }
-        if (re === true) continue;
+        if (result === true) continue;
 
-        const newItem = objectOmit(re, [childField]);
+        const newItem = objectOmit(result, [childField]);
         output.push(newItem);
 
         const children = (item as any)[childField];
@@ -256,15 +277,15 @@ export function mapDeep<T>(
       for (let i = 0; i < arr.length; i++) {
         if (isBreak) break;
         const item = arr[i];
-        const re = iterator(item, i, arr, tree, parent, level);
+        const result = iteratee(item, i, arr, tree, parent, level);
 
-        if (re === false) {
+        if (result === false) {
           isBreak = true;
           break;
         }
-        if (re === true) continue;
+        if (result === true) continue;
 
-        const newItem = objectOmit(re, [childField]);
+        const newItem = objectOmit(result, [childField]);
         output.push(newItem);
 
         const children = (item as any)[childField];
@@ -288,19 +309,19 @@ export type ITreeConf = Omit<IFieldOptions, 'pidField'>;
 /**
  * Retrieves the path (ancestors + self) for a given node ID.
  *
- * @param {ArrayLike<T>} tree - Tree data
+ * @param {ArrayLike<V>} tree - Tree data
  * @param {number | string} nodeId - Target node ID
  * @param {ITreeConf} options - Configuration. Default: { childField = 'children', keyField = 'id' }
  * @returns {[(number | string)[], V[]]} - Array of IDs and Array of Nodes from root to target
  */
 export function getPathById<V>(
-  tree: V[],
+  tree: ArrayLike<V>,
   nodeId: IdLike,
   options: ITreeConf = { childField: 'children', keyField: 'id' }
 ): [(number | string)[], any[]] {
   const { childField = 'children', keyField = 'id' } = isObject(options) ? options : {};
 
-  const flatMap: Record<string, { node: any; parentId?: IdLike; parent?: any }> = {};
+  const nodeMap: Record<string, { node: any; parentId?: IdLike; parent?: any }> = {};
 
   // 扁平化 - 使用迭代而非递归，避免栈溢出
   const stack: Array<{ node: any; parentId?: IdLike; parent?: any }> = [];
@@ -312,7 +333,7 @@ export function getPathById<V>(
   while (stack.length > 0) {
     const { node, parentId, parent } = stack.pop()!;
     const id = (node as any)[keyField];
-    flatMap[id] = { node, parentId, parent };
+    nodeMap[id] = { node, parentId, parent };
 
     const children = (node as any)[childField];
     if (Array.isArray(children)) {
@@ -326,7 +347,7 @@ export function getPathById<V>(
   // 回溯路径
   const ids: IdLike[] = [];
   const nodes: any[] = [];
-  let current = flatMap[nodeId];
+  let current = nodeMap[nodeId];
 
   if (!current) return [[], []];
 
@@ -335,7 +356,7 @@ export function getPathById<V>(
 
   while (current && current.parentId !== undefined) {
     ids.unshift(current.parentId);
-    const parent = flatMap[current.parentId];
+    const parent = nodeMap[current.parentId];
     if (!parent) break;
     nodes.unshift(parent.node);
     current = parent;
