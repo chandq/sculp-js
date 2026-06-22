@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.19.13](https://github.com/chandq/sculp-js/compare/v1.19.12...v1.19.13) (2026-06-22)
+
+### Bug Fixes
+
+- remove unnecessary array.from, revise naming ([a45ba24](https://github.com/chandq/sculp-js/commit/a45ba24ee238fe6233507a0bec12917ddb1ea0c5))
+
 ### [1.19.12](https://github.com/chandq/sculp-js/compare/v1.19.11...v1.19.12) (2026-06-20)
 
 ### [1.19.11](https://github.com/chandq/sculp-js/compare/v1.19.10...v1.19.11) (2026-06-20)
