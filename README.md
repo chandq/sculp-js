@@ -41,7 +41,7 @@
 <summary><strong>Data Structures</strong></summary>
 
 - **Array**: `arrayEach`, `arrayEachAsync`, `arrayInsertBefore`, `arrayRemove`
-- **Tree**: `forEachDeep`, `mapDeep`, `findDeep`, `filterDeep`, `searchTreeById`, `flatTree`, `fuzzySearchTree`
+- **Tree**: `forEachDeep`, `mapDeep`, `findDeep`, `filterDeep`, `getPathById`, `flatTree`, `fuzzySearchTree`
 - **Object**: `objectAssign`, `objectGet`, `objectHas`, `cloneDeep`, `objectPick`, `objectOmit`
 
 </details>

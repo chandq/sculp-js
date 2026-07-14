@@ -106,7 +106,7 @@ const generateApiSidebar = () => {
         { text: 'flatTree', link: '/api/sculp-js.flattree' },
         { text: 'formatTree', link: '/api/sculp-js.formattree' },
         { text: 'fuzzySearchTree', link: '/api/sculp-js.fuzzysearchtree' },
-        { text: 'searchTreeById', link: '/api/sculp-js.searchtreebyid' },
+        { text: 'getPathById', link: '/api/sculp-js.getpathbyid' },
         { text: 'ITreeConf', link: '/api/sculp-js.itreeconf' },
         { text: 'IFilterCondition', link: '/api/sculp-js.ifiltercondition' },
         { text: 'ISearchTreeOpts', link: '/api/sculp-js.isearchtreeopts' }
