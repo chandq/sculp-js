@@ -13,7 +13,7 @@
     "test": "jest --coverage",
     "coveralls": "jest --coverage --coverageReporters=text-lcov | coveralls",
     "lint": "eslint ./src --ext .vue,.js,jsx,.ts,tsx",
-    "lint:fix": "eslint --fix ./src --ext .vue,.js,jsx,.ts,tsx",
+    "lint:fix": "eslint --fix \"./src/**/*.{vue,js,jsx,ts,tsx}\"",
     "prettier": "prettier -c --write \"**/*.{vue,ts,js,jsx,css,less,scss,json}\"",
     "docs:gen-api": "node scripts/gen-docs-site-api.js",
     "docs:sync": "node scripts/sync-docs-site-api.mjs",

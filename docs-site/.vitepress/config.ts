@@ -318,8 +318,6 @@ const generateApiSidebar = () => {
         { text: 'IFieldOptions', link: '/api/sculp-js.ifieldoptions' },
         { text: 'IDLike', link: '/api/sculp-js.idlike' },
         { text: 'numberToHex', link: '/api/sculp-js.numbertohex' },
-        { text: 'getGlobal', link: '/api/sculp-js.getglobal' },
-        { text: 'setGlobal', link: '/api/sculp-js.setglobal' },
         { text: 'select', link: '/api/sculp-js.select' },
         { text: 'style', link: '/api/sculp-js.style' },
         { text: 'tooltipEvent', link: '/api/sculp-js.tooltipevent' },
