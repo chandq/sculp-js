@@ -9,6 +9,7 @@ node_modules
 /lib
 docs-site/.vitepress/cache
 api-docs
+docs
 
 # local env files
 .env.local
