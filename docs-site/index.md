@@ -1,137 +1,50 @@
-<div align="center">
+---
+layout: home
 
-# sculp-js
+hero:
+  name: sculp-js
+  text: 现代 JavaScript 工具库
+  tagline: TypeScript 编写 · 零依赖 · 支持 ESM / CJS / UMD
+  actions:
+    - theme: brand
+      text: 快速开始
+      link: /guide/getting-started
+    - theme: alt
+      text: API 文档
+      link: /api/index
+    - theme: alt
+      text: GitHub
+      link: https://github.com/chandq/sculp-js
 
-**A Modern JavaScript Utility Library for Web**
-
-[![release status](https://github.com/chandq/sculp-js/actions/workflows/release.yml/badge.svg)](https://github.com/chandq/sculp-js/actions/workflows/release.yml)
-[![sculp-js](https://img.shields.io/github/package-json/v/chandq/sculp-js?style=flat-square)](https://www.npmjs.com/package/sculp-js)
-[![license:MIT](https://img.shields.io/npm/l/vue.svg?sanitize=true)](https://github.com/chandq/sculp-js/blob/main/LICENSE.md)
-[![codecov](https://codecov.io/gh/chandq/sculp-js/graph/badge.svg?token=VZ6TERPGI9)](https://codecov.io/gh/chandq/sculp-js)
-
-</div>
-
-<br/>
-
-> A lightweight utility library written in TypeScript with zero dependencies, supporting ESM, CJS, and UMD formats.
-
-**[API Documentation](https://chandq.github.io/sculp-js/)** • **[Getting Started](#usage)** • **[Features](#features)**
-
-## ✨ Features
-
-- **Type-Safe**: Full TypeScript support with comprehensive type definitions
-- **Zero Dependencies**: Pure native implementation, no external libraries
-- **Tree Shaking**: Supports selective imports for smaller bundle sizes
-- **Multi-Format**: ESM, CJS, and UMD builds available
-- **Web Focused**: Optimized for modern web environments
-
-### Core Utilities
-
-<details>
-<summary><strong>Type Checking</strong></summary>
-
-- `isString`, `isNumber`, `isBoolean`, `isFunction`, `isObject`, `isArray`
-- `isDate`, `isRegExp`, `isUndefined`, `isNull`, `isError`, `isNaN`
-- `isPrimitive`, `isSymbol`, `isBigInt`, `isPlainObject`
-- `isEmpty`, `isNodeList`, `isValidDate`, `typeIs`
-
-</details>
-
-<details>
-<summary><strong>Data Structures</strong></summary>
-
-- **Array**: `arrayEach`, `arrayEachAsync`, `arrayInsertBefore`, `arrayRemove`
-- **Tree**: `forEachDeep`, `mapDeep`, `findDeep`, `filterDeep`, `searchTreeById`, `flatTree`, `fuzzySearchTree`
-- **Object**: `objectAssign`, `objectGet`, `objectHas`, `cloneDeep`, `objectPick`, `objectOmit`
-
-</details>
-
-<details>
-<summary><strong>Web APIs</strong></summary>
-
-- **DOM**: `addClass`, `hasClass`, `removeClass`, `getStyle`, `setStyle`
-- **File**: `chooseLocalFile`, `compressImg`
-- **Clipboard**: `copyText`, `fallbackCopyText`
-- **Download**: `downloadBlob`, `downloadURL`, `downloadData`
-- **Watermark**: `genCanvasWM`
-
-</details>
-
-<details>
-<summary><strong>Encoding & Validation</strong></summary>
-
-- **Encode/Decode**: `weBtoa`, `weAtob`, `b64encode`, `b64decode`
-- **Validation**: `isEmail`, `isPhone`, `isUrl`, `isIDNO`, `isIPv4`, `isIPv6`
-
-</details>
-
-<details>
-<summary><strong>Additional Utils</strong></summary>
-
-- **Date**: `formatDate`, `calculateDate`, `dateToStart`, `dateToEnd`
-- **String**: `stringCamelCase`, `stringKebabCase`, `parseQueryParams`, `stringEscapeHTML`
-- **Math**: `add`, `subtract`, `multiply`, `divide`, `numberAbbr`
-- **Functional**: `debounce`, `throttle`, `once`, `wait`
-
-</details>
-
-## 🚀 Installation
-
-### npm
-
-```bash
-npm install sculp-js
-```
-
-### CDN
-
-```html
-<script src="https://unpkg.com/sculp-js"></script>
-```
-
-## 💡 Usage
-
-```js
-import { forEachDeep, cloneDeep } from 'sculp-js';
-
-// Deep traversal of tree structures
-const tree = [
-  {
-    id: 1,
-    name: 'Parent 1',
-    children: [
-      { id: 11, name: 'Child 1' },
-      { id: 12, name: 'Child 2', children: [{ id: 121, name: 'Grandchild 1' }] }
-    ]
-  },
-  { id: 2, name: 'Parent 2' }
-];
-
-const names = [];
-forEachDeep(tree, item => {
-  names.push(item.name);
-});
-// names = ['Parent 1', 'Child 1', 'Child 2', 'Grandchild 1', 'Parent 2']
-
-// Deep cloning of objects
-const original = { a: 1, b: { c: 2 } };
-const cloned = cloneDeep(original);
-```
-
-## 📦 Module Formats
-
-```js
-// ES Modules (recommended)
-import { cloneDeep } from 'sculp-js';
-
-// Individual module imports
-import cloneDeep from 'sculp-js/cloneDeep';
-
-// CommonJS
-const { cloneDeep } = require('sculp-js');
-```
-
-## 文档入口
-
-- [API Reference（自动生成）](/api/index)
-- [指南：开始使用](/guide/getting-started)
+features:
+  - icon: 🔍
+    title: 类型判断
+    details: 25+ 类型检查函数，覆盖字符串、数字、对象、数组等常见类型，TypeScript 类型守卫支持
+    link: /api/sculp-js.isstring
+    linkText: 查看 API
+  - icon: 🌳
+    title: 树结构操作
+    details: 深度遍历、搜索、过滤、扁平化，支持自定义节点配置，处理任意复杂树形数据
+    link: /api/sculp-js.foreachdeep
+    linkText: 查看 API
+  - icon: 📦
+    title: 数据处理
+    details: 对象深拷贝、安全取值、数组操作、数学运算，覆盖日常数据处理场景
+    link: /api/sculp-js.clonedeep
+    linkText: 查看 API
+  - icon: 🌐
+    title: Web API
+    details: DOM 操作、Cookie 管理、文件下载、剪贴板、图片压缩、水印生成
+    link: /api/sculp-js.addclass
+    linkText: 查看 API
+  - icon: ✅
+    title: 验证与编码
+    details: 邮箱、手机号、身份证、URL、IP 地址验证，Base64 编解码
+    link: /api/sculp-js.isemail
+    linkText: 查看 API
+  - icon: ⚡
+    title: 工具函数
+    details: 防抖、节流、日期格式化、字符串处理、URL 解析、随机数生成
+    link: /api/sculp-js.debounce
+    linkText: 查看 API
+---

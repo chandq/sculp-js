@@ -1,4 +1,3 @@
-import { getGlobal } from './func';
 import { STRING_ARABIC_NUMERALS, STRING_LOWERCASE_ALPHA, STRING_UPPERCASE_ALPHA } from './string';
 import { isNullish, isNumber } from './type';
 
@@ -14,7 +13,8 @@ interface JSBI {
 }
 
 const supportBigInt = typeof BigInt !== 'undefined';
-const jsbi = () => getGlobal<JSBI>('JSBI') as JSBI;
+// @ts-ignore
+const jsbi = () => globalThis.JSBI as JSBI;
 const toBigInt = (n: string | number): any => (supportBigInt ? BigInt(n) : jsbi().BigInt(n));
 const divide = (x: any, y: any) => (supportBigInt ? x / y : jsbi().divide(x, y));
 const remainder = (x: any, y: any) => (supportBigInt ? x % y : jsbi().remainder(x, y));

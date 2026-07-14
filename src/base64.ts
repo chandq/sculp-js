@@ -1,4 +1,3 @@
-import { getGlobal } from './func';
 import { isNullOrUnDef } from './type';
 
 const b64 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
@@ -167,15 +166,15 @@ export function weAtob(string: string): string {
  */
 export function b64decode(base64: string): string {
   // 优先使用原生方法（性能最优）
-  if (!isNullOrUnDef(getGlobal('atob')) && !isNullOrUnDef(getGlobal('TextDecoder'))) {
+  if (!isNullOrUnDef(globalThis.atob) && !isNullOrUnDef(globalThis.TextDecoder)) {
     try {
-      const binaryString = (getGlobal('atob') as any)(base64);
+      const binaryString = (globalThis.atob as any)(base64);
       const len = binaryString.length;
       const bytes = new Uint8Array(len);
       for (let i = 0; i < len; i++) {
         bytes[i] = binaryString.charCodeAt(i);
       }
-      return new (getGlobal('TextDecoder') as any)('utf-8').decode(bytes);
+      return new (globalThis.TextDecoder as any)('utf-8').decode(bytes);
     } catch (e) {
       // 如果原生方法失败，使用降级方案
     }
@@ -200,15 +199,15 @@ export function b64decode(base64: string): string {
  */
 export function b64encode(rawStr: string): string {
   // 优先使用原生方法（性能最优）
-  if (!isNullOrUnDef(getGlobal('btoa')) && !isNullOrUnDef(getGlobal('TextEncoder'))) {
+  if (!isNullOrUnDef(globalThis.btoa) && !isNullOrUnDef(globalThis.TextEncoder)) {
     try {
-      const utf8Array = new (getGlobal('TextEncoder') as any)().encode(rawStr);
+      const utf8Array = new (globalThis.TextEncoder as any)().encode(rawStr);
       let binaryString = '';
       const len = utf8Array.length;
       for (let i = 0; i < len; i++) {
         binaryString += String.fromCharCode(utf8Array[i]);
       }
-      return (getGlobal('btoa') as any)(binaryString);
+      return globalThis.btoa(binaryString);
     } catch (e) {
       // 如果原生方法失败，使用降级方案
     }

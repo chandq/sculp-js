@@ -111,35 +111,8 @@ export const once = <F extends AnyFunc = AnyFunc>(func: F): OnceFunc<F> => {
   };
 };
 
-/**
- * 设置全局变量
- * @param {string | number | symbol} key
- * @param val
- */
-export function setGlobal(key: string | number | symbol, val?: any) {
-  if (typeof globalThis !== 'undefined') (globalThis as any)[key] = val;
-  else if (typeof window !== 'undefined') (window as any)[key] = val;
-  else if (typeof global !== 'undefined') (global as any)[key] = val;
-  else if (typeof self !== 'undefined') (self as any)[key] = val;
-  else throw new SyntaxError('当前环境下无法设置全局属性');
-}
-
-/**
- * 获取全局变量
- * @param {string | number | symbol} key
- * @param val
- */
-export function getGlobal<T>(key: string | number | symbol): T | void {
-  if (typeof globalThis !== 'undefined') return (globalThis as any)[key] as T;
-  else if (typeof window !== 'undefined') return (window as any)[key] as T;
-  else if (typeof global !== 'undefined') return (global as any)[key] as T;
-  else if (typeof self !== 'undefined') return (self as any)[key] as T;
-}
-
 export default {
   debounce,
   throttle,
-  once,
-  getGlobal,
-  setGlobal
+  once
 };

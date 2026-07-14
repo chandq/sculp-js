@@ -523,6 +523,9 @@ export default {
   filterDeep,
   mapDeep,
   getPathById,
+  /**
+   * @deprecated 已废弃，请使用 getPathById
+   */
   searchTreeById: getPathById,
   formatTree,
   flatTree,

@@ -281,8 +281,6 @@ describe('按模块默认导入测试', () => {
       expect(func.debounce).toBeDefined();
       expect(func.throttle).toBeDefined();
       expect(func.once).toBeDefined();
-      expect(func.getGlobal).toBeDefined();
-      expect(func.setGlobal).toBeDefined();
     });
   });
 
