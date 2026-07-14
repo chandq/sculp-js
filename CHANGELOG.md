@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.19.14](https://github.com/chandq/sculp-js/compare/v1.19.13...v1.19.14) (2026-07-14)
+
+### Bug Fixes
+
+- use globalThis, remove fallback api ([26ac536](https://github.com/chandq/sculp-js/commit/26ac5366984b461743cea4f8816f3c837c46b895))
+
 ### [1.19.13](https://github.com/chandq/sculp-js/compare/v1.19.12...v1.19.13) (2026-06-22)
 
 ### Bug Fixes
