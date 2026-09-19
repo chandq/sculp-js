@@ -101,7 +101,7 @@ const modules = [
     file: 'download.ts',
     exports: ['downloadURL', 'downloadHref', 'downloadBlob', 'crossOriginDownload', 'downloadData']
   },
-  { file: 'file.ts', exports: ['supportCanvas', 'chooseLocalFile', 'compressImg'] },
+  { file: 'file.ts', exports: ['IMAGE_COMPRESSION_PRESETS', 'supportCanvas', 'chooseLocalFile', 'compressImg'] },
   { file: 'watermark.ts', exports: ['genCanvasWM'] },
   { file: 'tooltip.ts', exports: ['tooltipEvent'] },
   { file: 'cloneDeep.ts', exports: ['cloneDeep'] },

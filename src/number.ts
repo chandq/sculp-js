@@ -1,5 +1,5 @@
 import { STRING_ARABIC_NUMERALS, STRING_LOWERCASE_ALPHA, STRING_UPPERCASE_ALPHA } from './string';
-import { isNullish, isNumber } from './type';
+import { isNullish } from './type';
 
 export const HEX_POOL = `${STRING_ARABIC_NUMERALS}${STRING_UPPERCASE_ALPHA}${STRING_LOWERCASE_ALPHA}`;
 
@@ -132,15 +132,82 @@ export function humanFileSize(
  * @param {number} decimals 格式化成指定小数位精度的参数
  * @returns {string}
  */
+function expandExponential(value: string): string {
+  const match = /^([+-]?)(\d+)(?:\.(\d*))?[eE]([+-]?\d+)$/.exec(value);
+  if (!match) return value;
+
+  const [, sign, integer, fraction = '', exponentString] = match;
+  const digits = integer + fraction;
+  const decimalIndex = integer.length + Number(exponentString);
+
+  if (decimalIndex <= 0) {
+    return `${sign}0.${'0'.repeat(-decimalIndex)}${digits}`;
+  }
+  if (decimalIndex >= digits.length) {
+    return `${sign}${digits}${'0'.repeat(decimalIndex - digits.length)}`;
+  }
+  return `${sign}${digits.slice(0, decimalIndex)}.${digits.slice(decimalIndex)}`;
+}
+
+function addThousandsSeparators(value: number): string {
+  if (Number.isNaN(value)) return 'NaN';
+  if (value === Infinity) return '∞';
+  if (value === -Infinity) return '-∞';
+  if (Object.is(value, -0)) return '-0';
+
+  const plainValue = expandExponential(String(value));
+  const negative = plainValue.startsWith('-');
+  const unsignedValue = negative ? plainValue.slice(1) : plainValue;
+  const [integer, fraction] = unsignedValue.split('.');
+  const groupedInteger = integer.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+
+  return `${negative ? '-' : ''}${groupedInteger}${fraction === undefined ? '' : `.${fraction}`}`;
+}
+
+/**
+ * `Number#toLocaleString('en-US')` 默认最多保留 3 位小数。这里保留原函数的该行为，
+ * 同时避免依赖小程序环境中可能缺失或实现不一致的 Intl。
+ */
+function roundToLocalePrecision(value: number): number {
+  if (!Number.isFinite(value) || Math.abs(value) >= 1e21) return value;
+
+  const plainValue = expandExponential(String(value));
+  const negative = plainValue.startsWith('-');
+  const unsignedValue = negative ? plainValue.slice(1) : plainValue;
+  const [integer, fraction = ''] = unsignedValue.split('.');
+  if (fraction.length <= 3) return value;
+
+  const retainedFraction = fraction.slice(0, 3);
+  let retainedDigits = `${integer}${retainedFraction}`;
+  if (fraction.charCodeAt(3) >= 53) {
+    let index = retainedDigits.length - 1;
+    while (index >= 0 && retainedDigits[index] === '9') {
+      retainedDigits = `${retainedDigits.slice(0, index)}0${retainedDigits.slice(index + 1)}`;
+      index--;
+    }
+    retainedDigits =
+      index < 0
+        ? `1${retainedDigits}`
+        : `${retainedDigits.slice(0, index)}${Number(retainedDigits[index]) + 1}${retainedDigits.slice(index + 1)}`;
+  }
+
+  const decimalIndex = retainedDigits.length - 3;
+  const rounded = `${negative ? '-' : ''}${retainedDigits.slice(0, decimalIndex)}.${retainedDigits.slice(
+    decimalIndex
+  )}`;
+  return Number(rounded);
+}
+
 export function formatNumber(num: number | string, decimals?: number): string {
   if (isNullish(decimals)) {
-    return parseInt(String(num)).toLocaleString();
+    return addThousandsSeparators(parseInt(String(num)));
   }
   let prec = 0;
   if (decimals > 0) {
     prec = decimals;
   }
-  return Number(Number(num).toFixed(prec)).toLocaleString('en-US');
+  const roundedValue = Number(Number(num).toFixed(prec));
+  return addThousandsSeparators(roundToLocalePrecision(roundedValue));
 }
 export { formatNumber as formatMoney };
 

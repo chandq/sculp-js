@@ -118,6 +118,57 @@ const original = { a: 1, b: { c: 2 } };
 const cloned = cloneDeep(original);
 ```
 
+### Image compression
+
+`compressImg` provides presets for common upload scenarios. Explicit options always override preset values.
+
+```js
+import { compressImg } from 'sculp-js/file';
+
+// Default balanced compression: max 1920px and a best-effort 500KB target.
+const balancedImage = await compressImg(file, {
+  outputMode: 'compact'
+});
+
+// Social sharing: max 1280px, quality 0.82, target up to about 300KB.
+const socialImage = await compressImg(file, {
+  preset: 'social',
+  outputMode: 'compact'
+});
+
+// Product detail or high-resolution preview.
+const detailImage = await compressImg(file, {
+  preset: 'high-quality',
+  mime: 'image/webp',
+  outputMode: 'compact'
+});
+
+// Long screenshots: constrain width while preserving a useful long edge.
+const screenshot = await compressImg(file, {
+  preset: 'long-image',
+  mime: 'image/png',
+  outputMode: 'compact'
+});
+
+// Fully custom constraints.
+const customImage = await compressImg(file, {
+  maxWidth: 1920,
+  maxHeight: 1920,
+  maxPixels: 8 * 1024 * 1024,
+  quality: 0.84,
+  targetFileSizeKB: 500,
+  outputMode: 'compact'
+});
+```
+
+Available presets are `balanced`, `social`, `high-quality`, `thumbnail`, and `long-image`. A target file size is best-effort: the compressor first searches for the highest acceptable encoding quality, then reduces dimensions if necessary. The result exposes `targetAchieved`, `quality`, and `iterations` for observability.
+
+For same-format output, when an image does not need resizing and `keepOriginalIfLarger` is enabled (the default), the compressor also treats the original file size as an upper bound. Lossy formats retry at a lower quality, while lossless output reduces dimensions when needed, instead of returning the original after one unsuccessful encoding. Explicit format conversion may produce a larger file; set `keepOriginalIfLarger: false` when a larger same-format result is also acceptable.
+
+JPEG, PNG, WebP, and AVIF output can be requested. WebP and AVIF encoding depend on the current browser or WebView; use `strictMime: true` to reject unsupported format conversion instead of accepting the browser's fallback format. HEIC/HEIF decoding is runtime-dependent and is not provided by this library.
+
+The file module targets browsers, H5, and hybrid applications with a standards-compliant WebView (`File`, `Canvas`, `Blob`, and image decoding APIs). Native iOS, Android, and React Native file URIs must be compressed with a native image API or converted to a Web `File` before calling `compressImg`.
+
 ## 📦 Module Formats
 
 ### Named Imports (Recommended)

@@ -155,6 +155,7 @@ describe('默认导入测试 - 完整库', () => {
   });
 
   test('默认导出应该包含 file 模块的函数', () => {
+    expect(sculp.IMAGE_COMPRESSION_PRESETS).toBeDefined();
     expect(sculp.chooseLocalFile).toBeDefined();
     expect(sculp.compressImg).toBeDefined();
   });
