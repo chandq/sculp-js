@@ -211,3 +211,10 @@ All modules support both named and default exports:
 ## 📄 License
 
 MIT License © 2023-present, [chandq](https://github.com/chandq)
+
+## 🤝 Community
+
+- [Contributing Guide](./CONTRIBUTING.md)
+- [Code of Conduct](./CODE_OF_CONDUCT.md)
+- [Security Policy](./SECURITY.md)
+- [Report an Issue](https://github.com/chandq/sculp-js/issues)
