@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.20.0](https://github.com/chandq/sculp-js/compare/v1.19.14...v1.20.0) (2026-09-20)
+
+### Features
+
+- enhance image compression and number formatting ([6a7ffb5](https://github.com/chandq/sculp-js/commit/6a7ffb54a38de9635dee83b8294e637dea384a30))
+
 ### [1.19.14](https://github.com/chandq/sculp-js/compare/v1.19.13...v1.19.14) (2026-07-14)
 
 ### Bug Fixes
