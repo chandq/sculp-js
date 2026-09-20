@@ -151,7 +151,25 @@ test('formatNumber 格式化', () => {
   expect(formatNumber(money)).toBe('123,456,789');
   expect(formatNumber(floatMoney, 2)).toBe('123,456.79');
   expect(formatNumber(floatMoney, -1)).toBe('123,457');
+  expect(formatNumber(-123456.789, 2)).toBe('-123,456.79');
+  expect(formatNumber(1e21, 2)).toBe('1,000,000,000,000,000,000,000');
+  expect(formatNumber(1.23456789, 4)).toBe('1.235');
+  expect(formatNumber(1e-7, 8)).toBe('0');
+  expect(formatNumber('-0')).toBe('-0');
+  expect(formatNumber('invalid')).toBe('NaN');
   expect(() => {
     numberAbbr(1, []);
   }).toThrow('At least one unit is required');
+});
+
+test('formatNumber 不依赖 toLocaleString', () => {
+  const toLocaleString = jest.spyOn(Number.prototype, 'toLocaleString').mockImplementation(() => {
+    throw new Error('not supported');
+  });
+
+  try {
+    expect(formatNumber(1234567.89, 2)).toBe('1,234,567.89');
+  } finally {
+    toLocaleString.mockRestore();
+  }
 });
