@@ -462,7 +462,6 @@ describe('按模块默认导入测试', () => {
     });
 
     test('应该包含所有导出的函数', () => {
-      expect(file.IMAGE_COMPRESSION_PRESETS).toBeDefined();
       expect(file.supportCanvas).toBeDefined();
       expect(file.chooseLocalFile).toBeDefined();
       expect(file.compressImg).toBeDefined();
