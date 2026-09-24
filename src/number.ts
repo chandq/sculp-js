@@ -161,17 +161,20 @@ function expandExponential(value: string): string {
  * Converts a number to a decimal string with comma thousands separators
  * applied to the integer part, keeping the fraction digits unchanged.
  * Special values are rendered as `NaN`, `∞` or `-∞`, and negative zero
- * preserves its sign.
- * @param {number} value the number to format
+ * preserves its sign. A string is accepted so that callers which already hold
+ * an intermediate `toFixed` result (which may itself be in exponential form,
+ * e.g. `'1e+21'`) can group it without a lossy `Number()` round-trip.
+ * @param {number | string} value the number, or its string form, to format
  * @returns {string} the grouped decimal string
  * @example
  * ```ts
  * addThousandsSeparators(1234567.891); // => '1,234,567.891'
+ * addThousandsSeparators('1e+21'); // => '1,000,000,000,000,000,000,000'
  * addThousandsSeparators(NaN); // => 'NaN'
  * addThousandsSeparators(-0); // => '-0'
  * ```
  */
-function addThousandsSeparators(value: number): string {
+function addThousandsSeparators(value: number | string): string {
   if (Number.isNaN(value)) return 'NaN';
   if (value === Infinity) return '∞';
   if (value === -Infinity) return '-∞';
@@ -187,49 +190,27 @@ function addThousandsSeparators(value: number): string {
 }
 
 /**
- * Rounds a number to at most three fraction digits, reproducing the default
- * behavior of `Number#toLocaleString('en-US')`, which limits output to 3
- * decimals. Performs the rounding on the expanded decimal string so that no
- * reliance is placed on `Intl`, which may be missing or implemented
- * inconsistently in mini-program environments. Values that are non-finite or
- * have a magnitude of 1e21 or greater are returned as-is.
- * @param {number} value the number to round
- * @returns {number} the value rounded to locale-equivalent precision
- * @example
- * ```ts
- * roundToLocalePrecision(1.2345); // => 1.235
- * roundToLocalePrecision(0.9999); // => 1
- * roundToLocalePrecision(123.456); // => 123.456 (unchanged)
- * ```
+ * Pads a decimal-fraction string to a fixed width so that the result always
+ * has exactly the requested number of fractional digits, even when they are
+ * all zeroes (producing `'.00'` for two decimals).
+ * @param {string} fraction the raw fraction substring from `toFixed`
+ * @param {number} target   how many fractional digits the final string must have
+ * @returns {string} the zero-padded fraction (without preceding '.')
  */
-function roundToLocalePrecision(value: number): number {
-  if (!Number.isFinite(value) || Math.abs(value) >= 1e21) return value;
+function padFraction(fraction: string, target: number): string {
+  while (fraction.length < target) fraction += '0';
+  return fraction;
+}
 
-  const plainValue = expandExponential(String(value));
-  const negative = plainValue.startsWith('-');
-  const unsignedValue = negative ? plainValue.slice(1) : plainValue;
-  const [integer, fraction = ''] = unsignedValue.split('.');
-  if (fraction.length <= 3) return value;
-
-  const retainedFraction = fraction.slice(0, 3);
-  let retainedDigits = `${integer}${retainedFraction}`;
-  if (fraction.charCodeAt(3) >= 53) {
-    let index = retainedDigits.length - 1;
-    while (index >= 0 && retainedDigits[index] === '9') {
-      retainedDigits = `${retainedDigits.slice(0, index)}0${retainedDigits.slice(index + 1)}`;
-      index--;
-    }
-    retainedDigits =
-      index < 0
-        ? `1${retainedDigits}`
-        : `${retainedDigits.slice(0, index)}${Number(retainedDigits[index]) + 1}${retainedDigits.slice(index + 1)}`;
-  }
-
-  const decimalIndex = retainedDigits.length - 3;
-  const rounded = `${negative ? '-' : ''}${retainedDigits.slice(0, decimalIndex)}.${retainedDigits.slice(
-    decimalIndex
-  )}`;
-  return Number(rounded);
+/**
+ * Strips trailing zeroes from a fraction string, returning an empty string
+ * when nothing significant remains (so that the caller can drop the
+ * decimal point entirely).
+ * @param {string} fraction the fraction substring produced by `toFixed`
+ * @returns {string} the fraction without trailing zeroes
+ */
+function trimTrailingZeroes(fraction: string): string {
+  return fraction.replace(/0+$/, '');
 }
 
 /**
@@ -237,22 +218,53 @@ function roundToLocalePrecision(value: number): number {
  *
  * When `decimals` is omitted, the input is truncated to an integer (like
  * `parseInt`) and grouped. When `decimals` is provided, the value is rounded
- * to that many fraction digits first; the result is additionally capped at
- * three fraction digits to mirror the default precision of
- * `Number#toLocaleString('en-US')`.
+ * to that many fraction digits. By default the requested precision is always
+ * emitted – `formatMoney(1000, 2)` yields `'1,000.00'` – which keeps
+ * monetary and tabular columns aligned, matching `Number#toFixed` and the
+ * `minimumFractionDigits` behavior of `Intl.NumberFormat`.
+ *
+ * Pass `trimZeros` to opt into dynamic precision instead: trailing zeroes are
+ * removed and the decimal point is dropped when no fraction remains, so the
+ * output reflects whether the original value actually carried a fraction
+ * (analogous to `Intl`'s `maximumFractionDigits`-only behavior).
+ *
+ * Non-finite values are always rendered symbolically as `NaN`, `∞` or `-∞`
+ * with no fraction attached, since they do not represent a decimal quantity.
  * @param {number | string} num the number or numeric string to format
  * @param {number} [decimals] the number of fraction digits to keep; non-positive
  * values are treated as `0`
+ * @param {boolean} [trimZeros] when `true`, drop trailing zeroes from the
+ * fraction instead of padding to `decimals`; default `false`
  * @returns {string} the formatted number string
  * @example
  * ```ts
  * formatNumber(1234567.891); // => '1,234,567' (truncated without decimals)
  * formatNumber(98765.4321, 2); // => '98,765.43'
  * formatNumber(1234567.891, 3); // => '1,234,567.891'
- * formatNumber(3.14159, 4); // => '3.142' (capped at 3 fraction digits)
+ * formatNumber(3.14159, 4); // => '3.1416' (honours the requested 4 digits)
+ *
+ * // Forced precision (default) – always emits `decimals` fraction digits
+ * formatNumber(1000, 2); // => '1,000.00'
+ * formatMoney(0, 2); // => '0.00'
+ *
+ * // Dynamic precision – fraction only shown when it is significant
+ * formatNumber(1000, 2, true); // => '1,000'
+ * formatNumber(1000.5, 2, true); // => '1,000.5'
+ * formatNumber(1000.05, 2, true); // => '1,000.05'
+ *
+ * // Non-finite values never carry a fraction
+ * formatNumber(NaN, 2); // => 'NaN'
+ * formatNumber(Infinity, 2); // => '∞'
  * ```
  */
-export function formatNumber(num: number | string, decimals?: number): string {
+export function formatNumber(num: number | string, decimals?: number, trimZeros = false): string {
+  const numVal = Number(num);
+  // Non-finite values have no meaningful fraction, so render them symbolically
+  // before any precision logic runs.
+  if (Number.isNaN(numVal)) return 'NaN';
+  if (numVal === Infinity) return '∞';
+  if (numVal === -Infinity) return '-∞';
+
   if (isNullish(decimals)) {
     return addThousandsSeparators(parseInt(String(num)));
   }
@@ -260,8 +272,20 @@ export function formatNumber(num: number | string, decimals?: number): string {
   if (decimals > 0) {
     prec = decimals;
   }
-  const roundedValue = Number(Number(num).toFixed(prec));
-  return addThousandsSeparators(roundToLocalePrecision(roundedValue));
+
+  // Capture the sign separately so Math.abs() doesn't strip it; -0 must keep
+  // its sign to stay consistent with the decimals-less path.
+  const isNegative = Object.is(numVal, -0) || numVal < 0;
+  const fixedStr = Math.abs(numVal).toFixed(prec);
+  const [rawInteger, rawFraction = ''] = fixedStr.split('.');
+  const prefix = isNegative ? '-' : '';
+
+  if (prec > 0) {
+    const fraction = trimZeros ? trimTrailingZeroes(rawFraction) : padFraction(rawFraction, prec);
+    const integerPart = addThousandsSeparators(rawInteger);
+    return `${prefix}${integerPart}${fraction ? `.${fraction}` : ''}`;
+  }
+  return `${prefix}${addThousandsSeparators(rawInteger)}`;
 }
 export { formatNumber as formatMoney };
 

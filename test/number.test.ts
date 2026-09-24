@@ -150,15 +150,52 @@ test('formatNumber 格式化', () => {
     floatMoney = 123456.789,
     decimalMoney = -2330.123456;
   expect(formatNumber(money)).toBe('123,456,789');
+  expect(formatNumber(decimalMoney)).toBe('-2,330');
+  expect(formatNumber(decimalMoney, 5)).toBe('-2,330.12346');
+  // When decimals is explicitly set it is always honoured – trailing zeroes never silently dropped.
+  expect(formatNumber(money, 2)).toBe('123,456,789.00');
   expect(formatNumber(floatMoney, 2)).toBe('123,456.79');
   expect(formatNumber(floatMoney, -1)).toBe('123,457');
   expect(formatNumber(-123456.789, 2)).toBe('-123,456.79');
-  expect(formatNumber(1e21, 2)).toBe('1,000,000,000,000,000,000,000');
-  expect(formatNumber(1.23456789, 4)).toBe('1.235');
-  expect(formatNumber(1e-7, 8)).toBe('0');
-  expect(formatNumber(decimalMoney, 4)).toBe('-2,330.124');
-  expect(formatNumber('-0')).toBe('-0');
+  // Large number with forced 2 decimals shows .00
+  expect(formatNumber(1e21, 2)).toBe('1,000,000,000,000,000,000,000.00');
+  // No longer capped at 3 fraction digits when decimals is specified
+  expect(formatNumber(1.23456789, 4)).toBe('1.2346');
+  // Small number with padding
+  expect(formatNumber(1e-7, 8)).toBe('0.00000010');
+  expect(formatNumber(decimalMoney, 4)).toBe('-2,330.1235');
+  expect(formatNumber('-0')).toBe('-0'); // preserves negative zero sign
+  expect(formatNumber('-0', 2)).toBe('-0.00'); // forced precision keeps the -0 sign
+  expect(formatNumber(-0, 2)).toBe('-0.00');
   expect(formatNumber('invalid')).toBe('NaN');
+  expect(formatNumber('invalid', 2)).toBe('NaN');
+  // 非有限值永远不带小数部分（NaN/Infinity 不是十进制数量）
+  expect(formatNumber(NaN, 2)).toBe('NaN');
+  expect(formatNumber(Infinity, 2)).toBe('∞');
+  expect(formatNumber(-Infinity, 2)).toBe('-∞');
+  expect(formatNumber(Infinity)).toBe('∞');
+});
+
+test('formatNumber trimZeros 动态小数位', () => {
+  // 整数不再强制补 '.00'
+  expect(formatNumber(1000, 2, true)).toBe('1,000');
+  expect(formatNumber(0, 2, true)).toBe('0');
+  expect(formatNumber(-0, 2, true)).toBe('-0');
+  expect(formatNumber(-1000, 2, true)).toBe('-1,000');
+  // 有效小数仍然保留，仅去掉多余的尾随零
+  expect(formatNumber(1000.5, 2, true)).toBe('1,000.5');
+  expect(formatNumber(1000.05, 2, true)).toBe('1,000.05');
+  expect(formatNumber(1.1, 3, true)).toBe('1.1');
+  expect(formatNumber(3.14159, 4, true)).toBe('3.1416');
+  // 四舍五入后小数部分消失时，小数点一并移除
+  expect(formatNumber(0.001, 2, true)).toBe('0');
+  // 大数、特殊值
+  expect(formatNumber(1e21, 2, true)).toBe('1,000,000,000,000,000,000,000');
+  expect(formatNumber(NaN, 2, true)).toBe('NaN');
+  expect(formatNumber(Infinity, 2, true)).toBe('∞');
+  // 默认值保持强制精度（向后兼容）
+  expect(formatNumber(1000, 2)).toBe('1,000.00');
+  expect(formatNumber(1000, 2, false)).toBe('1,000.00');
 });
 
 test('formatNumber 不依赖 toLocaleString', () => {
