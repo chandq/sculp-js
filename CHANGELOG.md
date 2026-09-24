@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.21.0](https://github.com/chandq/sculp-js/compare/v1.20.0...v1.21.0) (2026-09-24)
+
+### Features
+
+- **date:** add DateUnit parameter to dateToStart/dateToEnd ([da15319](https://github.com/chandq/sculp-js/commit/da1531945262d218e9703045ce5568fd157bad87))
+- **number:** honour requested decimals in formatNumber and add trimZeros option ([f17e452](https://github.com/chandq/sculp-js/commit/f17e45207f34e397baedb02456e13730476a6bba))
+
+### Bug Fixes
+
+- update .gitattributes ([a62ddff](https://github.com/chandq/sculp-js/commit/a62ddffe35b8998a5c79176e3f6d198fdd5ef1ca))
+
 ## [1.20.0](https://github.com/chandq/sculp-js/compare/v1.19.14...v1.20.0) (2026-09-20)
 
 ### Features
