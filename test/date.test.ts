@@ -66,6 +66,24 @@ test('.dateToStart', () => {
   expect(d2.getMilliseconds()).toBe(0);
 });
 
+test('.dateToStart 粒度重置', () => {
+  const base = '2024-06-15 18:30:45.123';
+
+  // 默认按日，与原有行为一致
+  expect(formatDate(dateToStart(base), 'YYYY-MM-DD HH:mm:ss SSS')).toBe('2024-06-15 00:00:00 000');
+
+  expect(formatDate(dateToStart(base, 'year'), 'YYYY-MM-DD HH:mm:ss SSS')).toBe('2024-01-01 00:00:00 000');
+  expect(formatDate(dateToStart(base, 'month'), 'YYYY-MM-DD HH:mm:ss SSS')).toBe('2024-06-01 00:00:00 000');
+  expect(formatDate(dateToStart(base, 'day'), 'YYYY-MM-DD HH:mm:ss SSS')).toBe('2024-06-15 00:00:00 000');
+  expect(formatDate(dateToStart(base, 'hour'), 'YYYY-MM-DD HH:mm:ss SSS')).toBe('2024-06-15 18:00:00 000');
+  expect(formatDate(dateToStart(base, 'minute'), 'YYYY-MM-DD HH:mm:ss SSS')).toBe('2024-06-15 18:30:00 000');
+  expect(formatDate(dateToStart(base, 'second'), 'YYYY-MM-DD HH:mm:ss SSS')).toBe('2024-06-15 18:30:45 000');
+
+  // 不支持的粒度
+  // @ts-expect-error 传入非法粒度应抛出异常
+  expect(() => dateToStart(base, 'week')).toThrow('不支持的日期粒度');
+});
+
 test('.dateToEnd', () => {
   const d1 = new Date();
   const d2 = dateToEnd(d1);
@@ -77,6 +95,29 @@ test('.dateToEnd', () => {
   expect(d2.getMinutes()).toBe(59);
   expect(d2.getSeconds()).toBe(59);
   expect(d2.getMilliseconds()).toBe(999);
+});
+
+test('.dateToEnd 粒度重置', () => {
+  const base = '2024-06-15 18:30:45.123';
+
+  // 默认按日，与原有行为一致
+  expect(formatDate(dateToEnd(base), 'YYYY-MM-DD HH:mm:ss SSS')).toBe('2024-06-15 23:59:59 999');
+
+  expect(formatDate(dateToEnd(base, 'year'), 'YYYY-MM-DD HH:mm:ss SSS')).toBe('2024-12-31 23:59:59 999');
+  // 闰年月末边界
+  expect(formatDate(dateToEnd('2024-02-10 18:30:45.123', 'month'), 'YYYY-MM-DD HH:mm:ss SSS')).toBe(
+    '2024-02-29 23:59:59 999'
+  );
+  expect(formatDate(dateToEnd('2023-02-10', 'month'), 'YYYY-MM-DD HH:mm:ss SSS')).toBe('2023-02-28 23:59:59 999');
+  expect(formatDate(dateToEnd('2024-12-15', 'month'), 'YYYY-MM-DD HH:mm:ss SSS')).toBe('2024-12-31 23:59:59 999');
+  expect(formatDate(dateToEnd('2023-12-15', 'year'), 'YYYY-MM-DD HH:mm:ss SSS')).toBe('2023-12-31 23:59:59 999');
+  expect(formatDate(dateToEnd(base, 'hour'), 'YYYY-MM-DD HH:mm:ss SSS')).toBe('2024-06-15 18:59:59 999');
+  expect(formatDate(dateToEnd(base, 'minute'), 'YYYY-MM-DD HH:mm:ss SSS')).toBe('2024-06-15 18:30:59 999');
+  expect(formatDate(dateToEnd(base, 'second'), 'YYYY-MM-DD HH:mm:ss SSS')).toBe('2024-06-15 18:30:45 999');
+
+  // 不支持的粒度
+  // @ts-expect-error 传入非法粒度应抛出异常
+  expect(() => dateToEnd(base, 'week')).toThrow('不支持的日期粒度');
 });
 
 test('.calculateDate', () => {

@@ -70,24 +70,106 @@ export function dateParse(value: DateValue): Date {
 }
 
 /**
- * 将日期转换为一天的开始时间（00:00:00.000）
- * @param {DateValue} value
- * @returns {Date}
+ * 日期重置粒度单位，用于 dateToStart / dateToEnd
+ * - `year`：年 | `month`：月 | `day`：日（默认）| `hour`：时 | `minute`：分 | `second`：秒
  */
-export function dateToStart(value: DateValue): Date {
+export type DateUnit = 'year' | 'month' | 'day' | 'hour' | 'minute' | 'second';
+
+/**
+ * 将日期截断到指定粒度的起始时刻（内部使用，毫秒始终归零）
+ * @param {DateValue} value - 时间戳、字符串或 Date 对象
+ * @param {DateUnit} unit - 重置粒度
+ * @returns {Date} 该粒度区间起点的 Date 对象
+ */
+function startOfUnit(value: DateValue, unit: DateUnit): Date {
   const d = dateParse(value);
-  return new Date(d.getFullYear(), d.getMonth(), d.getDate(), 0, 0, 0, 0);
+  switch (unit) {
+    case 'year':
+      return new Date(d.getFullYear(), 0, 1);
+    case 'month':
+      return new Date(d.getFullYear(), d.getMonth(), 1);
+    case 'day':
+      return new Date(d.getFullYear(), d.getMonth(), d.getDate(), 0, 0, 0, 0);
+    case 'hour':
+      return new Date(d.getFullYear(), d.getMonth(), d.getDate(), d.getHours(), 0, 0, 0);
+    case 'minute':
+      return new Date(d.getFullYear(), d.getMonth(), d.getDate(), d.getHours(), d.getMinutes(), 0, 0);
+    case 'second':
+      return new Date(d.getFullYear(), d.getMonth(), d.getDate(), d.getHours(), d.getMinutes(), d.getSeconds(), 0);
+    default:
+      throw new Error(`不支持的日期粒度：${String(unit)}`);
+  }
 }
 
 /**
- * 将日期转换为一天的结束时间（23:59:59.999）
- * @param {DateValue} value
- * @returns {Date}
+ * 按指定粒度对日期进行偏移（内部使用，供 dateToEnd 计算下一区间起点）
+ * @param {Date} d - 被偏移的 Date 对象（原地修改）
+ * @param {DateUnit} unit - 重置粒度
+ * @param {number} amount - 偏移数量
  */
-export function dateToEnd(value: DateValue): Date {
-  const d = dateToStart(value);
-  d.setDate(d.getDate() + 1);
-  return dateParse(d.getTime() - 1);
+function addToUnit(d: Date, unit: DateUnit, amount: number): void {
+  switch (unit) {
+    case 'year':
+      d.setFullYear(d.getFullYear() + amount);
+      break;
+    case 'month':
+      d.setMonth(d.getMonth() + amount);
+      break;
+    case 'day':
+      d.setDate(d.getDate() + amount);
+      break;
+    case 'hour':
+      d.setHours(d.getHours() + amount);
+      break;
+    case 'minute':
+      d.setMinutes(d.getMinutes() + amount);
+      break;
+    case 'second':
+      d.setSeconds(d.getSeconds() + amount);
+      break;
+  }
+}
+
+/**
+ * 将日期转换为指定粒度的起始时间，粒度小于等于天时低于粒度的单位全部归零，
+ * 粒度大于等于小时时毫秒一并归零。默认按「日」重置（00:00:00.000），与原行为一致。
+ * @param {DateValue} value - 时间戳、字符串或 Date 对象
+ * @param {DateUnit} [unit] - 重置粒度，默认 `'day'`
+ * @returns {Date} 该粒度起始时间的 Date 对象
+ * @example
+ * ```ts
+ * dateToStart('2024-06-15 18:30:45.123'); // => 2024-06-15 00:00:00.000（默认，按日）
+ * dateToStart('2024-06-15 18:30:45.123', 'year'); // => 2024-01-01 00:00:00.000
+ * dateToStart('2024-06-15 18:30:45.123', 'month'); // => 2024-06-01 00:00:00.000
+ * dateToStart('2024-06-15 18:30:45.123', 'hour'); // => 2024-06-15 18:00:00.000
+ * dateToStart('2024-06-15 18:30:45.123', 'minute'); // => 2024-06-15 18:30:00.000
+ * dateToStart('2024-06-15 18:30:45.123', 'second'); // => 2024-06-15 18:30:45.000
+ * ```
+ */
+export function dateToStart(value: DateValue, unit: DateUnit = 'day'): Date {
+  return startOfUnit(value, unit);
+}
+
+/**
+ * 将日期转换为指定粒度的结束时间（该粒度区间最后一毫秒）。默认按「日」重置
+ * （23:59:59.999），与原行为一致。
+ * @param {DateValue} value - 时间戳、字符串或 Date 对象
+ * @param {DateUnit} [unit] - 重置粒度，默认 `'day'`
+ * @returns {Date} 该粒度结束时间的 Date 对象
+ * @example
+ * ```ts
+ * dateToEnd('2024-06-15 18:30:45.123'); // => 2024-06-15 23:59:59.999（默认，按日）
+ * dateToEnd('2024-06-15 18:30:45.123', 'year'); // => 2024-12-31 23:59:59.999
+ * dateToEnd('2024-02-10 18:30:45.123', 'month'); // => 2024-02-29 23:59:59.999（闰年）
+ * dateToEnd('2024-06-15 18:30:45.123', 'hour'); // => 2024-06-15 18:59:59.999
+ * dateToEnd('2024-06-15 18:30:45.123', 'minute'); // => 2024-06-15 18:30:59.999
+ * dateToEnd('2024-06-15 18:30:45.123', 'second'); // => 2024-06-15 18:30:45.999
+ * ```
+ */
+export function dateToEnd(value: DateValue, unit: DateUnit = 'day'): Date {
+  const d = startOfUnit(value, unit);
+  addToUnit(d, unit, 1);
+  return new Date(d.getTime() - 1);
 }
 
 /**
