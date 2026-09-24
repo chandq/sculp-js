@@ -127,10 +127,18 @@ export function humanFileSize(
 }
 
 /**
- * 将数字格式化成千位分隔符显示的字符串
- * @param {number|string} num 数字
- * @param {number} decimals 格式化成指定小数位精度的参数
- * @returns {string}
+ * Expands a numeric string written in exponential notation (e.g. `1.5e-7` or
+ * `2e+21`) into its plain decimal form, so that thousands separators can be
+ * applied without accidentally reformatting the exponent. Strings that are
+ * not in exponential form are returned unchanged.
+ * @param {string} value the string representation of a number
+ * @returns {string} the expanded plain decimal string
+ * @example
+ * ```ts
+ * expandExponential('1.5e+3'); // => '1500'
+ * expandExponential('1e-7'); // => '0.0000001'
+ * expandExponential('1234.5'); // => '1234.5' (unchanged)
+ * ```
  */
 function expandExponential(value: string): string {
   const match = /^([+-]?)(\d+)(?:\.(\d*))?[eE]([+-]?\d+)$/.exec(value);
@@ -149,6 +157,20 @@ function expandExponential(value: string): string {
   return `${sign}${digits.slice(0, decimalIndex)}.${digits.slice(decimalIndex)}`;
 }
 
+/**
+ * Converts a number to a decimal string with comma thousands separators
+ * applied to the integer part, keeping the fraction digits unchanged.
+ * Special values are rendered as `NaN`, `∞` or `-∞`, and negative zero
+ * preserves its sign.
+ * @param {number} value the number to format
+ * @returns {string} the grouped decimal string
+ * @example
+ * ```ts
+ * addThousandsSeparators(1234567.891); // => '1,234,567.891'
+ * addThousandsSeparators(NaN); // => 'NaN'
+ * addThousandsSeparators(-0); // => '-0'
+ * ```
+ */
 function addThousandsSeparators(value: number): string {
   if (Number.isNaN(value)) return 'NaN';
   if (value === Infinity) return '∞';
@@ -165,8 +187,20 @@ function addThousandsSeparators(value: number): string {
 }
 
 /**
- * `Number#toLocaleString('en-US')` 默认最多保留 3 位小数。这里保留原函数的该行为，
- * 同时避免依赖小程序环境中可能缺失或实现不一致的 Intl。
+ * Rounds a number to at most three fraction digits, reproducing the default
+ * behavior of `Number#toLocaleString('en-US')`, which limits output to 3
+ * decimals. Performs the rounding on the expanded decimal string so that no
+ * reliance is placed on `Intl`, which may be missing or implemented
+ * inconsistently in mini-program environments. Values that are non-finite or
+ * have a magnitude of 1e21 or greater are returned as-is.
+ * @param {number} value the number to round
+ * @returns {number} the value rounded to locale-equivalent precision
+ * @example
+ * ```ts
+ * roundToLocalePrecision(1.2345); // => 1.235
+ * roundToLocalePrecision(0.9999); // => 1
+ * roundToLocalePrecision(123.456); // => 123.456 (unchanged)
+ * ```
  */
 function roundToLocalePrecision(value: number): number {
   if (!Number.isFinite(value) || Math.abs(value) >= 1e21) return value;
@@ -198,6 +232,26 @@ function roundToLocalePrecision(value: number): number {
   return Number(rounded);
 }
 
+/**
+ * Formats a number into a string with comma thousands separators.
+ *
+ * When `decimals` is omitted, the input is truncated to an integer (like
+ * `parseInt`) and grouped. When `decimals` is provided, the value is rounded
+ * to that many fraction digits first; the result is additionally capped at
+ * three fraction digits to mirror the default precision of
+ * `Number#toLocaleString('en-US')`.
+ * @param {number | string} num the number or numeric string to format
+ * @param {number} [decimals] the number of fraction digits to keep; non-positive
+ * values are treated as `0`
+ * @returns {string} the formatted number string
+ * @example
+ * ```ts
+ * formatNumber(1234567.891); // => '1,234,567' (truncated without decimals)
+ * formatNumber(98765.4321, 2); // => '98,765.43'
+ * formatNumber(1234567.891, 3); // => '1,234,567.891'
+ * formatNumber(3.14159, 4); // => '3.142' (capped at 3 fraction digits)
+ * ```
+ */
 export function formatNumber(num: number | string, decimals?: number): string {
   if (isNullish(decimals)) {
     return addThousandsSeparators(parseInt(String(num)));

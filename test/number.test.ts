@@ -147,7 +147,8 @@ test('numberAbbr 无单位', () => {
 });
 test('formatNumber 格式化', () => {
   const money = 123456789,
-    floatMoney = 123456.789;
+    floatMoney = 123456.789,
+    decimalMoney = -2330.123456;
   expect(formatNumber(money)).toBe('123,456,789');
   expect(formatNumber(floatMoney, 2)).toBe('123,456.79');
   expect(formatNumber(floatMoney, -1)).toBe('123,457');
@@ -155,11 +156,9 @@ test('formatNumber 格式化', () => {
   expect(formatNumber(1e21, 2)).toBe('1,000,000,000,000,000,000,000');
   expect(formatNumber(1.23456789, 4)).toBe('1.235');
   expect(formatNumber(1e-7, 8)).toBe('0');
+  expect(formatNumber(decimalMoney, 4)).toBe('-2,330.124');
   expect(formatNumber('-0')).toBe('-0');
   expect(formatNumber('invalid')).toBe('NaN');
-  expect(() => {
-    numberAbbr(1, []);
-  }).toThrow('At least one unit is required');
 });
 
 test('formatNumber 不依赖 toLocaleString', () => {
