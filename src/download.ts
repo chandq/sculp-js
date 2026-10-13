@@ -88,7 +88,7 @@ export type CrossOriginDownloadParams = {
 };
 
 /**
- * 下载失败；onProgress 抛出的异常保留原样，不转换为此类型。
+ * 下载失败。message 描述具体原因，程序判断使用 code；onProgress 抛出的异常保留原样。
  * @public
  */
 export class CrossOriginDownloadError extends Error {
@@ -110,8 +110,14 @@ export class CrossOriginDownloadError extends Error {
   /** 底层异常或取消原因。 */
   cause?: unknown;
 
-  constructor(code: CrossOriginDownloadError['code'], status = 0, cause?: unknown) {
-    super(`Download failed: ${code} (status ${status})`);
+  /**
+   * @param code - 稳定错误码，用于程序判断。
+   * @param status - HTTP 状态码，默认 0。
+   * @param cause - 原始异常或取消原因。
+   * @param reason - 可选的具体原因，追加到 message。
+   */
+  constructor(code: CrossOriginDownloadError['code'], status = 0, cause?: unknown, reason?: string) {
+    super(`Download failed: ${code} (status ${status})${reason ? `: ${reason}` : ''}`);
     this.name = 'CrossOriginDownloadError';
     this.code = code;
     this.status = status;
@@ -263,28 +269,46 @@ export function crossOriginDownload(url: string, filename: string, options?: Cro
     direction: 'download',
     responseType: 'blob',
     isSuccess: status => status === successCode,
-    error: (code, status, cause) =>
-      new CrossOriginDownloadError(code === 'NETWORK_ERROR' ? 'ERROR_CONNECTION_REFUSED' : code, status, cause),
+    error: (code, status, cause, reason) =>
+      new CrossOriginDownloadError(code === 'NETWORK_ERROR' ? 'ERROR_CONNECTION_REFUSED' : code, status, cause, reason),
     validate: () => {
+      if (typeof document === 'undefined') {
+        throw new CrossOriginDownloadError(
+          'UNSUPPORTED_ENVIRONMENT',
+          0,
+          undefined,
+          'Saving a download requires a browser document.'
+        );
+      }
       if (
-        typeof document === 'undefined' ||
         typeof URL === 'undefined' ||
         typeof URL.createObjectURL !== 'function' ||
         typeof URL.revokeObjectURL !== 'function'
       ) {
-        throw new CrossOriginDownloadError('UNSUPPORTED_ENVIRONMENT');
+        throw new CrossOriginDownloadError(
+          'UNSUPPORTED_ENVIRONMENT',
+          0,
+          undefined,
+          'Saving a download requires URL.createObjectURL and URL.revokeObjectURL.'
+        );
       }
     },
     consume: async ({ status, body, contentType }, context) => {
       const blob = body as Blob;
       if (status !== successCode) {
-        const error = new CrossOriginDownloadError('HTTP_ERROR', status);
+        const error = new CrossOriginDownloadError(
+          'HTTP_ERROR',
+          status,
+          undefined,
+          `Expected HTTP status ${successCode}.`
+        );
         error.response = blob;
         if (contentType?.toLowerCase().includes('application/json')) {
           try {
             error.response = await context.readText(blob);
           } catch (cause) {
             error.cause = cause;
+            error.message += ' Failed to read the JSON error response body.';
           }
         }
         throw error;
@@ -292,7 +316,12 @@ export function crossOriginDownload(url: string, filename: string, options?: Cro
       try {
         await saveDownloadBlob(blob, filename, context.commit);
       } catch (cause) {
-        throw new CrossOriginDownloadError('DOWNLOAD_ERROR', status, cause);
+        throw new CrossOriginDownloadError(
+          'DOWNLOAD_ERROR',
+          status,
+          cause,
+          'Failed to trigger browser saving or clean up download resources.'
+        );
       }
     }
   });

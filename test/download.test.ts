@@ -323,34 +323,66 @@ describe('download functions', () => {
       expect(failCallback).not.toHaveBeenCalled();
     });
 
+    it('preserves error constructor arguments and supports an optional reason', () => {
+      const cause = new Error('underlying failure');
+      const error = new CrossOriginDownloadError('DOWNLOAD_ERROR', 200, cause);
+      expect(error).toBeInstanceOf(Error);
+      expect(error.cause).toBe(cause);
+      expect(error.message).toBe('Download failed: DOWNLOAD_ERROR (status 200)');
+      expect(new CrossOriginDownloadError('DOWNLOAD_ERROR', 200, cause, 'Saving failed.').message).toBe(
+        'Download failed: DOWNLOAD_ERROR (status 200): Saving failed.'
+      );
+    });
+
+    it('explains when saving is unavailable without a document', async () => {
+      const descriptor = Object.getOwnPropertyDescriptor(globalThis, 'document')!;
+      setGlobal('document', undefined);
+      try {
+        await expect(crossOriginDownload(url, filename)).rejects.toMatchObject({
+          code: 'UNSUPPORTED_ENVIRONMENT',
+          message: expect.stringContaining('Saving a download requires a browser document.')
+        });
+        expect(fetchMock).not.toHaveBeenCalled();
+        expect(xhr.send).not.toHaveBeenCalled();
+      } finally {
+        Object.defineProperty(globalThis, 'document', descriptor);
+      }
+    });
+
     it('rejects explicit fetch with progress before making a request', async () => {
       await expect(
         crossOriginDownload(url, filename, { transport: 'fetch', onProgress: jest.fn() })
-      ).rejects.toMatchObject({ code: 'INVALID_OPTIONS', status: 0 });
+      ).rejects.toMatchObject({
+        code: 'INVALID_OPTIONS',
+        status: 0,
+        message: expect.stringContaining('onProgress requires XHR; use transport "auto" or "xhr".')
+      });
       expect(fetchMock).not.toHaveBeenCalled();
       expect(xhr.open).not.toHaveBeenCalled();
     });
 
-    it.each(['fetch', 'xhr', 'progress', 'dom'] as const)(
-      'rejects unavailable %s without silently changing capabilities',
-      async unavailable => {
-        if (unavailable === 'fetch') setGlobal('fetch', undefined);
-        if (unavailable === 'xhr' || unavailable === 'progress') setGlobal('XMLHttpRequest', undefined);
-        if (unavailable === 'dom') globalThis.URL.createObjectURL = undefined as unknown as typeof URL.createObjectURL;
-        try {
-          await expect(
-            crossOriginDownload(url, filename, {
-              transport: unavailable === 'fetch' ? 'fetch' : unavailable === 'xhr' ? 'xhr' : 'auto',
-              onProgress: unavailable === 'progress' ? jest.fn() : undefined
-            })
-          ).rejects.toMatchObject({ code: 'UNSUPPORTED_ENVIRONMENT' });
-          expect(fetchMock).not.toHaveBeenCalled();
-          expect(xhr.send).not.toHaveBeenCalled();
-        } finally {
-          globalThis.URL.createObjectURL = mockCreateObjectURL;
-        }
+    it.each([
+      ['fetch', 'fetch is not available'],
+      ['xhr', 'XMLHttpRequest is not available'],
+      ['progress', 'onProgress requires XMLHttpRequest'],
+      ['dom', 'Saving a download requires URL.createObjectURL and URL.revokeObjectURL.']
+    ] as const)('rejects unavailable %s without silently changing capabilities', async (unavailable, reason) => {
+      if (unavailable === 'fetch') setGlobal('fetch', undefined);
+      if (unavailable === 'xhr' || unavailable === 'progress') setGlobal('XMLHttpRequest', undefined);
+      if (unavailable === 'dom') globalThis.URL.createObjectURL = undefined as unknown as typeof URL.createObjectURL;
+      try {
+        await expect(
+          crossOriginDownload(url, filename, {
+            transport: unavailable === 'fetch' ? 'fetch' : unavailable === 'xhr' ? 'xhr' : 'auto',
+            onProgress: unavailable === 'progress' ? jest.fn() : undefined
+          })
+        ).rejects.toMatchObject({ code: 'UNSUPPORTED_ENVIRONMENT', message: expect.stringContaining(reason) });
+        expect(fetchMock).not.toHaveBeenCalled();
+        expect(xhr.send).not.toHaveBeenCalled();
+      } finally {
+        globalThis.URL.createObjectURL = mockCreateObjectURL;
       }
-    );
+    });
 
     it.each(['fetch', 'xhr'] as const)('passes request headers through %s', async transport => {
       const headers = { Authorization: 'Bearer token', 'X-Export': 'yes' };
@@ -486,6 +518,7 @@ describe('download functions', () => {
         expect(error).toBeInstanceOf(CrossOriginDownloadError);
         expect(error.code).toBe('HTTP_ERROR');
         expect(error.status).toBe(201);
+        expect(error.message).toContain('Expected HTTP status 200.');
         expect(error.response).toBe(blob);
         expect(mockClick).not.toHaveBeenCalled();
         expect(xhr.abort).not.toHaveBeenCalled();
@@ -522,6 +555,7 @@ describe('download functions', () => {
       await expect(crossOriginDownload(url, filename)).rejects.toMatchObject({
         status: 403,
         code: 'HTTP_ERROR',
+        message: expect.stringContaining('Failed to read the JSON error response body.'),
         cause
       });
       expect(xhr.send).not.toHaveBeenCalled();
@@ -549,7 +583,8 @@ describe('download functions', () => {
       await expect(crossOriginDownload(url, filename)).rejects.toMatchObject({
         status,
         cause,
-        code: status === 200 ? 'ERROR_CONNECTION_REFUSED' : 'HTTP_ERROR'
+        code: status === 200 ? 'ERROR_CONNECTION_REFUSED' : 'HTTP_ERROR',
+        message: expect.stringContaining('Failed to read the response body.')
       });
       expect(xhr.send).not.toHaveBeenCalled();
     });

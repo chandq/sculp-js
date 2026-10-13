@@ -168,7 +168,9 @@ describe('upload', () => {
           : new NativeHeaders({ 'Content-Type': 'multipart/form-data' });
       for (const transport of ['fetch', 'xhr'] as const) {
         await expect(upload('/files', new NativeFormData(), { transport, headers })).rejects.toMatchObject({
-          code: 'INVALID_OPTIONS'
+          code: 'INVALID_OPTIONS',
+          message: expect.stringContaining('Do not set Content-Type for FormData'),
+          cause: expect.any(TypeError)
         });
       }
       expect(fetchMock).not.toHaveBeenCalled();
@@ -177,32 +179,65 @@ describe('upload', () => {
   );
 
   it.each([
-    { method: 'GET' },
-    { responseType: 'xml' },
-    { transport: 'invalid' },
-    { onProgress: true },
-    { transport: 'fetch', onProgress: () => {} }
-  ])('rejects invalid options before sending: %p', async options => {
-    await expect(upload('/files', file, options as UploadOptions)).rejects.toMatchObject({ code: 'INVALID_OPTIONS' });
+    [{ method: 'GET' }, 'method must be "POST" or "PUT".'],
+    [{ responseType: 'xml' }, 'responseType must be "json", "text", or "blob".'],
+    [{ transport: 'invalid' }, 'transport must be "auto", "fetch", or "xhr".'],
+    [{ onProgress: true }, 'onProgress must be a function.'],
+    [{ transport: 'fetch', onProgress: () => {} }, 'onProgress requires XHR; use transport "auto" or "xhr".']
+  ] as const)('rejects invalid options before sending: %p', async (options, reason) => {
+    await expect(upload('/files', file, options as UploadOptions)).rejects.toMatchObject({
+      code: 'INVALID_OPTIONS',
+      status: 0,
+      message: expect.stringContaining(reason)
+    });
     expect(fetchMock).not.toHaveBeenCalled();
     expect(xhr.open).not.toHaveBeenCalled();
   });
 
   it.each([null, 'text', {}, new Uint8Array(2)])('rejects unsupported request body %p', async body => {
-    await expect(upload('/files', body as Blob)).rejects.toMatchObject({ code: 'INVALID_OPTIONS' });
+    await expect(upload('/files', body as Blob)).rejects.toMatchObject({
+      code: 'INVALID_OPTIONS',
+      message: expect.stringContaining('body must be a FormData, Blob, or File.')
+    });
     expect(fetchMock).not.toHaveBeenCalled();
   });
 
-  it.each(['fetch', 'xhr', 'progress'] as const)('rejects unavailable %s without losing progress', async missing => {
+  it.each([
+    ['fetch', 'fetch is not available'],
+    ['xhr', 'XMLHttpRequest is not available'],
+    ['progress', 'onProgress requires XMLHttpRequest']
+  ] as const)('rejects unavailable %s without losing progress', async (missing, reason) => {
     setGlobal(missing === 'fetch' ? 'fetch' : 'XMLHttpRequest', undefined);
     await expect(
       upload('/files', file, {
         transport: missing === 'progress' ? 'auto' : missing,
         onProgress: missing === 'progress' ? jest.fn() : undefined
       })
-    ).rejects.toMatchObject({ code: 'UNSUPPORTED_ENVIRONMENT' });
+    ).rejects.toMatchObject({ code: 'UNSUPPORTED_ENVIRONMENT', message: expect.stringContaining(reason) });
     expect(fetchMock).not.toHaveBeenCalled();
     expect(xhr.send).not.toHaveBeenCalled();
+  });
+
+  it('explains when auto has no available transport', async () => {
+    setGlobal('fetch', undefined);
+    setGlobal('XMLHttpRequest', undefined);
+    await expect(upload('/files', file)).rejects.toMatchObject({
+      code: 'UNSUPPORTED_ENVIRONMENT',
+      message: expect.stringContaining('Neither fetch nor XMLHttpRequest is available')
+    });
+    expect(fetchMock).not.toHaveBeenCalled();
+    expect(xhr.send).not.toHaveBeenCalled();
+  });
+
+  it('preserves the error constructor arguments and supports an optional reason', () => {
+    const cause = new Error('underlying failure');
+    const error = new UploadError('NETWORK_ERROR', 0, cause);
+    expect(error).toBeInstanceOf(Error);
+    expect(error.cause).toBe(cause);
+    expect(error.message).toBe('Upload failed: NETWORK_ERROR (status 0)');
+    expect(new UploadError('NETWORK_ERROR', 0, cause, 'Request failed.').message).toBe(
+      'Upload failed: NETWORK_ERROR (status 0): Request failed.'
+    );
   });
 
   it.each(['fetch', 'xhr'] as const)('accepts all 2xx and returns empty 204/205 results on %s', async transport => {
@@ -251,6 +286,7 @@ describe('upload', () => {
       await expect(task).rejects.toMatchObject({
         status: 200,
         code: 'RESPONSE_ERROR',
+        message: expect.stringContaining('Failed to parse the response body as JSON.'),
         response: '<html>not json</html>',
         cause: expect.any(SyntaxError)
       });
@@ -263,7 +299,12 @@ describe('upload', () => {
     xhr.response = 'too large';
     const task = upload('/files', file, { transport });
     if (transport === 'xhr') xhr.onload!(progress());
-    await expect(task).rejects.toMatchObject({ code: 'HTTP_ERROR', status: 413, response: 'too large' });
+    await expect(task).rejects.toMatchObject({
+      code: 'HTTP_ERROR',
+      status: 413,
+      response: 'too large',
+      message: expect.stringContaining('Expected an HTTP status between 200 and 299.')
+    });
   });
 
   it('retains error bodies as Blob when requested', async () => {
@@ -283,6 +324,7 @@ describe('upload', () => {
     fetchMock.mockResolvedValue(res);
     await expect(upload('/files', file)).rejects.toMatchObject({
       code: status === 201 ? 'NETWORK_ERROR' : 'HTTP_ERROR',
+      message: expect.stringContaining('Failed to read the response body.'),
       status,
       cause
     });
@@ -490,6 +532,23 @@ describe('upload', () => {
     xhr.onload!(progress());
     await task;
     expect(xhr.setRequestHeader).toHaveBeenCalledWith('Authorization', 'Bearer test');
+  });
+
+  it.each(['open', 'setRequestHeader'] as const)('identifies the failed XHR setup stage: %s', async stage => {
+    const cause = new TypeError('host setup failure');
+    xhr[stage].mockImplementationOnce(() => {
+      throw cause;
+    });
+    await expect(upload('/files', file, { transport: 'xhr', headers: { x: 'y' } })).rejects.toMatchObject({
+      code: 'INVALID_OPTIONS',
+      status: 0,
+      cause,
+      message: expect.stringContaining(
+        stage === 'open' ? 'Failed to open the XHR request.' : 'Failed to set the XHR request headers.'
+      )
+    });
+    expect(xhr.send).not.toHaveBeenCalled();
+    expect(fetchMock).not.toHaveBeenCalled();
   });
 
   it('cleans handlers and rejects if XHR setup or send fails', async () => {

@@ -34,7 +34,7 @@ interface TransferOptions<T> {
   direction: 'upload' | 'download';
   responseType: 'blob' | 'text';
   isSuccess: (status: number) => boolean;
-  error: (code: TransferCode, status: number, cause?: unknown) => Error;
+  error: (code: TransferCode, status: number, cause?: unknown, reason?: string) => Error;
   validate?: () => void;
   consume: (response: TransferResponse, context: TransferContext) => T | Promise<T>;
 }
@@ -119,7 +119,7 @@ export function transfer<T>(options: TransferOptions<T>): Promise<T> {
     const onAbort = () => {
       if (!active()) return;
       status = xhr?.status || status;
-      fail(error('ABORTED', status, signal?.reason), true);
+      fail(error('ABORTED', status, signal?.reason, 'The request was aborted by the provided AbortSignal.'), true);
     };
     const progress = (event?: ProgressEvent, done = false) => {
       if (!onProgress || !active() || progressDone) return;
@@ -154,7 +154,7 @@ export function transfer<T>(options: TransferOptions<T>): Promise<T> {
           try {
             if (reader.readyState === 1) reader.abort();
           } finally {
-            rejectText(error('ABORTED', status));
+            rejectText(error('ABORTED', status, undefined, 'Reading the response body was aborted.'));
           }
         };
         reader.onload = () => {
@@ -200,7 +200,7 @@ export function transfer<T>(options: TransferOptions<T>): Promise<T> {
     const networkFailure = (cause: unknown) => {
       if (!active()) return;
       if (signal?.aborted) onAbort();
-      else fail(error('NETWORK_ERROR', status, cause));
+      else fail(error('NETWORK_ERROR', status, cause, 'The network request failed; inspect cause for details.'));
     };
     const runFetch = async () => {
       try {
@@ -214,8 +214,15 @@ export function transfer<T>(options: TransferOptions<T>): Promise<T> {
           responseBody = await (responseType === 'blob' ? response.blob() : response.text());
         } catch (cause) {
           if (signal?.aborted) onAbort();
-          else if (!isSuccess(status)) fail(error('HTTP_ERROR', status, cause));
-          else networkFailure(cause);
+          else
+            fail(
+              error(
+                isSuccess(status) ? 'NETWORK_ERROR' : 'HTTP_ERROR',
+                status,
+                cause,
+                'Failed to read the response body.'
+              )
+            );
           return;
         }
         await complete({
@@ -234,12 +241,16 @@ export function transfer<T>(options: TransferOptions<T>): Promise<T> {
         networkFailure(cause);
       }
     };
-    if (
-      !['auto', 'fetch', 'xhr'].includes(transport) ||
-      (onProgress !== undefined && typeof onProgress !== 'function') ||
-      (transport === 'fetch' && onProgress !== undefined)
-    ) {
-      fail(error('INVALID_OPTIONS', 0));
+    if (!['auto', 'fetch', 'xhr'].includes(transport)) {
+      fail(error('INVALID_OPTIONS', 0, undefined, 'transport must be "auto", "fetch", or "xhr".'));
+      return;
+    }
+    if (onProgress !== undefined && typeof onProgress !== 'function') {
+      fail(error('INVALID_OPTIONS', 0, undefined, 'onProgress must be a function.'));
+      return;
+    }
+    if (transport === 'fetch' && onProgress !== undefined) {
+      fail(error('INVALID_OPTIONS', 0, undefined, 'onProgress requires XHR; use transport "auto" or "xhr".'));
       return;
     }
     if (signal?.aborted) {
@@ -249,7 +260,14 @@ export function transfer<T>(options: TransferOptions<T>): Promise<T> {
     const useXHR =
       transport === 'xhr' || (transport === 'auto' && (onProgress !== undefined || typeof fetch !== 'function'));
     if (useXHR ? typeof XMLHttpRequest !== 'function' : typeof fetch !== 'function') {
-      fail(error('UNSUPPORTED_ENVIRONMENT', 0));
+      const reason = !useXHR
+        ? 'fetch is not available in this environment.'
+        : onProgress !== undefined
+        ? 'onProgress requires XMLHttpRequest, which is not available in this environment.'
+        : transport === 'auto'
+        ? 'Neither fetch nor XMLHttpRequest is available in this environment.'
+        : 'XMLHttpRequest is not available in this environment.';
+      fail(error('UNSUPPORTED_ENVIRONMENT', 0, undefined, reason));
       return;
     }
     try {
@@ -263,17 +281,23 @@ export function transfer<T>(options: TransferOptions<T>): Promise<T> {
       void runFetch();
       return;
     }
+    let setupStage = 'create XMLHttpRequest';
     try {
       const request = new XMLHttpRequest();
       xhr = request;
+      setupStage = 'register XHR upload progress listeners';
       // Register upload events before open/send for browser interoperability.
       if (direction === 'upload' && onProgress) {
         request.upload.onprogress = event => progress(event);
         request.upload.onload = event => progress(event, true);
       }
+      setupStage = 'open the XHR request';
       request.open(method, url, true);
+      setupStage = 'set the XHR responseType';
       request.responseType = responseType;
+      setupStage = 'set the XHR request headers';
       forEachHeader(headers, (name, value) => request.setRequestHeader(name, value));
+      setupStage = 'register XHR response listeners';
       request.onload = event => {
         if (!active() || receiving) return;
         receiving = true;
@@ -290,7 +314,7 @@ export function transfer<T>(options: TransferOptions<T>): Promise<T> {
       };
       request.onerror = networkFailure;
       request.onabort = () => {
-        if (active()) fail(error('ABORTED', status));
+        if (active()) fail(error('ABORTED', status, undefined, 'The XMLHttpRequest was aborted.'));
       };
       if (direction === 'download' && onProgress)
         request.onprogress = event => {
@@ -300,7 +324,7 @@ export function transfer<T>(options: TransferOptions<T>): Promise<T> {
           }
         };
     } catch (cause) {
-      fail(error('INVALID_OPTIONS', status, cause));
+      fail(error('INVALID_OPTIONS', status, cause, `Failed to ${setupStage}.`));
       return;
     }
     progress();
