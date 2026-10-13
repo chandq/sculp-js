@@ -10,6 +10,7 @@
     "build:core": "BUILD_TARGET=core rollup  --bundleConfigAsCjs --config rollup.config.js",
     "build:terser": "node scripts/build.js",
     "test:unit": "jest",
+    "test:browser-transfer": "node test/browser/transfer-smoke.mjs",
     "test": "jest --coverage",
     "coveralls": "jest --coverage --coverageReporters=text-lcov | coveralls",
     "lint": "eslint ./src --ext .vue,.js,jsx,.ts,tsx",
@@ -98,6 +99,9 @@
       ],
       "unique": [
         "./dist/types/unique.d.ts"
+      ],
+      "upload": [
+        "./dist/types/upload.d.ts"
       ],
       "url": [
         "./dist/types/url.d.ts"
@@ -285,6 +289,13 @@
       "require": "./dist/cjs/unique.cjs",
       "import": "./dist/esm/unique.mjs",
       "default": "./dist/esm/unique.mjs"
+    },
+    "./upload": {
+      "types": "./dist/types/upload.d.ts",
+      "node": "./dist/cjs/upload.cjs",
+      "require": "./dist/cjs/upload.cjs",
+      "import": "./dist/esm/upload.mjs",
+      "default": "./dist/esm/upload.mjs"
     },
     "./url": {
       "types": "./dist/types/url.d.ts",

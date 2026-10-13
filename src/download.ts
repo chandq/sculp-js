@@ -2,6 +2,7 @@
 import { LooseParams } from './qs';
 import { AnyObject, isFunction } from './type';
 import { urlSetParams } from './url';
+import { transfer } from './internal/transfer';
 
 /**
  * 通过打开新窗口的方式下载
@@ -171,17 +172,6 @@ function saveDownloadBlob(blob: Blob, filename: string, beforeClick: () => boole
   });
 }
 
-function setDownloadHeaders(xhr: XMLHttpRequest, headers?: HeadersInit): void {
-  if (!headers) return;
-  if (Array.isArray(headers)) {
-    headers.forEach(([name, value]) => xhr.setRequestHeader(name, value));
-  } else if (typeof headers.forEach === 'function') {
-    (headers as Headers).forEach((value, name) => xhr.setRequestHeader(name, value));
-  } else {
-    Object.entries(headers).forEach(([name, value]) => xhr.setRequestHeader(name, value));
-  }
-}
-
 /**
  * 下载跨域资源并触发浏览器保存，支持请求头、XHR 进度和取消。
  *
@@ -263,208 +253,47 @@ function setDownloadHeaders(xhr: XMLHttpRequest, headers?: HeadersInit): void {
 export function crossOriginDownload(url: string, filename: string, options?: CrossOriginDownloadParams): Promise<void> {
   const { successCode = 200, headers, onProgress, signal, transport = 'auto' } = options ?? {};
 
-  return new Promise((resolve, reject) => {
-    let state: 'active' | 'saving' | 'settled' = 'active';
-    const isSettled = () => state === 'settled';
-    let status = 0;
-    let xhr: XMLHttpRequest | undefined;
-    let cancelRead: (() => void) | undefined;
-    let receiving = false;
-
-    const cleanup = (stop = false) => {
-      signal?.removeEventListener('abort', onAbort);
-      if (xhr) {
-        xhr.onload = xhr.onerror = xhr.onabort = xhr.onprogress = null;
-        if (stop) xhr.abort();
-        xhr = undefined;
+  return transfer({
+    url,
+    method: 'GET',
+    headers,
+    signal,
+    transport,
+    onProgress,
+    direction: 'download',
+    responseType: 'blob',
+    isSuccess: status => status === successCode,
+    error: (code, status, cause) =>
+      new CrossOriginDownloadError(code === 'NETWORK_ERROR' ? 'ERROR_CONNECTION_REFUSED' : code, status, cause),
+    validate: () => {
+      if (
+        typeof document === 'undefined' ||
+        typeof URL === 'undefined' ||
+        typeof URL.createObjectURL !== 'function' ||
+        typeof URL.revokeObjectURL !== 'function'
+      ) {
+        throw new CrossOriginDownloadError('UNSUPPORTED_ENVIRONMENT');
       }
-      if (cancelRead) cancelRead();
-    };
-    const fail = (error: unknown, stop = false) => {
-      if (isSettled()) return;
-      state = 'settled';
-      try {
-        cleanup(stop);
-        reject(error);
-      } catch (cleanupError) {
-        reject(cleanupError);
-      }
-    };
-    const onAbort = () => {
-      if (state !== 'active') return;
-      // abort() 会重置 XHR.status；无进度监听时也须保留已经收到的 HTTP 状态。
-      status = xhr?.status || status;
-      fail(new CrossOriginDownloadError('ABORTED', status, signal?.reason), true);
-    };
-    const progress = (event?: ProgressEvent, done = false) => {
-      if (!onProgress || state !== 'active') return;
-      const loaded = event?.loaded ?? 0;
-      const total = event?.total;
-      const lengthComputable = Boolean(
-        event?.lengthComputable && total !== undefined && total > 0 && Number.isFinite(total)
-      );
-      try {
-        onProgress({
-          loaded,
-          total: lengthComputable ? total : undefined,
-          percent: lengthComputable ? Math.min(100, Math.max(0, (loaded / total!) * 100)) : undefined,
-          lengthComputable,
-          done
-        });
-      } catch (error) {
-        fail(error, true);
-      }
-    };
-    const readErrorText = (blob: Blob): Promise<string> => {
-      if (typeof blob.text === 'function') return blob.text();
-      return new Promise((resolveText, rejectText) => {
-        const fileReader = new FileReader();
-        const release = () => {
-          fileReader.onload = fileReader.onerror = fileReader.onabort = null;
-          cancelRead = undefined;
-        };
-        cancelRead = () => {
-          release();
-          if (fileReader.readyState === 1) fileReader.abort();
-          rejectText(new CrossOriginDownloadError('ABORTED', status));
-        };
-        fileReader.onload = () => {
-          const text = fileReader.result as string;
-          release();
-          resolveText(text);
-        };
-        fileReader.onerror = () => {
-          const error = fileReader.error;
-          release();
-          rejectText(error);
-        };
-        fileReader.onabort = cancelRead;
-        try {
-          fileReader.readAsText(blob);
-        } catch (error) {
-          release();
-          rejectText(error);
-        }
-      });
-    };
-    const complete = async (blob: Blob, contentType: string | null, event?: ProgressEvent) => {
-      if (state !== 'active') return;
+    },
+    consume: async ({ status, body, contentType }, context) => {
+      const blob = body as Blob;
       if (status !== successCode) {
         const error = new CrossOriginDownloadError('HTTP_ERROR', status);
         error.response = blob;
         if (contentType?.toLowerCase().includes('application/json')) {
           try {
-            error.response = await readErrorText(blob);
+            error.response = await context.readText(blob);
           } catch (cause) {
             error.cause = cause;
           }
         }
-        fail(error);
-        return;
+        throw error;
       }
-      progress(event, true);
-      if (state !== 'active') return;
       try {
-        await saveDownloadBlob(blob, filename, () => {
-          if (signal?.aborted) onAbort();
-          if (state !== 'active') return false;
-          state = 'saving';
-          cleanup();
-          return true;
-        });
+        await saveDownloadBlob(blob, filename, context.commit);
       } catch (cause) {
-        fail(new CrossOriginDownloadError('DOWNLOAD_ERROR', status, cause));
-        return;
+        throw new CrossOriginDownloadError('DOWNLOAD_ERROR', status, cause);
       }
-      if (isSettled()) return;
-      state = 'settled';
-      resolve();
-    };
-    const networkFailure = (cause: unknown) => {
-      if (state !== 'active') return;
-      if (signal?.aborted) onAbort();
-      else fail(new CrossOriginDownloadError('ERROR_CONNECTION_REFUSED', status, cause));
-    };
-    const runFetch = async () => {
-      try {
-        const response = await fetch(url, { method: 'GET', headers, signal });
-        if (state !== 'active') return;
-        status = response.status;
-        let blob: Blob;
-        try {
-          blob = await response.blob();
-        } catch (cause) {
-          if (status !== successCode) fail(new CrossOriginDownloadError('HTTP_ERROR', status, cause));
-          else networkFailure(cause);
-          return;
-        }
-        await complete(blob, response.headers.get('Content-Type'));
-      } catch (cause) {
-        networkFailure(cause);
-      }
-    };
-
-    if (
-      !['auto', 'fetch', 'xhr'].includes(transport) ||
-      (onProgress !== undefined && !isFunction(onProgress)) ||
-      (transport === 'fetch' && onProgress !== undefined)
-    ) {
-      fail(new CrossOriginDownloadError('INVALID_OPTIONS'));
-      return;
-    }
-    if (signal?.aborted) {
-      onAbort();
-      return;
-    }
-    const useXHR =
-      transport === 'xhr' || (transport === 'auto' && (onProgress !== undefined || typeof fetch !== 'function'));
-    if (
-      typeof document === 'undefined' ||
-      typeof URL === 'undefined' ||
-      typeof URL.createObjectURL !== 'function' ||
-      typeof URL.revokeObjectURL !== 'function' ||
-      (useXHR ? typeof XMLHttpRequest !== 'function' : typeof fetch !== 'function')
-    ) {
-      fail(new CrossOriginDownloadError('UNSUPPORTED_ENVIRONMENT'));
-      return;
-    }
-    signal?.addEventListener('abort', onAbort, { once: true });
-    if (!useXHR) {
-      void runFetch();
-      return;
-    }
-    try {
-      xhr = new XMLHttpRequest();
-      xhr.open('GET', url, true);
-      xhr.responseType = 'blob';
-      setDownloadHeaders(xhr, headers);
-      xhr.onload = event => {
-        if (state !== 'active' || receiving || !xhr) return;
-        receiving = true;
-        status = xhr.status;
-        void complete(xhr.response, xhr.getResponseHeader('Content-Type'), event);
-      };
-      xhr.onerror = networkFailure;
-      xhr.onabort = () => {
-        if (state === 'active') fail(new CrossOriginDownloadError('ABORTED', status));
-      };
-      if (onProgress)
-        xhr.onprogress = event => {
-          if (!receiving && state === 'active') {
-            status = xhr?.status ?? status;
-            progress(event);
-          }
-        };
-    } catch (cause) {
-      fail(new CrossOriginDownloadError('INVALID_OPTIONS', status, cause));
-      return;
-    }
-    progress();
-    if (state !== 'active') return;
-    try {
-      xhr.send();
-    } catch (cause) {
-      networkFailure(cause);
     }
   });
 }
