@@ -4,6 +4,7 @@ export * from './cookie';
 export * from './date';
 export * from './dom';
 export * from './download';
+export * from './upload';
 export * from './object';
 export * from './path';
 export * from './qs';
@@ -34,6 +35,7 @@ import * as cookie from './cookie';
 import * as date from './date';
 import * as dom from './dom';
 import * as download from './download';
+import * as upload from './upload';
 import * as object from './object';
 import * as path from './path';
 import * as qs from './qs';
@@ -65,6 +67,7 @@ export default {
   ...date,
   ...dom,
   ...download,
+  ...upload,
   ...object,
   ...path,
   ...qs,
@@ -93,6 +96,7 @@ export default {
   typeof date &
   typeof dom &
   typeof download &
+  typeof upload &
   typeof object &
   typeof path &
   typeof qs &
