@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.22.0](https://github.com/chandq/sculp-js/compare/v1.21.0...v1.22.0) (2026-10-13)
+
+### Features
+
+- **upload:** add uploads with progress and cancellation ([c0f48d2](https://github.com/chandq/sculp-js/commit/c0f48d2e4a64cb47b94e602a72a6d0ba3eabda91))
+
+### Bug Fixes
+
+- **download:** modernize cross-origin downloads with Promise API ([e6f7698](https://github.com/chandq/sculp-js/commit/e6f7698c6f9729a6034456e6c3fdd1c48bbaca61))
+- **transfer:** provide actionable upload and download error messages ([ca84184](https://github.com/chandq/sculp-js/commit/ca8418404b3f202b15eed0752f0e4101b1e1029c))
+
 ## [1.21.0](https://github.com/chandq/sculp-js/compare/v1.20.0...v1.21.0) (2026-09-24)
 
 ### Features
