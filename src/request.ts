@@ -22,6 +22,13 @@ export interface RequestProgress {
 /**
  * 单次 HTTP 请求配置；body 原样发送，json 显式序列化，两者互斥。
  * @public
+ * @remarks
+ * timeout 默认 0（禁用），有效值为 0～2147483647 的整数毫秒。从请求准备完成到传输结束计时，
+ * 包括等待响应和读取完整响应体，超时中止底层请求并报 TIMEOUT；不包含序列化，也不能抢占同步代码。
+ * credentials 默认 same-origin；XHR 的 withCredentials 为 false 时仍会发送同源 Cookie。
+ * include 允许跨域凭据，但仍受 CORS、SameSite 和浏览器 Cookie 策略限制。
+ * omit 仅支持 fetch；与 xhr/onProgress 冲突报 INVALID_OPTIONS，auto 无 fetch 报 UNSUPPORTED_ENVIRONMENT。
+ * omit 不删除显式 Authorization 等请求头。Node.js 不由本库提供 Cookie 容器。
  */
 export type RequestOptions = {
   /** 默认 GET；GET/HEAD 不允许携带 body 或 json。 */
@@ -36,6 +43,18 @@ export type RequestOptions = {
   onProgress?: (progress: RequestProgress) => void;
   /** 取消发送或等待响应；取消不保证服务端停止处理。 */
   signal?: AbortSignal;
+  /**
+   * 传输超时（毫秒），默认 0 表示禁用；仅接受 0～2147483647 的整数。
+   * 从请求准备完成、即将启动传输时计时，覆盖发送、等待及响应体读取；超时中止传输并报 TIMEOUT。
+   * 不包含 JSON 序列化，不能抢占同步解析或回调；计时受运行环境调度影响。
+   */
+  timeout?: number;
+  /**
+   * 默认 same-origin；include 允许跨域凭据，omit 禁用浏览器自动凭据及响应 Cookie 写入。
+   * omit 仅支持 fetch：与 xhr/onProgress 冲突报 INVALID_OPTIONS；auto 无 fetch 报 UNSUPPORTED_ENVIRONMENT。
+   * 不移除显式 Authorization 等请求头，不提供 Node.js Cookie 容器，也不绕过 CORS 或 Cookie 策略。
+   */
+  credentials?: 'omit' | 'same-origin' | 'include';
 } & (
   | {
       /** 原始请求体，不自动序列化普通对象。 */
@@ -77,6 +96,7 @@ export class RequestError extends Error {
     | 'NETWORK_ERROR'
     | 'HTTP_ERROR'
     | 'ABORTED'
+    | 'TIMEOUT'
     | 'RESPONSE_ERROR';
 
   /** 错误正文，保留文本或 Blob，不自动解析。 */
@@ -109,7 +129,10 @@ export class RequestError extends Error {
  * @param options - 默认 GET、auto 和 JSON 响应；method 不根据请求体自动推断。
  * @returns 等待 2xx 响应并完成解析后兑现；失败以 RequestError 拒绝。
  * @remarks
- * 不自动重试、缓存或校验业务数据，凭据采用默认同源策略。
+ * 不自动重试、缓存或校验业务数据，凭据默认同源，可通过 credentials 显式配置。
+ * 已取消的 signal 优先返回 ABORTED，不执行 JSON 序列化或请求准备。
+ * timeout 默认禁用；启用时真正中止传输，不仅让 Promise 提前拒绝。用户取消与超时以先处理者为准。
+ * include 跨域时服务端须返回明确的 Access-Control-Allow-Origin 和 Access-Control-Allow-Credentials: true。
  * 响应体完整读入内存，不提供流式消费。onProgress 同步抛错时以原异常拒绝。
  * Node.js 可使用原生 fetch；进度依赖 XMLHttpRequest，不可用时明确报错。
  * JSON 序列化遵循 JSON.stringify；循环引用、BigInt 或无法生成 JSON 文本的值会拒绝。
@@ -154,7 +177,16 @@ export function request(url: string, options: RequestOptions & { responseType: '
 export function request(url: string, options: RequestOptions): Promise<RequestResult>;
 export function request(url: string, options: RequestOptions = {}): Promise<RequestResult> {
   try {
-    const { method = 'GET', responseType = 'json', signal, transport, onProgress, json } = options;
+    const { signal } = options;
+    if (signal?.aborted) {
+      return Promise.reject(
+        createRequestError('ABORTED', 0, signal.reason, 'The request was aborted by the provided AbortSignal.')
+      );
+    }
+    const { method = 'GET', responseType = 'json', transport, onProgress, json, timeout = 0, credentials } = options;
+    if (!Number.isInteger(timeout) || timeout < 0 || timeout > 2147483647) {
+      throw new TypeError('timeout must be an integer between 0 and 2147483647 milliseconds.');
+    }
     let { body, headers } = options;
     if (!['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'].includes(method)) {
       throw new TypeError('method must be GET, POST, PUT, PATCH, DELETE, HEAD, or OPTIONS.');
@@ -198,6 +230,15 @@ export function request(url: string, options: RequestOptions = {}): Promise<Requ
       body,
       headers,
       signal,
+      credentials,
+      timeout:
+        timeout > 0
+          ? {
+              milliseconds: timeout,
+              error: status =>
+                createRequestError('TIMEOUT', status, undefined, `The request timed out after ${timeout} ms.`)
+            }
+          : undefined,
       transport,
       onProgress,
       direction: 'download',

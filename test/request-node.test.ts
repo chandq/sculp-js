@@ -20,6 +20,8 @@ describe('request with native fetch', () => {
       res.writeHead(200, { 'Content-Type': 'application/json' });
       res.flushHeaders();
       res.write('{');
+    } else if (req.url === '/wait-headers') {
+      // Leave the connection open until the client's deadline cancels it.
     } else {
       res.setHeader('Content-Type', 'application/json');
       res.end(
@@ -104,5 +106,18 @@ describe('request with native fetch', () => {
     } finally {
       spy.mockRestore();
     }
+  });
+
+  it.each(['/wait-headers', '/wait'])('timeout aborts the real connection for %s', async path => {
+    const closed = new Promise<void>(resolve => {
+      server.once('request', (_req, res) => res.once('close', resolve));
+    });
+    const controller = new AbortController();
+    await expect(request(`${base}${path}`, { timeout: 250, signal: controller.signal })).rejects.toMatchObject({
+      code: 'TIMEOUT',
+      status: path === '/wait' ? 200 : 0
+    });
+    await closed;
+    expect(controller.signal.aborted).toBe(false);
   });
 });

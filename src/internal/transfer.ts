@@ -29,6 +29,9 @@ interface TransferOptions<T> {
   body?: string | URLSearchParams | FormData | Blob;
   headers?: HeadersInit;
   signal?: AbortSignal;
+  credentials?: 'omit' | 'same-origin' | 'include';
+  // The caller validates milliseconds and owns the public timeout error type.
+  timeout?: { milliseconds: number; error: (status: number) => Error };
   transport?: 'auto' | 'fetch' | 'xhr';
   onProgress?: (progress: TransferProgress) => void;
   direction: 'upload' | 'download';
@@ -72,6 +75,8 @@ export function transfer<T>(options: TransferOptions<T>): Promise<T> {
     body,
     headers,
     signal,
+    credentials,
+    timeout,
     transport = 'auto',
     onProgress,
     direction,
@@ -87,9 +92,16 @@ export function transfer<T>(options: TransferOptions<T>): Promise<T> {
     let cancelRead: (() => void) | undefined;
     let receiving = false;
     let progressDone = false;
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    let fetchController: AbortController | undefined;
     const active = () => state === 'active';
-    const cleanup = (stop = false) => {
+    const cleanup = (stop = false, reason?: unknown) => {
+      if (timer !== undefined) {
+        clearTimeout(timer);
+        timer = undefined;
+      }
       signal?.removeEventListener('abort', onAbort);
+      if (stop) fetchController?.abort(reason);
       if (xhr) {
         const request = xhr;
         xhr = undefined;
@@ -108,7 +120,7 @@ export function transfer<T>(options: TransferOptions<T>): Promise<T> {
       if (state === 'settled') return;
       state = 'settled';
       try {
-        cleanup(stop);
+        cleanup(stop, cause);
       } catch {
         // Preserve the original failure even if a host cleanup API also fails.
         reject(cause);
@@ -204,7 +216,8 @@ export function transfer<T>(options: TransferOptions<T>): Promise<T> {
     };
     const runFetch = async () => {
       try {
-        const init: RequestInit = { method, headers, signal };
+        const init: RequestInit = { method, headers, signal: fetchController?.signal ?? signal };
+        if (credentials !== undefined) init.credentials = credentials;
         if (body !== undefined) init.body = body;
         const response = await fetch(url, init);
         if (!active()) return;
@@ -257,8 +270,25 @@ export function transfer<T>(options: TransferOptions<T>): Promise<T> {
       onAbort();
       return;
     }
+    if (credentials !== undefined && !['omit', 'same-origin', 'include'].includes(credentials)) {
+      fail(error('INVALID_OPTIONS', 0, undefined, 'credentials must be "omit", "same-origin", or "include".'));
+      return;
+    }
     const useXHR =
       transport === 'xhr' || (transport === 'auto' && (onProgress !== undefined || typeof fetch !== 'function'));
+    // XHR false means same-origin, never omit. Do not infer capability from the initial URL:
+    // redirects can change the origin, and same-origin requests still carry cookies.
+    if (credentials === 'omit' && useXHR) {
+      fail(
+        error(
+          transport === 'xhr' || onProgress !== undefined ? 'INVALID_OPTIONS' : 'UNSUPPORTED_ENVIRONMENT',
+          0,
+          undefined,
+          'credentials "omit" requires fetch without onProgress; XHR cannot omit same-origin credentials.'
+        )
+      );
+      return;
+    }
     if (useXHR ? typeof XMLHttpRequest !== 'function' : typeof fetch !== 'function') {
       const reason = !useXHR
         ? 'fetch is not available in this environment.'
@@ -276,7 +306,24 @@ export function transfer<T>(options: TransferOptions<T>): Promise<T> {
       fail(cause);
       return;
     }
+    if (timeout && !useXHR) {
+      if (typeof AbortController !== 'function') {
+        fail(error('UNSUPPORTED_ENVIRONMENT', 0, undefined, 'fetch timeout requires AbortController.'));
+        return;
+      }
+      fetchController = new AbortController();
+    }
     signal?.addEventListener('abort', onAbort, { once: true });
+    // Validation or caller-owned getters can synchronously abort before listener registration.
+    if (signal?.aborted) onAbort();
+    if (!active()) return;
+    if (timeout) {
+      timer = setTimeout(() => {
+        if (!active()) return;
+        status = xhr?.status || status;
+        fail(timeout.error(status), true);
+      }, timeout.milliseconds);
+    }
     if (!useXHR) {
       void runFetch();
       return;
@@ -293,6 +340,10 @@ export function transfer<T>(options: TransferOptions<T>): Promise<T> {
       }
       setupStage = 'open the XHR request';
       request.open(method, url, true);
+      if (credentials !== undefined) {
+        setupStage = 'set the XHR credentials mode';
+        request.withCredentials = credentials === 'include';
+      }
       setupStage = 'set the XHR responseType';
       request.responseType = responseType;
       setupStage = 'set the XHR request headers';

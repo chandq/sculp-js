@@ -6,6 +6,11 @@ async function checkRequestTypes(options: RequestOptions) {
   const text: RequestResult<string> = await request('/users', { responseType: 'text' });
   const blob: RequestResult<Blob> = await request('/users', { responseType: 'blob' });
   const dynamic: RequestResult = await request('/users', options);
+  request('/users', { timeout: 5000, credentials: 'include' });
+  // @ts-expect-error timeout is a number of milliseconds
+  request('/users', { timeout: '5000' });
+  // @ts-expect-error credentials uses modes, not the XHR boolean
+  request('/users', { credentials: true });
   // @ts-expect-error body and json are mutually exclusive
   request('/users', { method: 'POST', body: 'raw', json: {} });
   // @ts-expect-error raw body does not accept arbitrary objects

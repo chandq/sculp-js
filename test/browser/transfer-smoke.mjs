@@ -15,10 +15,28 @@ await mkdir(downloads);
 const payload = Buffer.alloc(512 * 1024, 97);
 const calls = [];
 let pageOrigin;
+function handleCredentials(req, res) {
+  const url = new URL(req.url, 'http://localhost');
+  if (url.pathname === '/request/redirect') {
+    res.writeHead(302, { Location: resourceOrigin + '/request/cookies' });
+    res.end();
+    return true;
+  }
+  if (url.pathname !== '/request/cookies') return false;
+  if (url.searchParams.has('set')) {
+    res.setHeader('Set-Cookie', `${url.searchParams.get('set')}=1; Path=/; SameSite=Lax`);
+  }
+  if (url.searchParams.has('no-allow-credentials')) res.removeHeader('Access-Control-Allow-Credentials');
+  if (url.searchParams.has('wildcard')) res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Content-Type', 'application/json');
+  res.end(JSON.stringify({ cookie: req.headers.cookie || '', authorization: req.headers.authorization || '' }));
+  return true;
+}
 const resourceServer = createServer((req, res) => {
   calls.push({ path: req.url, method: req.method, auth: req.headers.authorization });
   if (!req.url.endsWith('/cors-denied')) {
     res.setHeader('Access-Control-Allow-Origin', pageOrigin);
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
     res.setHeader('Access-Control-Allow-Headers', 'Authorization, Content-Type');
     res.setHeader('Access-Control-Expose-Headers', 'X-Upload-Id');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, HEAD, OPTIONS');
@@ -26,6 +44,17 @@ const resourceServer = createServer((req, res) => {
   if (req.method === 'OPTIONS') {
     res.writeHead(204);
     res.end();
+    return;
+  }
+  if (handleCredentials(req, res)) return;
+  if (req.url.startsWith('/request/timeout-')) {
+    const call = calls.at(-1);
+    call.closed = new Promise(resolve => res.once('close', resolve));
+    if (req.url === '/request/timeout-body') {
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.flushHeaders();
+      res.write('{');
+    }
     return;
   }
   if (req.url === '/request/echo') {
@@ -128,6 +157,7 @@ const resourceServer = createServer((req, res) => {
   res.on('close', () => clearInterval(timer));
 });
 const pageServer = createServer(async (req, res) => {
+  if (handleCredentials(req, res)) return;
   if (req.url.startsWith('/module/')) {
     try {
       const root = resolve(workspace, 'dist/esm');
@@ -351,10 +381,90 @@ try {
       report.push({ case: `${transport}-request-${kind}`, passed: true });
     }
   }
+  await evaluate(`document.cookie = 'sculp_credential_seed=1; Path=/; SameSite=Lax'`);
+  for (const transport of ['fetch', 'xhr']) {
+    for (const credentials of [undefined, 'same-origin', 'include', 'omit']) {
+      if (transport === 'xhr' && credentials === 'omit') continue;
+      for (const crossOrigin of [false, true]) {
+        const name = `sculp_${transport}_${credentials || 'default'}_${crossOrigin}`;
+        const result = await evaluate(`(async () => {
+          const result = await requester.request(
+            ${crossOrigin ? 'base' : 'location.origin'} + '/request/cookies?set=${name}',
+            { transport: '${transport}', credentials: ${JSON.stringify(credentials)},
+              headers: { Authorization: 'Bearer explicit' } }
+          );
+          return { data: result.data, stored: document.cookie.split('; ').includes('${name}=1') };
+        })()`);
+        const permitted = credentials === 'include' || (credentials !== 'omit' && !crossOrigin);
+        assert.equal(result.data.cookie.includes('sculp_credential_seed=1'), permitted);
+        assert.equal(result.stored, permitted, 'Credential policy must also govern response Set-Cookie');
+        assert.equal(result.data.authorization, 'Bearer explicit', 'omit must not silently remove explicit headers');
+        report.push({
+          case: `${transport}-${credentials || 'default'}-${crossOrigin ? 'cross' : 'same'}-origin-cookies`,
+          passed: true
+        });
+      }
+      const redirected = await evaluate(`(async () => {
+        const result = await requester.request(location.origin + '/request/redirect', {
+          transport: '${transport}', credentials: ${JSON.stringify(credentials)}
+        });
+        return result.data;
+      })()`);
+      assert.equal(redirected.cookie.includes('sculp_credential_seed=1'), credentials === 'include');
+      report.push({ case: `${transport}-${credentials || 'default'}-redirect-credentials`, passed: true });
+    }
+    for (const denied of ['no-allow-credentials', 'wildcard']) {
+      const code = await evaluate(`(async () => {
+        try {
+          await requester.request(base + '/request/cookies?${denied}', {
+            transport: '${transport}', credentials: 'include'
+          });
+          return 'unexpected success';
+        } catch (error) { return error.code; }
+      })()`);
+      assert.equal(code, 'NETWORK_ERROR');
+      report.push({ case: `${transport}-include-${denied}`, passed: true });
+    }
+    for (const phase of ['headers', 'body']) {
+      const result = await evaluate(`(async () => {
+        try {
+          await requester.request(base + '/request/timeout-${phase}', { transport: '${transport}', timeout: 250 });
+          return { code: 'unexpected success' };
+        } catch (error) { return { code: error.code, status: error.status }; }
+      })()`);
+      assert.equal(result.code, 'TIMEOUT');
+      assert.equal(result.status, phase === 'body' ? 200 : 0);
+      const call = calls.filter(call => call.path === `/request/timeout-${phase}`).at(-1);
+      assert(call?.closed, 'Timed request must reach the server');
+      let closeTimer;
+      try {
+        await Promise.race([
+          call.closed,
+          new Promise((_, reject) => {
+            closeTimer = setTimeout(() => reject(new Error('Timeout did not close the connection')), 2000);
+          })
+        ]);
+      } finally {
+        clearTimeout(closeTimer);
+      }
+      report.push({ case: `${transport}-timeout-${phase}-closes-connection`, passed: true });
+    }
+  }
+  const omitConflict = await evaluate(`(async () => {
+    const before = { ...transportCalls };
+    const codes = [];
+    for (const options of [{ transport: 'xhr' }, { onProgress() {} }]) {
+      try { await requester.request('/request/cookies', { ...options, credentials: 'omit' }); }
+      catch (error) { codes.push(error.code); }
+    }
+    return { codes, fetch: transportCalls.fetch - before.fetch, xhr: transportCalls.xhr - before.xhr };
+  })()`);
+  assert.deepEqual(omitConflict, { codes: ['INVALID_OPTIONS', 'INVALID_OPTIONS'], fetch: 0, xhr: 0 });
+  report.push({ case: 'omit-xhr-conflicts-never-send', passed: true });
   assert.equal(unhandled.length, 0);
   assert.equal(completed.size, 4);
   assert(calls.some(c => c.method === 'OPTIONS'));
-  assert(calls.filter(c => c.auth).every(c => c.auth === 'Bearer browser-audit'));
+  assert(calls.filter(c => c.auth && !c.path.startsWith('/request/')).every(c => c.auth === 'Bearer browser-audit'));
   report.push({ case: 'fetch-progress-conflict', ...conflict, passed: true });
   // Real cross-origin uploads, with byte-for-byte/hash checks on the receiving server.
   for (const transport of ['fetch', 'xhr']) {

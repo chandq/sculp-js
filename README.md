@@ -102,6 +102,7 @@ try {
   const result = await request<{ id: number }>('/api/users', {
     method: 'POST',
     json: { name: 'Alice' },
+    timeout: 10000,
     signal: controller.signal
   });
   console.log(result.status, result.data?.id);
@@ -124,9 +125,43 @@ Caller headers are never modified. Query strings can be composed with `qsStringi
 `onProgress` reports **response reception**, requires XHR and conflicts with
 explicit `transport: 'fetch'`. Its `done` flag does not guarantee successful
 response parsing. Use `upload` for request-body upload progress.
-Browser requests use the default same-origin credentials policy and require
-server CORS permission when cross-origin. Node.js uses native fetch and requires
-an absolute URL; progress requires an available XMLHttpRequest implementation.
+
+An already-aborted `signal` rejects with `ABORTED` before JSON serialization or
+other request preparation. `timeout` is an integer number of milliseconds from
+0 to 2147483647; the default, 0, disables it. The timer starts after request
+preparation, immediately before transport setup, and covers sending, waiting for
+headers and reading the entire response body. It is not reset by progress or
+response headers. Expiry rejects with `TIMEOUT` and aborts the underlying fetch
+or XHR; it does not abort the caller's signal. Manual cancellation and timeout
+use the first terminal event processed. Timers and listeners are removed on
+completion or failure. Disabled timeouts allocate no timer or extra controller;
+timed fetch requires AbortController. Timing depends on the event loop: it cannot
+interrupt synchronous JSON parsing or callbacks and excludes request serialization.
+
+Browser credential behavior is explicit:
+
+| `credentials`           | fetch                                                           | XHR                                                       |
+| ----------------------- | --------------------------------------------------------------- | --------------------------------------------------------- |
+| `same-origin` (default) | Same-origin automatic credentials and response cookies          | `withCredentials: false`; same-origin cookies still apply |
+| `include`               | Allow automatic credentials and response cookies across origins | `withCredentials: true`                                   |
+| `omit`                  | Exclude automatic credentials and ignore response cookies       | Unsupported; rejected before sending                      |
+
+`omit` with `transport: 'xhr'` or `onProgress` rejects with `INVALID_OPTIONS`.
+With `auto` and no fetch available, it rejects with `UNSUPPORTED_ENVIRONMENT`
+instead of falling back to XHR. This restriction also applies to initially
+cross-origin URLs; redirects must not weaken the chosen policy.
+
+Credential modes do **not** remove explicit `Authorization` or other caller
+headers, and `omit` is not an anonymization feature. `include` still respects
+SameSite and browser cookie policies. Cross-origin credentialed responses need
+an explicit `Access-Control-Allow-Origin` matching the caller and
+`Access-Control-Allow-Credentials: true`; wildcard origins are insufficient.
+The mappings follow the [XHR standard](<https://xhr.spec.whatwg.org/#the-send()-method>)
+and [Fetch credential modes](https://fetch.spec.whatwg.org/#concept-request-credentials-mode).
+
+Node.js uses native fetch and requires an absolute URL; this library does not
+provide a cookie jar or browser session cookies. Progress requires an available
+XMLHttpRequest implementation.
 Responses are buffered in memory. No automatic retry, cache or business-data
 validation is performed; TypeScript generics do not validate response data.
 
