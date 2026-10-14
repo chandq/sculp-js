@@ -1,4 +1,5 @@
 export * from './array';
+export * from './request';
 export * from './date';
 export * from './object';
 export * from './path';
@@ -16,6 +17,7 @@ export * from './validator';
 export * from './variable';
 
 import * as array from './array';
+import * as request from './request';
 import * as date from './date';
 import * as object from './object';
 import * as path from './path';
@@ -34,6 +36,7 @@ import * as variable from './variable';
 
 export default {
   ...array,
+  ...request,
   ...date,
   ...object,
   ...path,

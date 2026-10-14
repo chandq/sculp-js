@@ -1,5 +1,6 @@
 /* global HeadersInit */
 import { forEachHeader, transfer } from './internal/transfer';
+import { consumeHTTPResponse, isHTTPSuccess } from './internal/http-response';
 
 /**
  * 请求体发送进度，仅由 XHR 提供。
@@ -174,6 +175,8 @@ export function upload(
 export function upload(url: string, body: FormData | Blob, options: UploadOptions): Promise<UploadResult>;
 export function upload(url: string, body: FormData | Blob, options: UploadOptions = {}): Promise<UploadResult> {
   const { method = 'POST', headers, responseType = 'json', signal, transport, onProgress } = options;
+  const error = (code: UploadError['code'], status: number, cause?: unknown, reason?: string) =>
+    new UploadError(code, status, cause, reason);
   return transfer({
     url,
     method,
@@ -184,8 +187,8 @@ export function upload(url: string, body: FormData | Blob, options: UploadOption
     onProgress,
     direction: 'upload',
     responseType: responseType === 'blob' ? 'blob' : 'text',
-    isSuccess: status => status >= 200 && status < 300,
-    error: (code, status, cause, reason) => new UploadError(code, status, cause, reason),
+    isSuccess: isHTTPSuccess,
+    error,
     validate: () => {
       const tag = Object.prototype.toString.call(body);
       if (!['POST', 'PUT'].includes(method)) {
@@ -210,26 +213,7 @@ export function upload(url: string, body: FormData | Blob, options: UploadOption
         });
       }
     },
-    consume: response => {
-      const { status, body: data } = response;
-      if (status < 200 || status >= 300) {
-        const error = new UploadError('HTTP_ERROR', status, undefined, 'Expected an HTTP status between 200 and 299.');
-        error.response = data;
-        throw error;
-      }
-      let parsed: unknown = data;
-      if (status === 204 || status === 205) parsed = undefined;
-      else if (responseType === 'json') {
-        try {
-          parsed = data === '' ? undefined : JSON.parse(data as string);
-        } catch (cause) {
-          const error = new UploadError('RESPONSE_ERROR', status, cause, 'Failed to parse the response body as JSON.');
-          error.response = data;
-          throw error;
-        }
-      }
-      return { status, headers: response.headers(), data: parsed };
-    }
+    consume: response => consumeHTTPResponse(response, responseType, error)
   });
 }
 

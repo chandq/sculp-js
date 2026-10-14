@@ -117,6 +117,9 @@
       ],
       "watermark": [
         "./dist/types/watermark.d.ts"
+      ],
+      "request": [
+        "./dist/types/request.d.ts"
       ]
     }
   },
@@ -331,6 +334,13 @@
       "require": "./dist/cjs/watermark.cjs",
       "import": "./dist/esm/watermark.mjs",
       "default": "./dist/esm/watermark.mjs"
+    },
+    "./request": {
+      "types": "./dist/types/request.d.ts",
+      "node": "./dist/cjs/request.cjs",
+      "require": "./dist/cjs/request.cjs",
+      "import": "./dist/esm/request.mjs",
+      "default": "./dist/esm/request.mjs"
     }
   },
   "sideEffects": false,

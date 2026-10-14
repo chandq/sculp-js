@@ -1,5 +1,5 @@
 /* global HeadersInit, RequestInit */
-// Internal browser transport shared by upload and download. No DOM or file-saving policy.
+// Internal transport shared by request, upload and download. No DOM or file-saving policy.
 export interface TransferProgress {
   loaded: number;
   total?: number;
@@ -10,7 +10,7 @@ export interface TransferProgress {
 
 export type TransferCode = 'INVALID_OPTIONS' | 'UNSUPPORTED_ENVIRONMENT' | 'NETWORK_ERROR' | 'HTTP_ERROR' | 'ABORTED';
 
-interface TransferResponse {
+export interface TransferResponse {
   status: number;
   body: Blob | string;
   contentType: string | null;
@@ -25,8 +25,8 @@ interface TransferContext {
 
 interface TransferOptions<T> {
   url: string;
-  method: 'GET' | 'POST' | 'PUT';
-  body?: FormData | Blob;
+  method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE' | 'HEAD' | 'OPTIONS';
+  body?: string | URLSearchParams | FormData | Blob;
   headers?: HeadersInit;
   signal?: AbortSignal;
   transport?: 'auto' | 'fetch' | 'xhr';

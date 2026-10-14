@@ -1,4 +1,5 @@
 export * from './array';
+export * from './request';
 export * from './clipboard';
 export * from './cookie';
 export * from './date';
@@ -30,6 +31,7 @@ export * from './unicodeToolkit';
 
 // 导入所有模块的具名导出
 import * as array from './array';
+import * as request from './request';
 import * as clipboard from './clipboard';
 import * as cookie from './cookie';
 import * as date from './date';
@@ -62,6 +64,7 @@ import * as unicodeToolkit from './unicodeToolkit';
 // 导出默认对象（使用类型断言避免私有类型问题）
 export default {
   ...array,
+  ...request,
   ...clipboard,
   ...cookie,
   ...date,
@@ -91,6 +94,7 @@ export default {
   ...isEqual,
   ...unicodeToolkit
 } as typeof array &
+  typeof request &
   typeof clipboard &
   typeof cookie &
   typeof date &

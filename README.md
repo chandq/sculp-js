@@ -51,6 +51,7 @@
 
 - **DOM**: `addClass`, `hasClass`, `removeClass`, `getStyle`, `setStyle`
 - **File**: `chooseLocalFile`, `compressImg`
+- **HTTP**: `request` — JSON, text and Blob responses, cancellation and optional receive progress
 - **Clipboard**: `copyText`, `fallbackCopyText`
 - **Download**: `downloadBlob`, `downloadURL`, `downloadData`
 - **Watermark**: `genCanvasWM`
@@ -90,6 +91,46 @@ npm install sculp-js
 ```
 
 ## 💡 Usage
+
+### HTTP requests
+
+```ts
+import { request, RequestError } from 'sculp-js/request';
+
+const controller = new AbortController();
+try {
+  const result = await request<{ id: number }>('/api/users', {
+    method: 'POST',
+    json: { name: 'Alice' },
+    signal: controller.signal
+  });
+  console.log(result.status, result.data?.id);
+} catch (error) {
+  if (error instanceof RequestError) console.error(error.code, error.status);
+}
+```
+
+Defaults are `GET`, `responseType: 'json'` and `transport: 'auto'`. All 2xx
+responses succeed; non-2xx responses reject with `HTTP_ERROR` and preserve their
+raw body in `error.response`. Invalid JSON in a successful response rejects with
+`RESPONSE_ERROR`. HEAD, 204/205 and empty JSON responses return `data: undefined`.
+Use `responseType: 'text'` or `'blob'` for other response formats.
+
+Use either `json` (serialized once, with a default JSON Content-Type) or `body`
+(string, URLSearchParams, FormData, Blob/File, sent unchanged). GET/HEAD reject
+request bodies; FormData rejects manually supplied Content-Type headers.
+Caller headers are never modified. Query strings can be composed with `qsStringify`.
+
+`onProgress` reports **response reception**, requires XHR and conflicts with
+explicit `transport: 'fetch'`. Its `done` flag does not guarantee successful
+response parsing. Use `upload` for request-body upload progress.
+Browser requests use the default same-origin credentials policy and require
+server CORS permission when cross-origin. Node.js uses native fetch and requires
+an absolute URL; progress requires an available XMLHttpRequest implementation.
+Responses are buffered in memory. No automatic retry, cache or business-data
+validation is performed; TypeScript generics do not validate response data.
+
+### Utility functions
 
 ```js
 import { forEachDeep, cloneDeep } from 'sculp-js';

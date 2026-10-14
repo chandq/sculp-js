@@ -21,11 +21,26 @@ const resourceServer = createServer((req, res) => {
     res.setHeader('Access-Control-Allow-Origin', pageOrigin);
     res.setHeader('Access-Control-Allow-Headers', 'Authorization, Content-Type');
     res.setHeader('Access-Control-Expose-Headers', 'X-Upload-Id');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, OPTIONS');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, HEAD, OPTIONS');
   }
   if (req.method === 'OPTIONS') {
     res.writeHead(204);
     res.end();
+    return;
+  }
+  if (req.url === '/request/echo') {
+    const chunks = [];
+    req.on('data', chunk => chunks.push(chunk));
+    req.on('end', () => {
+      res.setHeader('Content-Type', 'application/json');
+      res.end(
+        JSON.stringify({
+          method: req.method,
+          body: Buffer.concat(chunks).toString(),
+          contentType: req.headers['content-type']
+        })
+      );
+    });
     return;
   }
   if (req.url.startsWith('/upload/')) {
@@ -213,6 +228,7 @@ try {
   await evaluate(`(async () => {
     window.api = await import('/module/download.mjs');
     window.uploader = await import('/module/upload.mjs');
+    window.requester = await import('/module/request.mjs');
     window.base = ${JSON.stringify(resourceOrigin)};
     window.activeURLs = new Set();
     const create = URL.createObjectURL.bind(URL), revoke = URL.revokeObjectURL.bind(URL);
@@ -291,6 +307,50 @@ try {
     catch (error) { return { code: error.code, fetch: transportCalls.fetch - before.fetch, xhr: transportCalls.xhr - before.xhr }; }
   })()`);
   assert.deepEqual(conflict, { code: 'INVALID_OPTIONS', fetch: 0, xhr: 0 });
+  for (const transport of ['fetch', 'xhr']) {
+    for (const kind of ['json', 'params', 'form', 'head', 'blob']) {
+      const result = await evaluate(`(async () => {
+        const events = [];
+        const form = new FormData();
+        form.append('name', 'Alice');
+        const options = {
+          transport: ${JSON.stringify(transport)},
+          method: ${JSON.stringify(kind === 'head' ? 'HEAD' : 'PATCH')},
+          ${transport === 'xhr' ? 'onProgress: p => events.push(p),' : ''}
+          ...${
+            kind === 'json'
+              ? "{ json: { name: '测试' } }"
+              : kind === 'params'
+              ? "{ body: new URLSearchParams({ q: 'a b&c' }) }"
+              : kind === 'form'
+              ? '{ body: form }'
+              : kind === 'blob'
+              ? "{ responseType: 'blob' }"
+              : '{}'
+          }
+        };
+        const result = await requester.request(base + '/request/echo', options);
+        if (options.responseType === 'blob') result.data = JSON.parse(await result.data.text());
+        return { ...result, events };
+      })()`);
+      assert.equal(result.status, 200);
+      if (kind === 'head') assert.equal(result.data, undefined);
+      else assert.equal(result.data.method, 'PATCH');
+      if (kind === 'json') {
+        assert.equal(result.data.body, '{"name":"测试"}');
+        assert.equal(result.data.contentType, 'application/json');
+      } else if (kind === 'params') {
+        assert.equal(result.data.body, 'q=a+b%26c');
+        assert.match(result.data.contentType, /^application\/x-www-form-urlencoded/i);
+      } else if (kind === 'form') {
+        assert.match(result.data.contentType, /^multipart\/form-data; boundary=/);
+        assert(result.data.body.includes('name="name"'));
+        assert(result.data.body.includes('Alice'));
+      }
+      if (transport === 'xhr') assert.equal(result.events.at(-1).done, true);
+      report.push({ case: `${transport}-request-${kind}`, passed: true });
+    }
+  }
   assert.equal(unhandled.length, 0);
   assert.equal(completed.size, 4);
   assert(calls.some(c => c.method === 'OPTIONS'));
