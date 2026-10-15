@@ -142,6 +142,40 @@ credentials to the incoming request/session. A client or its detached request
 method retains its configuration and any context captured by `getHeaders` until
 those references are released; clients have no background resources to dispose.
 
+### Available Modules
+
+All modules support both named and default exports:
+
+- `sculp-js/array` - Array utilities
+- `sculp-js/string` - String manipulation
+- `sculp-js/type` - Type checking
+- `sculp-js/date` - Date formatting
+- `sculp-js/object` - Object utilities
+- `sculp-js/math` - Math operations
+- `sculp-js/number` - Number formatting
+- `sculp-js/url` - URL parsing
+- `sculp-js/qs` - Query string parsing
+- `sculp-js/path` - Path utilities
+- `sculp-js/async` - Async utilities
+- `sculp-js/func` - Function utilities
+- `sculp-js/random` - Random generators
+- `sculp-js/validator` - Validation functions
+- `sculp-js/tree` - Tree operations
+- `sculp-js/base64` - Base64 encoding
+- `sculp-js/unique` - Unique ID generators
+- `sculp-js/variable` - Variable utilities
+- `sculp-js/clipboard` - Clipboard operations
+- `sculp-js/cookie` - Cookie management
+- `sculp-js/dom` - DOM utilities
+- `sculp-js/download` - Download helpers
+- `sculp-js/file` - File utilities
+- `sculp-js/watermark` - Watermark generation
+- `sculp-js/tooltip` - Tooltip utilities
+- `sculp-js/cloneDeep` - Deep cloning
+- `sculp-js/isEqual` - Deep equality
+- `sculp-js/unicodeToolkit` - Unicode utilities
+- `sculp-js/request` - Request client
+
 ## Community
 
 [Contributing](./CONTRIBUTING.md) · [Code of Conduct](./CODE_OF_CONDUCT.md) ·
