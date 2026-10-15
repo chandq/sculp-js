@@ -461,6 +461,32 @@ try {
   })()`);
   assert.deepEqual(omitConflict, { codes: ['INVALID_OPTIONS', 'INVALID_OPTIONS'], fetch: 0, xhr: 0 });
   report.push({ case: 'omit-xhr-conflicts-never-send', passed: true });
+  for (const transport of ['fetch', 'xhr']) {
+    const result = await evaluate(`(async () => {
+      let token = 'first';
+      const client = requester.createRequestClient({
+        baseURL: base + '/request/', transport: '${transport}', timeout: 1000, credentials: 'include',
+        headers: { Authorization: 'static' }, getHeaders: () => ({ authorization: token })
+      });
+      const first = await client.request('cookies');
+      token = 'second';
+      const second = await client.request('cookies');
+      const removed = await client.request('cookies', { omitHeaders: ['AUTHORIZATION'] });
+      const absolute = await client.request(location.origin + '/request/cookies');
+      const override = await client.request('/cookies', { baseURL: location.origin + '/request' });
+      const original = await client.request('cookies');
+      return { first: first.data, second: second.data, removed: removed.data,
+        absolute: absolute.data, override: override.data, original: original.data };
+    })()`);
+    assert.equal(result.first.authorization, 'first');
+    assert.equal(result.second.authorization, 'second');
+    assert.equal(result.removed.authorization, '');
+    assert(result.first.cookie.includes('sculp_credential_seed=1'));
+    assert.equal(result.absolute.authorization, 'second');
+    assert.equal(result.override.authorization, 'second');
+    assert.equal(result.original.authorization, 'second');
+    report.push({ case: `${transport}-client-headers-and-base-overrides`, passed: true });
+  }
   assert.equal(unhandled.length, 0);
   assert.equal(completed.size, 4);
   assert(calls.some(c => c.method === 'OPTIONS'));

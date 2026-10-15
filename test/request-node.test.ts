@@ -1,7 +1,7 @@
 /** @jest-environment node */
 import { createServer } from 'node:http';
 import { AddressInfo } from 'node:net';
-import { request } from '../src/request';
+import { request, createRequestClient } from '../src/request';
 
 describe('request with native fetch', () => {
   const server = createServer(async (req, res) => {
@@ -47,6 +47,20 @@ describe('request with native fetch', () => {
     const result = await request(`${base}/echo`, { method: 'PATCH', json: { name: '测试' } });
     expect(result.data).toEqual({ method: 'PATCH', body: '{"name":"测试"}', contentType: 'application/json' });
     expect(result.headers['x-request-id']).toBe('native');
+  });
+
+  it('uses client URL resolution and merged headers with native fetch', async () => {
+    const client = createRequestClient({
+      baseURL: `${base}/api/`,
+      timeout: 1000,
+      headers: { 'Content-Type': 'text/plain' }
+    });
+    const result = await client.request('echo', { method: 'POST', json: { id: 1 }, omitHeaders: ['Content-Type'] });
+    expect(result.data).toEqual({ method: 'POST', body: '{"id":1}', contentType: 'application/json' });
+    await expect(client.request('/empty', { baseURL: base })).resolves.toMatchObject({ status: 204, data: undefined });
+    await expect(client.request('/text', { baseURL: base, responseType: 'text' })).resolves.toMatchObject({
+      data: 'hello'
+    });
   });
 
   it('lets native fetch encode URLSearchParams', async () => {

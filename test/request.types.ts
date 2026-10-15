@@ -1,4 +1,10 @@
-import { request, RequestOptions, RequestResult } from '../src/request';
+import {
+  request,
+  RequestOptions,
+  RequestResult,
+  createRequestClient,
+  RequestClientRequestOptions
+} from '../src/request';
 
 // Compile-only assertions: no network requests are executed.
 async function checkRequestTypes(options: RequestOptions) {
@@ -23,3 +29,32 @@ async function checkRequestTypes(options: RequestOptions) {
 }
 
 void checkRequestTypes;
+
+async function checkClientTypes(options: RequestClientRequestOptions) {
+  const client = createRequestClient({ baseURL: 'https://api.example.com/' });
+  const json: RequestResult<{ id: number }> = await client.request<{ id: number }>('users');
+  const text: RequestResult<string> = await client.request('users', { responseType: 'text' });
+  const blob: RequestResult<Blob> = await client.request('users', {
+    responseType: 'blob',
+    omitHeaders: ['Authorization']
+  });
+  const dynamic: RequestResult = await client.request('users', options);
+  client.request('users', { baseURL: 'https://other.example.com/v2/' });
+  // @ts-expect-error baseURL must be a string
+  client.request('users', { baseURL: 123 });
+  // @ts-expect-error baseURL is explicit and required
+  createRequestClient({ timeout: 100 });
+  // @ts-expect-error responseType belongs to each request, not the instance
+  createRequestClient({ baseURL: 'https://api.example.com/', responseType: 'text' });
+  // @ts-expect-error providers must be synchronous
+  createRequestClient({ baseURL: 'https://api.example.com/', getHeaders: async () => ({ Authorization: 'token' }) });
+  // @ts-expect-error client is read-only
+  client.request = request;
+  // @ts-expect-error body and json remain mutually exclusive
+  client.request('users', { method: 'POST', body: 'raw', json: {} });
+  // @ts-expect-error JSON generics cannot override text responses
+  client.request<number>('users', { responseType: 'text' });
+  return { json, text, blob, dynamic };
+}
+
+void checkClientTypes;

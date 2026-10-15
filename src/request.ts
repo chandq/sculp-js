@@ -268,4 +268,217 @@ function createRequestError(
   return new RequestError(code, status, cause, reason);
 }
 
-export default { request, RequestError };
+/**
+ * 客户端固定配置；创建时复制配置及静态请求头，不保留调用者的可变配置对象。
+ * @public
+ * @remarks
+ * baseURL 必须为不含用户名、密码的绝对 HTTP(S) URL。
+ * 绝对请求地址可覆盖 baseURL，单次请求也可指定其他 baseURL；不限制 origin。
+ * 不隔离浏览器 Cookie，不提供 Node.js Cookie 容器。SSR 应按请求或会话提供鉴权上下文。
+ */
+export interface RequestClientOptions {
+  /** 默认绝对 HTTP(S) 基址；相对请求路径拼接到基址后，忽略连接处多余的 /。 */
+  baseURL: string;
+  /** 静态默认请求头；大小写不敏感，同名项以后者为准。 */
+  headers?: HeadersInit;
+  /** 每次请求同步读取一次动态头；已取消或地址不合法时不调用。不支持异步 Token 刷新。 */
+  getHeaders?: () => HeadersInit | undefined;
+  /** 默认传输超时；调用级 undefined 继承，0 关闭。计时不包含客户端请求准备。 */
+  timeout?: number;
+  /** 默认凭据模式；仍遵守 request 的 fetch/XHR 能力限制。 */
+  credentials?: RequestOptions['credentials'];
+  /** 默认传输方式；调用级显式值覆盖。 */
+  transport?: RequestOptions['transport'];
+}
+
+/**
+ * 客户端单次请求配置。
+ * @public
+ * @remarks
+ * 标量 undefined 继承实例默认值。请求头按静态头、动态头、调用级头的顺序覆盖，名称大小写不敏感。
+ * omitHeaders 最后删除合并后的头；随后 request 仍可按 json/请求体生成必要的 Content-Type。
+ */
+export type RequestClientRequestOptions = RequestOptions & {
+  /** 覆盖本次请求的基址；undefined 继承实例配置。绝对请求 URL 优先于任何基址。 */
+  baseURL?: string;
+  /** 删除合并后的指定请求头，名称大小写不敏感；不会禁用浏览器自动 Cookie。 */
+  omitHeaders?: readonly string[];
+};
+
+/**
+ * 可解构使用的客户端请求函数；响应类型推导与 request 一致。
+ * @public
+ */
+export interface RequestClientRequest {
+  <T = unknown>(
+    url: string,
+    options?: RequestClientRequestOptions & { responseType?: 'json' }
+  ): Promise<RequestResult<T>>;
+  (url: string, options: RequestClientRequestOptions & { responseType: 'text' }): Promise<RequestResult<string>>;
+  (url: string, options: RequestClientRequestOptions & { responseType: 'blob' }): Promise<RequestResult<Blob>>;
+  (url: string, options: RequestClientRequestOptions): Promise<RequestResult>;
+}
+
+/**
+ * 只读客户端，无共享请求状态、可变 defaults 或后台资源。
+ * @public
+ */
+export interface RequestClient {
+  /** 发起单次请求；失败通过 Promise 拒绝，取消、超时和响应解析复用 request。 */
+  readonly request: RequestClientRequest;
+}
+
+/**
+ * 创建隔离默认配置的轻量 HTTP 客户端。
+ * @public
+ * @param options - 固定基址、请求头及传输默认值；无效配置同步抛出 RequestError。
+ * @returns 冻结的客户端对象，request 可直接解构，不依赖 this。
+ * @remarks
+ * 请求时先检查取消，再解析目标地址，然后读取动态头并合并配置。
+ * 绝对 URL 直接覆盖基址；以 // 开头的地址继承有效基址的协议。相对路径按 Axios 风格拼接，
+ * 例如基址 https://host/v1 与路径 /users 得到 https://host/v1/users。
+ * 同名请求头替换而非拼接；各层中重复名称也以后者为准。配置和请求体不会被深拷贝。
+ * 动态头必须同步返回 HeadersInit 或 undefined；准备失败以 INVALID_OPTIONS 拒绝并保留 cause。
+ * 不自动刷新 Token、重试或缓存。不同实例不隔离网络连接或浏览器 Cookie。
+ * 更换目标地址不会清除默认或动态请求头；可用 omitHeaders 删除 Authorization 等头。
+ * baseURL 是地址拼接配置，不是目标访问限制或 SSRF 防护。
+ * @example
+ * ```ts
+ * import { createRequestClient } from 'sculp-js/request';
+ *
+ * const api = createRequestClient({
+ *   baseURL: 'https://api.example.com/v1/',
+ *   timeout: 10000,
+ *   headers: { Accept: 'application/json' }
+ * });
+ * const { data } = await api.request<{ id: number }>('users/1');
+ * await api.request('health', { timeout: 0, omitHeaders: ['Authorization'] });
+ * ```
+ */
+export function createRequestClient(options: RequestClientOptions): RequestClient {
+  try {
+    const { baseURL, headers, getHeaders, timeout, credentials, transport } = options;
+    const base = parseClientBaseURL(baseURL);
+    if (timeout !== undefined && (!Number.isInteger(timeout) || timeout < 0 || timeout > 2147483647)) {
+      throw new TypeError('timeout must be an integer between 0 and 2147483647 milliseconds.');
+    }
+    if (credentials !== undefined && !['omit', 'same-origin', 'include'].includes(credentials)) {
+      throw new TypeError('credentials must be "omit", "same-origin", or "include".');
+    }
+    if (transport !== undefined && !['auto', 'fetch', 'xhr'].includes(transport)) {
+      throw new TypeError('transport must be "auto", "fetch", or "xhr".');
+    }
+    if (credentials === 'omit' && transport === 'xhr') throw new TypeError('credentials "omit" requires fetch.');
+    if (getHeaders !== undefined && typeof getHeaders !== 'function')
+      throw new TypeError('getHeaders must be a function.');
+    const defaults: Record<string, string> = Object.create(null);
+    mergeClientHeaders(defaults, headers);
+    Object.freeze(defaults);
+    const hasHeaders = Object.keys(defaults).length > 0;
+
+    const clientRequest = (url: string, callOptions: RequestClientRequestOptions = {}): Promise<RequestResult> => {
+      try {
+        const { signal } = callOptions;
+        if (signal?.aborted) return request(url, { signal });
+        if (typeof url !== 'string') throw new TypeError('url must be a string.');
+        let target: URL;
+        if (/^[a-z][a-z\d+.-]*:/i.test(url)) {
+          target = parseClientBaseURL(url);
+        } else {
+          const override = callOptions.baseURL;
+          const effectiveBase = override === undefined ? base : parseClientBaseURL(override);
+          target = new URL(
+            url.startsWith('//')
+              ? effectiveBase.protocol + url
+              : url
+              ? effectiveBase.href.replace(/\/+$/, '') + '/' + url.replace(/^\/+/, '')
+              : effectiveBase.href
+          );
+          validateClientURL(target);
+        }
+        const dynamicHeaders = getHeaders?.();
+        const { headers: callHeaders, omitHeaders, baseURL: _baseURL, ...rest } = callOptions;
+        let mergedHeaders: HeadersInit | undefined = hasHeaders ? defaults : undefined;
+        if (dynamicHeaders !== undefined || callHeaders !== undefined || omitHeaders !== undefined) {
+          const merged: Record<string, string> = Object.assign(Object.create(null), defaults);
+          mergeClientHeaders(merged, dynamicHeaders);
+          mergeClientHeaders(merged, callHeaders);
+          if (omitHeaders !== undefined) {
+            if (!Array.isArray(omitHeaders)) throw new TypeError('omitHeaders must be an array of header names.');
+            for (const name of omitHeaders) delete merged[clientHeaderName(name)];
+          }
+          mergedHeaders = merged;
+        }
+        if (signal?.aborted) return request(url, { signal });
+        return request(target.href, {
+          ...rest,
+          signal,
+          headers: mergedHeaders,
+          timeout: rest.timeout === undefined ? timeout : rest.timeout,
+          credentials: rest.credentials === undefined ? credentials : rest.credentials,
+          transport: rest.transport === undefined ? transport : rest.transport
+        });
+      } catch (cause) {
+        return Promise.reject(clientPreparationError(cause));
+      }
+    };
+    return Object.freeze({ request: clientRequest as RequestClientRequest });
+  } catch (cause) {
+    throw clientPreparationError(cause);
+  }
+}
+
+function parseClientBaseURL(value: string): URL {
+  if (typeof value !== 'string' || !/^https?:\/\//i.test(value)) {
+    throw new TypeError('Client URL or baseURL must be an absolute HTTP(S) URL.');
+  }
+  const url = new URL(value);
+  validateClientURL(url);
+  return url;
+}
+
+function validateClientURL(url: URL): void {
+  if (!['http:', 'https:'].includes(url.protocol) || url.username || url.password) {
+    throw new TypeError('Client URLs must use HTTP(S) without embedded credentials.');
+  }
+}
+
+function clientHeaderName(name: string): string {
+  if (typeof name !== 'string' || !/^[!#$%&'*+.^_`|~0-9A-Za-z-]+$/.test(name)) {
+    throw new TypeError('Invalid HTTP header name.');
+  }
+  return name.toLowerCase();
+}
+
+function mergeClientHeaders(target: Record<string, string>, headers: HeadersInit | undefined): void {
+  if (headers === undefined) return;
+  if (!headers || typeof headers !== 'object') throw new TypeError('headers must be a HeadersInit value.');
+  if ('then' in headers && typeof headers.then === 'function') {
+    // Handle accidental async providers without leaving their rejected Promise unhandled.
+    void Promise.resolve(headers).catch(() => {});
+    throw new TypeError('getHeaders must return synchronously; Promise headers are unsupported.');
+  }
+  if (Array.isArray(headers) && headers.some(entry => !Array.isArray(entry) || entry.length !== 2)) {
+    throw new TypeError('Header entries must be name/value pairs.');
+  }
+  forEachHeader(headers, (name, value) => {
+    const key = clientHeaderName(name);
+    if (typeof value !== 'string') throw new TypeError('Invalid HTTP header value.');
+    for (let i = 0; i < value.length; i++) {
+      const code = value.charCodeAt(i);
+      if (code === 0 || code === 10 || code === 13 || code > 255) throw new TypeError('Invalid HTTP header value.');
+    }
+    target[key] = value.replace(/^[\t ]+|[\t ]+$/g, '');
+  });
+}
+
+function clientPreparationError(cause: unknown): RequestError {
+  return createRequestError(
+    'INVALID_OPTIONS',
+    0,
+    cause,
+    cause instanceof Error ? cause.message : 'Failed to prepare the client request.'
+  );
+}
+
+export default { request, RequestError, createRequestClient };

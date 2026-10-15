@@ -25,6 +25,8 @@ before sending. The loopback servers use different ports on the same host:
 these are cross-origin, same-site tests, not third-party cookie policy tests.
 Timeout checks verify both stalled headers and stalled response bodies, including
 server-observed connection closure for fetch and XHR.
+Client checks cover dynamic authorization, header deletion, credential inheritance,
+and absolute URL / per-call baseURL overrides across origins, on both transports.
 Both fetch and XHR paths run, including the existing download regressions.
 
 These are correctness checks, not a throughput benchmark or a guarantee for

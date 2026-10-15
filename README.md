@@ -1,96 +1,52 @@
-<div align="center">
-
 # sculp-js
 
-**A Modern JavaScript Utility Library for Web**
+A lightweight TypeScript utility library with zero runtime dependencies, ESM,
+CommonJS and UMD builds, and module-specific imports for tree-shaking.
 
 [![Node.js CI](https://github.com/chandq/sculp-js/actions/workflows/release.yml/badge.svg)](https://github.com/chandq/sculp-js/actions/workflows/release.yml)
-[![sculp-js](https://img.shields.io/github/package-json/v/chandq/sculp-js?style=flat-square)](https://www.npmjs.com/package/sculp-js)
-[![license:MIT](https://img.shields.io/npm/l/vue.svg?sanitize=true)](https://github.com/chandq/sculp-js/blob/main/LICENSE)
+[![npm](https://img.shields.io/npm/v/sculp-js.svg)](https://www.npmjs.com/package/sculp-js)
+[![license](https://img.shields.io/npm/l/sculp-js.svg)](./LICENSE)
 [![codecov](https://codecov.io/gh/chandq/sculp-js/graph/badge.svg?token=VZ6TERPGI9)](https://codecov.io/gh/chandq/sculp-js)
 
-</div>
+[API documentation](https://chandq.github.io/sculp-js/) · [Usage](#usage) · [Contributing](./CONTRIBUTING.md)
 
-<br/>
-
-> A lightweight utility library written in TypeScript with zero dependencies, supporting ESM, CJS, and UMD formats.
-
-**[API Documentation](https://chandq.github.io/sculp-js/)** • **[Getting Started](#usage)** • **[Features](#features)**
-
-## ✨ Features
-
-- **Type-Safe**: Full TypeScript support with comprehensive type definitions
-- **Zero Dependencies**: Pure native implementation, no external libraries
-- **Tree Shaking**: Supports selective imports for smaller bundle sizes
-- **Multi-Format**: ESM, CJS, and UMD builds available
-- **Web Focused**: Optimized for modern web environments
-
-### Core Utilities
-
-<details>
-<summary><strong>Type Checking</strong></summary>
-
-- `isString`, `isNumber`, `isBoolean`, `isFunction`, `isObject`, `isArray`
-- `isDate`, `isRegExp`, `isUndefined`, `isNull`, `isError`, `isNaN`
-- `isPrimitive`, `isSymbol`, `isBigInt`, `isPlainObject`
-- `isEmpty`, `isNodeList`, `isValidDate`, `typeIs`
-
-</details>
-
-<details>
-<summary><strong>Data Structures</strong></summary>
-
-- **Array**: `arrayEach`, `arrayEachAsync`, `arrayInsertBefore`, `arrayRemove`
-- **Tree**: `forEachDeep`, `mapDeep`, `findDeep`, `filterDeep`, `getPathById`, `flatTree`, `fuzzySearchTree`
-- **Object**: `objectAssign`, `objectGet`, `objectHas`, `cloneDeep`, `objectPick`, `objectOmit`
-
-</details>
-
-<details>
-<summary><strong>Web APIs</strong></summary>
-
-- **DOM**: `addClass`, `hasClass`, `removeClass`, `getStyle`, `setStyle`
-- **File**: `chooseLocalFile`, `compressImg`
-- **HTTP**: `request` — JSON, text and Blob responses, cancellation and optional receive progress
-- **Clipboard**: `copyText`, `fallbackCopyText`
-- **Download**: `downloadBlob`, `downloadURL`, `downloadData`
-- **Watermark**: `genCanvasWM`
-
-</details>
-
-<details>
-<summary><strong>Encoding & Validation</strong></summary>
-
-- **Encode/Decode**: `weBtoa`, `weAtob`, `b64encode`, `b64decode`
-- **Validation**: `isEmail`, `isPhone`, `isUrl`, `isIDNO`, `isIPv4`, `isIPv6`
-
-</details>
-
-<details>
-<summary><strong>Additional Utils</strong></summary>
-
-- **Date**: `formatDate`, `calculateDate`, `dateToStart`, `dateToEnd`
-- **String**: `stringCamelCase`, `stringKebabCase`, `parseQueryParams`, `stringEscapeHTML`
-- **Math**: `add`, `subtract`, `multiply`, `divide`, `numberAbbr`
-- **Functional**: `debounce`, `throttle`, `once`, `wait`
-
-</details>
-
-## 🚀 Installation
-
-### npm
+## Installation
 
 ```bash
 npm install sculp-js
 ```
 
-### CDN
+For a browser script, use `https://unpkg.com/sculp-js` or `https://cdn.jsdelivr.net/npm/sculp-js`.
+Pin a version for production.
 
-```html
-<script src="https://unpkg.com/sculp-js"></script>
+## Usage
+
+```ts
+// ES Modules - Default import
+import sculp from 'sculp-js';
+import { cloneDeep, forEachDeep } from 'sculp-js';
+
+const tree = [{ id: 1, children: [{ id: 2 }] }];
+const copy = cloneDeep(tree);
+forEachDeep(copy, node => console.log(node.id));
 ```
 
-## 💡 Usage
+Import individual modules when only a few utilities are needed:
+
+```ts
+// ES Modules - Default import
+import requestClient from 'sculp-js/request';
+import { request, createRequestClient } from 'sculp-js/request';
+import { qsStringify } from 'sculp-js/qs';
+import { isEmail } from 'sculp-js/validator';
+
+// CommonJS
+const { cloneDeep } = require('sculp-js/cloneDeep');
+```
+
+Utilities cover arrays, objects, trees, strings, dates, numbers, type checks,
+validation, query strings, encoding, async helpers and browser APIs. See the
+[API reference](https://chandq.github.io/sculp-js/) for the full list.
 
 ### HTTP requests
 
@@ -99,198 +55,98 @@ import { request, RequestError } from 'sculp-js/request';
 
 const controller = new AbortController();
 try {
-  const result = await request<{ id: number }>('/api/users', {
+  const { data } = await request<{ id: number }>('/api/users', {
     method: 'POST',
     json: { name: 'Alice' },
     timeout: 10000,
     signal: controller.signal
   });
-  console.log(result.status, result.data?.id);
+  console.log(data?.id);
 } catch (error) {
   if (error instanceof RequestError) console.error(error.code, error.status);
 }
 ```
 
-Defaults are `GET`, `responseType: 'json'` and `transport: 'auto'`. All 2xx
-responses succeed; non-2xx responses reject with `HTTP_ERROR` and preserve their
-raw body in `error.response`. Invalid JSON in a successful response rejects with
-`RESPONSE_ERROR`. HEAD, 204/205 and empty JSON responses return `data: undefined`.
-Use `responseType: 'text'` or `'blob'` for other response formats.
+- Defaults: GET, JSON response, automatic transport selection. Results contain
+  `status`, `headers` and `data`; all 2xx statuses succeed. Use `responseType: 'text'`
+  or `'blob'` for other formats. HEAD, 204/205 and empty JSON responses yield undefined data.
+- Use either `json` or a raw `body` (string, URLSearchParams, FormData, Blob/File).
+  GET/HEAD reject bodies; FormData must supply its own Content-Type boundary.
+  Caller headers are never modified. Use `qsStringify` to compose query strings.
+- HTTP failures use `HTTP_ERROR` and retain the raw body in `error.response`;
+  invalid successful JSON uses `RESPONSE_ERROR`. Generics do not validate data.
+- `signal` cancels with `ABORTED`; pre-aborted requests skip preparation.
+  `timeout` accepts integer milliseconds from 0 to 2147483647 (0 disables it).
+  It covers transport setup, sending, waiting and body reading, aborting the
+  transport with `TIMEOUT`. It excludes serialization and cannot interrupt
+  synchronous code; cancellation and timeout use the first terminal event processed.
+- `onProgress` reports response reception through XHR and conflicts with explicit
+  fetch. Its `done` flag does not guarantee successful parsing. Use `upload` for
+  request-body progress and `crossOriginDownload` to trigger browser file saving.
 
-Use either `json` (serialized once, with a default JSON Content-Type) or `body`
-(string, URLSearchParams, FormData, Blob/File, sent unchanged). GET/HEAD reject
-request bodies; FormData rejects manually supplied Content-Type headers.
-Caller headers are never modified. Query strings can be composed with `qsStringify`.
+| `credentials`           | fetch                                                     | XHR                                                       |
+| ----------------------- | --------------------------------------------------------- | --------------------------------------------------------- |
+| `same-origin` (default) | Same-origin automatic credentials and response cookies    | `withCredentials: false`; same-origin cookies still apply |
+| `include`               | Allow cross-origin credentials and response cookies       | `withCredentials: true`                                   |
+| `omit`                  | Exclude automatic credentials and ignore response cookies | Unsupported                                               |
 
-`onProgress` reports **response reception**, requires XHR and conflicts with
-explicit `transport: 'fetch'`. Its `done` flag does not guarantee successful
-response parsing. Use `upload` for request-body upload progress.
+`omit` with XHR or progress rejects with `INVALID_OPTIONS`; auto without fetch
+rejects with `UNSUPPORTED_ENVIRONMENT`. Explicit Authorization headers are not
+removed. Cross-origin `include` requires an explicit matching
+`Access-Control-Allow-Origin` and `Access-Control-Allow-Credentials: true`, and
+still respects browser cookie policies.
 
-An already-aborted `signal` rejects with `ABORTED` before JSON serialization or
-other request preparation. `timeout` is an integer number of milliseconds from
-0 to 2147483647; the default, 0, disables it. The timer starts after request
-preparation, immediately before transport setup, and covers sending, waiting for
-headers and reading the entire response body. It is not reset by progress or
-response headers. Expiry rejects with `TIMEOUT` and aborts the underlying fetch
-or XHR; it does not abort the caller's signal. Manual cancellation and timeout
-use the first terminal event processed. Timers and listeners are removed on
-completion or failure. Disabled timeouts allocate no timer or extra controller;
-timed fetch requires AbortController. Timing depends on the event loop: it cannot
-interrupt synchronous JSON parsing or callbacks and excludes request serialization.
+Node.js requires native fetch and absolute URLs; timed fetch also requires
+AbortController. The library provides no cookie jar. Responses are buffered in
+memory, with no automatic retries, caching or business-data validation.
 
-Browser credential behavior is explicit:
+### Request clients
 
-| `credentials`           | fetch                                                           | XHR                                                       |
-| ----------------------- | --------------------------------------------------------------- | --------------------------------------------------------- |
-| `same-origin` (default) | Same-origin automatic credentials and response cookies          | `withCredentials: false`; same-origin cookies still apply |
-| `include`               | Allow automatic credentials and response cookies across origins | `withCredentials: true`                                   |
-| `omit`                  | Exclude automatic credentials and ignore response cookies       | Unsupported; rejected before sending                      |
+```ts
+import { createRequestClient } from 'sculp-js/request';
 
-`omit` with `transport: 'xhr'` or `onProgress` rejects with `INVALID_OPTIONS`.
-With `auto` and no fetch available, it rejects with `UNSUPPORTED_ENVIRONMENT`
-instead of falling back to XHR. This restriction also applies to initially
-cross-origin URLs; redirects must not weaken the chosen policy.
-
-Credential modes do **not** remove explicit `Authorization` or other caller
-headers, and `omit` is not an anonymization feature. `include` still respects
-SameSite and browser cookie policies. Cross-origin credentialed responses need
-an explicit `Access-Control-Allow-Origin` matching the caller and
-`Access-Control-Allow-Credentials: true`; wildcard origins are insufficient.
-The mappings follow the [XHR standard](<https://xhr.spec.whatwg.org/#the-send()-method>)
-and [Fetch credential modes](https://fetch.spec.whatwg.org/#concept-request-credentials-mode).
-
-Node.js uses native fetch and requires an absolute URL; this library does not
-provide a cookie jar or browser session cookies. Progress requires an available
-XMLHttpRequest implementation.
-Responses are buffered in memory. No automatic retry, cache or business-data
-validation is performed; TypeScript generics do not validate response data.
-
-### Utility functions
-
-```js
-import { forEachDeep, cloneDeep } from 'sculp-js';
-
-// Deep traversal of tree structures
-const tree = [
-  {
-    id: 1,
-    name: 'Parent 1',
-    children: [
-      { id: 11, name: 'Child 1' },
-      { id: 12, name: 'Child 2', children: [{ id: 121, name: 'Grandchild 1' }] }
-    ]
-  },
-  { id: 2, name: 'Parent 2' }
-];
-
-const names = [];
-forEachDeep(tree, item => {
-  names.push(item.name);
+const api = createRequestClient({
+  baseURL: 'https://api.example.com/v1/',
+  timeout: 10000,
+  headers: { Accept: 'application/json' }
 });
-// names = ['Parent 1', 'Child 1', 'Child 2', 'Grandchild 1', 'Parent 2']
 
-// Deep cloning of objects
-const original = { a: 1, b: { c: 2 } };
-const cloned = cloneDeep(original);
+const { request: apiRequest } = api; // Works without `this` binding.
+const { data } = await apiRequest<{ id: number }>('users/1');
+await apiRequest('health', { timeout: 0, omitHeaders: ['Authorization'] });
+await apiRequest('/users', { baseURL: 'https://other.example.com/v2' });
+await apiRequest('https://third.example.com/users');
 ```
 
-## 📦 Module Formats
+- Clients snapshot defaults and expose a frozen object. Defaults are limited to
+  headers, timeout, credentials and transport. Call values override defaults;
+  undefined inherits and `timeout: 0` disables the default timeout.
+- Required `baseURL` is an absolute HTTP(S) URL without embedded credentials.
+  Relative paths append to the base prefix, as in Axios: with `https://host/v1`
+  or `https://host/v1/`, both `users` and `/users` resolve to `/v1/users`.
+  A call-level `baseURL` overrides the instance base for that request only;
+  absolute URLs take precedence over either base, and `//host/path` inherits
+  the effective base's protocol. Different origins are allowed. Changing the
+  destination retains default/dynamic headers; use `omitHeaders` to remove
+  Authorization when needed. `baseURL` is not an access restriction.
+- Headers merge case-insensitively: static defaults → dynamic headers → call
+  headers → `omitHeaders` deletion. Duplicate names use the last value. Automatic
+  Content-Type generation still applies after deletion.
+- Optional `getHeaders: () => HeadersInit | undefined` reads changing tokens once
+  per request, synchronously. Pre-aborted requests skip it. Async token refresh
+  is not built in. Invalid fixed configuration throws `RequestError` at creation;
+  request preparation failures reject with `INVALID_OPTIONS` and preserve `cause`.
 
-### Named Imports (Recommended)
+Instances isolate configuration, not browser cookies or connections. Scope SSR
+credentials to the incoming request/session. A client or its detached request
+method retains its configuration and any context captured by `getHeaders` until
+those references are released; clients have no background resources to dispose.
 
-```js
-// ES Modules - Named imports (tree-shaking friendly)
-import { cloneDeep, forEachDeep } from 'sculp-js';
+## Community
 
-// CommonJS - Named imports
-const { cloneDeep, forEachDeep } = require('sculp-js');
-```
+[Contributing](./CONTRIBUTING.md) · [Code of Conduct](./CODE_OF_CONDUCT.md) ·
+[Security Policy](./SECURITY.md) · [Report an issue](https://github.com/chandq/sculp-js/issues)
 
-### Default Import (Full Library)
+## License
 
-```js
-// ES Modules - Default import
-import sculp from 'sculp-js';
-const { cloneDeep, forEachDeep } = sculp;
-
-// CommonJS - Default import
-const sculp = require('sculp-js');
-const { cloneDeep, forEachDeep } = sculp;
-```
-
-### Module-Specific Imports
-
-Import specific modules for better tree-shaking and smaller bundle sizes:
-
-```js
-// ES Modules - Import specific modules
-import array from 'sculp-js/array';
-import string from 'sculp-js/string';
-import type from 'sculp-js/type';
-import date from 'sculp-js/date';
-import object from 'sculp-js/object';
-import math from 'sculp-js/math';
-import validator from 'sculp-js/validator';
-// ... and more
-
-// CommonJS - Import specific modules
-const array = require('sculp-js/array');
-const string = require('sculp-js/string');
-const type = require('sculp-js/type');
-
-// Usage examples
-import array from 'sculp-js/array';
-array.arrayEach([1, 2, 3], val => console.log(val));
-
-import string from 'sculp-js/string';
-const camelCase = string.stringCamelCase('hello-world'); // 'helloWorld'
-
-import validator from 'sculp-js/validator';
-if (validator.isEmail('test@example.com')) {
-  console.log('Valid email');
-}
-```
-
-### Available Modules
-
-All modules support both named and default exports:
-
-- `sculp-js/array` - Array utilities
-- `sculp-js/string` - String manipulation
-- `sculp-js/type` - Type checking
-- `sculp-js/date` - Date formatting
-- `sculp-js/object` - Object utilities
-- `sculp-js/math` - Math operations
-- `sculp-js/number` - Number formatting
-- `sculp-js/url` - URL parsing
-- `sculp-js/qs` - Query string parsing
-- `sculp-js/path` - Path utilities
-- `sculp-js/async` - Async utilities
-- `sculp-js/func` - Function utilities
-- `sculp-js/random` - Random generators
-- `sculp-js/validator` - Validation functions
-- `sculp-js/tree` - Tree operations
-- `sculp-js/base64` - Base64 encoding
-- `sculp-js/unique` - Unique ID generators
-- `sculp-js/variable` - Variable utilities
-- `sculp-js/clipboard` - Clipboard operations
-- `sculp-js/cookie` - Cookie management
-- `sculp-js/dom` - DOM utilities
-- `sculp-js/download` - Download helpers
-- `sculp-js/file` - File utilities
-- `sculp-js/watermark` - Watermark generation
-- `sculp-js/tooltip` - Tooltip utilities
-- `sculp-js/cloneDeep` - Deep cloning
-- `sculp-js/isEqual` - Deep equality
-- `sculp-js/unicodeToolkit` - Unicode utilities
-
-## 📄 License
-
-MIT License © 2023-present, [chandq](https://github.com/chandq)
-
-## 🤝 Community
-
-- [Contributing Guide](./CONTRIBUTING.md)
-- [Code of Conduct](./CODE_OF_CONDUCT.md)
-- [Security Policy](./SECURITY.md)
-- [Report an Issue](https://github.com/chandq/sculp-js/issues)
+MIT © 2023-present [chandq](https://github.com/chandq)
