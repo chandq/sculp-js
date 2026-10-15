@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.23.0](https://github.com/chandq/sculp-js/compare/v1.22.0...v1.23.0) (2026-10-15)
+
+### Features
+
+- **request:** add lightweight HTTP requests backed by shared transfer ([b6c0a23](https://github.com/chandq/sculp-js/commit/b6c0a23c111d122930c967a0b05d0ad112024b1a))
+- **request:** add timeout and explicit credential controls ([8a4740e](https://github.com/chandq/sculp-js/commit/8a4740ebd5f0933df6e6c8414aa17602b4442df6))
+- **request:** support per-request base URLs and absolute URL overrides ([447365b](https://github.com/chandq/sculp-js/commit/447365b4aecbbc6a89615ef03992a10166d55ed1))
+
 ## [1.22.0](https://github.com/chandq/sculp-js/compare/v1.21.0...v1.22.0) (2026-10-13)
 
 ### Features
