@@ -1,4 +1,5 @@
 import { numberToHex, numberAbbr, formatNumber, humanFileSize } from '../src/number';
+import type { FileSizeUnit } from '../src/number';
 import './utils';
 
 test('numberToHex', () => {
@@ -113,6 +114,76 @@ describe('humanFileSize', () => {
     const value2 = humanFileSize(5 * Math.pow(1024, 5), { si: false, decimals: 2 });
     expect(value).toEqual('5.63 PB');
     expect(value2).toEqual('5.00 PiB');
+  });
+});
+
+describe('humanFileSize unit conversion', () => {
+  test.each<[number | string, FileSizeUnit, FileSizeUnit, number, string]>([
+    [1.5, 'GiB', 'MiB', 0, '1536 MiB'],
+    [1536, 'MiB', 'GiB', 2, '1.50 GiB'],
+    [1, 'MB', 'KiB', 2, '976.56 KiB'],
+    [1, 'MiB', 'MB', 6, '1.048576 MB'],
+    ['1.5', 'GiB', 'MiB', 0, '1536 MiB'],
+    [0, 'GiB', 'MiB', 2, '0.00 MiB'],
+    [-1.5, 'GiB', 'MiB', 0, '-1536 MiB'],
+    [1, 'KB', 'B', 0, '1000 B'],
+    [1000, 'Byte', 'KB', 0, '1 kB'],
+    [1, 'B', 'Byte', 0, '1 Byte'],
+    [1, 'Byte', 'B', 0, '1 B'],
+    [1, 'YB', 'ZB', 0, '1000 ZB'],
+    [1, 'YiB', 'ZiB', 0, '1024 ZiB'],
+    [1e300, 'YiB', 'YiB', 0, '1e+300 YiB']
+  ])('converts %s %s to %s', (value, fromUnit, toUnit, decimals, expected) => {
+    expect(humanFileSize(value, { fromUnit, toUnit, decimals })).toBe(expected);
+  });
+
+  test('uses bytes by default and formats only after conversion', () => {
+    expect(humanFileSize(1536, { toUnit: 'KiB', decimals: 2 })).toBe('1.50 KiB');
+    expect(humanFileSize(1.2345, { fromUnit: 'MiB', toUnit: 'KiB', decimals: 2, separator: '' })).toBe('1264.13KiB');
+  });
+
+  test('automatically selects units across the full output scale', () => {
+    expect(humanFileSize(0.5, { fromUnit: 'MiB' })).toBe('512 KiB');
+    expect(humanFileSize(-0.5, { fromUnit: 'MiB' })).toBe('-512 KiB');
+    expect(humanFileSize(1024, { fromUnit: 'KiB' })).toBe('1 MiB');
+    expect(humanFileSize(1, { fromUnit: 'MB', decimals: 2 })).toBe('976.56 KiB');
+    expect(humanFileSize(1, { fromUnit: 'MiB', si: true, decimals: 2 })).toBe('1.05 MB');
+    expect(humanFileSize(0, { fromUnit: 'GiB' })).toBe('0 Byte');
+    expect(humanFileSize(0, { fromUnit: 'GiB', si: true })).toBe('0 B');
+    expect(humanFileSize(0.5, { fromUnit: 'B', decimals: 1 })).toBe('0.5 Byte');
+    expect(humanFileSize(1e300, { fromUnit: 'YiB' })).toBe('1e+300 YiB');
+  });
+
+  test('honors maxUnit only for automatic conversion in the selected scale', () => {
+    expect(humanFileSize(1, { fromUnit: 'GiB', maxUnit: 'KiB' })).toBe('1048576 KiB');
+    expect(humanFileSize(1, { fromUnit: 'GB', si: true, maxUnit: 'MB' })).toBe('1000 MB');
+    expect(humanFileSize(1, { fromUnit: 'MiB', maxUnit: 'B' })).toBe('1 MiB');
+    expect(humanFileSize(1, { fromUnit: 'MiB', maxUnit: 'invalid' })).toBe('1 MiB');
+    expect(humanFileSize(1, { fromUnit: 'GiB', toUnit: 'MiB', si: true, maxUnit: 'B' })).toBe('1024 MiB');
+  });
+
+  test('prefers fromUnit and otherwise resolves baseUnit in the selected scale', () => {
+    expect(humanFileSize(1, { fromUnit: 'MiB', baseUnit: 'GiB', toUnit: 'KiB' })).toBe('1024 KiB');
+    expect(humanFileSize(1, { fromUnit: 'MiB', baseUnit: 'GiB' })).toBe('1 MiB');
+    expect(humanFileSize(1, { baseUnit: 'GiB', toUnit: 'MiB' })).toBe('1024 MiB');
+    expect(humanFileSize(1, { baseUnit: 'MB', si: true, toUnit: 'B' })).toBe('1000000 B');
+    expect(humanFileSize(1, { baseUnit: 'MB', toUnit: 'B' })).toBe('1 B');
+    expect(humanFileSize(1, { baseUnit: 'invalid', toUnit: 'B' })).toBe('1 B');
+  });
+
+  test.each(['invalid', 'mb', 'bit', '', null, 123])('rejects invalid new unit %s at runtime', unit => {
+    const invalidUnit = unit as FileSizeUnit;
+    expect(() => humanFileSize(1, { fromUnit: invalidUnit })).toThrow(RangeError);
+    expect(() => humanFileSize(1, { toUnit: invalidUnit })).toThrow(RangeError);
+    expect(() => humanFileSize(1, { fromUnit: invalidUnit, toUnit: 'B' })).toThrow(RangeError);
+  });
+
+  test('preserves legacy behavior when new options are absent or undefined', () => {
+    expect(humanFileSize(0.5, { baseUnit: 'MiB', decimals: 1 })).toBe('0.5 MiB');
+    expect(humanFileSize(-1024)).toBe('-1024 Byte');
+    expect(humanFileSize(1024, { baseUnit: 'invalid', maxUnit: 'invalid' })).toBe('1 KiB');
+    expect(humanFileSize(1024, { baseUnit: 'KiB', maxUnit: 'Byte' })).toBe('1 MiB');
+    expect(humanFileSize(1024, { baseUnit: 'KiB', fromUnit: undefined, toUnit: undefined })).toBe('1 MiB');
   });
 });
 

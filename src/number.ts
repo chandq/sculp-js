@@ -85,32 +85,94 @@ export const numberAbbr = (
   const unit = units[times];
   return String(value) + separator + unit;
 };
+const SI_FILE_SIZE_UNITS = ['B', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'] as const;
+const IEC_FILE_SIZE_UNITS = ['Byte', 'KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB'] as const;
+
+/** Byte-based file size units. KB is an alias for the SI unit kB. */
+export type FileSizeUnit = (typeof SI_FILE_SIZE_UNITS)[number] | (typeof IEC_FILE_SIZE_UNITS)[number] | 'KB';
+
+function resolveFileSizeUnit(unit: FileSizeUnit): { unit: FileSizeUnit; bytes: number } {
+  const normalized = unit === 'KB' ? 'kB' : unit;
+  const siIndex = SI_FILE_SIZE_UNITS.findIndex(value => value === normalized);
+  if (siIndex !== -1) return { unit: normalized, bytes: 1000 ** siIndex };
+  const iecIndex = IEC_FILE_SIZE_UNITS.findIndex(value => value === normalized);
+  if (iecIndex !== -1) return { unit: normalized, bytes: 1024 ** iecIndex };
+  throw new RangeError(`Invalid file size unit: ${String(unit)}`);
+}
+
 interface IHumanFileSizeOptions {
   decimals?: number;
   si?: boolean;
   separator?: string;
   baseUnit?: string;
   maxUnit?: string;
+  /** Source unit; overrides baseUnit. Unit names determine their own SI/IEC scale. */
+  fromUnit?: FileSizeUnit;
+  /** Fixed output unit; overrides si and maxUnit for output selection. */
+  toUnit?: FileSizeUnit;
 }
 /**
- * Converting file size in bytes to human-readable string
+ * Formats a file size, optionally converting between source and target units.
+ * SI units (kB through YB) use powers of 1000; IEC units (KiB through YiB)
+ * use powers of 1024. B and Byte both mean bytes; KB is rendered as kB.
+ *
  *  reference: https://zh.wikipedia.org/wiki/%E5%8D%83%E5%AD%97%E8%8A%82
- * @param {number | string} num bytes Number in Bytes
- * @param {IHumanFileSizeOptions} options default: { decimals = 0, si = false, separator = ' ' }
- *        si: True to use metric (SI) units, aka powers of 1000, units is
- *            ['B', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'].
- *            False to use binary (IEC), aka powers of 1024, units is
- *            ['Byte', 'KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB']
- * @returns
+ *
+ *  si: True to use metric (SI) units, aka powers of 1000, units is
+ *      ['B', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'].
+ *      False to use binary (IEC), aka powers of 1024, units is
+ *      ['Byte', 'KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB']
+ *
+ * Without fromUnit or toUnit, legacy behavior is preserved: baseUnit sets
+ * the starting unit in the si-selected scale and sizes only scale upward.
+ * With either new option, fromUnit overrides baseUnit; otherwise a valid
+ * baseUnit in the si-selected scale is used, falling back to bytes.
+ * toUnit fixes the output unit regardless of si or maxUnit. Without toUnit,
+ * si selects the output scale (false: IEC, true: SI), and maxUnit caps it.
+ * Automatic conversion can scale down and selects units by absolute value,
+ * preserving the sign. Invalid legacy baseUnit/maxUnit values are ignored.
+ *
+ * @param num Size as a number or numeric string, in bytes unless a source unit is specified.
+ * Uses JavaScript number precision; strings containing units are not parsed.
+ * @param options Defaults: decimals = 0, si = false, separator = ' '.
+ * Rounding is applied only after conversion.
+ * @returns The formatted value followed by the separator and unit.
+ * @throws {RangeError} If a supplied fromUnit or toUnit is invalid.
+ * @example
+ * ```ts
+ * humanFileSize(1.5, { fromUnit: 'GiB', toUnit: 'MiB' }); // '1536 MiB'
+ * humanFileSize(1, { fromUnit: 'MB', toUnit: 'KiB', decimals: 2 }); // '976.56 KiB'
+ * humanFileSize(0.5, { fromUnit: 'MiB' }); // '512 KiB'
+ * humanFileSize(1536, { toUnit: 'KiB', decimals: 2 }); // '1.50 KiB'
+ * ```
  */
 export function humanFileSize(
   num: number | string,
   options: IHumanFileSizeOptions = { decimals: 0, si: false, separator: ' ' }
 ): string {
-  const { decimals = 0, si = false, separator = ' ', baseUnit, maxUnit } = options;
-  let units = si
-    ? ['B', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
-    : ['Byte', 'KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB'];
+  const { decimals = 0, si = false, separator = ' ', baseUnit, maxUnit, fromUnit, toUnit } = options;
+  let units: FileSizeUnit[] = [...(si ? SI_FILE_SIZE_UNITS : IEC_FILE_SIZE_UNITS)];
+  const ratio = si ? 1000 : 1024;
+
+  if (fromUnit !== undefined || toUnit !== undefined) {
+    const source = resolveFileSizeUnit(
+      fromUnit === undefined ? units.find(unit => unit === baseUnit) ?? 'B' : fromUnit
+    );
+    const value = Number(num);
+    if (toUnit !== undefined) {
+      const target = resolveFileSizeUnit(toUnit);
+      return (value * (source.bytes / target.bytes)).toFixed(decimals) + separator + target.unit;
+    }
+
+    const maxIndex = units.findIndex(unit => unit === maxUnit);
+    const limit = maxIndex === -1 ? units.length - 1 : maxIndex;
+    let index = 0;
+    // Compare in each candidate unit to avoid overflowing an intermediate byte value.
+    while (index < limit && Math.abs(value * (source.bytes / ratio ** (index + 1))) >= 1) {
+      index++;
+    }
+    return (value * (source.bytes / ratio ** index)).toFixed(decimals) + separator + units[index];
+  }
   if (!isNullish(baseUnit)) {
     const targetIndex = units.findIndex(el => el === baseUnit);
     if (targetIndex !== -1) {
@@ -123,7 +185,7 @@ export function humanFileSize(
       units.splice(targetIndex + 1);
     }
   }
-  return numberAbbr(num, units, { ratio: si ? 1000 : 1024, decimals, separator });
+  return numberAbbr(num, units, { ratio, decimals, separator });
 }
 
 /**
