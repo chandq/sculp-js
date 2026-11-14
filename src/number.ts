@@ -100,15 +100,36 @@ function resolveFileSizeUnit(unit: FileSizeUnit): { unit: FileSizeUnit; bytes: n
   throw new RangeError(`Invalid file size unit: ${String(unit)}`);
 }
 
+// maxDisplayUnit only constrains the active output scale, so resolve it inside
+// that scale instead of treating it as a scale-independent unit like fromUnit/toUnit.
+// B and Byte are synonymous byte units; KB is the documented alias of kB.
+function resolveOutputScaleIndex(unit: FileSizeUnit, units: readonly FileSizeUnit[]): number {
+  const normalized: FileSizeUnit = unit === 'KB' ? 'kB' : unit === 'B' || unit === 'Byte' ? units[0] : unit;
+  const index = units.findIndex(value => value === normalized);
+  if (index === -1) {
+    throw new RangeError(`maxDisplayUnit must be a unit in the selected output scale, received: ${String(unit)}`);
+  }
+  return index;
+}
+
 interface IHumanFileSizeOptions {
   decimals?: number;
   si?: boolean;
   separator?: string;
-  baseUnit?: string;
-  maxUnit?: string;
-  /** Source unit; overrides baseUnit. Unit names determine their own SI/IEC scale. */
+  /**
+   * Ceiling for automatic unit escalation. As the formatter walks up the unit
+   * scale (Byte -> KiB -> MiB -> ...), it never selects a unit larger than this;
+   * an oversized value is rendered with a larger number in the ceiling unit,
+   * e.g. 5*1024^5 bytes capped at TiB renders as '5120.00 TiB'. Units below the
+   * ceiling are still chosen automatically, so this is not a fixed output unit
+   * (use toUnit for that). Must belong to the si-selected output scale;
+   * 'B'/'Byte' are synonymous byte caps and 'KB' is accepted as the SI alias of
+   * 'kB'. Ignored when toUnit is set.
+   */
+  maxDisplayUnit?: FileSizeUnit;
+  /** Source unit of the input value. Unit names determine their own SI/IEC scale. */
   fromUnit?: FileSizeUnit;
-  /** Fixed output unit; overrides si and maxUnit for output selection. */
+  /** Fixed output unit; overrides si and maxDisplayUnit for output selection. */
   toUnit?: FileSizeUnit;
 }
 /**
@@ -123,49 +144,51 @@ interface IHumanFileSizeOptions {
  *      False to use binary (IEC), aka powers of 1024, units is
  *      ['Byte', 'KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB']
  *
- * Without fromUnit or toUnit, legacy behavior is preserved: baseUnit sets
- * the starting unit in the si-selected scale and sizes only scale upward.
- * With either new option, fromUnit overrides baseUnit; otherwise a valid
- * baseUnit in the si-selected scale is used, falling back to bytes.
- * toUnit fixes the output unit regardless of si or maxUnit. Without toUnit,
- * si selects the output scale (false: IEC, true: SI), and maxUnit caps it.
- * Automatic conversion can scale down and selects units by absolute value,
- * preserving the sign. Invalid legacy baseUnit/maxUnit values are ignored.
+ * Without fromUnit or toUnit, num is treated as bytes and the unit is selected
+ * automatically by scaling upward only. fromUnit declares the unit of num, in
+ * which case automatic conversion may also scale down; the unit name selects
+ * its own SI/IEC scale. toUnit fixes the output unit regardless of si or
+ * maxDisplayUnit. Without toUnit, si selects the output scale (false: IEC,
+ * true: SI), and maxDisplayUnit caps automatic unit escalation. It must belong
+ * to that output scale (B/Byte are synonymous byte caps, and KB is accepted as
+ * the SI alias of kB); it is ignored when toUnit is set.
+ * Automatic conversion selects units by absolute value, preserving the sign.
  *
- * @param num Size as a number or numeric string, in bytes unless a source unit is specified.
+ * @param num Size as a number or numeric string, in bytes unless fromUnit is specified.
  * Uses JavaScript number precision; strings containing units are not parsed.
  * @param options Defaults: decimals = 0, si = false, separator = ' '.
  * Rounding is applied only after conversion.
  * @returns The formatted value followed by the separator and unit.
- * @throws {RangeError} If a supplied fromUnit or toUnit is invalid.
+ * @throws {RangeError} If a supplied fromUnit, toUnit or maxDisplayUnit is
+ * invalid, or maxDisplayUnit is not a unit of the selected output scale.
  * @example
  * ```ts
  * humanFileSize(1.5, { fromUnit: 'GiB', toUnit: 'MiB' }); // '1536 MiB'
  * humanFileSize(1, { fromUnit: 'MB', toUnit: 'KiB', decimals: 2 }); // '976.56 KiB'
  * humanFileSize(0.5, { fromUnit: 'MiB' }); // '512 KiB'
  * humanFileSize(1536, { toUnit: 'KiB', decimals: 2 }); // '1.50 KiB'
+ * humanFileSize(5 * 1024 ** 5, { maxDisplayUnit: 'TiB', decimals: 2 }); // '5120.00 TiB'
  * ```
  */
 export function humanFileSize(
   num: number | string,
   options: IHumanFileSizeOptions = { decimals: 0, si: false, separator: ' ' }
 ): string {
-  const { decimals = 0, si = false, separator = ' ', baseUnit, maxUnit, fromUnit, toUnit } = options;
-  let units: FileSizeUnit[] = [...(si ? SI_FILE_SIZE_UNITS : IEC_FILE_SIZE_UNITS)];
+  const { decimals = 0, si = false, separator = ' ', maxDisplayUnit, fromUnit, toUnit } = options;
+  const units: FileSizeUnit[] = [...(si ? SI_FILE_SIZE_UNITS : IEC_FILE_SIZE_UNITS)];
   const ratio = si ? 1000 : 1024;
 
   if (fromUnit !== undefined || toUnit !== undefined) {
-    const source = resolveFileSizeUnit(
-      fromUnit === undefined ? units.find(unit => unit === baseUnit) ?? 'B' : fromUnit
-    );
+    // Without an explicit source unit, the value is read in the scale's base unit (bytes).
+    // Keep an explicit undefined check: null must still reach validation and throw.
+    const source = resolveFileSizeUnit(fromUnit === undefined ? units[0] : fromUnit);
     const value = Number(num);
     if (toUnit !== undefined) {
       const target = resolveFileSizeUnit(toUnit);
       return (value * (source.bytes / target.bytes)).toFixed(decimals) + separator + target.unit;
     }
 
-    const maxIndex = units.findIndex(unit => unit === maxUnit);
-    const limit = maxIndex === -1 ? units.length - 1 : maxIndex;
+    const limit = maxDisplayUnit === undefined ? units.length - 1 : resolveOutputScaleIndex(maxDisplayUnit, units);
     let index = 0;
     // Compare in each candidate unit to avoid overflowing an intermediate byte value.
     while (index < limit && Math.abs(value * (source.bytes / ratio ** (index + 1))) >= 1) {
@@ -173,17 +196,10 @@ export function humanFileSize(
     }
     return (value * (source.bytes / ratio ** index)).toFixed(decimals) + separator + units[index];
   }
-  if (!isNullish(baseUnit)) {
-    const targetIndex = units.findIndex(el => el === baseUnit);
-    if (targetIndex !== -1) {
-      units = units.slice(targetIndex);
-    }
-  }
-  if (!isNullish(maxUnit)) {
-    const targetIndex = units.findIndex(el => el === maxUnit);
-    if (targetIndex !== -1) {
-      units.splice(targetIndex + 1);
-    }
+
+  // Plain byte formatting: scale upward only, with maxDisplayUnit capping the available units.
+  if (maxDisplayUnit !== undefined) {
+    units.splice(resolveOutputScaleIndex(maxDisplayUnit, units) + 1);
   }
   return numberAbbr(num, units, { ratio, decimals, separator });
 }
