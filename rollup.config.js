@@ -2,8 +2,6 @@ import commonjs from '@rollup/plugin-commonjs';
 import json from '@rollup/plugin-json';
 import typescript from '@rollup/plugin-typescript';
 import resolve from '@rollup/plugin-node-resolve';
-// import subpathExternals from 'rollup-plugin-subpath-externals';
-// import { dts } from 'rollup-plugin-dts';
 import clear from 'rollup-plugin-clear';
 import pkg from './package.json' assert { type: 'json' };
 import terser from '@rollup/plugin-terser';
@@ -52,7 +50,6 @@ export default [
         tabWidth: 2,
         singleQuote: true
       }),
-      // subpathExternals(pkg),
       resolve(),
       commonjs(),
       typescript({
