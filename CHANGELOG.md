@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.23.1](https://github.com/chandq/sculp-js/compare/v1.23.0...v1.23.1) (2026-11-14)
+
+### Bug Fixes
+
+- **number:** replace baseUnit and maxUnit with fromUnit-based API in humanFileSize ([cc2db9f](https://github.com/chandq/sculp-js/commit/cc2db9f0c46331dbfe3de9d68cf80244913659d1))
+- **number:** support source and target units in humanFileSize ([90811a3](https://github.com/chandq/sculp-js/commit/90811a39d44be51bcbc638fadeb74896199b1147))
+
 ## [1.23.0](https://github.com/chandq/sculp-js/compare/v1.22.0...v1.23.0) (2026-10-15)
 
 ### Features
